@@ -1,5 +1,36 @@
 .boards-header-container{
     width: 100%;
-    max-height: 2rem;
+    height: 2rem;
     background-color: lightskyblue;
+    display: flex;
+    align-items: center;
+    
+    >*{
+        margin-left: rem(4px) ;
+    }
+    h3{
+        font-size: rem(18px);
+    }
+
+    .side-menu-btn{
+        // justify-self: flex-end;
+    }
 }
+
+.members-container{
+    height: 100%;
+    display: flex;
+}
+
+.member-preview{
+    height: rem(28px);
+    width: rem(28px);
+    background-color: $groupClr;
+    border-radius: 50%;
+    font-family: Roboto-Bold;
+    font-size: rem(14px);
+    text-align: center;
+    line-height: rem(28px);
+    cursor: pointer;
+}
+
