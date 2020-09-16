@@ -11,7 +11,7 @@ import { loadBoard } from '../store/actions/boardActions';
 class _Board extends Component {
     async componentDidMount() {
         await this.props.loadBoard('b101')
-        console.log(this.props.board)
+        // console.log(this.props.board)
 
     }
     
