@@ -1,0 +1,10 @@
+.group-container {
+    background-color:$groupClr;
+
+    width: rem(272px);
+    margin: 0 rem(4px);
+    height: 100%;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top;
+}

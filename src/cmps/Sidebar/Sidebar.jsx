@@ -18,7 +18,7 @@ export class _Sidebar extends Component {
             zIndex: 1,
             position: 'absolute',
             top: '0',
-            right: '100px',
+            right: '0',
             display: 'flex',
             flexDirection: 'column',
             border: '1px solid black',

@@ -1,21 +1,20 @@
 
 .save-btn{
-    background-color: #5aac44;
+    background-color: $addBtnClr;
     box-shadow: none;
     border: none;
     color: #fff;
 }
 
 .save-btn-container{
-    min-height: 32px;
-    height: 32px;
+    min-height: rem(32px);
+    height: rem(32px);
     margin-top: 0;
-    padding-top: 4px;
-    padding-bottom: 4px;
+    padding: rem(4px) 0;
 }
 
 .close-btn-container{
-    height: 32px;
-    line-height: 32px;
-    width: 32px;
+    height: rem(32px);
+    line-height: rem(32px);
+    width: rem(32px);
 }

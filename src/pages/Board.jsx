@@ -9,10 +9,10 @@ import { loadBoard } from '../store/actions/boardActions';
 
 
 class _Board extends Component {
+
     async componentDidMount() {
         await this.props.loadBoard('b101')
         // console.log(this.props.board)
-
     }
     
 
@@ -27,7 +27,7 @@ class _Board extends Component {
         const  {board} = this.props
         if (!board) return <div>Loading...</div>
         return (
-            <div>
+            <div className="board-page">
                 <BoardHeader members={board.members} onOpenSidebar={this.onOpenSidebar} title={board.title} onFilter={this.onFilter} />
                 <Sidebar />
                 {(board.groups) ? <GroupList groups={board.groups} /> : <div>sdf</div>}

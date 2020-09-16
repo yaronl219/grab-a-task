@@ -20,9 +20,9 @@ export class Group extends Component {
     render() {
         const group = this.props.group
         return (
-            <div>
+            <div className="group-container">
                 <div className="group-header">
-                    {group.title}
+                    {group.title} 
                 </div>
                 <div className="card-container">
                     {group.cards.map(card => <CardPreview key={card.id} card={card} />)}
