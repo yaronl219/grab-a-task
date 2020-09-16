@@ -9,8 +9,11 @@ import React, { Component } from 'react'
 
 export class BoardHeader extends Component {
     render() {
+        console.log(this.props)
+        
         return (
-            <div>
+            <div className="boards-header-container">
+                <h2></h2>
                This is the board header
             </div>
         )

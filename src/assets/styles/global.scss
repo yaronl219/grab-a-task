@@ -1,0 +1,12 @@
+
+// setup
+@import "setup/functions.scss";
+@import "setup/mixins.scss";
+@import "setup/typography.scss";
+@import "setup/variables.scss";
+
+// base
+@import "basic/base.scss";
+
+// cmps & pages
+@import "cmps/board-header.scss";

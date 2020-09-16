@@ -1,0 +1,22 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: Roboto-Regular;
+    line-height: 1.6;
+}
+
+body {
+    font-size: rem(18px);
+    margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Roboto-Medium;
+    line-height: 1;
+}
+
+img {
+    width: 100%;
+}
