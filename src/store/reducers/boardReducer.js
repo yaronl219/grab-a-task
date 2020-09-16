@@ -1,6 +1,7 @@
 
 const initialState = {
-board: {}
+  board: {},
+  filterBy: null
 };
 
 export default function(state = initialState, action = {}) {

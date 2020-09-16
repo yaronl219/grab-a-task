@@ -8,7 +8,7 @@ export class NewItem extends Component {
     }
 
     componentDidMount() {
-
+        
     }
     
     onChange = (ev) => {
@@ -26,11 +26,13 @@ export class NewItem extends Component {
         this.setState({isEditing:false})
     }
 
-    getIsEditing = () => {
+    getIsEditing = () => {        
         if (!this.state.isEditing) return (
         <div className="new-item-btn"  onClick={this.setEditing}>{this.props.addItemTxt}</div>
         ) 
+
         return (
+            
             <div className="new-item-form">
                 <form onSubmit={this.onSubmit} >
                 <input onBlur={this.setNotEditing} placeholder={this.props.placeHolderTxt} type="text" onChange={this.onChange} value={this.state.txtValue} /> 

@@ -1,10 +1,20 @@
-.group-container {
-    background-color:$groupClr;
+.group-list-container {
+    display: flex;
+}
 
-    width: rem(272px);
+.group-container {
+    background-color: $groupClr;
+    min-width: rem(272px);
     margin: 0 rem(4px);
     height: 100%;
     box-sizing: border-box;
     display: inline-block;
     vertical-align: top;
+}
+
+.check{
+    height: 3rem;
+    min-width: rem(272px);
+    background-color:$groupClr;
+    cursor: pointer;
 }
