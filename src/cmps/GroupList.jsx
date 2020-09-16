@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { Group } from './Group'
 
 export function GroupList({groups}) {
-    console.log(groups)
     if (!groups) return <div></div>
     return (
         <div>
