@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { Link } from 'react-router-dom';
-import { store } from '../store/store';
+import { Board } from './Board';
+
 
 class _Home extends Component {
   state = {
@@ -35,6 +36,7 @@ class _Home extends Component {
     return (
       <div className="home">
           <h1>Home</h1>
+          <Board />
           </div>
             )
 }

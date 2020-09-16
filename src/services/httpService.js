@@ -1,8 +1,14 @@
 import Axios from 'axios';
 
+// this is for db.json
 const BASE_URL = process.env.NODE_ENV === 'production'
     ? '/api/'
-    : '//localhost:3030/api/'
+    : '//localhost:3030/'
+
+    // open this instead when switching to MongoDB
+// const BASE_URL = process.env.NODE_ENV === 'production'
+// ? '/api/'
+// : '//localhost:3030/api/'
 
 
 var axios = Axios.create({
