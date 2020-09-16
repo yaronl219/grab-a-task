@@ -30,13 +30,13 @@ export class CardPreview extends Component {
     getCardPreviewAttachments = () => {
         const cardAtt = this.props.card.attachments
         if (!cardAtt || !Object.keys(cardAtt)) return null
-        return <div key="0" className="card-preview-attr"><AttachFileOutlinedIcon /></div>
+        return <div key="0" className="card-preview-attr"><AttachFileOutlinedIcon style={{fontSize:16}} /></div>
     }
 
     getCardPreviewHoldDesc = () => {
         const cardDesc = this.props.card.description
         if (!cardDesc || !Object.keys(cardDesc)) return null
-        return <div key="1" className="card-preview-attr"><SubjectOutlinedIcon /></div>
+        return <div key="1" className="card-preview-attr"><SubjectOutlinedIcon style={{fontSize:16}}  /></div>
     }
 
     getCardPreviewChecklist = () => {
@@ -55,7 +55,7 @@ export class CardPreview extends Component {
                 totalTodos += 1
             })
         })
-        return <div key="2" className="card-preview-attr"><CheckBoxOutlinedIcon /> <span className="card-preview-checklist-counter">{doneTodos}/{totalTodos}</span> </div>
+        return <div key="2" className="card-preview-attr"><CheckBoxOutlinedIcon style={{fontSize:16}}  /> <span className="card-preview-checklist-counter">{doneTodos}/{totalTodos}</span> </div>
     }
     getCardPreviewAttrs = () => {
         const attrs = [

@@ -28,7 +28,9 @@ class _Group extends Component {
                 <div className="card-container">
                     {group.cards.map(card => <CardPreview key={card.id} card={card} />)}
                 </div>
+                <div className="new-card-btn-container">
                 <NewItem addItemTxt={this.getAddItemTxt()} placeHolderTxt='Add a title for this card...' addBtnTxt="Add Card" onAdd={this.onAddCard} />
+                </div>
             </div>
         )
     }

@@ -10,11 +10,16 @@
 .save-btn-container{
     padding: rem(4px) 0;
     display: flex;
-    
+
 }
 
 .close-btn-container{
     height: rem(32px);
     line-height: rem(32px);
     width: rem(32px);
+}
+
+.new-item-container {
+    cursor: pointer;
+    display: flex;
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import CloseIcon from '@material-ui/icons/Close';
+import AddIcon from '@material-ui/icons/Add';
 
 export class NewItem extends Component {
 
@@ -31,7 +32,7 @@ export class NewItem extends Component {
 
     getIsEditing = () => {        
         if (!this.state.isEditing) return (
-        <div className="new-item-btn"  onClick={this.setEditing}>{this.props.addItemTxt}</div>
+        <div className="new-item-btn"  onClick={this.setEditing}><AddIcon style={{fontSize:14}} />{this.props.addItemTxt}</div>
         ) 
 
         return (
