@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { CardPreview } from './CardCmps/CardPreview'
 import { NewItem } from './NewItem'
-
-export class Group extends Component {
+import { addCard } from '../store/actions/groupActions'
+class _Group extends Component {
 
     componentDidMount() {
-    // console.log(this.props)
-}
+        console.log(this.props)
+    }
 
     onAddCard = (txt) => {
-        console.log(txt)
+        this.props.addCard(this.props.board, txt, this.props.group.id)
     }
 
     getAddItemTxt = () => {
@@ -22,7 +23,7 @@ export class Group extends Component {
         return (
             <div className="group-container">
                 <div className="group-header">
-                    {group.title} 
+                    {group.title}
                 </div>
                 <div className="card-container">
                     {group.cards.map(card => <CardPreview key={card.id} card={card} />)}
@@ -32,3 +33,14 @@ export class Group extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        board: state.boardReducer.board
+    };
+};
+const mapDispatchToProps = {
+    addCard
+};
+
+export const Group = connect(mapStateToProps, mapDispatchToProps)(_Group);

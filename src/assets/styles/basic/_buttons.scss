@@ -1,16 +1,16 @@
 
-.save-btn{
+.save-btn {
     background-color: $addBtnClr;
     box-shadow: none;
     border: none;
     color: #fff;
+    padding: 6px 12px;
 }
 
 .save-btn-container{
-    min-height: rem(32px);
-    height: rem(32px);
-    margin-top: 0;
     padding: rem(4px) 0;
+    display: flex;
+    
 }
 
 .close-btn-container{

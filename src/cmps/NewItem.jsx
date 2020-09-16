@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import CloseIcon from '@material-ui/icons/Close';
 
 export class NewItem extends Component {
 
@@ -23,7 +24,9 @@ export class NewItem extends Component {
     }
 
     setNotEditing = () => {
-        this.setState({isEditing:false})
+        
+            this.setState({isEditing:false})
+        
     }
 
     getIsEditing = () => {
@@ -32,9 +35,12 @@ export class NewItem extends Component {
         ) 
         return (
             <div className="new-item-form">
-                <form onSubmit={this.onSubmit} >
-                <input onBlur={this.setNotEditing} placeholder={this.props.placeHolderTxt} type="text" onChange={this.onChange} value={this.state.txtValue} /> 
-                <button type="submit">{this.props.addBtnTxt}</button> 
+                <form onBlur={this.setNotEditing} onSubmit={this.onSubmit} >
+                <input placeholder={this.props.placeHolderTxt} type="text" onChange={this.onChange} value={this.state.txtValue} /> 
+                <div className="save-btn-container">
+                <button className="save-btn" onMouseDown={this.onSubmit}>{this.props.addBtnTxt}</button>
+                <CloseIcon onClick={this.setNotEditing}/>
+                </div>
                 </form>
             </div>
         )
@@ -43,6 +49,7 @@ export class NewItem extends Component {
 
     onSubmit = (ev) => {
         ev.preventDefault()
+        if (!this.state.txtValue) return
         this.props.onAdd(this.state.txtValue)
         const isEditing = false
         const txtValue = ''
