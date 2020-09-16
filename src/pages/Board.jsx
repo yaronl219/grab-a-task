@@ -9,7 +9,6 @@ import { loadBoard } from '../store/actions/boardActions';
 
 
 class _Board extends Component {
-<<<<<<< HEAD
     async componentDidMount() {
         await this.props.loadBoard('b101')
         // console.log(this.props.board)
@@ -36,28 +35,6 @@ class _Board extends Component {
             </div>
         )
     }
-=======
-  async componentDidMount() {
-    await this.props.loadBoard('b101')
-  }
-  onFilter = () => {
-  }
-  onOpenSidebar = () => {
-
-  }
-  render() {
-    const { board } = this.props
-    if (!board) return <div>Loading...</div>
-    return (
-      <div>
-        <BoardHeader members={board.members} onOpenSidebar={this.onOpenSidebar} title={board.title} onFilter={this.onFilter} />
-        <Sidebar board={board} />
-        {(board.groups) ? <GroupList groups={board.groups} /> : <div>sdf</div>}
-               This is a board
-      </div>
-    )
-  }
->>>>>>> 6c88e50ec41852444e097e07818d1c46c94fdfa3
 }
 
 const mapStateToProps = state => {

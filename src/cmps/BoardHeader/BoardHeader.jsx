@@ -13,7 +13,6 @@ export class BoardHeader extends Component {
         
         return (
             <div className="boards-header-container">
-                <h2></h2>
                This is the board header
             </div>
         )
