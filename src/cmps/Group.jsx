@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 
-export class Sidebar extends Component {
+export class Group extends Component {
     render() {
         return (
             <div>
-                This is a sidebar
+                This is a group
             </div>
         )
     }
