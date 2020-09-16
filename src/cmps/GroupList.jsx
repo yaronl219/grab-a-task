@@ -7,7 +7,9 @@ export function GroupList({groups}) {
     return (
         <div>
             {groups.map(group => {
-                return <Group key={group.id} group={group} />
+                if (!group.archivedAt) {
+                    return <Group key={group.id} group={group} /> 
+                }
             })}
         </div>
     )
