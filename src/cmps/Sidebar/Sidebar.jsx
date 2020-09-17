@@ -12,15 +12,30 @@ import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 
 export class _Sidebar extends Component {
-    state = { selectedMenuOpt: null }
-    onSetMenuOpt = (selectedMenuOpt) => { this.setState({ selectedMenuOpt }); }
+    state = { selectedMenuOpt: 'about' }
+    onSetMenuOpt = (selectedMenuOpt) => {
+        this.setState({ selectedMenuOpt });
+    }
+    DynamicCmp = () => {
+        const { selectedMenuOpt } = this.state;
+        switch (selectedMenuOpt) {
+            case 'about':
+                return <AboutBoard isShowing={selectedMenuOpt === 'about'}
+                    onSetMenuOpt={this.onSetMenuOpt} />;
+            // case 'changeBG':
+            case 'archive':
+                return <SideArchive isShowing={selectedMenuOpt === 'archive'}
+                    onSetMenuOpt={this.onSetMenuOpt} />
+            case null:
+                return <React.Fragment></React.Fragment>
+        }
+    }
     render() {
         const { board, isSidebarShowing, onToggleSidebar } = this.props;
-        const { selectedMenuOpt } = this.state;
         const anchor = 'right';
         return (
             <div className="sidebar-container">
-                <Drawer classes={{ root: 'sidebar' }}
+                <Drawer className="sidebar"
                     anchor={anchor}
                     open={isSidebarShowing}
                     BackdropProps={{ hideBackdrop: true }}
@@ -28,39 +43,29 @@ export class _Sidebar extends Component {
                     onClose={() => onToggleSidebar(false)}>
                     <div className="sidebar-header">
                         <h4>Menu</h4>
-                        <IconButton onClick={() => onToggleSidebar(false)}>
+                        <IconButton className="icon-button" onClick={() => onToggleSidebar(false)}>
                             <CloseOutlinedIcon />
                         </IconButton>
                     </div>
                     <Divider />
                     <List>
                         <ListItem button onClick={() => { this.onSetMenuOpt('about') }}>
-                            <ListItemIcon>
-                                <InfoOutlinedIcon />
-                            </ListItemIcon>
+                            <ListItemIcon><InfoOutlinedIcon /></ListItemIcon>
                             <ListItemText>About this board</ListItemText>
                         </ListItem>
                         <ListItem button>
-                            <ListItemIcon>
-                                <WallpaperOutlinedIcon />
-                            </ListItemIcon>
+                            <ListItemIcon><WallpaperOutlinedIcon /></ListItemIcon>
                             <ListItemText>Change background</ListItemText>
                         </ListItem>
-                        {/* <ListItem button>
-                            <SearchOutlinedIcon /> Search cards
-                        </ListItem> */}
                         <ListItem button onClick={() => { this.onSetMenuOpt('archive') }}>
-                            <ListItemIcon>
-                                <ArchiveOutlinedIcon />
-                            </ListItemIcon>
+                            <ListItemIcon><ArchiveOutlinedIcon /></ListItemIcon>
                             <ListItemText>Archive</ListItemText>
                         </ListItem>
                     </List>
                     <Divider />
-
                 </Drawer>
-                <SideArchive isShowing={selectedMenuOpt === 'archive'}
-                    onSetMenuOpt={this.onSetMenuOpt} />
+              
+                {this.DynamicCmp()}
             </div>
         )
     }

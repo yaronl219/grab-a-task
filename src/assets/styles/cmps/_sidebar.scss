@@ -1,5 +1,11 @@
+.sidebar > div:first-of-type {
+    background-color: $cardHoverClr;
+    width: 235px;
+}
+
 .sidebar-header {
-    display:flex;
+    display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 0 10px;
 }

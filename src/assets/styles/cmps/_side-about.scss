@@ -1,0 +1,12 @@
+.about-board {
+    & .about-container {
+
+    }
+    & .board-description {
+        padding: 20px 0;
+    }
+    & h5 {
+        display: flex;
+        align-items: center;
+    }
+}

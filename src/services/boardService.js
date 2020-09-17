@@ -4,7 +4,8 @@ export const boardService = {
   add,
   query,
   remove,
-  getBoardById
+  getBoardById,
+  updateBoard
 };
 
 
