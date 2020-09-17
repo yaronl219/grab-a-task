@@ -38,3 +38,10 @@ export function switchGroup(board,card,oldGroupId,targetGroupId,targetIdx=0) {
     };
   }
   
+  export function onSetFilterBy(board, filterBy){
+    return async dispatch => {
+        const filteredBoard = await boardService.filter(board._id, filterBy)
+        dispatch({ type: 'FILTER_BY', filterBy })
+        dispatch({ type: 'SET_BOARD', board: filteredBoard })
+    }
+  }

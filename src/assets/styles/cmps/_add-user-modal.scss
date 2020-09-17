@@ -1,20 +1,24 @@
 .add-member-modal {
     width: rem(200px);
     height: rem(350px) ;
-    background-color: peachpuff;
+    background-color: #fff;
+    border: 1px solid $groupClr;
     text-align: center;
     display: flex;
     flex-direction: column;
     padding: rem(6px);
     position: absolute;
+    top: rem(32px);
+    transform: translateX(-50%);
     z-index: 2;
+    border-radius: 0.25em;
 }
 
 .member-container{
     display: flex;
     cursor: pointer;
     margin: rem(4px);
-    font-size: 15px;
+    font-size: rem(15px);
     align-items: center;
 }
 

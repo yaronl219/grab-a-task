@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { MemberPreview } from './MemberPreview';
-import { AddUserModal } from '../AddUserModal';
+import { AddMemberModal } from '../AddMemberModal';
 import { render } from '@testing-library/react';
 
 export class MemberList extends Component {
@@ -16,9 +16,8 @@ export class MemberList extends Component {
     
     onCloseModal = () => {        
         this.setState({ isModalShown: false })
+        // need to add closeModal when preesing outside the modal
     }
-
-
     
     render(){
         const { members } = this.props
@@ -33,9 +32,10 @@ export class MemberList extends Component {
                             img={member.imgUrl}/>
                 })
                 }
-                <div className="member-preview" onClick={ () => this.onShowModal() }
-                >+</div>
-                {this.state.isModalShown && <AddUserModal onCloseModal={ this.onCloseModal }/>}
+                <div className="member-preview" onClick={ () => this.onShowModal() }>+</div>
+                <div className="add-member-modal-container">
+                    {this.state.isModalShown && <AddMemberModal onCloseModal={ this.onCloseModal }/>}
+                </div>
             </div>
         )
     }

@@ -9,6 +9,9 @@ export default function(state = initialState, action = {}) {
     case 'SET_BOARD':
       return { ...state, board:action.board };
 
+    case 'FILTER_BY':
+      return {...state, filterBy: action}
+
     default:
       return state;
   }

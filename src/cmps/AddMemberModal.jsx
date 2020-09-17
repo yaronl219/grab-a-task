@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { MemberPreview } from './BoardHeader/MemberPreview'
 
 
-export class _AddUserModal extends Component {
+export class _AddMemberModal extends Component {
 
+ 
 
     render() {
         const { members } = this.props
@@ -37,4 +38,4 @@ const mapDispatchToProps = {
 
 };
 
-export const AddUserModal = connect(mapStateToProps, mapDispatchToProps)(_AddUserModal);
+export const AddMemberModal = connect(mapStateToProps, mapDispatchToProps)(_AddMemberModal);

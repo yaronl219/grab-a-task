@@ -11,8 +11,6 @@ export function MemberPreview(props) {
         return initials  
     }
 
-    
-
     return (
         <div className="member-preview">
             {getInitials(props.name)}
