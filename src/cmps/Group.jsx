@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { CardPreview } from './CardCmps/CardPreview'
 import { NewItem } from './NewItem'
 import { addCard } from '../store/actions/groupActions'
+import { CardList } from './CardCmps/CardList'
+
 class _Group extends Component {
 
     componentDidMount() {
@@ -26,9 +28,11 @@ class _Group extends Component {
                     {group.title}
                 </div>
                 <div className="card-container">
-                    {group.cards.map(card => <CardPreview key={card.id} card={card} />)}
+                    <CardList group={group} />
                 </div>
+                <div className="new-card-btn-container">
                 <NewItem addItemTxt={this.getAddItemTxt()} placeHolderTxt='Add a title for this card...' addBtnTxt="Add Card" onAdd={this.onAddCard} />
+                </div>
             </div>
         )
     }

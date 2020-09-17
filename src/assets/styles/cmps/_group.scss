@@ -7,9 +7,62 @@
     min-width: rem(272px);
     margin: 0 rem(4px);
     height: 100%;
+    border-radius: 3px;
     box-sizing: border-box;
-    display: inline-block;
+    display: flex;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    flex-direction: column;
     vertical-align: top;
+    padding: 0px 4px;
+    color: $textClr;
+    .group-header {
+        line-height: 20px;
+        padding: 10px 8px;
+    }
+    .card-preview {
+        background-color: #FFF;
+        min-height: 36px;
+        box-shadow: 0 1px 0 rgba(9,30,66,.25);
+        margin-bottom: 8px;
+        padding: 6px 8px 2px;
+        position: relative;
+        cursor: pointer;
+        .card-preview-attrs {
+            display: flex;
+        }
+    }
+    .card-preview:hover {
+        background-color: $cardHoverClr;
+    }
+    .card-preview-edit-container {
+        display: none;
+        border-radius: 3px;
+        padding: 2px;
+    }
+    .card-preview:hover .card-preview-edit-container {
+        display: flex;
+        position: absolute;
+        right: 3px;
+        top: 3px;
+    }
+    
+    .card-preview-edit-container:hover {
+        background-color: #ebecf0;
+        
+    }
+
+    .new-card-btn-container {
+        padding: 4px 8px;
+        margin: 2px 0px 8px;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        font-family: Roboto-regular;
+    }
+
+    .new-card-btn-container:hover {
+        background-color: rgba(9,30,66,.08);
+    }
 }
 
 .check{
