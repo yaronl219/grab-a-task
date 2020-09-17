@@ -15,21 +15,23 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 export class _BoardHeader extends Component {
 
-    
-    render() {
-        
-        return (
-            <div className="boards-header-container">
-                <h3>{this.props.title}</h3>
-                <div className="members-container">
-                    <MemberList members={this.props.members}/>
-                </div>
-                <Filter onFilter={this.props.onFilter}/>
-                <Button onClick={() => this.props.onToggleSidebar(true)}>
-                    <MenuIcon />
-                </Button>
 
-            </div>
+    render() {
+        const { style } = this.props;
+        console.log(style)
+        return (
+            (!style) ? <div>Loading...</div> :
+                <div className="boards-header-container" style={{ backgroundColor: this.props.style.bgClr }}>
+                    <h3>{this.props.title}</h3>
+                    <div className="members-container">
+                        <MemberList members={this.props.members} />
+                    </div>
+                    <Filter onFilter={this.props.onFilter} />
+                    <Button onClick={() => this.props.onToggleSidebar(true)}>
+                        <MenuIcon />
+                    </Button>
+
+                </div>
         )
     }
 }

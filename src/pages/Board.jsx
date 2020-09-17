@@ -19,16 +19,14 @@ class _Board extends Component {
   onToggleSidebar = (isSidebarShowing) => {
     this.setState({ isSidebarShowing });
   }
-  
+
   async componentDidMount() {
     await this.props.loadBoard('b101')
   }
 
   onFilter = (filterBy) => {
-<<<<<<< HEAD
     // this filter is sent to actions without updating the store yet
     this.props.onSetFilterBy(this.props.board, filterBy)
-=======
     this.setState({ filterBy })
 
   }
@@ -37,7 +35,6 @@ class _Board extends Component {
     const { filterBy } = this.state
     if (!filterBy || !Object.keys(filterBy).length) return this.props.board
     const searchTxt = filterBy.txt.toLowerCase()
->>>>>>> 8b5e69d94c7d4d18e98d5fb373f11ed69efd0b44
   }
 
   onAddGroup = (txt) => {
@@ -45,20 +42,21 @@ class _Board extends Component {
   }
 
   render() {
-    
+
     const { board } = this.props
     if (!board) return <div>Loading...</div>
 
     return (
       <div>
-        <BoardHeader title={board.title} 
-        members={board.members} 
-        onToggleSidebar={this.onToggleSidebar} 
-        onFilter={this.onFilter} />
-        <Sidebar board={board} 
-        isSidebarShowing={this.state.isSidebarShowing} 
-        onToggleSidebar={this.onToggleSidebar} />
-        {(board.groups) ? <GroupList onAddGroup={this.onAddGroup} groups={board.groups} /> : <div>sdf</div>}
+        <BoardHeader title={board.title}
+          members={board.members}
+          onToggleSidebar={this.onToggleSidebar}
+          onFilter={this.onFilter}
+          style={board.style} />
+        <Sidebar board={board}
+          isSidebarShowing={this.state.isSidebarShowing}
+          onToggleSidebar={this.onToggleSidebar} />
+        {(board.groups) ? <GroupList style={board.style} onAddGroup={this.onAddGroup} groups={board.groups} /> : <div>sdf</div>}
         {(this.props.match.params.cardId) ? <CardDetails cardId={this.props.match.params.cardId} history={this.props.history} /> : <div></div>}
       </div>
     )

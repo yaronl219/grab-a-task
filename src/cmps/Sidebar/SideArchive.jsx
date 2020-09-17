@@ -41,7 +41,7 @@ export class _SideArchive extends Component {
                     BackdropProps={{ hideBackdrop: true }}
                     variant={'persistent'}>
                     <div className="sidebar-header">
-                        <h4>Archive</h4>
+                        <h4>ARCHIVE</h4>
                         <IconButton className="icon-button" onClick={() => onSetMenuOpt(null)}>
                             <ArrowBackIosOutlinedIcon />
                         </IconButton>

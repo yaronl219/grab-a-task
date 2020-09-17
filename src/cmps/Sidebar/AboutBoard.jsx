@@ -30,7 +30,7 @@ export class _AboutBoard extends Component {
                     BackdropProps={{ hideBackdrop: true }}
                     variant={'persistent'}>
                     <div className="sidebar-header">
-                        <h4>About this board</h4>
+                        <h4>ABOUT THIS BOARD</h4>
                         <IconButton onClick={() => onSetMenuOpt(null)}>
                             <ArrowBackIosOutlinedIcon />
                         </IconButton>

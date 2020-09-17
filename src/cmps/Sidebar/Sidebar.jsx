@@ -12,7 +12,7 @@ import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 
 export class _Sidebar extends Component {
-    state = { selectedMenuOpt: 'about' }
+    state = { selectedMenuOpt: 'changeBG' }
     onSetMenuOpt = (selectedMenuOpt) => {
         this.setState({ selectedMenuOpt });
     }
@@ -25,6 +25,9 @@ export class _Sidebar extends Component {
             // case 'changeBG':
             case 'archive':
                 return <SideArchive isShowing={selectedMenuOpt === 'archive'}
+                    onSetMenuOpt={this.onSetMenuOpt} />
+            case 'changeBG':
+                return <ChangeBackground isShowing={selectedMenuOpt === 'changeBG'}
                     onSetMenuOpt={this.onSetMenuOpt} />
             case null:
                 return <React.Fragment></React.Fragment>
@@ -53,7 +56,7 @@ export class _Sidebar extends Component {
                             <ListItemIcon><InfoOutlinedIcon /></ListItemIcon>
                             <ListItemText>About this board</ListItemText>
                         </ListItem>
-                        <ListItem button>
+                        <ListItem button onClick={() => { this.onSetMenuOpt('changeBG') }}>
                             <ListItemIcon><WallpaperOutlinedIcon /></ListItemIcon>
                             <ListItemText>Change background</ListItemText>
                         </ListItem>

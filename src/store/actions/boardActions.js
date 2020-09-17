@@ -45,3 +45,5 @@ export function onSetFilterBy(board, filterBy) {
     dispatch({ type: 'SET_BOARD', board: filteredBoard })
   }
 }
+
+export function switchGroup(){}

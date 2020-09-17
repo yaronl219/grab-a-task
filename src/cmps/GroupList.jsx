@@ -9,11 +9,11 @@ export class GroupList extends Component {
 
     render() {
 
-        const { groups, onAddGroup } = this.props
+        const { groups, onAddGroup, style } = this.props
         if (!groups) return <div></div>
         return (
             <React.Fragment>
-                <div className="group-list-container">
+                <div className="group-list-container" style={{ backgroundImage: style.bgImg }}>
                     {groups.map(group => {
                         if (!group.archivedAt) {
                             return <Group key={group.id} group={group} />
