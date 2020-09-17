@@ -50,8 +50,13 @@ class _Board extends Component {
 
     return (
       <div>
-        <BoardHeader members={board.members} onToggleSidebar={this.onToggleSidebar} title={board.title} onFilter={this.onFilter} />
-        <Sidebar board={board} isSidebarShowing={this.state.isSidebarShowing} onToggleSidebar={this.onToggleSidebar} />
+        <BoardHeader title={board.title} 
+        members={board.members} 
+        onToggleSidebar={this.onToggleSidebar} 
+        onFilter={this.onFilter} />
+        <Sidebar board={board} 
+        isSidebarShowing={this.state.isSidebarShowing} 
+        onToggleSidebar={this.onToggleSidebar} />
         {(board.groups) ? <GroupList onAddGroup={this.onAddGroup} groups={board.groups} /> : <div>sdf</div>}
         {(this.props.match.params.cardId) ? <CardDetails cardId={this.props.match.params.cardId} history={this.props.history} /> : <div></div>}
       </div>
