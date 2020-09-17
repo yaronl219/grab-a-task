@@ -25,9 +25,7 @@ export class NewItem extends Component {
     }
 
     setNotEditing = () => {
-        
             this.setState({isEditing:false})
-        
     }
 
     getIsEditing = () => {        
