@@ -3,58 +3,66 @@ import { connect } from 'react-redux'
 import { Filter } from '../BoardHeader/Filter'
 import { AboutBoard } from './AboutBoard'
 import { ChangeBackground } from './ChangeBackground'
-import SideArchive from './SideArchive'
-
+import { SideArchive } from './SideArchive'
+import { Drawer, Divider, IconButton, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import WallpaperOutlinedIcon from '@material-ui/icons/WallpaperOutlined';
+import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
+import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
+import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 
 export class _Sidebar extends Component {
-    state = {
-        showing: 'menu'
-    }
-
+    state = { selectedMenuOpt: null }
+    onSetMenuOpt = (selectedMenuOpt) => { this.setState({ selectedMenuOpt }); }
     render() {
-        const { board } = this.props;
-        const { showing } = this.state;
-        const style = {
-            zIndex: 1,
-            position: 'absolute',
-            top: '0',
-            right: '0',
-            display: 'flex',
-            flexDirection: 'column',
-            border: '1px solid black',
-            height: '90vh',
-            width: '20vh'
-        }
+        const { board, isSidebarShowing, onToggleSidebar } = this.props;
+        const { selectedMenuOpt } = this.state;
         console.log(board)
+        const anchor = 'right';
         return (
-            <div className="sidebar" style={style}>
-                {showing === 'menu' && <div className="menu" style={{ display: 'flex', flexDirection: 'column' }}>
-                    <h3>Menu</h3>
-                    <button onClick={() => this.setState({ showing: 'about' })}>
-                        About this page
-                    </button>
-                    <button onClick={() => this.setState({ showing: 'changeBG' })}>
-                        Change background
-                    </button>
-                    <button onClick={() => this.setState({ showing: 'searchCards' })}>
-                        Search cards
-                    </button>
-                    <button onClick={() => this.setState({ showing: 'archive' })}>
-                        Archive
-                    </button>
-                </div>}
-                {showing === 'about' && <AboutBoard
-                    about={board.about}
-                    createdBy={board.createdBy}
-                    members={board.members}
-                    onBackToMenu={() => this.setState({ showing: 'menu' })} />}
-                {showing === 'changeBG' && <ChangeBackground
-                    onBackToMenu={() => this.setState({ showing: 'menu' })} />}
-                {showing === 'searchCards' && <Filter
-                    onBackToMenu={() => this.setState({ showing: 'menu' })} />}
-                {showing === 'archive' && <SideArchive
-                    onBackToMenu={() => this.setState({ showing: 'menu' })} />}
+            <div className="sidebar-container">
+                <Drawer classes={{ root: 'sidebar' }}
+                    anchor={anchor}
+                    open={isSidebarShowing}
+                    BackdropProps={{ hideBackdrop: true }}
+                    hideBackdrop
+                    variant={"persistent"}
+                    onClose={() => onToggleSidebar(false)}>
+                    <div className="sidebar-header">
+                        <IconButton onClick={() => onToggleSidebar(false)}>
+                            <CloseOutlinedIcon />
+                        </IconButton>
+                        <h4>Menu</h4>
+                    </div>
+                    <Divider />
+                    <List>
+                        <ListItem button onClick={() => { this.onSetMenuOpt('about') }}>
+                            <ListItemIcon>
+                                <InfoOutlinedIcon />
+                            </ListItemIcon>
+                            <ListItemText>About this board</ListItemText>
+                        </ListItem>
+                        <ListItem button>
+                            <ListItemIcon>
+                                <WallpaperOutlinedIcon />
+                            </ListItemIcon>
+                            <ListItemText>Change background</ListItemText>
+                        </ListItem>
+                        {/* <ListItem button>
+                            <SearchOutlinedIcon /> Search cards
+                        </ListItem> */}
+                        <ListItem button onClick={() => { this.onSetMenuOpt('archive') }}>
+                            <ListItemIcon>
+                                <ArchiveOutlinedIcon />
+                            </ListItemIcon>
+                            <ListItemText>Archive</ListItemText>
+                        </ListItem>
+                    </List>
+                    <Divider />
 
+                </Drawer>
+                <SideArchive isShowing={selectedMenuOpt === 'archive'}
+                    onSetMenuOpt={this.onSetMenuOpt} />
             </div>
         )
     }
