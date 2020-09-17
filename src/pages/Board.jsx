@@ -7,6 +7,8 @@ import { GroupList } from '../cmps/GroupList';
 import { Sidebar } from '../cmps/Sidebar/Sidebar';
 // import { connect } from 'socket.io-client';
 import { loadBoard } from '../store/actions/boardActions';
+import {AddUserModal} from '../cmps/AddUserModal'
+
 
 
 class _Board extends Component {
