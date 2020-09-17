@@ -11,59 +11,52 @@ import { loadBoard } from '../store/actions/boardActions';
 
 class _Board extends Component {
 
-    state = {
-        filterBy: null,
-        isSidebarShowing: false
-    }
+  state = {
+    filterBy: null,
+    isSidebarShowing: false
+  }
 
-    onToggleSidebar = (isSidebarShowing) => {
-      this.setState({ isSidebarShowing });
-    }
-    async componentDidMount() {
-            await this.props.loadBoard('b101')
-    }
+  onToggleSidebar = (isSidebarShowing) => {
+    this.setState({ isSidebarShowing });
+  }
+  async componentDidMount() {
+    await this.props.loadBoard('b101')
+  }
 
-    onFilter = (filterBy) => {
-        // console.log(filterBy)
-        this.setState({ filterBy })
+  onFilter = (filterBy) => {
+    // console.log(filterBy)
+    this.setState({ filterBy })
 
-    }
+  }
 
-    getSearchResults() {
-        const { filterBy } = this.state
-        if (!filterBy || !Object.keys(filterBy).length) return this.props.board
-        const searchTxt = filterBy.txt.toLowerCase()
-        console.log(searchTxt)
-        console.log(this.props.board)
+  getSearchResults() {
+    const { filterBy } = this.state
+    if (!filterBy || !Object.keys(filterBy).length) return this.props.board
+    const searchTxt = filterBy.txt.toLowerCase()
+    console.log(searchTxt)
+    console.log(this.props.board)
+  }
+
+  onAddGroup = (txt) => {
+    console.log(txt)
+    return txt
+  }
+
+  render() {
+    const { board } = this.props
+    if (!board) return <div>Loading...</div>
+    if (this.state) this.getSearchResults()
 
 
-
-    }
-
-    onOpenSidebar = () => {
-
-    }
-
-    onAddGroup = (txt) => {
-        console.log(txt)
-        return txt
-    }
-
-    render() {
-        const { board } = this.props
-        if (!board) return <div>Loading...</div>
-        if (this.state) this.getSearchResults()
-
-        
-        return (
-            <div>
-                <BoardHeader members={board.members} onOpenSidebar={this.onOpenSidebar} title={board.title} onFilter={this.onFilter} />
-                <Sidebar board={board} />
-                {(board.groups) ? <GroupList onAddGroup={this.onAddGroup} groups={board.groups} /> : <div>sdf</div>}
-                {(this.props.match.params.cardId) ? <CardDetails cardId={this.props.match.params.cardId} history={this.props.history} /> : <div></div>}
-            </div>
-        )
-    }
+    return (
+      <div>
+        <BoardHeader members={board.members} onToggleSidebar={this.onToggleSidebar} title={board.title} onFilter={this.onFilter} />
+        <Sidebar board={board} isSidebarShowing={this.state.isSidebarShowing} onToggleSidebar={this.onToggleSidebar} />
+        {(board.groups) ? <GroupList onAddGroup={this.onAddGroup} groups={board.groups} /> : <div>sdf</div>}
+        {(this.props.match.params.cardId) ? <CardDetails cardId={this.props.match.params.cardId} history={this.props.history} /> : <div></div>}
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = state => {

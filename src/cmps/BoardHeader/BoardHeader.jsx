@@ -23,7 +23,6 @@ export class _BoardHeader extends Component {
                     <MemberList members={this.props.members}/>
                 </div>
                 <Filter onFilter={this.props.onFilter}/>
-                {/* <div className="side-menu-btn"><button>Side Menu</button></div> */}
                 <Button onClick={() => this.props.onToggleSidebar(true)}>
                     <MenuIcon />
                 </Button>
