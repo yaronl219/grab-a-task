@@ -9,7 +9,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { MemberList } from './MemberList';
 import { Filter } from './Filter';
-
+import { Button } from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
 
 
 export class _BoardHeader extends Component {
@@ -22,7 +23,10 @@ export class _BoardHeader extends Component {
                     <MemberList members={this.props.members}/>
                 </div>
                 <Filter onFilter={this.props.onFilter}/>
-                <div className="side-menu-btn"><button>Side Menu</button></div>
+                <Button onClick={() => this.props.onToggleSidebar(true)}>
+                    <MenuIcon />
+                </Button>
+
             </div>
         )
     }

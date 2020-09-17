@@ -2,11 +2,12 @@ import { Card, IconButton } from '@material-ui/core';
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { loadBoard } from '../../store/actions/boardActions';
+import { updateCard, loadBoard, switchGroup } from '../../store/actions/boardActions';
 import { CardAttachmentList } from './CardAttachmentList';
 import { CardChecklist } from './CardChecklist';
 import { CardSidebar } from './CardSidebar';
 import CloseIcon from '@material-ui/icons/Close';
+import { CardDescription } from './CardDescription';
 
 class _CardDetails extends Component {
 
@@ -21,6 +22,7 @@ class _CardDetails extends Component {
             this.getCardDetails()
         }
     }
+
 
     componentDidMount() {
         console.log(this.props)
@@ -61,10 +63,21 @@ class _CardDetails extends Component {
         if (card.checklists) cardModules.push(<CardChecklist checklists={card.checklists} />)
     }
 
+    onArchiveCard = () => {
+        let card = {...this.state.card}
+        card.archivedAt = Date.now()
+        this.props.updateCard(this.props.board,card)
+        this.onCloseModal()
+    }
+
+    submitCard = () => {
+        console.log('submitting card')
+       
+    }
 
     render() {
         const card = this.state.card
-        if (!card) return <div>Loading...</div>
+        if (!card) return <div className="card-details-container">Loading...</div>
         return (
             <div className="card-details-container">
                 <IconButton onClick={this.onCloseModal} aria-label="close">
@@ -75,10 +88,10 @@ class _CardDetails extends Component {
                     <small>in list <span>{this.state.groupName}</span></small>
                 </div>
                 <main className="card-details-main">
-
+                <CardDescription description={card.description}/>
                 </main>
                 <aside className="card-details-sidebar">
-                    <CardSidebar />
+                    <CardSidebar onArchiveCard={this.onArchiveCard}/>
                 </aside>
             </div>
         )
@@ -92,7 +105,9 @@ const mapStateToProps = state => {
     };
 };
 const mapDispatchToProps = {
-    loadBoard
+    loadBoard,
+    switchGroup,
+    updateCard
 };
 
 export const CardDetails = connect(mapStateToProps, mapDispatchToProps)(connect(withRouter)(_CardDetails));
