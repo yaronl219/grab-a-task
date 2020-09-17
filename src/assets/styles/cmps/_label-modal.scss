@@ -1,0 +1,71 @@
+.label-filter{
+    position: absolute;
+    width: rem(300px);
+    min-height: rem(200px);
+    background-color: #fff;
+    border: 1px solid $groupClr;
+    z-index: 2;
+    transform: translateX(50%);
+    border-radius: 0.25em;
+    display: flex;
+    flex-direction: column;
+
+    margin: rem(4px);
+    font-size: rem(15px);
+
+    button {
+        align-self: flex-end;
+        position: absolute;
+    }
+
+}
+
+.labels-container{
+    padding: rem(10px);
+    >*:hover {
+        background-color: $cardHoverClr;
+        border-radius: 0.45em;
+    }
+}
+
+.label{
+    width: rem(30px);
+    height: rem(30px);
+    border-radius: 0.35em;
+    padding: rem(10px);
+}
+
+.label-inner-container{
+    display: flex;
+    align-items: center;
+    line-height: 1em;
+    cursor: pointer;
+    
+    p{
+        margin-left: rem(12px);
+        font-family: Roboto-Regular;
+        opacity: 0.5;
+    }
+}
+
+.green{
+    background-color: $labelGreen;
+}
+.red{
+    background-color: $labelRed;
+}
+.blue{
+    background-color: $labelBlue;
+}
+.orange{
+    background-color: $labelOrange;
+}
+.purple{
+    background-color: $labelPurple;
+}
+.yellow{
+    background-color: $labelYellow;
+}
+.grey{
+    background-color: $labelGrey;
+}

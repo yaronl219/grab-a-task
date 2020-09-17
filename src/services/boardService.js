@@ -5,7 +5,8 @@ export const boardService = {
   query,
   remove,
   getBoardById,
-  updateBoard
+  updateBoard,
+  filter
 };
 
 
@@ -39,4 +40,37 @@ async function switchGroup(board,card,oldGroupId,targetGroupId,targetIdx) {
         return group
     })
     return await updateBoard(newBoard)  
+}
+
+async function filter(boardId, filterBy) {
+  
+  const boardToReturn = await getBoardById(boardId)
+
+  if (filterBy.txt){
+    boardToReturn.groups = boardToReturn.groups.map(group => {
+      const newGroup={...group}
+      newGroup.cards =  newGroup.cards.filter(card => {
+        return card.title.toLowerCase().includes(filterBy.txt)
+      })
+      return newGroup
+    })
+  }
+
+  // as for now, only filters one label OR txt
+  if (filterBy.labelId) {
+
+    
+        boardToReturn.groups = boardToReturn.groups.map(group => {
+          const newGroup={...group}
+          newGroup.cards =  newGroup.cards.filter(card => {
+            if (card.labels && 
+              card.labels.find(label => label.id === filterBy.labelId)){
+              return card
+            }
+        })
+      return newGroup
+    })
+  }
+
+  return boardToReturn
 }

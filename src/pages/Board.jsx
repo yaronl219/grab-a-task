@@ -6,24 +6,29 @@ import { GroupList } from '../cmps/GroupList';
 
 import { Sidebar } from '../cmps/Sidebar/Sidebar';
 // import { connect } from 'socket.io-client';
-import { loadBoard } from '../store/actions/boardActions';
+import { loadBoard, onSetFilterBy } from '../store/actions/boardActions';
+
 
 
 class _Board extends Component {
 
   state = {
-    filterBy: null,
     isSidebarShowing: false
   }
 
   onToggleSidebar = (isSidebarShowing) => {
     this.setState({ isSidebarShowing });
   }
+  
   async componentDidMount() {
     await this.props.loadBoard('b101')
   }
 
   onFilter = (filterBy) => {
+<<<<<<< HEAD
+    // this filter is sent to actions without updating the store yet
+    this.props.onSetFilterBy(this.props.board, filterBy)
+=======
     this.setState({ filterBy })
 
   }
@@ -32,6 +37,7 @@ class _Board extends Component {
     const { filterBy } = this.state
     if (!filterBy || !Object.keys(filterBy).length) return this.props.board
     const searchTxt = filterBy.txt.toLowerCase()
+>>>>>>> 8b5e69d94c7d4d18e98d5fb373f11ed69efd0b44
   }
 
   onAddGroup = (txt) => {
@@ -39,10 +45,9 @@ class _Board extends Component {
   }
 
   render() {
+    
     const { board } = this.props
     if (!board) return <div>Loading...</div>
-    if (this.state) this.getSearchResults()
-
 
     return (
       <div>
@@ -62,11 +67,14 @@ class _Board extends Component {
 
 const mapStateToProps = state => {
   return {
-    board: state.boardReducer.board
+    board: state.boardReducer.board,
+    filterBy: state.boardReducer.filterBy
   };
 };
+
 const mapDispatchToProps = {
-  loadBoard
+  loadBoard,
+  onSetFilterBy
 };
 
 export const Board = connect(mapStateToProps, mapDispatchToProps)(_Board);

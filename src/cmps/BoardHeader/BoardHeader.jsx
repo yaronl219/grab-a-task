@@ -14,6 +14,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 
 export class _BoardHeader extends Component {
+
+    
     render() {
         
         return (
