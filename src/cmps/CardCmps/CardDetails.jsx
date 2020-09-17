@@ -25,7 +25,6 @@ class _CardDetails extends Component {
 
 
     componentDidMount() {
-        console.log(this.props)
         if (!this.props.board || Object.keys(!this.props.board)) {
             this.props.loadBoard('b101').then(() => {
                 return this.getCardDetails()
@@ -52,7 +51,6 @@ class _CardDetails extends Component {
         const url = window.location.href
         const regex = /\/board\/.+\//i
         const targetUrl = url.match(regex)[0]
-        console.log(targetUrl)
         this.props.history.push(targetUrl)
     }
 
@@ -71,7 +69,6 @@ class _CardDetails extends Component {
     }
 
     submitCard = () => {
-        console.log('submitting card')
        
     }
 

@@ -8,7 +8,6 @@ import { CardList } from './CardCmps/CardList'
 class _Group extends Component {
 
     componentDidMount() {
-        console.log(this.props)
     }
 
     onAddCard = (txt) => {

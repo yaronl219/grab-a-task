@@ -17,7 +17,6 @@ export class _Sidebar extends Component {
     render() {
         const { board, isSidebarShowing, onToggleSidebar } = this.props;
         const { selectedMenuOpt } = this.state;
-        console.log(board)
         const anchor = 'right';
         return (
             <div className="sidebar-container">
@@ -25,14 +24,13 @@ export class _Sidebar extends Component {
                     anchor={anchor}
                     open={isSidebarShowing}
                     BackdropProps={{ hideBackdrop: true }}
-                    hideBackdrop
                     variant={"persistent"}
                     onClose={() => onToggleSidebar(false)}>
                     <div className="sidebar-header">
+                        <h4>Menu</h4>
                         <IconButton onClick={() => onToggleSidebar(false)}>
                             <CloseOutlinedIcon />
                         </IconButton>
-                        <h4>Menu</h4>
                     </div>
                     <Divider />
                     <List>

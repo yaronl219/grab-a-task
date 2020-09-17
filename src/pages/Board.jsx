@@ -24,7 +24,6 @@ class _Board extends Component {
   }
 
   onFilter = (filterBy) => {
-    // console.log(filterBy)
     this.setState({ filterBy })
 
   }
@@ -33,12 +32,9 @@ class _Board extends Component {
     const { filterBy } = this.state
     if (!filterBy || !Object.keys(filterBy).length) return this.props.board
     const searchTxt = filterBy.txt.toLowerCase()
-    console.log(searchTxt)
-    console.log(this.props.board)
   }
 
   onAddGroup = (txt) => {
-    console.log(txt)
     return txt
   }
 
