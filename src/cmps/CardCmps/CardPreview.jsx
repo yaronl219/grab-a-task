@@ -39,6 +39,15 @@ export class CardPreview extends Component {
         return <div key="1" className="card-preview-attr"><SubjectOutlinedIcon style={{fontSize:16}}  /></div>
     }
 
+    onOpenCardDetails = () => {
+        // to later be switched to using history
+        
+        let url = window.location.href
+        url += `${this.props.card.id}`
+        window.location.assign(url)
+    }
+
+
     getCardPreviewChecklist = () => {
         const checklists = this.props.card.checklists
         if (!checklists || !Object.keys(checklists)) return null
@@ -74,7 +83,7 @@ export class CardPreview extends Component {
 
     render() {
         return (
-            <div className="card-preview">
+            <div className="card-preview" onClick={this.onOpenCardDetails}>
                 {this.getCardPreviewStyle()}
                 <div className="card-preview-header">
                     {this.props.card.title}
