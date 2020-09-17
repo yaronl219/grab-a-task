@@ -25,12 +25,22 @@ class _Board extends Component {
   }
 
   onFilter = (filterBy) => {
+<<<<<<< HEAD
     // this filter is sent to actions without updating the store yet
     this.props.onSetFilterBy(this.props.board, filterBy)
+=======
+    this.setState({ filterBy })
+
+  }
+
+  getSearchResults() {
+    const { filterBy } = this.state
+    if (!filterBy || !Object.keys(filterBy).length) return this.props.board
+    const searchTxt = filterBy.txt.toLowerCase()
+>>>>>>> 8b5e69d94c7d4d18e98d5fb373f11ed69efd0b44
   }
 
   onAddGroup = (txt) => {
-    console.log(txt)
     return txt
   }
 
