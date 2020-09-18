@@ -12,6 +12,7 @@ export function loadBoard(boardId) {
 }
 
 export function updateBoard(board) {
+    console.log('update board action')
   return async dispatch => {
     try {
       let newBoard = JSON.parse(JSON.stringify(board))
