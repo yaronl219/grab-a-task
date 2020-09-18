@@ -1,12 +1,14 @@
 .group-list-container {
     display: flex;
-    height:100%;
+    height:95vh;
     padding: 10px;
 }
 
 .group-container {
     background-color: $groupClr;
     min-width: rem(272px);
+    height: fit-content;
+    max-height: 100%;
     margin: 0 rem(4px);
     border-radius: 3px;
     box-sizing: border-box;

@@ -7,7 +7,7 @@ import UnarchiveIcon from '@material-ui/icons/Unarchive';
 import { loadBoard, updateCard } from '../../store/actions/boardActions.js';
 
 export class _SideArchive extends Component {
-    state = { isCards: true }
+    state = { isShowingCards: true }
     async componentDidMount() {
         await this.props.loadBoard('b101');
     }
@@ -26,13 +26,14 @@ export class _SideArchive extends Component {
         const { board, isShowing, onSetMenuOpt } = this.props;
         const anchor = 'right';
         if (!board.groups) return <div>Loading...</div>;
-        let archive = board.groups.filter(group => {
-            return group.archivedAt || group.cards.find(card => card.archivedAt)
+        let archivedCards = board.groups.filter(group => {
+            return group.cards.find(card => card.archivedAt)
         });
-        archive = archive.map(group => {
+        archivedCards = archivedCards.map(group => {
             if (group.archivedAt) return group;
             return { ...group, cards: group.cards.filter(card => card.archivedAt) };
         });
+        let archivedGroups = board.groups.filter(group => group.archivedAt)
         return (
             <div className="archive sidebar-container" >
                 <Drawer classes={{ root: 'sidebar' }}
@@ -42,20 +43,27 @@ export class _SideArchive extends Component {
                     variant={'persistent'}>
                     <div className="sidebar-header">
                         <h4>ARCHIVE</h4>
-                        <IconButton className="icon-button" onClick={() => onSetMenuOpt(null)}>
+                        <IconButton className="icon-button"
+                            onClick={() => onSetMenuOpt(null)}>
                             <ArrowBackIosOutlinedIcon />
                         </IconButton>
                     </div>
                     <Divider />
-                    {this.state.isCards && <div className="archive-list-container">
-                        {archive.map(group => {
-                            if (group.cards.length === 0) return;
-                            return <React.Fragment key={group.id}>
-                                <h5>{group.title}</h5>
-                                {group.cards.map(card => {
-                                    return (
-                                        <div className="archive-card-container" key={card.id}>
-                                            <div className="archive-card-preview" onClick={() => this.onOpenCardDetails(card.id)}>
+                    <button
+                        onClick={() => this.setState({ isShowingCards: !this.state.isShowingCards })}>
+                        Switch to {(this.state.isShowingCards) ? 'groups' : 'cards'}
+                    </button>
+                    <div className="archive-list-container">
+                        {(this.state.isShowingCards)
+                            ? archivedCards.map(group => {
+                                if (group.cards.length === 0) return;
+                                return <React.Fragment key={group.id}>
+                                    <h5>{group.title}</h5>
+                                    {group.cards.map(card => {
+                                        return <div className="archive-card-container"
+                                            key={card.id}>
+                                            <div className="archive-card-preview"
+                                                onClick={() => this.onOpenCardDetails(card.id)}>
                                                 <span>{card.title}</span>
                                             </div>
                                             <div className="buttons">
@@ -68,13 +76,13 @@ export class _SideArchive extends Component {
                                                 </IconButton>
                                             </div>
                                         </div>
-                                    )
-                                }
-                                )}
-                            </React.Fragment>
-                        })}
-                    </div>}
-                    {!this.state.isCards && <div>groups</div>}
+                                    })
+                                    }
+                                </React.Fragment>
+                            })
+                            : <div>groups</div>
+                        }
+                    </div>
                 </Drawer>
             </div >
         )

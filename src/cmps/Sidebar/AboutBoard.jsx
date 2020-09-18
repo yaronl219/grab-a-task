@@ -51,11 +51,11 @@ export class _AboutBoard extends Component {
                                 <button className="cancel-btn"
                                     onClick={() => this.setState({ isEditDesc: false })}>Cancel</button>
                             </form>}
-                            {!isEditDesc && <p
+                            {!isEditDesc && <pre
                                 style={{ cursor: 'pointer' }}
                                 onClick={() => this.setState({ isEditDesc: true })} >
                                 {board.description}
-                            </p>}
+                            </pre>}
                         </div>
                     </div>
                 </Drawer>
