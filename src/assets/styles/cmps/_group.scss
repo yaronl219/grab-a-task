@@ -68,9 +68,30 @@
     }
 }
 
-.check{
+.new-group {
+
     height: 3rem;
     min-width: rem(272px);
-    background-color:$groupClr;
+    background-color: rgba(0,0,0,0.08);
     cursor: pointer;
+    border-radius: rem(4px);
+    height: fit-content;
+    color: #172b4d;
+    font-size: rem(15px);
+}
+
+.add-new-group-text{
+    padding: rem(6px) rem(8px);
+}
+
+.new-group-form{
+    opacity: 1;
+    background-color: $groupClr;
+    border-radius: rem(4px);
+
+    input{
+        width: 95%;
+        padding: rem(8px);
+        margin: rem(6px);
+    }
 }
