@@ -1,18 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Filter } from '../BoardHeader/Filter'
-import { AboutBoard } from './AboutBoard'
-import { ChangeBackground } from './ChangeBackground'
-import { SideArchive } from './SideArchive'
 import { Drawer, Divider, IconButton, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import WallpaperOutlinedIcon from '@material-ui/icons/WallpaperOutlined';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
+import FormatListBulletedOutlinedIcon from '@material-ui/icons/FormatListBulletedOutlined';
+import { AboutBoard } from './AboutBoard'
+import { ChangeBackground } from './ChangeBackground'
+import { SideArchive } from './SideArchive'
+import { ActivityLog } from './ActivityLog'
 
 export class _Sidebar extends Component {
-    state = { selectedMenuOpt: 'archive' }
+    state = { selectedMenuOpt: null }
     onSetMenuOpt = (selectedMenuOpt) => {
         this.setState({ selectedMenuOpt });
     }
@@ -44,8 +45,8 @@ export class _Sidebar extends Component {
                     variant={"persistent"}
                     onClose={() => onToggleSidebar(false)}>
                     <div className="sidebar-header">
-                        <h4>Menu</h4>
-                        <IconButton className="icon-button" onClick={() => onToggleSidebar(false)}>
+                        <h4>MENU</h4>
+                        <IconButton size="small" onClick={() => onToggleSidebar(false)}>
                             <CloseOutlinedIcon />
                         </IconButton>
                     </div>
@@ -65,6 +66,8 @@ export class _Sidebar extends Component {
                         </ListItem>
                     </List>
                     <Divider />
+                    <h5><FormatListBulletedOutlinedIcon size="small" /> ACTIVITY LOG</h5>
+                    <ActivityLog activities={board.activities} boardId={board._id} />
                 </Drawer>
 
                 {this.DynamicCmp()}

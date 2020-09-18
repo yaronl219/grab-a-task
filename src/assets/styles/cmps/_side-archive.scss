@@ -1,17 +1,30 @@
-.archive-list-container {
+.search-archive-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     & input {
-        width: 75%;
+        height: 70%;
+        width: 55%;
+        font-size: 0.65rem;
     }
+}
+.archive-list-container {
     & .archive-card-preview,
     .archive-group-preview {
         background-color: #ebecf0;
         box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
-        width: 225px;
-        padding: 5px;
-        margin: 5px;
+        width: 95%;
+        min-height: 20px;
         border-radius: 3px;
-        font-size: 0.8rem;
+        padding: 5px;
         cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        & h5{
+            margin: 10px 0;
+        }
     }
     & .buttons {
         display: flex;

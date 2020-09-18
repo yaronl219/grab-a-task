@@ -36,7 +36,7 @@ export class _ChangeBackground extends Component {
                     variant={'persistent'}>
                     <div className="sidebar-header">
                         <h4>CHANGE BACKGROUND</h4>
-                        <IconButton onClick={() => onSetMenuOpt(null)}>
+                        <IconButton size="small" onClick={() => onSetMenuOpt(null)}>
                             <ArrowBackIosOutlinedIcon />
                         </IconButton>
                     </div>

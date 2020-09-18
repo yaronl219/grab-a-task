@@ -41,13 +41,21 @@
     }
 }
 
-.toggle-archive-btn {
+.toggle-archive-btn, .edit-desc-btn {
     margin: 5px;
-    width: 25%;
     padding: 5px;
+    height: fit-content;
     font-size: 0.6rem;
     border: none;
     color: inherit;
     background-color: rgba(9, 30, 66, 0.08);
     border-radius: 3px;
+    cursor: pointer;
+    &:focus{
+        outline: none;
+    }
+}
+
+.menu-header-btn{
+    color:red;
 }

@@ -21,35 +21,42 @@ export class _AboutBoard extends Component {
     render() {
         const { board, isShowing, onSetMenuOpt } = this.props;
         const { isEditDesc } = this.state;
-        const anchor = 'right';
         return (
-            <div className="about-board sidebar-container" >
+            <div className="sidebar-container" >
                 <Drawer classes={{ root: 'sidebar' }}
-                    anchor={anchor}
+                    className="about-board"
+                    anchor={'right'}
                     open={isShowing}
                     BackdropProps={{ hideBackdrop: true }}
                     variant={'persistent'}>
                     <div className="sidebar-header">
                         <h4>ABOUT THIS BOARD</h4>
-                        <IconButton onClick={() => onSetMenuOpt(null)}>
+                        <IconButton size="small" onClick={() => onSetMenuOpt(null)}>
                             <ArrowBackIosOutlinedIcon />
                         </IconButton>
                     </div>
                     <Divider />
                     <div className="about-container">
                         {board.createdBy && <div className="created-by">
-                            <h5><PersonOutlineIcon /> CREATED BY:</h5>
-                            <MemberPreview name={board.createdBy.fullName} />
-                            <span>{board.createdBy.fullName}</span>
+                            <h5><PersonOutlineIcon /> CREATED BY</h5>
+                            <div className="board-creator">
+                                <MemberPreview name={board.createdBy.fullName} />
+                                <span>{board.createdBy.fullName}</span>
+                            </div>
                         </div>}
                         <Divider />
                         <div className="board-description">
-                            <h5><SubjectIcon /> DESCRIPTION:</h5>
+                            <div className="description-header">
+                                <h5><SubjectIcon /> DESCRIPTION</h5>
+                                <button className="edit-desc-btn" onClick={() => this.setState({ isEditDesc: true })}>Edit desciption</button>
+                            </div>
                             {isEditDesc && <form onSubmit={(ev) => this.onEditDesc(ev)}>
                                 <textarea name="boardDesc" defaultValue={board.description} style={{ resize: 'none' }} cols="30" rows="10"></textarea>
-                                <button className="save-btn">Save</button>
-                                <button className="cancel-btn"
-                                    onClick={() => this.setState({ isEditDesc: false })}>Cancel</button>
+                                <div className="save-cancel-btns">
+                                    <button className="save-btn">Save</button>
+                                    <button className="cancel-btn"
+                                        onClick={() => this.setState({ isEditDesc: false })}>Cancel</button>
+                                </div>
                             </form>}
                             {!isEditDesc && <pre
                                 style={{ cursor: 'pointer' }}

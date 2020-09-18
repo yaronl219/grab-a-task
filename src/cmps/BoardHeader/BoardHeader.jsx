@@ -18,7 +18,6 @@ export class _BoardHeader extends Component {
 
     render() {
         const { style } = this.props;
-        console.log(style)
         return (
             (!style) ? <div>Loading...</div> :
                 <div className="boards-header-container" style={{ backgroundColor: this.props.style.bgClr, color: this.props.style.FfontClr }}>
