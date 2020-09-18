@@ -21,7 +21,7 @@ export class _BoardHeader extends Component {
         console.log(style)
         return (
             (!style) ? <div>Loading...</div> :
-                <div className="boards-header-container" style={{ backgroundColor: this.props.style.bgClr }}>
+                <div className="boards-header-container" style={{ backgroundColor: this.props.style.bgClr, color: this.props.style.FfontClr }}>
                     <h3>{this.props.title}</h3>
                     <div className="members-container">
                         <MemberList members={this.props.members} />

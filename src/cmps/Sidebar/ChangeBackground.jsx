@@ -15,14 +15,16 @@ export class _ChangeBackground extends Component {
         const anchor = 'right';
         const boardStyles = [
             {
-                id: "bs101",
-                bgClr: "#ffffff",
-                bgImg: "url(https://image.freepik.com/free-vector/abstract-paper-hexagon-white-background_51543-7.jpg)"
+                id: 'bs101',
+                fontClr: '#000000',
+                bgClr: '#ffffff',
+                bgImg: 'url(https://image.freepik.com/free-vector/abstract-paper-hexagon-white-background_51543-7.jpg)'
             },
             {
-                id: "bs102",
-                bgClr: "#007AC0",
-                bgImg: "url(https://static4.depositphotos.com/1001351/322/v/450/depositphotos_3223514-stock-illustration-grunge-abstract-background-eps-10.jpg)"
+                id: 'bs102',
+                fontClr: '#ffffff',
+                bgClr: '#007AC0',
+                bgImg: 'url(https://static4.depositphotos.com/1001351/322/v/450/depositphotos_3223514-stock-illustration-grunge-abstract-background-eps-10.jpg)'
             }
         ];
         return (
@@ -44,10 +46,17 @@ export class _ChangeBackground extends Component {
                             {boardStyles.map(style => {
                                 return <div key={style.id}
                                     className="bg-style"
-                                    style={{ backgroundColor: style.bgClr }}
+                                    style={{
+                                        backgroundColor: style.bgClr,
+                                        color: style.fontClr
+                                    }}
                                     onClick={() => this.onSetBoardStyle(style)}>
-                                    <div className="img-container" style={{ backgroundImage: style.bgImg }}>
-                                    </div>
+                                    <div className="img-container" style={{
+                                        backgroundImage: style.bgImg,
+                                        backgroundRepeat: 'no-repeat',
+                                        backgroundSize: 'cover'
+                                    }}></div>
+                                    <div>Select</div>
                                 </div>
                             })}
                         </div>

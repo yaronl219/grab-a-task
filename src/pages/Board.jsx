@@ -47,7 +47,7 @@ class _Board extends Component {
     if (!board) return <div>Loading...</div>
 
     return (
-      <div>
+      <div className="board-page">
         <BoardHeader title={board.title}
           members={board.members}
           onToggleSidebar={this.onToggleSidebar}
