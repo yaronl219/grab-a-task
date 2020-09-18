@@ -44,7 +44,7 @@ export function deleteCard(board, cardId) {
       let newBoard = JSON.parse(JSON.stringify(board))
       const groupIdx = newBoard.groups.findIndex(group => group.cards.find(card => card.id === cardId))
       const cardIdx = newBoard.groups[groupIdx].cards.findIndex(card => card.id === cardId)
-      newBoard.groups[groupIdx].splice(cardIdx, 1)
+      newBoard.groups[groupIdx].cards.splice(cardIdx, 1)
       newBoard = await boardService.updateBoard(newBoard) // updating the DB
       dispatch({ type: 'SET_BOARD', board: newBoard })
     } catch (err) {

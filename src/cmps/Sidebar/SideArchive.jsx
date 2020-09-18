@@ -4,6 +4,7 @@ import { Drawer, Divider, IconButton } from '@material-ui/core';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
 import UnarchiveOutlinedIcon from '@material-ui/icons/UnarchiveOutlined';
+import { ArchiveFilter } from './ArchiveFilter.jsx';
 import { loadBoard, updateCard, deleteCard, updateGroup } from '../../store/actions/boardActions.js';
 
 export class _SideArchive extends Component {
@@ -56,7 +57,9 @@ export class _SideArchive extends Component {
                         </IconButton>
                     </div>
                     <Divider />
+                    <ArchiveFilter />
                     <button
+                        className="toggle-archive-btn"
                         onClick={() => this.setState({ isShowingCards: !this.state.isShowingCards })}>
                         Switch to {(this.state.isShowingCards) ? 'groups' : 'cards'}
                     </button>

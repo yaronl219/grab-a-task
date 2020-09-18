@@ -1,4 +1,7 @@
 .archive-list-container {
+    & input {
+        width: 75%;
+    }
     & .archive-card-preview,
     .archive-group-preview {
         background-color: #ebecf0;
@@ -10,7 +13,6 @@
         font-size: 0.8rem;
         cursor: pointer;
     }
-
     & .buttons {
         display: flex;
         justify-content: flex-end;
