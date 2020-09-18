@@ -37,7 +37,7 @@ export class NewItem extends Component {
             
             <div className="new-item-form">
                 <form onBlur={this.setNotEditing} onSubmit={this.onSubmit} >
-                <input placeholder={this.props.placeHolderTxt} type="text" onChange={this.onChange} value={this.state.txtValue} /> 
+                    <input placeholder={this.props.placeHolderTxt} type="text" onChange={this.onChange} value={this.state.txtValue} autoFocus/> 
                 <div className="save-btn-container">
                 <button className="save-btn" onMouseDown={this.onSubmit}>{this.props.addBtnTxt}</button>
                 <CloseIcon onClick={this.setNotEditing}/>

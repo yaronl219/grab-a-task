@@ -75,4 +75,13 @@ export function onSetFilterBy(board, filterBy) {
   }
 }
 
-export function switchGroup() { }
+export function onAddNewGroup(board, groupTitle){
+
+  return async dispatch => {
+    // as for now it first brings the current board from the db
+    const newBoard = await boardService.addNewGroup(board._id, groupTitle)
+    dispatch({ type: 'SET_BOARD', board: newBoard })
+  }
+}
+
+export function switchGroup(){}
