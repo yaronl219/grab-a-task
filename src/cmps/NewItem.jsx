@@ -9,10 +9,6 @@ export class NewItem extends Component {
         txtValue: ''
     }
 
-    componentDidMount() {
-
-    }
-
     onChange = (ev) => {
         const txtValue = ev.target.value
         this.setState({ txtValue })
@@ -35,7 +31,7 @@ export class NewItem extends Component {
 
             <div className="new-item-form">
                 <form onBlur={this.setNotEditing} onSubmit={this.onSubmit} >
-                    <input placeholder={this.props.placeHolderTxt} type="text" onChange={this.onChange} value={this.state.txtValue} />
+                    <input placeholder={this.props.placeHolderTxt} autoFocus type="text" onChange={this.onChange} value={this.state.txtValue} />
                     <div className="save-btn-container">
                         <button className="save-btn" onMouseDown={this.onSubmit}>{this.props.addBtnTxt}</button>
                         <CloseIcon onClick={this.setNotEditing} />

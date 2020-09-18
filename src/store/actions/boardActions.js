@@ -11,6 +11,12 @@ export function loadBoard(boardId) {
   };
 }
 
+export function toggleFullLabels() {
+    return dispatch => {
+        dispatch({type:'TOGGLE_FULL_LABEL'})
+    }
+}
+
 export function updateBoard(board) {
     console.log('update board action')
   return async dispatch => {
