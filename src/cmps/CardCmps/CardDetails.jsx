@@ -8,6 +8,7 @@ import { CardChecklist } from './CardChecklist';
 import { CardSidebar } from './CardSidebar';
 import CloseIcon from '@material-ui/icons/Close';
 import { CardDescription } from './CardDescription';
+import { CardDetailsHeader } from './CardDetailsHeader';
 
 class _CardDetails extends Component {
 
@@ -34,7 +35,6 @@ class _CardDetails extends Component {
     }
 
     getCardDetails = () => {
-
         this.props.board.groups.forEach(group => {
             group.cards.forEach(card => {
                 if (card.id === this.props.cardId) {
@@ -64,12 +64,24 @@ class _CardDetails extends Component {
     onArchiveCard = () => {
         let card = {...this.state.card}
         card.archivedAt = Date.now()
-        this.props.updateCard(this.props.board,card)
+        this.submitCard(card)
         this.onCloseModal()
     }
 
-    submitCard = () => {
-       
+    onUpdateHeader = (txt) => {
+        let card = {...this.state.card}
+        card.title = txt
+        this.setState({card},() => this.submitCard(card))   
+    }
+
+    submitCard = (card) => {
+        this.props.updateCard(this.props.board,card)
+    }
+
+    onUpdateDesc = (description) => {
+        const card = {...this.state.card}
+        card.description = description
+        this.setState({card},() => this.submitCard(card))
     }
 
     render() {
@@ -81,11 +93,12 @@ class _CardDetails extends Component {
                     <CloseIcon />
                 </IconButton>
                 <div className="card-details-header-container">
-                    <h2>{card.title}</h2>
+                    {/* <h2>{card.title}</h2> */}
+                    <CardDetailsHeader headerTxt={card.title} onUpdate={this.onUpdateHeader}/>
                     <small>in list <span>{this.state.groupName}</span></small>
                 </div>
                 <main className="card-details-main">
-                <CardDescription description={card.description}/>
+                <CardDescription onUpdateDesc={this.onUpdateDesc} description={card.description}/>
                 </main>
                 <aside className="card-details-sidebar">
                     <CardSidebar onArchiveCard={this.onArchiveCard}/>

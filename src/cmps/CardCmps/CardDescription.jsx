@@ -13,7 +13,8 @@ export class CardDescription extends Component {
     }
 
     setDescriptionFromProps = () => {
-        const description = this.props.description
+        let description = this.props.description
+        if (!description) description = ''
         this.setState({ description })
     }
 
@@ -30,10 +31,35 @@ export class CardDescription extends Component {
         this.setState({ isEditing: false })
     }
 
-    render() {
+    onSave = () => {
+        // console.log(this.state.description)
+        this.props.onUpdateDesc(this.state.description)
+        this.setNotEditing()
+    }
+
+    getDescriptionTxt = () => {
+        console.log(this.state.description)
+        if (!this.state.description) return 'Add a more detailed description…'
+        return this.state.description
+    }
+    getIsEditing = () => {
+        if (!this.state.isEditing) return (
+            <pre className="item-details-description-text-display" onClick={this.setEditing}>{this.getDescriptionTxt()}</pre>
+        )
         return (
-            <div>
-                <input value={this.state.description} onChange={this.onChange} placeholder="Enter a more details description here..." />
+            <div className='item-details-description-text-edit-container'>
+                <textarea value={this.state.description} onChange={this.onChange} placeholder="Enter a more details description here..." />
+                <button onClick={this.onSave} className="save-btn">Save</button>
+            </div>
+        )
+    }
+
+    render() {
+        // if (!this.state.isReady) return <div>Loading...</div>
+        return (
+            <div className="item-details-description">
+                {/* <input value={this.state.description} onChange={this.onChange} placeholder="Enter a more details description here..." /> */}
+                {this.getIsEditing()}
             </div>
         )
     }
