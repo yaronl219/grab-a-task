@@ -10,38 +10,36 @@ export class NewItem extends Component {
     }
 
     componentDidMount() {
-        
-    }
-    
-    onChange = (ev) => {
-        
-        const txtValue = ev.target.value
-        this.setState({txtValue})
+
     }
 
+    onChange = (ev) => {
+        const txtValue = ev.target.value
+        this.setState({ txtValue })
+    }
 
     setEditing = () => {
-        this.setState({isEditing:true})
+        this.setState({ isEditing: true })
     }
 
     setNotEditing = () => {
-            this.setState({isEditing:false})
+        this.setState({ isEditing: false })
     }
 
-    getIsEditing = () => {        
+    getIsEditing = () => {
         if (!this.state.isEditing) return (
-        <div className="new-item-btn"  onClick={this.setEditing}><AddIcon style={{fontSize:14}} />{this.props.addItemTxt}</div>
-        ) 
+            <div className="new-item-btn" onClick={this.setEditing}><AddIcon style={{ fontSize: 14 }} />{this.props.addItemTxt}</div>
+        )
 
         return (
-            
+
             <div className="new-item-form">
                 <form onBlur={this.setNotEditing} onSubmit={this.onSubmit} >
-                    <input placeholder={this.props.placeHolderTxt} type="text" onChange={this.onChange} value={this.state.txtValue} autoFocus/> 
-                <div className="save-btn-container">
-                <button className="save-btn" onMouseDown={this.onSubmit}>{this.props.addBtnTxt}</button>
-                <CloseIcon onClick={this.setNotEditing}/>
-                </div>
+                    <input placeholder={this.props.placeHolderTxt} type="text" onChange={this.onChange} value={this.state.txtValue} />
+                    <div className="save-btn-container">
+                        <button className="save-btn" onMouseDown={this.onSubmit}>{this.props.addBtnTxt}</button>
+                        <CloseIcon onClick={this.setNotEditing} />
+                    </div>
                 </form>
             </div>
         )
@@ -54,7 +52,7 @@ export class NewItem extends Component {
         this.props.onAdd(this.state.txtValue)
         const isEditing = false
         const txtValue = ''
-        this.setState({isEditing,txtValue})
+        this.setState({ isEditing, txtValue })
     }
 
     render() {

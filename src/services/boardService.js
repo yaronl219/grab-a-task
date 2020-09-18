@@ -7,7 +7,8 @@ export const boardService = {
   query,
   remove,
   getBoardById,
-  updateBoard,  addNewGroup,
+  updateBoard,  
+  addNewGroup,
   filter
 };
 
