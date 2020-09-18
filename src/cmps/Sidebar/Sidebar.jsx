@@ -12,7 +12,7 @@ import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 
 export class _Sidebar extends Component {
-    state = { selectedMenuOpt: 'changeBG' }
+    state = { selectedMenuOpt: null }
     onSetMenuOpt = (selectedMenuOpt) => {
         this.setState({ selectedMenuOpt });
     }
