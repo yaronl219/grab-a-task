@@ -12,7 +12,7 @@ import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 
 export class _Sidebar extends Component {
-    state = { selectedMenuOpt: null }
+    state = { selectedMenuOpt: 'archive' }
     onSetMenuOpt = (selectedMenuOpt) => {
         this.setState({ selectedMenuOpt });
     }
@@ -22,12 +22,11 @@ export class _Sidebar extends Component {
             case 'about':
                 return <AboutBoard isShowing={selectedMenuOpt === 'about'}
                     onSetMenuOpt={this.onSetMenuOpt} />;
-            // case 'changeBG':
-            case 'archive':
-                return <SideArchive isShowing={selectedMenuOpt === 'archive'}
-                    onSetMenuOpt={this.onSetMenuOpt} />
             case 'changeBG':
                 return <ChangeBackground isShowing={selectedMenuOpt === 'changeBG'}
+                    onSetMenuOpt={this.onSetMenuOpt} />
+            case 'archive':
+                return <SideArchive isShowing={selectedMenuOpt === 'archive'}
                     onSetMenuOpt={this.onSetMenuOpt} />
             case null:
                 return <React.Fragment></React.Fragment>
@@ -67,7 +66,7 @@ export class _Sidebar extends Component {
                     </List>
                     <Divider />
                 </Drawer>
-              
+
                 {this.DynamicCmp()}
             </div>
         )

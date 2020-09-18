@@ -38,6 +38,35 @@ export function updateCard(board, newCard) {
   }
 }
 
+export function deleteCard(board, cardId) {
+  return async dispatch => {
+    try {
+      let newBoard = JSON.parse(JSON.stringify(board))
+      const groupIdx = newBoard.groups.findIndex(group => group.cards.find(card => card.id === cardId))
+      const cardIdx = newBoard.groups[groupIdx].cards.findIndex(card => card.id === cardId)
+      newBoard.groups[groupIdx].splice(cardIdx, 1)
+      newBoard = await boardService.updateBoard(newBoard) // updating the DB
+      dispatch({ type: 'SET_BOARD', board: newBoard })
+    } catch (err) {
+      console.log('error deleting card', err)
+    }
+  }
+}
+
+export function updateGroup(board, newGroup) {
+  return async dispatch => {
+    try {
+      let newBoard = JSON.parse(JSON.stringify(board))
+      const groupIdx = newBoard.groups.findIndex(group => group.id === newGroup.id)
+      newBoard.groups[groupIdx] = newGroup;
+      newBoard = await boardService.updateBoard(newBoard) // updating the DB
+      dispatch({ type: 'SET_BOARD', board: newBoard })
+    } catch (err) {
+      console.log('error updating group', err)
+    }
+  }
+}
+
 export function onSetFilterBy(board, filterBy) {
   return async dispatch => {
     const filteredBoard = await boardService.filter(board._id, filterBy)
@@ -46,4 +75,4 @@ export function onSetFilterBy(board, filterBy) {
   }
 }
 
-export function switchGroup(){}
+export function switchGroup() { }
