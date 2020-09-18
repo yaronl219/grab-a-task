@@ -1,19 +1,20 @@
 .archive-list-container {
-    & .archive-card-container {
-        & .archive-card-preview {
-            background-color: #ebecf0;
-            box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
-            width: 225px;
-            padding: 5px;
-            margin: 5px;
-            border-radius: 3px;
-            font-size: 0.8rem;
-            cursor: pointer;
-        }
-
-        & .buttons {
-            display: flex;
-            justify-content: flex-end;
-        }
+    & input {
+        width: 75%;
+    }
+    & .archive-card-preview,
+    .archive-group-preview {
+        background-color: #ebecf0;
+        box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
+        width: 225px;
+        padding: 5px;
+        margin: 5px;
+        border-radius: 3px;
+        font-size: 0.8rem;
+        cursor: pointer;
+    }
+    & .buttons {
+        display: flex;
+        justify-content: flex-end;
     }
 }

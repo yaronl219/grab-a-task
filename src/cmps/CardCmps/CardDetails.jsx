@@ -9,6 +9,7 @@ import { CardSidebar } from './CardSidebar';
 import CloseIcon from '@material-ui/icons/Close';
 import { CardDescription } from './CardDescription';
 import { CardDetailsHeader } from './CardDetailsHeader';
+import { CardLabels } from './CardLabels';
 
 class _CardDetails extends Component {
 
@@ -54,6 +55,26 @@ class _CardDetails extends Component {
         this.props.history.push(targetUrl)
     }
 
+    openEditLabelsModal = () => {
+        // TODO - Create and connect the modal
+        console.log('should open edit labels modal')
+    }
+
+    
+    getLabels = () => {
+        const labels = this.state.card.labels
+        if (labels) return (
+            <div className="card-details-label-container">
+                <h3>Labels</h3>
+                <CardLabels onClickLabel={this.openEditLabelsModal}
+                    cardLabels={labels}
+                    boardLabels={this.props.board.labels}
+                    preview={false}
+                />
+            </div>
+        )
+        console.log(this.state.card.labels)
+    }
     getCardModules = () => {
         let cardModules = []
         const card = this.state.card
@@ -66,6 +87,12 @@ class _CardDetails extends Component {
         card.archivedAt = Date.now()
         this.submitCard(card)
         this.onCloseModal()
+    }
+
+    onUpdateDueDate = (dueDate) => {
+        let card = {...this.state.card}
+        card.dueDate = dueDate
+        this.setState({card},() => this.submitCard(card))
     }
 
     onUpdateHeader = (txt) => {
@@ -93,15 +120,15 @@ class _CardDetails extends Component {
                     <CloseIcon />
                 </IconButton>
                 <div className="card-details-header-container">
-                    {/* <h2>{card.title}</h2> */}
                     <CardDetailsHeader headerTxt={card.title} onUpdate={this.onUpdateHeader}/>
                     <small>in list <span>{this.state.groupName}</span></small>
                 </div>
+                {this.getLabels()}
                 <main className="card-details-main">
                 <CardDescription onUpdateDesc={this.onUpdateDesc} description={card.description}/>
                 </main>
                 <aside className="card-details-sidebar">
-                    <CardSidebar onArchiveCard={this.onArchiveCard}/>
+                    <CardSidebar dueDate={card.dueDate} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard}/>
                 </aside>
             </div>
         )

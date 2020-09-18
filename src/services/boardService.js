@@ -1,14 +1,13 @@
 import httpService from './httpService';
 import { utils } from './utils'
 
-
 export const boardService = {
   add,
   query,
   remove,
   getBoardById,
-  updateBoard,  
-//   addNewGroup,
+  updateBoard,
+  addNewGroup,
   filter
 };
 
@@ -33,6 +32,7 @@ async function add(board) {
 async function updateBoard(board) {
     const boardId = board._id
     return await httpService.put(`board/${boardId}`,board)
+
 }
 async function switchGroup(board,card,oldGroupId,targetGroupId,targetIdx) {
     const newBoard = JSON.parse(JSON.stringify(board))
@@ -75,4 +75,22 @@ async function filter(boardId, filterBy) {
   }
 
   return boardToReturn
+}
+
+async function addNewGroup(boardId ,groupTitle){
+  
+  // here it adds the additional data in the board
+  const newBoard = await getBoardById(boardId)
+  const groupToPush = {
+    id: utils.makeId(),
+    title: groupTitle,
+    cards: [],
+    archivedAt: false,
+    style: {}
+  }
+
+  newBoard.groups.push(groupToPush)
+  const boardToReturn = await updateBoard(newBoard)
+  return boardToReturn
+  
 }

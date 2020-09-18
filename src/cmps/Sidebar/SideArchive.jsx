@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Drawer, Divider, IconButton } from '@material-ui/core';
-import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
+import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
-import UnarchiveIcon from '@material-ui/icons/Unarchive';
-import { loadBoard, updateCard } from '../../store/actions/boardActions.js';
+import UnarchiveOutlinedIcon from '@material-ui/icons/UnarchiveOutlined';
+import { ArchiveFilter } from './ArchiveFilter.jsx';
+import { loadBoard, updateCard, deleteCard, updateGroup } from '../../store/actions/boardActions.js';
 
 export class _SideArchive extends Component {
     state = { isShowingCards: true }
@@ -22,6 +23,13 @@ export class _SideArchive extends Component {
         card.archivedAt = null;
         this.props.updateCard(this.props.board, card);
     }
+    onDeleteCard = (cardId) => {
+        this.props.deleteCard(this.props.board, cardId);
+    }
+    onUnArchiveGroup = (group) => {
+        group.archivedAt = null;
+        this.props.updateGroup(this.props.board, group);
+    }
     render() {
         const { board, isShowing, onSetMenuOpt } = this.props;
         const anchor = 'right';
@@ -33,7 +41,7 @@ export class _SideArchive extends Component {
             if (group.archivedAt) return group;
             return { ...group, cards: group.cards.filter(card => card.archivedAt) };
         });
-        let archivedGroups = board.groups.filter(group => group.archivedAt)
+        const archivedGroups = board.groups.filter(group => group.archivedAt);
         return (
             <div className="archive sidebar-container" >
                 <Drawer classes={{ root: 'sidebar' }}
@@ -49,12 +57,14 @@ export class _SideArchive extends Component {
                         </IconButton>
                     </div>
                     <Divider />
+                    <ArchiveFilter />
                     <button
+                        className="toggle-archive-btn"
                         onClick={() => this.setState({ isShowingCards: !this.state.isShowingCards })}>
                         Switch to {(this.state.isShowingCards) ? 'groups' : 'cards'}
                     </button>
                     <div className="archive-list-container">
-                        {(this.state.isShowingCards)
+                        {this.state.isShowingCards
                             ? archivedCards.map(group => {
                                 if (group.cards.length === 0) return;
                                 return <React.Fragment key={group.id}>
@@ -68,19 +78,30 @@ export class _SideArchive extends Component {
                                             </div>
                                             <div className="buttons">
                                                 <IconButton onClick={() => this.onUnArchiveCard(card)}>
-                                                    <UnarchiveIcon fontSize='small'
-                                                    />
+                                                    <UnarchiveOutlinedIcon fontSize='small' />
                                                 </IconButton>
-                                                <IconButton>
-                                                    <CloseOutlinedIcon fontSize='small' />
+                                                <IconButton onClick={() => this.onDeleteCard(card.id)}>
+                                                    <DeleteOutlinedIcon fontSize='small' />
                                                 </IconButton>
                                             </div>
                                         </div>
-                                    })
-                                    }
+                                    })}
                                 </React.Fragment>
                             })
-                            : <div>groups</div>
+                            : archivedGroups.map(group => <React.Fragment>
+                                <div className="archive-group-preview">
+                                    <h5>{group.title}</h5>
+                                </div>
+                                <div className="buttons">
+                                    <IconButton onClick={() => this.onUnArchiveGroup(group)}>
+                                        <UnarchiveOutlinedIcon fontSize='small'
+                                        />
+                                    </IconButton>
+                                    <IconButton>
+                                        <DeleteOutlinedIcon fontSize='small' />
+                                    </IconButton>
+                                </div>
+                            </React.Fragment>)
                         }
                     </div>
                 </Drawer>
@@ -95,7 +116,9 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = {
     loadBoard,
-    updateCard
+    updateCard,
+    deleteCard,
+    updateGroup
 };
 
 export const SideArchive = connect(mapStateToProps, mapDispatchToProps)(_SideArchive);

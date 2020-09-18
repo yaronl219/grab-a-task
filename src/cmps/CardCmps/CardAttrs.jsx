@@ -1,1 +1,0 @@
-// Card attrs contains the due date and labels
