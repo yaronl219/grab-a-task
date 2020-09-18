@@ -5,6 +5,7 @@ export const boardService = {
   query,
   remove,
   getBoardById,
+  updateBoard,
   filter
 };
 
