@@ -10,6 +10,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { CardDescription } from './CardDescription';
 import { CardDetailsHeader } from './CardDetailsHeader';
 import { CardLabels } from './CardLabels';
+import { CardDueDateSetter } from './CardDueDateSetter';
 
 class _CardDetails extends Component {
 
@@ -73,7 +74,7 @@ class _CardDetails extends Component {
                 />
             </div>
         )
-        console.log(this.state.card.labels)
+        // console.log(this.state.card.labels)
     }
     getCardModules = () => {
         let cardModules = []
@@ -124,6 +125,7 @@ class _CardDetails extends Component {
                     <small>in list <span>{this.state.groupName}</span></small>
                 </div>
                 {this.getLabels()}
+                <CardDueDateSetter onUpdateDueDate={this.onUpdateDueDate} dueDate={card.dueDate} displayDate={true} displayTime={true}/>
                 <main className="card-details-main">
                 <CardDescription onUpdateDesc={this.onUpdateDesc} description={card.description}/>
                 </main>
