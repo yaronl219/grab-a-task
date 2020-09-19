@@ -4,7 +4,7 @@
     min-height: rem(200px);
     background-color: #fff;
     border: 1px solid $groupClr;
-    z-index: 2;
+    z-index: 5;
     transform: translateX(50%);
     border-radius: 0.25em;
     display: flex;
@@ -45,6 +45,12 @@
         margin-left: rem(12px);
         font-family: Roboto-Regular;
         opacity: 0.5;
+        flex-grow: 1;
+    }
+
+    :last-child{
+        width: rem(18px);
+        opacity: 0.8;
     }
 }
 

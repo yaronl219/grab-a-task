@@ -13,7 +13,6 @@ export class _AddNewGroup extends Component {
     componentDidMount() {
         this.setState({ newGroupTitle: '' })
     }
-    
 
     handleChange = (event) => {
         const title = event.target.value        
@@ -28,7 +27,6 @@ export class _AddNewGroup extends Component {
     }
 
     render() {
-        // if(!this.state.isShown) return <div></div>
         return (
                 <div className="new-group-form">
                     <form onBlur={this.setNotEditing} onSubmit={this.onSubmit} >

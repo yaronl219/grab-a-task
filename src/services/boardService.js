@@ -61,7 +61,6 @@ async function filter(boardId, filterBy) {
   // as for now, only filters one label OR txt
   if (filterBy.labelId) {
 
-    
         boardToReturn.groups = boardToReturn.groups.map(group => {
           const newGroup={...group}
           newGroup.cards =  newGroup.cards.filter(card => {
