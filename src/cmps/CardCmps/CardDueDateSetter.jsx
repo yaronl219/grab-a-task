@@ -14,16 +14,15 @@ export class CardDueDateSetter extends Component {
     componentDidMount() {
         this.anchor = React.createRef();
         this.setState({ anchor: this.anchor })
-this.setDefaultDate()
+        this.setDefaultDate()
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.dueDate !== this.props.dueDate) return this.setDefaultDate()
     }
 
     setDefaultDate = () => {
-        // if (!this.props.dueDate && !this.state.date) {
-        //     this.setState({ date: Date.now() })
-        // } else {
-        //     this.setState({ date: this.props.dueDate })
-        // }
-        this.setState({date:this.props.dueDate})
+        this.setState({ date: this.props.dueDate })
     }
     openModal = () => {
         this.setState({ isPopperOpen: true })
@@ -36,19 +35,24 @@ this.setDefaultDate()
     onSetDueDate = (ev) => {
         const formDate = ev.target.value
         const timestamp = new Date(formDate).getTime()
-        this.setState({ date: timestamp },this.submitDueDate)
+        this.setState({ date: timestamp }, this.submitDueDate)
     }
 
     submitDueDate = () => {
         this.props.onUpdateDueDate(this.state.date)
     }
 
+    onRemoveDueDate = (ev) => {
+        this.setState({ date: null }, this.submitDueDate)
+        this.closeModal()
+    }
+
     getDisplayDateBtn = () => {
         if (!this.props.displayDate) return <button className="set-due-date-btn" onClick={this.openModal} ref={this.anchor}>Set Due Date</button>
-        
+
         return (
             <div onClick={this.openModal} ref={this.anchor} className="set-due-date-expanded">
-                <CardPreviewDueDate dueDate={this.state.date} displayTime={this.props.displayTime}/>
+                <CardPreviewDueDate dueDate={this.state.date} displayTime={this.props.displayTime} />
             </div>
         )
     }
@@ -105,6 +109,9 @@ this.setDefaultDate()
                                 }}
                             />
                         </form>
+                        <div className="remove-date-btn-container">
+                            <button className="cancel-btn" onClick={this.onRemoveDueDate}>Remove Due Date</button>
+                        </div>
                     </Popover>
                 }
             </div>
