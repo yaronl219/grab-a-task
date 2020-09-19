@@ -20,8 +20,12 @@ export class CardChecklistTodo extends Component {
         this.setState({ isEditing: false })
     }
 
+    removeText = () => {
+        this.setState({txtValue:''})
+    }
+
     componentDidUpdate(prevProps, prevState) {
-        // if (prevProps.txtValue !== this.props.txtValue || prevProps.isDone !== this.props.isDone) this.updateTodo()
+        if (prevProps.txtValue !== this.props.txtValue || prevProps.isDone !== this.props.isDone) this.updateTodo()
     }
 
     componentDidMount() {
@@ -31,16 +35,17 @@ export class CardChecklistTodo extends Component {
     }
 
     getNewTodoDisplay = () => {
-        if (this.state.isEditing) return (
+        if (this.state.isEditing) {
+            return (
             <form onBlur={this.setNotEditing} onSubmit={this.onSubmit}>
                 <input type="text" autoFocus value={this.state.txtValue} onChange={this.onChange} />
                 <button className="save-btn" type="submit">Save</button>
             </form>
-        )
+        )}
         return (
-            <div className="checklist-add-todo" onClick={this.setEditing}>
+            <Button className="checklist-add-todo" onClick={this.setEditing}>
                 Add an item
-            </div>
+            </Button>
         )
     }
 
@@ -72,6 +77,7 @@ export class CardChecklistTodo extends Component {
         ev.preventDefault()
         this.setNotEditing()
         this.updateChecklist()
+
     }
 
     updateTodo = () => {
@@ -110,7 +116,6 @@ export class CardChecklistTodo extends Component {
         
         this.props.onUpdate(todo)
 
-        this.setState({txtValue:''})
     }
 
     render() {

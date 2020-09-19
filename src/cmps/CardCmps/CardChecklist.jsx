@@ -12,9 +12,7 @@ export class CardChecklist extends Component {
         
     }
 
-    componentDidMount() {
-        console.log(this.props)
-        
+    componentDidMount() {        
         this.setTasksStatus()
     }
 
@@ -50,13 +48,12 @@ export class CardChecklist extends Component {
         }
 
         return (
-            <button onClick={this.toggleDisplayCompleted}>{btnContent}</button>
+            <Button onClick={this.toggleDisplayCompleted}>{btnContent}</Button>
         )
     }
 
     onRemoveChecklist = () => {
         // TODO: remove checklist
-        console.log('im removing a checklist!')
         const checklist = {...this.props.checklist}
         checklist.title = ''
         this.props.onUpdate(checklist)
@@ -81,7 +78,6 @@ export class CardChecklist extends Component {
     onUpdateChecklist = (newTodo) => {
         // take the updated todo and insert it into the list
         let todos = [...this.props.checklist.todos]
-        console.log(todos)
         // find the todo index
         const todoIdx = todos.findIndex(todo => todo.id === newTodo.id)
         // if new title is blank - remove todo
@@ -104,8 +100,10 @@ export class CardChecklist extends Component {
                 <div className="checklist-title-container">
                     <CheckBoxOutlinedIcon />
                     <div className="checklist-title">{this.props.checklist.title}</div>
+                    <div className="checklist-title-btns">
                     {this.getDisplayCheckedBtn()}
-                    <button onClick={this.openDialog}>Remove Checklist</button>
+                    <Button onClick={this.openDialog}>Remove</Button>
+                    </div>
                 </div>
                 {((this.state.totalTasks) ? (
                     <div className="checklist-progress">
