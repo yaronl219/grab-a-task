@@ -38,7 +38,6 @@ export class CardDescription extends Component {
     }
 
     getDescriptionTxt = () => {
-        console.log(this.state.description)
         if (!this.state.description) return 'Add a more detailed description…'
         return this.state.description
     }

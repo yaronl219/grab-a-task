@@ -48,10 +48,12 @@ class _CardPreview extends Component {
 
     getCardPreviewChecklist = () => {
         const checklists = this.props.card.checklists
-        if (!checklists || !Object.keys(checklists)) return null
+        if (!checklists || !checklists.length) return null
 
         let doneTodos = 0
         let totalTodos = 0
+
+        let doneClass = ''
 
         checklists.forEach(checklist => {
             checklist.todos.forEach(todo => {
@@ -61,7 +63,11 @@ class _CardPreview extends Component {
                 totalTodos += 1
             })
         })
-        return <div key="2" className="card-preview-attr"><CheckBoxOutlinedIcon style={{ fontSize: 16 }} /> <span className="card-preview-checklist-counter">{doneTodos}/{totalTodos}</span> </div>
+
+        if (doneTodos === totalTodos) {
+            doneClass=" card-preview-checklist-counter-done"
+        }
+        return <div key="2" className="card-preview-attr"><CheckBoxOutlinedIcon style={{ fontSize: 16 }} /> <span className={`card-preview-checklist-counter${doneClass}`}>{doneTodos}/{totalTodos}</span> </div>
     }
     getCardPreviewAttrs = () => {
         const attrs = [
@@ -71,8 +77,9 @@ class _CardPreview extends Component {
         ]
         if (!attrs.every(item => !item)) {
             return (<div className="card-preview-attrs">
-                {attrs.map(att => {
+                {attrs.map((att,idx) => {
                     if (att) return att
+                    return  <React.Fragment key={idx}/>
                 })}
             </div>)
         }
