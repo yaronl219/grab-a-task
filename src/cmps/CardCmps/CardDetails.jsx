@@ -11,6 +11,7 @@ import { CardDescription } from './CardDescription';
 import { CardDetailsHeader } from './CardDetailsHeader';
 import { CardLabels } from './CardLabels';
 import { CardDueDateSetter } from './CardDueDateSetter';
+import { ActivityLog } from '../Sidebar/ActivityLog';
 
 class _CardDetails extends Component {
 
@@ -61,7 +62,7 @@ class _CardDetails extends Component {
         console.log('should open edit labels modal')
     }
 
-    
+
     getLabels = () => {
         const labels = this.state.card.labels
         if (labels) return (
@@ -84,32 +85,32 @@ class _CardDetails extends Component {
     }
 
     onArchiveCard = () => {
-        let card = {...this.state.card}
+        let card = { ...this.state.card }
         card.archivedAt = Date.now()
         this.submitCard(card)
         this.onCloseModal()
     }
 
     onUpdateDueDate = (dueDate) => {
-        let card = {...this.state.card}
+        let card = { ...this.state.card }
         card.dueDate = dueDate
-        this.setState({card},() => this.submitCard(card))
+        this.setState({ card }, () => this.submitCard(card))
     }
 
     onUpdateHeader = (txt) => {
-        let card = {...this.state.card}
+        let card = { ...this.state.card }
         card.title = txt
-        this.setState({card},() => this.submitCard(card))   
+        this.setState({ card }, () => this.submitCard(card))
     }
 
     submitCard = (card) => {
-        this.props.updateCard(this.props.board,card)
+        this.props.updateCard(this.props.board, card)
     }
 
     onUpdateDesc = (description) => {
-        const card = {...this.state.card}
+        const card = { ...this.state.card }
         card.description = description
-        this.setState({card},() => this.submitCard(card))
+        this.setState({ card }, () => this.submitCard(card))
     }
 
     render() {
@@ -121,17 +122,21 @@ class _CardDetails extends Component {
                     <CloseIcon />
                 </IconButton>
                 <div className="card-details-header-container">
-                    <CardDetailsHeader headerTxt={card.title} onUpdate={this.onUpdateHeader}/>
+                    <CardDetailsHeader headerTxt={card.title} onUpdate={this.onUpdateHeader} />
                     <small>in list <span>{this.state.groupName}</span></small>
                 </div>
                 {this.getLabels()}
-                <CardDueDateSetter onUpdateDueDate={this.onUpdateDueDate} dueDate={card.dueDate} displayDate={true} displayTime={true}/>
+                <CardDueDateSetter onUpdateDueDate={this.onUpdateDueDate} dueDate={card.dueDate} displayDate={true} displayTime={true} />
                 <main className="card-details-main">
-                <CardDescription onUpdateDesc={this.onUpdateDesc} description={card.description}/>
+                    <CardDescription onUpdateDesc={this.onUpdateDesc} description={card.description} />
                 </main>
                 <aside className="card-details-sidebar">
-                    <CardSidebar dueDate={card.dueDate} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard}/>
+                    <CardSidebar dueDate={card.dueDate} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} />
                 </aside>
+                <ActivityLog
+                    boardId={this.props.board._id}
+                    displayMode="card"
+                    activities={this.props.board.activities.filter(activity => activity.card.id === card.id)} />
             </div>
         )
     }
