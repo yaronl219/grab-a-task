@@ -1,7 +1,12 @@
 .group-list-container {
     display: flex;
-    height:95vh;
+    height: 95vh;
     padding: 10px;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 .group-container {
@@ -24,9 +29,9 @@
         padding: 10px 8px;
     }
     .card-preview {
-        background-color: #FFF;
+        background-color: #fff;
         min-height: 36px;
-        box-shadow: 0 1px 0 rgba(9,30,66,.25);
+        box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
         margin-bottom: 8px;
         padding: 6px 8px 2px;
         position: relative;
@@ -57,9 +62,9 @@
         .card-preview-full-label:hover .card-preview-label-mask {
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.2);
+            background-color: rgba(0, 0, 0, 0.2);
         }
-        
+
         .card-preview-due-date-container {
             font-size: 0.75rem;
             line-height: 1rem;
@@ -101,10 +106,9 @@
         right: 3px;
         top: 3px;
     }
-    
+
     .card-preview-edit-container:hover {
         background-color: #ebecf0;
-        
     }
 
     .new-card-btn-container {
@@ -116,32 +120,31 @@
     }
 
     .new-card-btn-container:hover {
-        background-color: rgba(9,30,66,.08);
+        background-color: rgba(9, 30, 66, 0.08);
     }
 }
 
 .new-group {
-
     height: 3rem;
     min-width: rem(272px);
-    background-color: rgba(0,0,0,0.08);
+    background-color: rgba(0, 0, 0, 0.08);
     cursor: pointer;
     border-radius: rem(4px);
     height: fit-content;
-    color: #172b4d;
+    color: inherit;
     font-size: rem(15px);
 }
 
-.add-new-group-text{
+.add-new-group-text {
     padding: rem(6px) rem(8px);
 }
 
-.new-group-form{
+.new-group-form {
     opacity: 1;
     background-color: $groupClr;
     border-radius: rem(4px);
 
-    input{
+    input {
         width: 95%;
         padding: rem(8px);
         margin: rem(6px);

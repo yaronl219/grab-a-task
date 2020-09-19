@@ -5,7 +5,7 @@ import { MemberPreview } from '../BoardHeader/MemberPreview';
 
 export class ActivityLog extends Component {
     render() {
-        const { activities, boardId } = this.props;
+        const { activities, boardId, displayMode } = this.props;
         return (
             !activities
                 ? <div>Loading...</div>
@@ -14,12 +14,22 @@ export class ActivityLog extends Component {
                         return <li key={activity.id}>
                             <MemberPreview name={activity.byMember.fullName} />
                             <pre>
-                                <Link to={`/board/${boardId}`}>{activity.byMember.fullName}</Link>
-                                {` ${activity.txt} of `}
-                                <Link to={`/board/${boardId}/${activity.card.id}/`}>
-                                    {activity.card.title}
-                                </Link>
-                                <span className="time-ago">{`\n${timeago.format(activity.createdAt)}`}</span>
+                                <div>
+                                    <Link to={`/board/${boardId}`}>{activity.byMember.fullName} </Link>
+                                    <span>
+                                        {activity.commentTxt ? 'commented:' : `${activity.txt} `}
+                                    </span>
+                                    {activity.commentTxt && <div className="comment-txt">
+                                        {activity.commentTxt}
+                                    </div>}
+                                    {displayMode !== 'card' && <span>
+                                        {'in '}
+                                        <Link to={`/board/${boardId}/${activity.card.id}/`}>
+                                            {activity.card.title}
+                                        </Link>
+                                    </span>}
+                                </div>
+                                <span className="time-ago">{timeago.format(activity.createdAt)}</span>
                             </pre>
                         </li>
                     })}
