@@ -5,43 +5,36 @@ import { onSetFilterBy } from '../../store/actions/boardActions'
 
 export class _FilterByLabel extends Component {
 
-    state = {
-        selectedLabels: []
-    }
-
     onFilterByLabel=(labelId)=>{
+        // if theres filter and it is txt
+        if (this.props.currFilter && this.props.currFilter.filterBy.txt) return
 
-        let labels = []      
-
-        if (this.state.selectedLabels.length) {
-            labels = [...this.state.selectedLabels]
-            // if you the idx is -1, than no label is inside than add it
+        let labels = []
+        // if theres filter and is of labels type
+        if (this.props.currFilter && this.props.currFilter.filterBy.labels) {
+            labels = [...this.props.currFilter.filterBy.labels]
+            // if you the idx is -1, than add it to the labels array
             const labelIdx = labels.findIndex(label => label === labelId)
             if (labelIdx !== -1) {labels.splice(labelIdx,1)}
             else if (labelIdx === -1) {labels.push(labelId)}
-            this.setState({ selectedLabels: labels })
-
         } else {
             labels.push(labelId)
-            this.setState({ selectedLabels: labels })
         }
-        
-        // this one sets the filter
-        // need to send the array
-        // this.props.onSetFilterBy(this.props.board, { labelId })
+        this.props.onSetFilterBy(this.props.board, { labels })
     }
 
     isChecked(labelId){
-
-        let labels = [...this.state.selectedLabels]
+        // check if there are currently labels in the filter
+        if (!this.props.currFilter || !this.props.currFilter.filterBy.labels) return
+        let labels = [...this.props.currFilter.filterBy.labels]
         const labelIdx = labels.findIndex(label => label === labelId)
         if(labelIdx !== -1) return true
         else return false
     }
 
     onResetFilter = () => {
-        const resetFilter = []
-        this.setState({ selectedLabels: resetFilter })
+        const labels = []
+        this.props.onSetFilterBy(this.props.board, { labels })
     }
 
     render() {
