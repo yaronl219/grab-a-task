@@ -24,8 +24,7 @@ export class GroupList extends Component {
             <React.Fragment>
                 <div className="group-list-container" style={{
                     backgroundImage: style.bgImg,
-                    backgroundRepeat: 'no-repeat',
-                    backgroundSize: 'cover',
+                    color: style.fontClr
                 }}>
                     {groups.map(group => {
                         if (!group.archivedAt) {
@@ -35,15 +34,15 @@ export class GroupList extends Component {
 
 
                     <div className="new-group" >
-                        {!this.state.isNewGroupShown && <div className="add-new-group-text" 
-                        onClick={() => this.setState({ isNewGroupShown: true })}>+ Add another list</div>}
-                        
-                        {this.state.isNewGroupShown && <AddNewGroup closeNewGroup={ this.closeNewGroup }/>}
+                        {!this.state.isNewGroupShown && <div className="add-new-group-text"
+                            onClick={() => this.setState({ isNewGroupShown: true })}>+ Add another list</div>}
+
+                        {this.state.isNewGroupShown && <AddNewGroup closeNewGroup={this.closeNewGroup} />}
                     </div>
 
 
                 </div>
-            </React.Fragment>
+            </React.Fragment >
         )
     }
 }

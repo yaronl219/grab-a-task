@@ -11,6 +11,7 @@ import { CardDetailsHeader } from './CardDetailsHeader';
 import { CardLabels } from './CardLabels';
 import { CardDueDateSetter } from './CardDueDateSetter';
 import { CardChecklistList } from './CardChecklistList';
+import { ActivityLog } from '../Sidebar/ActivityLog';
 
 class _CardDetails extends Component {
 
@@ -157,6 +158,10 @@ class _CardDetails extends Component {
                 <aside className="card-details-sidebar">
                     <CardSidebar dueDate={card.dueDate} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} onUpdateChecklists={this.onUpdateChecklists} />
                 </aside>
+                <ActivityLog
+                    boardId={this.props.board._id}
+                    displayMode="card"
+                    activities={this.props.board.activities.filter(activity => activity.card.id === card.id)} />
             </div>
         )
     }

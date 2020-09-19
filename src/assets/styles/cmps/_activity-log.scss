@@ -1,20 +1,45 @@
 .activity-log {
     list-style-type: none;
     padding: 0;
+    margin: 0;
     font-size: 0.7rem;
+    & a,
+    a:visited {
+        text-decoration: none;
+        color: inherit;
+        font-weight: 600;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
     & li {
         display: flex;
-        width: 100%;
-        align-items: center;
-        & div {
+        height: fit-content;
+        // align-items: center;
+        margin-bottom: rem(15px);
+        & .member-preview {
             display: inline-block;
-            margin-right: 5px;
+            margin-right: rem(5px);
+            align-self: flex-start;
         }
         & pre {
+            display: flex;
+            flex-direction: column;
             font-family: inherit;
             white-space: pre-wrap;
-
-            & .time-ago{
+            margin: 0 rem(5px);
+            width: 80%;
+            line-height: rem(16px);
+            & .comment-txt{
+                display: block;
+                padding: rem(8px) rem(12px);
+                margin: 3px 0;
+                width: fit-content;
+                background-color:#fff;
+                box-shadow: 0 rem(1px) 0 rgba(9, 30, 66, 0.25);
+                border-radius: rem(3px);
+            }
+            & .time-ago {
                 font-size: 0.5rem;
             }
         }

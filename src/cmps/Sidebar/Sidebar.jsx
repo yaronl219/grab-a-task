@@ -52,15 +52,15 @@ export class _Sidebar extends Component {
                     </div>
                     <Divider />
                     <List>
-                        <ListItem button onClick={() => { this.onSetMenuOpt('about') }}>
+                        <ListItem button className="menu-btn" onClick={() => { this.onSetMenuOpt('about') }}>
                             <ListItemIcon><InfoOutlinedIcon /></ListItemIcon>
                             <ListItemText>About this board</ListItemText>
                         </ListItem>
-                        <ListItem button onClick={() => { this.onSetMenuOpt('changeBG') }}>
+                        <ListItem button className="menu-btn" onClick={() => { this.onSetMenuOpt('changeBG') }}>
                             <ListItemIcon><WallpaperOutlinedIcon /></ListItemIcon>
                             <ListItemText>Change background</ListItemText>
                         </ListItem>
-                        <ListItem button onClick={() => { this.onSetMenuOpt('archive') }}>
+                        <ListItem button className="menu-btn" onClick={() => { this.onSetMenuOpt('archive') }}>
                             <ListItemIcon><ArchiveOutlinedIcon /></ListItemIcon>
                             <ListItemText>Archive</ListItemText>
                         </ListItem>
