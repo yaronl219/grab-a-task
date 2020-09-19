@@ -1,4 +1,7 @@
 .changeBG-container {
+    & > div:first-of-type {
+        padding: 0 5px;
+    }
     & .style-pallete {
         display: flex;
         justify-content: center;

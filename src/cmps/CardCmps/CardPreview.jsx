@@ -4,14 +4,14 @@ import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import SubjectOutlinedIcon from '@material-ui/icons/SubjectOutlined';
 import AttachFileOutlinedIcon from '@material-ui/icons/AttachFileOutlined';
 import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
+import { toggleFullLabels } from '../../store/actions/boardActions';
+import { CardLabels } from './CardLabels';
+import { CardPreviewDueDate } from './CardPreviewDueDate';
 
-export class CardPreview extends Component {
+class _CardPreview extends Component {
 
     state = {
         isEditing: false
-    }
-    componentDidMount() {
-
     }
 
     onSetEditing = () => {
@@ -78,19 +78,46 @@ export class CardPreview extends Component {
         }
     }
 
+    onToggleLabels = (ev) => {
+        ev.stopPropagation()
+        return this.props.toggleFullLabels()
+    }
+
     render() {
         return (
             <div className={'card-preview'}
                 onClick={this.onOpenCardDetails}>
                 {this.getCardPreviewStyle()}
+                <CardLabels onClickLabel={this.onToggleLabels}
+                    isFull={this.props.fullLabel}
+                    cardLabels={this.props.card.labels}
+                    boardLabels={this.props.board.labels}
+                    preview={true}
+                />
                 <div className="card-preview-header">
                     {this.props.card.title}
                 </div>
                 <div className="card-preview-edit-container">
                     <EditOutlinedIcon />
                 </div>
+                <div className="card-preview-attrs">
+                <CardPreviewDueDate dueDate={this.props.card.dueDate} />
                 {this.getCardPreviewAttrs()}
+                </div>
             </div>
         )
     }
 }
+
+
+const mapStateToProps = state => {
+    return {
+        fullLabel: state.boardReducer.fullLabel,
+        board: state.boardReducer.board
+    };
+};
+const mapDispatchToProps = {
+    toggleFullLabels
+};
+
+export const CardPreview = connect(mapStateToProps, mapDispatchToProps)(_CardPreview);

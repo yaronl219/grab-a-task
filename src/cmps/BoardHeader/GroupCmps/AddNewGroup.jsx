@@ -39,7 +39,6 @@ export class _AddNewGroup extends Component {
                             <button className="save-btn" onMouseDown={this.onSubmit}>Add List</button>
                         <CloseIcon onClick={ ()=> this.props.closeNewGroup() } />
                         </div>
-
                     </form>
                 </div>
         )

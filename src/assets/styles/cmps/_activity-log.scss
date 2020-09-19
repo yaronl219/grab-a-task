@@ -1,0 +1,22 @@
+.activity-log {
+    list-style-type: none;
+    padding: 0;
+    font-size: 0.7rem;
+    & li {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        & div {
+            display: inline-block;
+            margin-right: 5px;
+        }
+        & pre {
+            font-family: inherit;
+            white-space: pre-wrap;
+
+            & .time-ago{
+                font-size: 0.5rem;
+            }
+        }
+    }
+}

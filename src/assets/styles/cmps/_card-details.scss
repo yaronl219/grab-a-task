@@ -6,4 +6,17 @@
     left: 15vw;
     width: 70vw;
     background-color: $groupClr;
+
+    .card-details-label {
+        min-width: 40px;
+        max-width: 100%;
+        width: fit-content;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 32px;
+        border-radius: 3px;
+        color: white;
+        padding: 0rem 0.75rem;
+    }
 }

@@ -1,12 +1,62 @@
 .about-board {
-    // & .about-container {
+    & > div:first-of-type {
+        padding: 0 5px;
+    }
+    & pre,
+    textarea {
+        font-family: inherit;
+    }
 
-    // }
+    & pre {
+        margin: 0 8.56px;
+    }
+
+    & textarea {
+        display: block;
+        margin: 0 auto;
+        border: none;
+        background-color: rgba(9, 30, 66, 0.08);
+        border-radius: 3px;
+    }
+    &textarea:focus {
+        outline: none;
+    }
+
+    & .board-creator {
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+        & .member-preview {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        & span {
+            margin: 0 5px;
+        }
+    }
+
     & .board-description {
         padding: 20px 0;
     }
-    & h5 {
+    & .description-header {
         display: flex;
+        justify-content: space-between;
         align-items: center;
+    }
+    & .save-cancel-btns {
+        display: flex;
+        justify-content: center;
+
+        & button {
+            border: none;
+            border-radius: 3px;
+            width: 60px;
+            padding: 5px 3px;
+            margin: 10px;
+        }
     }
 }
