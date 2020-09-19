@@ -2,6 +2,7 @@
 import { Popover, TextField } from '@material-ui/core'
 import React, { Component } from 'react'
 import { DatePicker } from '@material-ui/pickers'
+import { CardPreviewDueDate } from './CardPreviewDueDate';
 
 export class CardDueDateSetter extends Component {
 
@@ -16,13 +17,12 @@ export class CardDueDateSetter extends Component {
         this.setDefaultDate()
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.dueDate !== this.props.dueDate) return this.setDefaultDate()
+    }
+
     setDefaultDate = () => {
-        console.log(this.props.dueDate)
-        if (!this.props.dueDate && !this.state.date) {
-            this.setState({ date: Date.now() })
-        } else {
-            this.setState({ date: this.props.dueDate })
-        }
+        this.setState({ date: this.props.dueDate })
     }
     openModal = () => {
         this.setState({ isPopperOpen: true })
@@ -35,16 +35,32 @@ export class CardDueDateSetter extends Component {
     onSetDueDate = (ev) => {
         const formDate = ev.target.value
         const timestamp = new Date(formDate).getTime()
-        this.setState({ date: timestamp },this.submitDueDate)
+        this.setState({ date: timestamp }, this.submitDueDate)
     }
 
     submitDueDate = () => {
         this.props.onUpdateDueDate(this.state.date)
     }
 
+    onRemoveDueDate = (ev) => {
+        this.setState({ date: null }, this.submitDueDate)
+        this.closeModal()
+    }
+
+    getDisplayDateBtn = () => {
+        if (!this.props.displayDate) return <button className="set-due-date-btn" onClick={this.openModal} ref={this.anchor}>Set Due Date</button>
+
+        return (
+            <div onClick={this.openModal} ref={this.anchor} className="set-due-date-expanded">
+                <CardPreviewDueDate dueDate={this.state.date} displayTime={this.props.displayTime} />
+            </div>
+        )
+    }
+
     parseDate = () => {
         // 2020-09-26T04:52
-        const date = new Date(this.state.date)
+        let date = new Date(this.state.date)
+        if (!this.state.date) date = new Date(Date.now())
         let year = date.getFullYear()
         let month = (date.getMonth() + 1)
         let day = date.getDate()
@@ -64,7 +80,7 @@ export class CardDueDateSetter extends Component {
         if (!this.state.anchor) return <React.Fragment />
         return (
             <div>
-                <button onClick={this.openModal} ref={this.anchor}>Set Due Date</button>
+                {this.getDisplayDateBtn()}
                 {(!this.state.anchor.current) ? <React.Fragment /> :
                     <Popover
                         anchorOrigin={{
@@ -93,6 +109,9 @@ export class CardDueDateSetter extends Component {
                                 }}
                             />
                         </form>
+                        <div className="remove-date-btn-container">
+                            <button className="cancel-btn" onClick={this.onRemoveDueDate}>Remove Due Date</button>
+                        </div>
                     </Popover>
                 }
             </div>

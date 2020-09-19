@@ -48,6 +48,7 @@ async function filter(boardId, filterBy) {
   
   const boardToReturn = await getBoardById(boardId)
 
+  // text in card filter
   if (filterBy.txt){
     boardToReturn.groups = boardToReturn.groups.map(group => {
       const newGroup={...group}
@@ -58,22 +59,26 @@ async function filter(boardId, filterBy) {
     })
   }
 
-  // as for now, only filters one label OR txt
-  if (filterBy.labelId) {
-
-    
+  // multiple labels filter
+  if (filterBy.labels && filterBy.labels.length) {
+    const currLabels = filterBy.labels
         boardToReturn.groups = boardToReturn.groups.map(group => {
           const newGroup={...group}
           newGroup.cards =  newGroup.cards.filter(card => {
             if (card.labels && 
-              card.labels.find(label => label.id === filterBy.labelId)){
+              card.labels.find(label => {
+                const searchedLabel = label.id
+                // if the searched label equals to the current labels from the label-filter array
+                if (searchedLabel === currLabels.find(currLabel => currLabel === searchedLabel)) {
+                  return label
+                }
+              })){
               return card
             }
         })
       return newGroup
     })
   }
-
   return boardToReturn
 }
 

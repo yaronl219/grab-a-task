@@ -1,5 +1,5 @@
 import React from 'react'
-import { switchGroup } from '../../store/actions/boardActions'
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
 export function CardPreviewDueDate(props) {
     if (!props.dueDate) return <React.Fragment />
@@ -9,15 +9,19 @@ export function CardPreviewDueDate(props) {
     
     let month = date.toLocaleString("en-US", { month: "short" })
     let day = date.getDate()
-
+    
     let parsedDate = `${month} ${day}`
     if (Math.abs(daysRemaining) > 365) {
         let year = date.getFullYear()
         parsedDate += `, ${year}`
     }
+    if (props.displayTime) {
+        let hour = date.toLocaleTimeString()
+        parsedDate += ` at ${hour}`
+     
+    }
 
     let dueDateClass = 'card-preview-due-date-container card-preview-due-date-container-'
-    console.log(daysRemaining)
     switch (true) {
         case (daysRemaining > 7):
             dueDateClass += 'long'
@@ -26,7 +30,6 @@ export function CardPreviewDueDate(props) {
             dueDateClass += 'near'
             break
         case (daysRemaining >= 0):
-            console.log('more than 0')
             dueDateClass += 'close'
             break
         default:
@@ -36,6 +39,7 @@ export function CardPreviewDueDate(props) {
 
     return (
         <div className={dueDateClass}>
+            <AccessTimeIcon fontSize="inherit" />
             {parsedDate}
         </div>
     )

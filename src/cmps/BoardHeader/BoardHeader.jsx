@@ -20,7 +20,7 @@ export class _BoardHeader extends Component {
         const { style } = this.props;
         return (
             (!style) ? <div>Loading...</div> :
-                <div className="boards-header-container" style={{ backgroundColor: this.props.style.bgClr, color: this.props.style.FfontClr }}>
+                <div className="boards-header-container" >
                     <h3>{this.props.title}</h3>
                     <div className="members-container">
                         <MemberList members={this.props.members} />
@@ -34,6 +34,8 @@ export class _BoardHeader extends Component {
         )
     }
 }
+// this style was in the header, should it be there?s
+// style = {{ backgroundColor: this.props.style.bgClr, color: this.props.style.FfontClr }}
 
 const mapStateToProps = state => {
     return {

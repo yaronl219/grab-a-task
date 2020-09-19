@@ -12,6 +12,7 @@ export default function(state = initialState, action = {}) {
 
     case 'FILTER_BY':
       return {...state, filterBy: action}
+      
     case 'TOGGLE_FULL_LABEL':
         if (state.fullLabel) return {...state,fullLabel : false}
         return {...state,fullLabel:true}

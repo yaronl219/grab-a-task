@@ -19,4 +19,39 @@
         color: white;
         padding: 0rem 0.75rem;
     }
+
+    .set-due-date-expanded {
+        width: fit-content;
+    }
+
+    .card-preview-due-date-container {
+        padding: 0.25rem 0.5rem;
+        color: white;
+    }
+
+    .card-preview-due-date-container-long {
+        color: #5e6c84;
+    }
+    .card-preview-due-date-container-close {
+        background-color: $labelYellow;
+    }
+    .card-preview-due-date-container-close::after {
+        content: ' Due Soon';
+    }
+    .card-preview-due-date-container-near {
+        background-color: $labelGreen;
+    }
+    .card-preview-due-date-container-overdue {
+        background-color: $labelRed;
+    }
+    .card-preview-due-date-container-overdue::after {
+        content: ' Overdue';
+    }
+
+}
+
+.remove-date-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
