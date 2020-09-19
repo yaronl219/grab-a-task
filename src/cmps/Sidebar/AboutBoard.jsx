@@ -48,10 +48,18 @@ export class _AboutBoard extends Component {
                         <div className="board-description">
                             <div className="description-header">
                                 <h5><SubjectIcon /> DESCRIPTION</h5>
-                                <button className="edit-desc-btn" onClick={() => this.setState({ isEditDesc: true })}>Edit desciption</button>
+                                <button className="edit-desc-btn"
+                                    onClick={() => this.setState({ isEditDesc: !this.state.isEditDesc })}>
+                                    Edit desciption
+                                </button>
                             </div>
                             {isEditDesc && <form onSubmit={(ev) => this.onEditDesc(ev)}>
-                                <textarea name="boardDesc" defaultValue={board.description} style={{ resize: 'none' }} cols="30" rows="10"></textarea>
+                                <textarea name="boardDesc"
+                                    autoFocus
+                                    defaultValue={board.description}
+                                    style={{ resize: 'none' }}
+                                    cols="30" rows="10"
+                                    onBlur={() => this.setState({ isEditDesc: false })}></textarea>
                                 <div className="save-cancel-btns">
                                     <button className="save-btn">Save</button>
                                     <button className="cancel-btn"
