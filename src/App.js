@@ -6,8 +6,12 @@ import { Route, Switch } from 'react-router';
 import { CardDetails } from './cmps/CardCmps/CardDetails';
 import { Board } from './pages/Board';
 import { Navbar } from './cmps/Navbar';
+import userService from './services/userService';
 
 function App() {
+
+    userService.loginDefault()
+  
 
   return (
     <div className="App">

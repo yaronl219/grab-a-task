@@ -14,6 +14,7 @@ export class CardChecklist extends Component {
 
     componentDidMount() {        
         this.setTasksStatus()
+
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -52,10 +53,10 @@ export class CardChecklist extends Component {
         )
     }
 
-    onRemoveChecklist = () => {
-        // TODO: remove checklist
+    onRemoveChecklist = async() => {
         const checklist = {...this.props.checklist}
         checklist.title = ''
+        await this.props.addActivity(`removed ${this.props.checklist.title}`)
         this.props.onUpdate(checklist)
         this.closeDialog()
 
@@ -113,7 +114,7 @@ export class CardChecklist extends Component {
                     ) : <React.Fragment />)
                 }
                 <main className="checklist-main">
-                    {this.props.checklist.todos.map(todo => <CardChecklistTodo key={todo.id} displayCompleted={this.state.displayCompleted} todo={todo} onUpdate={this.onUpdateChecklist}/>)}
+                    {this.props.checklist.todos.map(todo => <CardChecklistTodo key={todo.id} displayCompleted={this.state.displayCompleted} todo={todo} addActivity={this.props.addActivity} onUpdate={this.onUpdateChecklist}/>)}
                     <CardChecklistTodo isNew={true} onUpdate={this.onUpdateChecklist}/>
                 </main>
                 <Dialog onClose={this.closeDialog} open={this.state.showDialog}>

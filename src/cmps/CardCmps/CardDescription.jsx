@@ -53,6 +53,7 @@ export class CardDescription extends Component {
         )
     }
 
+    // 
     render() {
         // if (!this.state.isReady) return <div>Loading...</div>
         return (

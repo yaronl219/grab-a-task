@@ -18,21 +18,24 @@ export class CardNewChecklist extends Component {
     onChange = (ev) => {
         this.setState({ txtValue: ev.target.value })
     }
-    onSubmit = (ev) => {
+    onSubmit = async(ev) => {
         ev.preventDefault()
-        
+        if (!this.state.txtValue) return this.setNotEditing()
         const checklist = {
                 id: utils.makeId(),
                 "title": this.state.txtValue,
                 "todos": []             
         }
+        await this.props.addActivity(`added the checklist ${this.state.txtValue}`)
         this.props.onUpdate(checklist)
         this.setState({txtValue:''})
+        this.setNotEditing()
     }
+    
     
     getNewChecklistDisplay = () => {
         if (this.state.isEditing) return (
-            <form onBlur={this.setNotEditing} onSubmit={this.onSubmit}>
+            <form className="new-checklist-form" onBlur={this.setNotEditing}  onSubmit={this.onSubmit} > 
                 <input type="text" autoFocus value={this.state.txtValue} onChange={this.onChange} />
                 <button className="save-btn" type="submit">Save</button>
             </form>

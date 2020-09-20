@@ -37,7 +37,7 @@ export class CardDetailsHeader extends Component {
     getIsEditing = () => {
         if (this.state.isEditing) return (
             <form onBlur={this.setNotEditing} onSubmit={this.onSubmit}>
-                <input name="header" type="text" value={this.state.txt} onChange={this.onChangeText}/>
+                <input name="header" type="text" autoFocus value={this.state.txt} onChange={this.onChangeText}/>
             </form>
         )
         return <div onClick={this.setEditing}><h2>{this.state.txt}</h2></div>

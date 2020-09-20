@@ -35,7 +35,7 @@ export class CardDueDateSetter extends Component {
     onSetDueDate = (ev) => {
         const formDate = ev.target.value
         const timestamp = new Date(formDate).getTime()
-        this.setState({ date: timestamp }, this.submitDueDate)
+        this.setState({ date: timestamp })
     }
 
     submitDueDate = () => {
@@ -98,7 +98,7 @@ export class CardDueDateSetter extends Component {
                     >
                         <form noValidate>
                             <TextField
-                                // onBlur={this.submitDueDate}
+                                onBlur={this.submitDueDate}
                                 onChange={this.onSetDueDate}
                                 id="datetime-local"
                                 label="Set Due Date"

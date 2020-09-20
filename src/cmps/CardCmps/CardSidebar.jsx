@@ -11,7 +11,7 @@ export function CardSidebar(props) {
             <Button>Move Card</Button>
             <CardDueDateSetter dueDate={props.dueDate} onUpdateDueDate={props.onUpdateDueDate}/>
             <Button onClick={props.onArchiveCard}>Archive Card</Button>
-            <CardNewChecklist onUpdate={props.onUpdateChecklists} />
+            <CardNewChecklist addActivity={props.addActivity} onUpdate={props.onUpdateChecklists} />
         </div>
     )
 }

@@ -93,14 +93,23 @@ export class CardChecklistTodo extends Component {
         this.setState({ txtValue: ev.target.value })
     }
 
-    onCheck = (ev) => {
-        this.setState({ isDone: ev.target.checked }, this.updateChecklist)
+    onCheck = async(ev) => {
+        let txt = ''
+        let checkStatus = ev.target.checked
+        if (checkStatus) {
+            txt = `completed ${this.state.txtValue}`
+        } else {
+            txt = `marked ${this.state.txtValue} incomplete`
+        }
+        await this.props.addActivity(txt)
+        this.setState({ isDone: checkStatus}, this.updateChecklist)
     }
 
     onRemove = (ev) => {
         ev.stopPropagation()
         this.setState({ txtValue: '' }, this.updateChecklist)
     }
+
     updateChecklist = () => {
         let id;
         if (this.props.todo) {
