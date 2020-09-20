@@ -8,14 +8,12 @@ import { toggleFullLabels } from '../../store/actions/boardActions';
 import { CardLabels } from './CardLabels';
 import { CardPreviewDueDate } from './CardPreviewDueDate';
 
-import { Draggable } from 'react-beautiful-dnd'
 
 class _CardPreview extends Component {
 
     state = {
         isEditing: false
     }
-
 
 
     onSetEditing = () => {
@@ -88,19 +86,9 @@ class _CardPreview extends Component {
     }
 
     render() {
-
         return (
-
-            
-            <Draggable draggableId={this.props.card.id} index={this.props.index}>
-            {provided=>(
-                
             <div 
-            ref={provided.innerRef}
-                {...provided.draggableProps}
-                {...provided.dragHandleProps}
-
-                className={'card-preview'}
+                className={'card-preview'} 
                 onClick={this.onOpenCardDetails}>
                 {this.getCardPreviewStyle()}
                 <CardLabels onClickLabel={this.onToggleLabels}
@@ -116,13 +104,10 @@ class _CardPreview extends Component {
                     <EditOutlinedIcon />
                 </div>
                 <div className="card-preview-attrs">
-                    <CardPreviewDueDate dueDate={this.props.card.dueDate} />
-                    {this.getCardPreviewAttrs()}
+                <CardPreviewDueDate dueDate={this.props.card.dueDate} />
+                {this.getCardPreviewAttrs()}
                 </div>
             </div>
-            )}
-
-            </Draggable>
         )
     }
 }

@@ -5,10 +5,15 @@ import { NewItem } from './NewItem'
 import { addCard } from '../store/actions/groupActions'
 import { CardList } from './CardCmps/CardList'
 
+import { Droppable, Draggable } from 'react-beautiful-dnd'
+
 class _Group extends Component {
 
-    componentDidMount() {
-    }
+
+componentDidMount() {
+    console.log('yes');
+
+}
 
     onAddCard = (txt) => {
         this.props.addCard(this.props.board, txt, this.props.group.id)
@@ -22,17 +27,35 @@ class _Group extends Component {
     render() {
         const group = this.props.group
         return (
-            <div className="group-container">
-                <div className="group-header">
-                    {group.title}
-                </div>
-                <div className="card-container">
-                    <CardList group={group} />
-                </div>
-                <div className="new-card-btn-container">
-                <NewItem addItemTxt={this.getAddItemTxt()} placeHolderTxt='Add a title for this card...' addBtnTxt="Add Card" onAdd={this.onAddCard} />
-                </div>
-            </div>
+            <Draggable draggableId={group.id} index={this.props.index}>
+                {provided=>(
+                    <div {...provided.draggableProps} ref={provided.innerRef}
+                        className="group-container">
+                        <div {...provided.dragHandleProps}
+                            className="group-header">
+                            {group.title}
+                        </div>
+                        <Droppable droppableId={group.id} type="card">
+                        {provided=>(
+                                <div className="card-container"
+                                ref={provided.innerRef}
+                                {...provided.droppableProps}
+                                >
+                                {group.cards.map((card, index) => {
+                                    if (!card.archivedAt) {
+                                        return <CardPreview key={card.id} card={card} index={index}/>
+                                    }
+                                })}
+                                {provided.placeholder}
+                            </div>
+                        )}
+                        </Droppable>
+                        <div className="new-card-btn-container">
+                            <NewItem addItemTxt={this.getAddItemTxt()} placeHolderTxt='Add a title for this card...' addBtnTxt="Add Card" onAdd={this.onAddCard} />
+                        </div>
+                    </div>
+                )}
+            </Draggable>
         )
     }
 }

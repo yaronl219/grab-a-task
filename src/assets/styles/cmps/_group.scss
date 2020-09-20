@@ -1,7 +1,13 @@
 .group-list-container {
     display: flex;
-    height: 95vh;
-    padding: 10px;
+    height: 90vh;
+    padding: rem(10px);
+    overflow-x: auto;
+
+}
+
+.group-list-outer-container{
+    display: flex;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;

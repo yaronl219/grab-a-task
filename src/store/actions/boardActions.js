@@ -90,4 +90,10 @@ export function onAddNewGroup(board, groupTitle){
   }
 }
 
+export function updatePosition(newBoard){
+  return async dispatch=>{
+    dispatch({ type: 'SET_BOARD', board: newBoard })
+  }
+}
+
 export function switchGroup(){}
