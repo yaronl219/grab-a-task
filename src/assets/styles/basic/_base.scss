@@ -12,11 +12,44 @@ body {
     margin: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: Roboto-Medium;
     line-height: 1;
 }
 
 img {
     width: 100%;
+}
+
+.green {
+    background-color: $labelGreen;
+    color: set-text-color($labelGreen);
+}
+.red {
+    background-color: $labelRed;
+    color: set-text-color($labelRed);
+}
+.blue {
+    background-color: $labelBlue;
+    color: set-text-color($labelBlue);
+}
+.orange {
+    background-color: $labelOrange;
+    color: set-text-color($labelOrange);
+}
+.purple {
+    background-color: $labelPurple;
+    color: set-text-color($labelPurple);
+}
+.yellow {
+    background-color: $labelYellow;
+    color: set-text-color($labelYellow);
+}
+.grey {
+    background-color: $labelGrey;
 }
