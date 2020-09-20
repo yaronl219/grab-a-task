@@ -4,9 +4,10 @@ import { CardPreview } from './CardPreview'
 export function CardList(props) {
     return (
         <div>
-            {props.group.cards.map(card => {
+            {props.group.cards.map((card,idx) => {
                 if (!card.archivedAt) {
                     return <CardPreview key={card.id} card={card} />}
+                    return <React.Fragment key={idx}/>
                 }
             )
         }

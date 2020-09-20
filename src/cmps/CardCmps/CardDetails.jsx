@@ -1,17 +1,18 @@
-import { Card, IconButton } from '@material-ui/core';
+import {IconButton } from '@material-ui/core';
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { updateCard, loadBoard, switchGroup } from '../../store/actions/boardActions';
 import { CardAttachmentList } from './CardAttachmentList';
-import { CardChecklist } from './CardChecklist';
 import { CardSidebar } from './CardSidebar';
 import CloseIcon from '@material-ui/icons/Close';
 import { CardDescription } from './CardDescription';
 import { CardDetailsHeader } from './CardDetailsHeader';
 import { CardLabels } from './CardLabels';
 import { CardDueDateSetter } from './CardDueDateSetter';
+import { CardChecklistList } from './CardChecklistList';
 import { ActivityLog } from '../Sidebar/ActivityLog';
+import ListIcon from '@material-ui/icons/List';
 
 class _CardDetails extends Component {
 
@@ -67,7 +68,7 @@ class _CardDetails extends Component {
         const labels = this.state.card.labels
         if (labels) return (
             <div className="card-details-label-container">
-                <h3>Labels</h3>
+                <h5>Labels</h5>
                 <CardLabels onClickLabel={this.openEditLabelsModal}
                     cardLabels={labels}
                     boardLabels={this.props.board.labels}
@@ -77,12 +78,12 @@ class _CardDetails extends Component {
         )
         // console.log(this.state.card.labels)
     }
-    getCardModules = () => {
-        let cardModules = []
-        const card = this.state.card
-        if (card.attachments) cardModules.push(<CardAttachmentList attachments={card.attachments} />)
-        if (card.checklists) cardModules.push(<CardChecklist checklists={card.checklists} />)
-    }
+    // getCardModules = () => {
+    //     let cardModules = []
+    //     const card = this.state.card
+    //     if (card.attachments) cardModules.push(<CardAttachmentList attachments={card.attachments} />)
+    //     if (card.checklists) cardModules.push(<CardChecklist checklists={card.checklists} />)
+    // }
 
     onArchiveCard = () => {
         let card = { ...this.state.card }
@@ -111,12 +112,38 @@ class _CardDetails extends Component {
         const card = { ...this.state.card }
         card.description = description
         this.setState({ card }, () => this.submitCard(card))
+        
     }
+
+    onUpdateChecklists = (newChecklist) => {
+        console.log(newChecklist)
+        const card = { ...this.state.card }
+        if (!card.checklists) card.checklists = []
+        // updating
+        const checklistIdx = card.checklists.findIndex(checklist => checklist.id === newChecklist.id)
+        if (checklistIdx >=0) {
+            card.checklists = card.checklists.map(checklist => {
+                if (checklist.id === newChecklist.id) return newChecklist
+                return checklist
+            })
+        } else {
+            card.checklists.push(newChecklist)
+        }
+
+        // removing excess checklists
+        card.checklists = card.checklists.filter(checklist => {
+            if (checklist.title) return checklist
+        }
+        )
+        this.setState({ card }, () => this.submitCard(card))
+    }
+
 
     render() {
         const card = this.state.card
         if (!card) return <div className="card-details-container">Loading...</div>
         return (
+            <div className="card-details-background">
             <div className="card-details-container">
                 <IconButton onClick={this.onCloseModal} aria-label="close">
                     <CloseIcon />
@@ -125,18 +152,33 @@ class _CardDetails extends Component {
                     <CardDetailsHeader headerTxt={card.title} onUpdate={this.onUpdateHeader} />
                     <small>in list <span>{this.state.groupName}</span></small>
                 </div>
+                <div className="card-details-attrs">
                 {this.getLabels()}
+                <div>
+                <h5>Due Date</h5>
                 <CardDueDateSetter onUpdateDueDate={this.onUpdateDueDate} dueDate={card.dueDate} displayDate={true} displayTime={true} />
+                </div>
+                </div>
+                <section>
                 <main className="card-details-main">
                     <CardDescription onUpdateDesc={this.onUpdateDesc} description={card.description} />
+                    <CardChecklistList checklists={card.checklists} onUpdate={this.onUpdateChecklists} />
                 </main>
                 <aside className="card-details-sidebar">
-                    <CardSidebar dueDate={card.dueDate} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} />
+                    <CardSidebar dueDate={card.dueDate} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} onUpdateChecklists={this.onUpdateChecklists} />
                 </aside>
+                </section>
+                <div className="card-details-activity-log">
+                    <div className="card-details-activities-title">
+                    <ListIcon />
+                    <h5>Activities</h5>
+                    </div>
                 <ActivityLog
                     boardId={this.props.board._id}
                     displayMode="card"
                     activities={this.props.board.activities.filter(activity => activity.card.id === card.id)} />
+                    </div>
+            </div>
             </div>
         )
     }

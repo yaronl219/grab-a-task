@@ -1,15 +1,17 @@
 import { CardDueDateSetter } from "./CardDueDateSetter"
 import React from 'react'
+import { CardNewChecklist } from "./CardNewChecklist"
+import { Button } from "@material-ui/core"
 
 
 
 export function CardSidebar(props) {
     return (
         <div className="card-sidebar">
-            <button>Move Card</button>
+            <Button>Move Card</Button>
             <CardDueDateSetter dueDate={props.dueDate} onUpdateDueDate={props.onUpdateDueDate}/>
-            <button onClick={props.onArchiveCard}>Archive Card</button>
-
+            <Button onClick={props.onArchiveCard}>Archive Card</Button>
+            <CardNewChecklist onUpdate={props.onUpdateChecklists} />
         </div>
     )
 }
