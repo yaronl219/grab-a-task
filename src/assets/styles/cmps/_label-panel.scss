@@ -1,0 +1,121 @@
+.label-panel-container {
+    & .label {
+        width: 100%;
+        margin: 5px 0;
+        position: relative;
+
+        & .label-color {
+            width: 100%;
+            height: rem(30px);
+            padding: 0 rem(5px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 3px;
+            transition: all 0.15s;
+            cursor: pointer;
+            & button {
+                color: $black;
+            }
+            &.green:hover {
+                box-shadow: -5px 0px 0px 0px darken($labelGreen, 20%);
+            }
+            &.red:hover {
+                box-shadow: -5px 0px 0px 0px darken($labelRed, 20%);
+            }
+            &.blue:hover {
+                box-shadow: -5px 0px 0px 0px darken($labelBlue, 20%);
+            }
+            &.orange:hover {
+                box-shadow: -5px 0px 0px 0px darken($labelOrange, 20%);
+            }
+            &.purple:hover {
+                box-shadow: -5px 0px 0px 0px darken($labelPurple, 20%);
+            }
+            &.yellow:hover {
+                box-shadow: -5px 0px 0px 0px darken($labelYellow, 20%);
+            }
+            &.grey:hover {
+                box-shadow: -5px 0px 0px 0px darken($labelGrey, 20%);
+            }
+            &.add-label {
+                margin-top: rem(25px);
+                background-color: $memberClr;
+                font-size: 0.7rem;
+                color: $closeClr;
+                display: flex;
+                justify-content: center;
+                & + div {
+                    top:rem(68px);
+                }
+            }
+        }
+        & span {
+            transition: all 0.15s;
+        }
+        & svg {
+            opacity: 0;
+            transition: all 0.15s;
+        }
+        & .label-color:hover {
+            & span {
+                padding-left: rem(5px);
+            }
+            & svg {
+                opacity: 1;
+            }
+        }
+        
+    }
+}
+.label-edit-modal {
+    background-color: #fff;
+    height: fit-content;
+    left: 7.5%;
+    top: rem(42px);
+    width: 85%;
+    border-radius: rem(3px);
+    padding: rem(10px);
+    position: absolute;
+    z-index: 1;
+    box-shadow: 0px 0px 5px 0px #000000;
+    text-align: center;
+    & input[type="text"] {
+        height: rem(25px);
+        padding-left: rem(5px);
+        border-radius: rem(3px);
+        border: none;
+        background-color: $memberClr;
+        font-family: inherit;
+    }
+    & input:focus {
+        outline: none;
+    }
+    & .color-pallete {
+        display: flex;
+        flex-wrap: wrap;
+        & input[type="radio"] + label {
+            margin: rem(5px);
+        }
+        & input[type="radio"]:checked + label {
+            color: red;
+            box-shadow: 0 0 0 2px $black;
+            border-radius: 3px;
+        }
+        & .color-picker {
+            width: rem(30px);
+            height: rem(25px);
+            border-radius: rem(3px);
+            &:checked {
+                border: 1px solid $black;
+            }
+        }
+    }
+    & .save-cancel-btns {
+        margin: 0 auto;
+        & button {
+            border-radius: rem(3px);
+            cursor: pointer;
+        }
+    }
+}

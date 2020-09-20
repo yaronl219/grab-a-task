@@ -6,13 +6,21 @@ import { Route, Switch } from 'react-router';
 import { CardDetails } from './cmps/CardCmps/CardDetails';
 import { Board } from './pages/Board';
 import { Navbar } from './cmps/Navbar';
+import userService from './services/userService';
 
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux';
 import { updateBoard, updatePosition } from './store/actions/boardActions';
 
+  
+
 
 class _App extends Component {
+
+  componentDidMount() {
+    userService.loginDefault()
+  }
+  
 
   onDragEnd = (result) => {
 

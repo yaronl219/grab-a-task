@@ -3,17 +3,18 @@ import { connect } from 'react-redux'
 import { Drawer, Divider, IconButton, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import WallpaperOutlinedIcon from '@material-ui/icons/WallpaperOutlined';
-import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
+import LabelOutlinedIcon from '@material-ui/icons/LabelOutlined';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 import FormatListBulletedOutlinedIcon from '@material-ui/icons/FormatListBulletedOutlined';
 import { AboutBoard } from './AboutBoard'
 import { ChangeBackground } from './ChangeBackground'
 import { SideArchive } from './SideArchive'
 import { ActivityLog } from './ActivityLog'
+import { LabelPanel } from './LabelPanel';
 
 export class _Sidebar extends Component {
-    state = { selectedMenuOpt: null }
+    state = { selectedMenuOpt: 'labels' }
     onSetMenuOpt = (selectedMenuOpt) => {
         this.setState({ selectedMenuOpt });
     }
@@ -28,6 +29,9 @@ export class _Sidebar extends Component {
                     onSetMenuOpt={this.onSetMenuOpt} />
             case 'archive':
                 return <SideArchive isShowing={selectedMenuOpt === 'archive'}
+                    onSetMenuOpt={this.onSetMenuOpt} />
+            case 'labels':
+                return <LabelPanel isShowing={selectedMenuOpt === 'labels'}
                     onSetMenuOpt={this.onSetMenuOpt} />
             case null:
                 return <React.Fragment></React.Fragment>
@@ -63,6 +67,10 @@ export class _Sidebar extends Component {
                         <ListItem button className="menu-btn" onClick={() => { this.onSetMenuOpt('archive') }}>
                             <ListItemIcon><ArchiveOutlinedIcon /></ListItemIcon>
                             <ListItemText>Archive</ListItemText>
+                        </ListItem>
+                        <ListItem button className="menu-btn" onClick={() => { this.onSetMenuOpt('labels') }}>
+                            <ListItemIcon><LabelOutlinedIcon /></ListItemIcon>
+                            <ListItemText>Labels</ListItemText>
                         </ListItem>
                     </List>
                     <Divider />

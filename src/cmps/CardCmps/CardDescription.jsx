@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import SubjectIcon from '@material-ui/icons/Subject';
 
 export class CardDescription extends Component {
 
@@ -32,13 +33,11 @@ export class CardDescription extends Component {
     }
 
     onSave = () => {
-        // console.log(this.state.description)
         this.props.onUpdateDesc(this.state.description)
         this.setNotEditing()
     }
 
     getDescriptionTxt = () => {
-        console.log(this.state.description)
         if (!this.state.description) return 'Add a more detailed description…'
         return this.state.description
     }
@@ -48,18 +47,23 @@ export class CardDescription extends Component {
         )
         return (
             <div className='item-details-description-text-edit-container'>
-                <textarea value={this.state.description} onChange={this.onChange} placeholder="Enter a more details description here..." />
+                <textarea value={this.state.description} autoFocus onChange={this.onChange} onBlur={this.onSave} placeholder="Enter a more details description here..." />
                 <button onClick={this.onSave} className="save-btn">Save</button>
             </div>
         )
     }
 
+    // 
     render() {
         // if (!this.state.isReady) return <div>Loading...</div>
         return (
             <div className="item-details-description">
                 {/* <input value={this.state.description} onChange={this.onChange} placeholder="Enter a more details description here..." /> */}
+                <SubjectIcon />
+                <div>
+                <h3>Description</h3>
                 {this.getIsEditing()}
+                </div>
             </div>
         )
     }
