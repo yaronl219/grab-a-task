@@ -6,7 +6,7 @@ import { GroupList } from '../cmps/GroupList';
 
 import { Sidebar } from '../cmps/Sidebar/Sidebar';
 // import { connect } from 'socket.io-client';
-import { loadBoard, onSetFilterBy } from '../store/actions/boardActions';
+import { loadBoard, onSetFilterBy, setStyle } from '../store/actions/boardActions';
 
 
 
@@ -22,6 +22,7 @@ class _Board extends Component {
 
   async componentDidMount() {
     await this.props.loadBoard('b101')
+    this.props.setStyle(this.props.board.style)
   }
 
   onFilter = (filterBy) => {
@@ -39,7 +40,7 @@ class _Board extends Component {
     if (!board) return <div>Loading...</div>
 
     return (
-      <div className="board-page">
+      <div className="board-container">
         <BoardHeader title={board.title}
           members={board.members}
           onToggleSidebar={this.onToggleSidebar}
@@ -64,7 +65,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   loadBoard,
-  onSetFilterBy
+  onSetFilterBy,
+  setStyle
 };
 
 export const Board = connect(mapStateToProps, mapDispatchToProps)(_Board);

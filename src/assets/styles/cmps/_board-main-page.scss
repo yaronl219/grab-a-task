@@ -1,9 +1,14 @@
-.board-page{
-    height: 100vh;
-    background-color: lightslategray;
+.board-container {
+    height: 95vh;
 }
 
 .App{
     height: 100vh;
     overflow-y: hidden;
+}
+
+.app-bg{
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }

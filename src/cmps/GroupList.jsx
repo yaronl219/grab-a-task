@@ -29,10 +29,7 @@ export class GroupList extends Component {
                         {provided=> (
                         <div {...provided.droppableProps}
                             ref={provided.innerRef}
-                            className="group-list-container" style={{
-                            backgroundImage: style.bgImg,
-                            color: style.fontClr
-                        }}>
+                            className="group-list-container" >
                             {groups.map((group, index) => {
                                 if (!group.archivedAt) {
                                     return <Group key={group.id} group={group} index={index}/>

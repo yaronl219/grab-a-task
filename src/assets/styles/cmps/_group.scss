@@ -1,19 +1,18 @@
-.group-list-container {
-    display: flex;
-    height: 90vh;
-    padding: rem(10px);
-    overflow-x: auto;
 
-}
-
-.group-list-outer-container{
+.group-list-outer-container {
     display: flex;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
+    width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
+    height: 90vh;
+    justify-content: flex-start;
+    padding: rem(8px) rem(4px);
 }
+
+.group-list-container{
+    display: flex;
+}
+
 
 .group-container {
     background-color: $groupClr;

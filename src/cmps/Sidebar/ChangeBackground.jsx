@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Drawer, Divider, IconButton, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
-import { updateBoard } from '../../store/actions/boardActions.js';
+import { updateBoard, setStyle } from '../../store/actions/boardActions.js';
 
 
 export class _ChangeBackground extends Component {
     onSetBoardStyle = (style) => {
         const newBoard = { ...this.props.board, style };
         this.props.updateBoard(newBoard);
+        this.props.setStyle(newBoard.style)
     }
     render() {
         const { board, isShowing, onSetMenuOpt } = this.props;
@@ -72,6 +73,8 @@ const mapStateToProps = state => {
     };
 };
 const mapDispatchToProps = {
-    updateBoard
+    updateBoard,
+    setStyle
+    
 };
 export const ChangeBackground = connect(mapStateToProps, mapDispatchToProps)(_ChangeBackground);

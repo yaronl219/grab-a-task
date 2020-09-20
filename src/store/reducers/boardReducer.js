@@ -2,6 +2,7 @@
 const initialState = {
   board: {},
   filterBy: null,
+  style: {},
   fullLabel: false
 };
 
@@ -16,6 +17,11 @@ export default function(state = initialState, action = {}) {
     case 'TOGGLE_FULL_LABEL':
         if (state.fullLabel) return {...state,fullLabel : false}
         return {...state,fullLabel:true}
+
+    case 'SET_STYLE':
+      console.log('enterd');
+        return{ ...state, style: action.style }
+
     default:
       return state;
   }

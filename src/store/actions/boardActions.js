@@ -142,6 +142,12 @@ export function updatePosition(newBoard){
   }
 }
 
+export function setStyle(style){
+  return async dispatch => {
+    dispatch({ type: 'SET_STYLE', style })
+  }
+}
+
 export function switchGroup(){}
 
 // =============================================

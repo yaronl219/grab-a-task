@@ -20,7 +20,6 @@ class _App extends Component {
   componentDidMount() {
     userService.loginDefault()
   }
-  
 
   onDragEnd = (result) => {
 
@@ -90,26 +89,33 @@ class _App extends Component {
 
   render(){
 
+    // console.log(this.props.style)
     return (
-      <DragDropContext onDragEnd={this.onDragEnd}>
-          <div className="App">
-            <header className="App-header">
-              <Navbar />
-            </header>
+      
+      (this.props.style) 
+      ? <DragDropContext onDragEnd={this.onDragEnd}>
+        <div className="app-bg" style={{ backgroundImage: this.props.style.bgImg }}>
+            <div className="App">
+              <header className="App-header">
+                <Navbar />
+              </header>
 
-            <Switch>
-              <Route path="/board/:id/:cardId?" component={Board} exact />
-              <Route component={Board} path='/' />
-            </Switch>
-          </div>
+              <Switch>
+                <Route path="/board/:id/:cardId?" component={Board} exact />
+                <Route component={Board} path='/' />
+              </Switch>
+            </div>     
+        </div>
       </DragDropContext>
-    );
+      : <div>loading</div>
+    )
   }
 }
 
 const mapStateToProps = state => {
   return {
-    board: state.boardReducer.board
+    board: state.boardReducer.board,
+    style: state.boardReducer.style
   }
 }
 
@@ -119,4 +125,11 @@ const mapDispatchToProps = {
 };
 
 export const App = connect(mapStateToProps, mapDispatchToProps)(_App);
+
+// <div className="groups-list-bg" 
+// style={{
+// backgroundImage: style.bgImg,
+// color: style.fontClr
+// }}
+// >
 
