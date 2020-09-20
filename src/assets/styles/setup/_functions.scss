@@ -1,10 +1,19 @@
 // REM Functions
 @function rem($size) {
-    $remSize: $size / 16px;
-    @return ($remSize) * 1rem;
+  $remSize: $size / 16px;
+  @return ($remSize) * 1rem;
 }
 
 // EM Functions
 @function em($pixels, $context: 16px) {
-    @return ($pixels/$context) * 1em;
+  @return ($pixels/$context) * 1em;
+}
+
+// Set text color dark or ligh based on parent background
+@function set-text-color($color) {
+  @if (lightness($color) < 50) {
+    @return $black; // Lighter color, return black
+  } @else {
+    @return $white; // Darker color, return white
+  }
 }

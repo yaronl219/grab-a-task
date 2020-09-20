@@ -12,13 +12,13 @@ export function loadBoard(boardId) {
 }
 
 export function toggleFullLabels() {
-    return dispatch => {
-        dispatch({type:'TOGGLE_FULL_LABEL'})
-    }
+  return dispatch => {
+    dispatch({ type: 'TOGGLE_FULL_LABEL' })
+  }
 }
 
 export function updateBoard(board) {
-    console.log('update board action')
+  console.log('update board action')
   return async dispatch => {
     try {
       let newBoard = JSON.parse(JSON.stringify(board))
@@ -41,6 +41,36 @@ export function updateCard(board, newCard) {
       dispatch({ type: 'SET_BOARD', board: newBoard })
     } catch (err) {
       console.log('error updating card', err)
+    }
+  }
+}
+
+export function addLabel(board, newLabel) {
+  return async dispatch => {
+    try {
+      let newBoard = JSON.parse(JSON.stringify(board))
+      newLabel.id = _makeId()
+      newBoard.labels.push(newLabel)
+      newBoard = await boardService.updateBoard(newBoard) // updating the DB
+      dispatch({ type: 'SET_BOARD', board: newBoard })
+    } catch (err) {
+      console.log('error adding label', err)
+    }
+  }
+}
+
+export function updateLabel(board, updatedlabel) {
+  return async dispatch => {
+    try {
+      let newBoard = JSON.parse(JSON.stringify(board))
+      newBoard.labels = newBoard.labels.map(label => {
+        if (label.id === updatedlabel.id) label = updatedlabel
+        return label
+      })
+      newBoard = await boardService.updateBoard(newBoard) // updating the DB
+      dispatch({ type: 'SET_BOARD', board: newBoard })
+    } catch (err) {
+      console.log('error updating label', err)
     }
   }
 }
@@ -82,7 +112,7 @@ export function onSetFilterBy(board, filterBy) {
   }
 }
 
-export function onAddNewGroup(board, groupTitle){
+export function onAddNewGroup(board, groupTitle) {
   return async dispatch => {
     // as for now it first brings the current board from the db
     const newBoard = await boardService.addNewGroup(board._id, groupTitle)
@@ -90,4 +120,16 @@ export function onAddNewGroup(board, groupTitle){
   }
 }
 
-export function switchGroup(){}
+export function switchGroup() { }
+
+// =============================================
+
+function _makeId(length = 8) {
+  let text = '';
+  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  for (let i = 0; i < length; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+
+  return text;
+}

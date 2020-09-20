@@ -1,7 +1,4 @@
 .activity-log {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
     font-size: 0.7rem;
     & a,
     a:visited {
@@ -15,7 +12,6 @@
     & li {
         display: flex;
         height: fit-content;
-        // align-items: center;
         margin-bottom: rem(15px);
         & .member-preview {
             display: inline-block;
