@@ -126,6 +126,7 @@ class _CardPreview extends Component {
                     <CardPreviewDueDate dueDate={this.props.card.dueDate} />
                     {this.getCardPreviewAttrs()}
                 </div>
+                {provided.placeholder}
             </div>
             )}
 

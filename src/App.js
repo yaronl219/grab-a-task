@@ -29,19 +29,7 @@ class _App extends Component {
       if(destination.droppableId === source.droppableId && destination.index === source.index) return
 
 
-      if(type === 'group'){
 
-        const newGroupsOrder = Array.from(this.props.board.groups)
-        const currGroup = this.props.board.groups.find(group => group.id === draggableId)
-        newGroupsOrder.splice(source.index, 1)
-        newGroupsOrder.splice(destination.index, 0, currGroup)
-
-        const newBoard = {...this.props.board, groups: newGroupsOrder}
-        this.props.updatePosition(newBoard)
-        this.props.updateBoard(newBoard)
-        return
-        
-      }
 
       if(type === 'card'){
         const startGroupIndex = this.props.board.groups.findIndex(group => group.id === source.droppableId)
@@ -60,6 +48,7 @@ class _App extends Component {
             newGroups[startGroupIndex] = newGroup
             const newBoard = {...this.props.board, groups: newGroups}
             this.props.updatePosition(newBoard)
+            this.props.updateBoard(newBoard)
             return
         }
   
@@ -85,6 +74,23 @@ class _App extends Component {
             return
         }
       }
+
+            if (type === 'group') {
+
+              const newGroupsOrder = Array.from(this.props.board.groups)
+              const currGroup = this.props.board.groups.find(group => group.id === draggableId)
+              newGroupsOrder.splice(source.index, 1)
+              newGroupsOrder.splice(destination.index, 0, currGroup)
+
+              const newBoard = {
+                ...this.props.board,
+                groups: newGroupsOrder
+              }
+              this.props.updatePosition(newBoard)
+              this.props.updateBoard(newBoard)
+              return
+
+            }
   }
 
   render(){
