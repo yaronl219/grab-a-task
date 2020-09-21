@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import { NewBoardColor } from './NewBoardColor'
 import { connect } from 'react-redux';
-
+import { allBoardColors } from '../../assets/bgColors/bgColors';
 export class _AddNewBoard extends Component {
 
     state = {
@@ -25,7 +25,8 @@ export class _AddNewBoard extends Component {
     }
 
     render() {    
-
+        console.log(allBoardColors)
+        
         return (
             <div className="add-board-container">
                 <button onClick={ this.props.onCloseModal }>x</button>
@@ -33,7 +34,7 @@ export class _AddNewBoard extends Component {
                 <input type="text" placeholder="New Board's Name" autoFocus/>
                 <div className="new-board-colors-container">
                     {
-                        this.props.boardColors.map(boardColor => {
+                        allBoardColors.map(boardColor => {
                             return <NewBoardColor 
                                 color={boardColor.color}
                                 key={boardColor.id}
