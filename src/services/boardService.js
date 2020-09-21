@@ -13,6 +13,7 @@ export const boardService = {
     filter,
     archiveGroup,
     archiveAllCards,
+    addNewBoard,
     createActivity
 };
 
@@ -148,8 +149,47 @@ function createActivity(partialActivity) {
             newCard.archivedAt = Date.now()
             return newCard
         });
-        
+
         newBoard.groups[groupIdx].cards = newCards
         const boardToReturn = await updateBoard(newBoard)
         return boardToReturn
+    }
+
+    async function addNewBoard(boardName, boardColor){
+        console.log(boardName);
+        console.log(boardColor);
+        console.log('Finish backend to push new board');
+
+        const newBoard = {
+            _id: utils.makeId(),
+            title: boardName,
+            isArchived: false,
+            createdAt: Date.now,
+            createdBy: {
+                _id: 'u101',
+                fullName: 'Abi Abambi',
+                imgUrl: 'http://some-img'
+            },
+            style: {
+                id: utils.makeId(),
+                fontClr: '#f9f9f9',
+                bgImg: null
+            },
+            members:[],
+            groups:[{
+                id: utils.makeId(),
+                style: {},
+                title: 'Add New List Title',
+                archivedAt: false,
+                cards: [{
+                    id: utils.makeId(),
+                    title: 'Add New Card Title',
+                    description: "description",
+                    archivedAt: false,
+                    labels: []
+                }]
+            }]
+        }
+
+        // push new board to board collection and forword user to the new route
     }

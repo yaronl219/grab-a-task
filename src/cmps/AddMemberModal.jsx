@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { MemberPreview } from './BoardHeader/MemberPreview'
+import { ClickAwayListener } from '@material-ui/core';
 
 
 export class _AddMemberModal extends Component {
@@ -11,20 +12,22 @@ export class _AddMemberModal extends Component {
         const { members } = this.props
         if(!members) return <div>loading</div>
         return (
-            <div className="add-member-modal">
-                <button onClick={ this.props.onCloseModal } className="close-modal-btn">x</button>
-                <h3>Members</h3>
-                <input type="search" name="search-member" id="" />
-                <div className="add-members-container">
-                    {members.map(member => {
-                        return <div key={member._id} className="member-container">
-                            <MemberPreview name={member.fullName} /> 
-                            {member.fullName}
-                        </div>
-                    })
-                    }
+            <ClickAwayListener onClickAway={this.props.onCloseModal}>
+                <div className="add-member-modal">
+                    {/* <button onClick={ this.props.onCloseModal } className="close-modal-btn">x</button> */}
+                    <h3>Members</h3>
+                    <input type="search" name="search-member" id="" />
+                    <div className="add-members-container">
+                        {members.map(member => {
+                            return <div key={member._id} className="member-container">
+                                <MemberPreview name={member.fullName} /> 
+                                {member.fullName}
+                            </div>
+                        })
+                        }
+                    </div>
                 </div>
-            </div>
+            </ClickAwayListener>
         )
     }
 }

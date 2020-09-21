@@ -7,6 +7,7 @@
     height: 90vh;
     justify-content: flex-start;
     padding: rem(8px) rem(4px);
+    position: relative;
 }
 
 .group-list-container{
@@ -42,6 +43,8 @@
     vertical-align: top;
     padding: 0px 4px;
     color: $textClr;
+
+
     .group-header {
         line-height: 20px;
         padding: 10px 8px;
@@ -49,8 +52,10 @@
         align-items: center;
         justify-content: space-between;
         cursor: pointer;
+        z-index: 1;
+
+
     }
-    
 }
 
     .new-item-btn {

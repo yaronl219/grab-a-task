@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Label } from './Label'
 import { onSetFilterBy } from '../../store/actions/boardActions'
-
+import { ClickAwayListener } from '@material-ui/core'
 export class _FilterByLabel extends Component {
 
     onFilterByLabel=(labelId)=>{
@@ -40,8 +40,8 @@ export class _FilterByLabel extends Component {
     render() {
         const { labels } = this.props.board
         return (
+            <ClickAwayListener onClickAway={this.props.toggleModal}>
             <div className="label-filter">
-                <button onClick={this.props.toggleModal}>x</button>
                 <h3>LABELS</h3>
                 <div className="labels-container">
 
@@ -62,6 +62,7 @@ export class _FilterByLabel extends Component {
                     })}
                 </div>
             </div>
+            </ClickAwayListener>
         )
     }
 }

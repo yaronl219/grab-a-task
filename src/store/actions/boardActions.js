@@ -177,6 +177,26 @@ export function onArchiveAllCards(groupId, board){
   }
 }
 
+export function addNewBoard(boardName, boardColor = null){
+  return async dispatch=>{
+    const newBoard = await boardService.addNewBoard(boardName, boardColor)
+    
+  }
+}
+
+export function setNewGroupName(groupId, groupName, board){
+  return async dispatch=>{
+
+    const groupIdx = board.groups.findIndex(group => group.id === groupId)
+    if (groupName === board.groups[groupIdx].title || !groupName) return
+    let newBoard = JSON.parse(JSON.stringify(board))
+    newBoard.groups[groupIdx].title = groupName
+    dispatch({ type: 'SET_BOARD', board: newBoard })
+    await boardService.updateBoard(newBoard)
+    
+  }
+}
+
 export function switchGroup(){}
 
 // =============================================

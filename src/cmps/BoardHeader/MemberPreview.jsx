@@ -5,8 +5,8 @@ export function MemberPreview(props) {
 
     function getInitials(name){
         const newName = name.split(' ')
-        const firstLetter = newName[0].charAt(0)
-        const secondLetter = newName[1].charAt(0)
+        const firstLetter = newName[0].charAt(0).toUpperCase()
+        const secondLetter = newName[1].charAt(0).toUpperCase()
         const initials = firstLetter + secondLetter
         return initials  
     }
