@@ -33,6 +33,7 @@
         line-height: 20px;
         padding: 10px 8px;
     }
+    
     .card-preview {
         background-color: #fff;
         min-height: 36px;
@@ -44,6 +45,13 @@
         .card-preview-attrs {
             display: flex;
             height: 24px;
+            .card-preview-attr {
+                margin-right: 6px;
+            }
+        }
+        .card-preview-labels {
+            display: flex;
+            gap: 3px;
         }
         .card-preview-collapsed-label {
             height: 8px;
@@ -67,6 +75,7 @@
         .card-preview-full-label:hover .card-preview-label-mask {
             width: 100%;
             height: 100%;
+            border-radius: 3px;
             background-color: rgba(0, 0, 0, 0.2);
         }
 
@@ -111,17 +120,49 @@
         right: 3px;
         top: 3px;
     }
+    
 
+    }
     .card-preview-edit-container:hover {
         background-color: #ebecf0;
     }
 
+    .new-item-btn {
+        min-height: 38px;
+        padding: 0px 8px 4px; 
+        display: flex;
+        align-items: center;
+        color: #5e6c84;
+    }
     .new-card-btn-container {
-        padding: 4px 8px;
-        margin: 2px 0px 8px;
+        // padding: 4px 8px;
+        // margin: 2px 0px 8px;
         font-size: 0.875rem;
         line-height: 1.25rem;
         font-family: Roboto-regular;
+        .new-item-form {
+            width: 100%;
+
+                .save-btn-container {
+                    align-items: center;
+                }
+            
+            textarea {
+                background-color: #fff;
+                height: 58px;
+                box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
+                // margin: 2px 8px;
+                border: none;
+                border-radius: 3px;
+                outline: 0px;
+                margin-bottom: 8px;
+                font-size: 0.875rem;
+                width: 100%;
+                font-family: Roboto;
+                padding: 6px 8px 2px;
+                resize: none;
+
+            }
     }
 
     .new-card-btn-container:hover {
