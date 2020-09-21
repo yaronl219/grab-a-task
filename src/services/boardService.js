@@ -18,6 +18,11 @@ export const boardService = {
 
 function createActivity(partialActivity) {
     // This fn needs to receive an object with the card id and title and the text in theh following format:
+    // send to this fn:
+    // txt
+    // card id
+    // card title
+    // comment txt as blank
 
         const user = userService.getLoggedInUser()
 
@@ -30,11 +35,13 @@ function createActivity(partialActivity) {
                 "_id": user._id,
                 "fullName": user.fullname,
                 "imgUrl": user.imgUrl
-            },
-            "card": {
-                "id": partialActivity.card.id,
-                "title": partialActivity.card.title
             }
+        }
+        if (!partialActivity.card) return activity
+        
+        activity.card = {
+            "id": partialActivity.card.id,
+            "title": partialActivity.card.title
         }
 
         return activity
