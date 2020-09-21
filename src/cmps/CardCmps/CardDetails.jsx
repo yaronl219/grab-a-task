@@ -75,7 +75,6 @@ class _CardDetails extends Component {
         return this.setState({ commentsOnly: true })
     }
     toggleLabelPalette = () => {
-        console.log(this.state.isLabelPaletteShowing)
         this.setState({ isLabelPaletteShowing: !this.state.isLabelPaletteShowing })
     }
 
@@ -232,7 +231,7 @@ class _CardDetails extends Component {
                             </div>
                         </main>
                         <aside className="card-details-sidebar">
-                            <CardSidebar addActivity={this.addActivity} dueDate={card.dueDate} toggleLabelPallete={this.toggleLabelPalette} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} onUpdateChecklists={this.onUpdateChecklists} />
+                            <CardSidebar addActivity={this.addActivity} dueDate={card.dueDate} toggleLabelPalette={this.toggleLabelPalette} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} onUpdateChecklists={this.onUpdateChecklists} />
                         </aside>
                     </section>
 

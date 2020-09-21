@@ -5,14 +5,16 @@
         position: relative;
         display: flex;
         justify-content: space-between;
-        & .edit-label-btn {
+        & .edit-label-btn,
+        .remove-label-btn {
             width: 0.7rem;
             &:hover {
                 background-color: rgba(0, 0, 0, 0.1);
             }
         }
-        & button svg {
-            opacity: 1;
+        & button {
+            width: rem(10px);
+            height: rem(10px);
         }
         & .label-color {
             width: 82.5%;
@@ -63,7 +65,6 @@
                 & + div {
                     top: -9.5rem;
                 }
-                
             }
         }
         & .label-text {
@@ -127,7 +128,6 @@
             margin: rem(5px);
         }
         & input[type="radio"]:checked + label {
-            color: red;
             box-shadow: 0 0 0 2px $black;
             border-radius: 3px;
         }
