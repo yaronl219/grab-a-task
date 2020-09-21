@@ -1,4 +1,4 @@
-import { Button, IconButton } from '@material-ui/core';
+import { Button, CircularProgress, IconButton } from '@material-ui/core';
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -33,6 +33,7 @@ class _CardDetails extends Component {
 
 
     componentDidMount() {
+        
         if (!this.props.board || Object.keys(!this.props.board)) {
             this.props.loadBoard('b101').then(() => {
                 return this.getCardDetails()
@@ -59,7 +60,7 @@ class _CardDetails extends Component {
         const url = window.location.href
         const regex = /\/board\/.+\//i
         const targetUrl = url.match(regex)[0]
-        this.props.history.push(targetUrl)
+        this.props.history.push(`/board/${this.props.boardId}`)
     }
 
     openEditLabelsModal = () => {
@@ -187,7 +188,7 @@ class _CardDetails extends Component {
 
     render() {
         const card = this.state.card
-        if (!card) return <div className="card-details-container">Loading...</div>
+        if (!card) return <div className="card-details-background"><div className="card-details-container"><CircularProgress /></div></div>
         return (
             <div className="card-details-background">
                 <div className="card-details-container">

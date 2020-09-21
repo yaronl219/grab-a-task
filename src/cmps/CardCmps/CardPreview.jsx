@@ -9,6 +9,8 @@ import { CardLabels } from './CardLabels';
 import { CardPreviewDueDate } from './CardPreviewDueDate';
 import ChatBubbleOutlineRoundedIcon from '@material-ui/icons/ChatBubbleOutlineRounded';
 import { Draggable } from 'react-beautiful-dnd'
+import { CardPreviewActions } from './CardPreviewActions';
+import { IconButton } from '@material-ui/core';
 
 class _CardPreview extends Component {
 
@@ -16,12 +18,20 @@ class _CardPreview extends Component {
         isEditing: false
     }
 
-
+    ref = React.createRef()
 
     onSetEditing = () => {
         this.setState({ isEditing: true })
     }
 
+    onSetNotEditing = () => {
+        this.setState({ isEditing: false })
+    }
+
+    onOpenCardActions = (ev) => {
+        ev.stopPropagation()
+        this.onSetEditing()
+    }
     getCardPreviewStyle = () => {
         const cardStyle = this.props.card.style
         if (!cardStyle || !Object.keys(cardStyle)) return <div></div>
@@ -47,7 +57,7 @@ class _CardPreview extends Component {
             if (activity.commentTxt) return activity
         })
         if (!cardComm || !cardComm.length) return null
-        
+
         return <div key="3" className="card-preview-attr"><ChatBubbleOutlineRoundedIcon style={{ fontSize: 16 }} /> {cardComm.length}</div>
     }
 
@@ -55,6 +65,7 @@ class _CardPreview extends Component {
         // to later be switched to using history
 
         let url = window.location.href
+        if (url.charAt(url.length-1) !== '/') url += '/'
         url += `${this.props.card.id}`
         window.location.assign(url)
     }
@@ -132,8 +143,9 @@ class _CardPreview extends Component {
                         <div className="card-preview-header">
                             {this.props.card.title}
                         </div>
-                        <div className="card-preview-edit-container">
-                            <EditOutlinedIcon />
+                        <div ref={this.ref} onClick={this.onOpenCardActions} className="card-preview-edit-container">
+                            <EditOutlinedIcon  fontSize="inherit" />
+                            {(this.state.isEditing) ? <CardPreviewActions anchorEl={this.ref} props={this.props} onClose={this.onSetNotEditing} cardStyle={this.getCardPreviewStyle()} attrs={this.getCardPreviewAttrs()} /> : <React.Fragment />}
                         </div>
                         <div className="card-preview-attrs">
                             <CardPreviewDueDate dueDate={this.props.card.dueDate} />
