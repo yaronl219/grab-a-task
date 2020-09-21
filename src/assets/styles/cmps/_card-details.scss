@@ -4,6 +4,7 @@
     flex-wrap: nowrap;
     position: relative;
     justify-content: center;
+<<<<<<< HEAD
     & .label-palette {
         padding: 0 rem(10px);
         background-color: $groupClr;
@@ -25,10 +26,15 @@
             }
         }
     }
+=======
+    background-color:  rgba(0,0,0,.64);
+    
+    z-index: 8;
+>>>>>>> 81850b674fb470636d51e991104806156bd17a56
 }
 .card-details-container {
     position: fixed;
-    z-index: 9;
+    z-index: 999;
     top: 5vh;
     padding: 1rem;
     height: 90vh;
@@ -234,6 +240,9 @@
                 height: 2rem;
                 font-size: 0.875rem;
                 font-weight: 400;
+                span {
+                    margin-left: 5px;
+                }
             }
             button:hover {
                 background-color: rgba(9, 30, 66, 0.12);
