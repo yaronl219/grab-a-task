@@ -235,11 +235,7 @@ class _CardDetails extends Component {
                             </div>
                         </main>
                         <aside className="card-details-sidebar">
-<<<<<<< HEAD
-                            <CardSidebar addActivity={this.addActivity} dueDate={card.dueDate} toggleLabelPalette={this.toggleLabelPalette} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} onUpdateChecklists={this.onUpdateChecklists} />
-=======
                             <CardSidebar addActivity={this.addActivity} toggleDisplayMembers={this.toggleDisplayMembers} dueDate={card.dueDate} toggleLabelPallete={this.toggleLabelPalette} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} onUpdateChecklists={this.onUpdateChecklists} />
->>>>>>> 62ce60f5fbe2de5226982508b293d468a5b03f88
                         </aside>
                     </section>
 
