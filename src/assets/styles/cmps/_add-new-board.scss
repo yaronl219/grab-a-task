@@ -1,6 +1,5 @@
 .add-board-container{
     width: rem(280px);
-    // height: rem(300px);
     position: absolute;
     z-index: 3;
     background-color: #fafafa;
@@ -12,8 +11,11 @@
     text-align: center;
     display: flex;
     flex-direction: column;
-        padding: rem(12px);
+    padding: rem(12px);
 
+    h3{
+        font-size: rem(18px);
+    }
 
     >:first-child{
         align-self: flex-end;

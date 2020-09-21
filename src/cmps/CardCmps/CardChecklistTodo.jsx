@@ -75,7 +75,7 @@ export class CardChecklistTodo extends Component {
 
     onSubmit = (ev) => {
         ev.preventDefault()
-        this.setNotEditing()
+        // this.setNotEditing()
         this.updateChecklist()
 
     }
@@ -124,7 +124,7 @@ export class CardChecklistTodo extends Component {
         }
         
         this.props.onUpdate(todo)
-
+        this.setState({txtValue:''})
     }
 
     render() {

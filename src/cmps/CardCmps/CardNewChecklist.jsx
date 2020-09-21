@@ -18,7 +18,9 @@ export class CardNewChecklist extends Component {
     onChange = (ev) => {
         this.setState({ txtValue: ev.target.value })
     }
+
     onSubmit = async(ev) => {
+        console.log('onsubmit')
         ev.preventDefault()
         if (!this.state.txtValue) return this.setNotEditing()
         const checklist = {
@@ -37,7 +39,7 @@ export class CardNewChecklist extends Component {
         if (this.state.isEditing) return (
             <form className="new-checklist-form" onBlur={this.setNotEditing}  onSubmit={this.onSubmit} > 
                 <input type="text" autoFocus value={this.state.txtValue} onChange={this.onChange} />
-                <button className="save-btn" type="submit">Save</button>
+                <button className="save-btn" onMouseDown={this.onSubmit}>Save</button>
             </form>
         )
         return (

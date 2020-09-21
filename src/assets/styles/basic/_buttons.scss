@@ -5,6 +5,8 @@
     color: #fff;
     padding: 6px 12px;
     margin: 5px;
+    border-radius: rem(3px);
+    cursor: pointer;
 }
 
 .cancel-btn {
@@ -14,11 +16,13 @@
     color: #fff;
     padding: 6px 12px;
     margin: 5px;
+    border-radius: rem(3px);
 }
 
 .save-btn-container {
     padding: rem(4px) 0;
     display: flex;
+    
 }
 
 .close-btn-container {
