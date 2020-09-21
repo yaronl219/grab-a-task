@@ -50,7 +50,7 @@ class _Board extends Component {
           isSidebarShowing={this.state.isSidebarShowing}
           onToggleSidebar={this.onToggleSidebar} />
         {(board.groups) ? <GroupList style={board.style} onAddGroup={this.onAddGroup} groups={board.groups} /> : <div>sdf</div>}
-        {(this.props.match.params.cardId) ? <CardDetails cardId={this.props.match.params.cardId} history={this.props.history} /> : <div></div>}
+        {(this.props.match.params.cardId) ? <CardDetails cardId={this.props.match.params.cardId} boardId={this.props.match.params.id} history={this.props.history} /> : <div></div>}
       </div>
     )
   }

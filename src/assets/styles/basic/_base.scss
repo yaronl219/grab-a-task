@@ -52,4 +52,9 @@ img {
 }
 .grey {
     background-color: $labelGrey;
+    color: set-text-color($labelGrey);
+}
+.black {
+    background-color: $labelBlack;
+    color: set-text-color($labelGrey);
 }

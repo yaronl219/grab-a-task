@@ -1,10 +1,15 @@
-import React from 'react'
-import { Label } from '../BoardHeader/Label';
+import React from 'react';
+import { IconButton } from '@material-ui/core';
+import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 
 export function LabelEditModal({ label, action, setLabelEditId, card }) {
-    const colors = ['green', 'yellow', 'orange', 'red', 'purple', 'blue', 'grey'];
+    const colors = ['green', 'yellow', 'orange', 'red', 'purple', 'blue', 'grey', 'black'];
     return (
         <div className="label-edit-modal">
+            <IconButton className="close-modal" size="small"
+                onClick={() => setLabelEditId()}>
+                <CloseOutlinedIcon />
+            </IconButton>
             <form onSubmit={(ev) => action(ev, label)}>
                 <input type="text" name="labelName"
                     defaultValue={label ? label.name : ''}
@@ -18,16 +23,12 @@ export function LabelEditModal({ label, action, setLabelEditId, card }) {
                             <div className={`color-picker ${color}`}></div>
                         </label>
                     </React.Fragment>)}
-                    <div className="save-cancel-btns">
-                        <button className="save-btn">Save</button>
-                        <button className="cancel-btn"
-                            onClick={(ev) => {
-                                ev.preventDefault();
-                                setLabelEditId();
-                            }}>Cancel</button>
-                    </div>
+                </div>
+                <div className="save-cancel-btns">
+                    <button className="save-btn">Save</button>
+                    {label && <button className="cancel-btn">Delete</button>}
                 </div>
             </form>
-        </div>
+        </div >
     )
 }

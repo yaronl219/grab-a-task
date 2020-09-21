@@ -11,19 +11,19 @@ export function loadBoard(boardId) {
   };
 }
 
-export function addActivity(board,activity) {
-    console.log('add activity',activity)
-    return async dispatch => {
-      try {
-        let newBoard = JSON.parse(JSON.stringify(board))
-        console.log(newBoard)
-        newBoard.activities.unshift(activity)
-        newBoard = await boardService.updateBoard(newBoard) // updating the DB
-        dispatch({ type: 'SET_BOARD', board: newBoard })
-      } catch (err) {
-        console.log('error updating board', err)
-      }
+export function addActivity(board, activity) {
+  console.log('add activity', activity)
+  return async dispatch => {
+    try {
+      let newBoard = JSON.parse(JSON.stringify(board))
+      console.log(newBoard)
+      newBoard.activities.unshift(activity)
+      newBoard = await boardService.updateBoard(newBoard) // updating the DB
+      dispatch({ type: 'SET_BOARD', board: newBoard })
+    } catch (err) {
+      console.log('error removing board', err)
     }
+  }
 }
 
 export function toggleFullLabels() {
@@ -71,6 +71,20 @@ export function addLabel(board, newLabel) {
       dispatch({ type: 'SET_BOARD', board: newBoard })
     } catch (err) {
       console.log('error adding label', err)
+    }
+  }
+}
+
+export function removeLabel(board, labelId) {
+  return async dispatch => {
+    try {
+      let newBoard = JSON.parse(JSON.stringify(board))
+      const labelIdx = newBoard.labels.findIndex(label => label.id === labelId)
+      newBoard.labels.splice(labelIdx, 1)
+      newBoard = await boardService.updateBoard(newBoard) // updating the DB
+      dispatch({ type: 'SET_BOARD', board: newBoard })
+    } catch (err) {
+      console.log('error removing label', err)
     }
   }
 }
@@ -136,13 +150,13 @@ export function onAddNewGroup(board, groupTitle) {
   }
 }
 
-export function updatePosition(newBoard){
-  return async dispatch=>{
+export function updatePosition(newBoard) {
+  return async dispatch => {
     dispatch({ type: 'SET_BOARD', board: newBoard })
   }
 }
 
-export function setStyle(style){
+export function setStyle(style) {
   return async dispatch => {
     dispatch({ type: 'SET_STYLE', style })
   }

@@ -1,9 +1,10 @@
-import { Button, IconButton } from '@material-ui/core';
+import { Button, CircularProgress, IconButton } from '@material-ui/core';
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { updateCard, loadBoard, switchGroup, addActivity } from '../../store/actions/boardActions';
 import { CardAttachmentList } from './CardAttachmentList';
+import { ClickAwayListener } from '@material-ui/core';
 import { CardSidebar } from './CardSidebar';
 import CloseIcon from '@material-ui/icons/Close';
 import { CardDescription } from './CardDescription';
@@ -15,6 +16,7 @@ import { ActivityLog } from '../Sidebar/ActivityLog';
 import ListIcon from '@material-ui/icons/List';
 import { CardAddComment } from './CardAddComment';
 import { boardService } from '../../services/boardService';
+import { LabelPalette, LabelPallete } from '../Sidebar/LabelPalette';
 
 class _CardDetails extends Component {
 
@@ -22,9 +24,9 @@ class _CardDetails extends Component {
         groupId: null,
         groupName: '',
         card: null,
-        commentsOnly: false
+        commentsOnly: false,
+        isLabelPaletteShowing: false
     }
-
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.cardId !== this.props.cardId) {
             this.getCardDetails()
@@ -33,6 +35,7 @@ class _CardDetails extends Component {
 
 
     componentDidMount() {
+        
         if (!this.props.board || Object.keys(!this.props.board)) {
             this.props.loadBoard('b101').then(() => {
                 return this.getCardDetails()
@@ -59,7 +62,7 @@ class _CardDetails extends Component {
         const url = window.location.href
         const regex = /\/board\/.+\//i
         const targetUrl = url.match(regex)[0]
-        this.props.history.push(targetUrl)
+        this.props.history.push(`/board/${this.props.boardId}`)
     }
 
     openEditLabelsModal = () => {
@@ -70,6 +73,10 @@ class _CardDetails extends Component {
     toggleCommentsOnly = () => {
         if (this.state.commentsOnly) return this.setState({ commentsOnly: false })
         return this.setState({ commentsOnly: true })
+    }
+    toggleLabelPalette = () => {
+        console.log(this.state.isLabelPaletteShowing)
+        this.setState({ isLabelPaletteShowing: !this.state.isLabelPaletteShowing })
     }
 
     getLabels = () => {
@@ -187,7 +194,7 @@ class _CardDetails extends Component {
 
     render() {
         const card = this.state.card
-        if (!card) return <div className="card-details-container">Loading...</div>
+        if (!card) return <div className="card-details-background"><div className="card-details-container"><CircularProgress /></div></div>
         return (
             <div className="card-details-background">
                 <div className="card-details-container">
@@ -225,11 +232,12 @@ class _CardDetails extends Component {
                             </div>
                         </main>
                         <aside className="card-details-sidebar">
-                            <CardSidebar addActivity={this.addActivity} dueDate={card.dueDate} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} onUpdateChecklists={this.onUpdateChecklists} />
+                            <CardSidebar addActivity={this.addActivity} dueDate={card.dueDate} toggleLabelPallete={this.toggleLabelPalette} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} onUpdateChecklists={this.onUpdateChecklists} />
                         </aside>
                     </section>
 
                 </div>
+                {this.state.isLabelPaletteShowing && <LabelPalette card={card} />}
             </div>
         )
     }

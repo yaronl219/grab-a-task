@@ -3,6 +3,7 @@ import { Button, Popover, TextField } from '@material-ui/core'
 import React, { Component } from 'react'
 import { DatePicker } from '@material-ui/pickers'
 import { CardPreviewDueDate } from './CardPreviewDueDate';
+import ScheduleIcon from '@material-ui/icons/Schedule';
 
 export class CardDueDateSetter extends Component {
 
@@ -48,7 +49,7 @@ export class CardDueDateSetter extends Component {
     }
 
     getDisplayDateBtn = () => {
-        if (!this.props.displayDate) return <Button className="set-due-date-btn" onClick={this.openModal} ref={this.anchor}>Set Due Date</Button>
+        if (!this.props.displayDate) return <Button className="set-due-date-btn" onClick={this.openModal} ref={this.anchor}><ScheduleIcon /><span>Set Due Date</span></Button>
 
         return (
             <div onClick={this.openModal} ref={this.anchor} className="set-due-date-expanded">

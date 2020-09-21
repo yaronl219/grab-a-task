@@ -1,6 +1,7 @@
 import { Button } from '@material-ui/core'
 import React, { Component } from 'react'
 import { utils } from '../../services/utils'
+import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
 
 export class CardNewChecklist extends Component {
 
@@ -43,7 +44,7 @@ export class CardNewChecklist extends Component {
             </form>
         )
         return (
-            <Button onClick={this.setEditing}>New Checklist</Button>
+            <Button onClick={this.setEditing}><CheckBoxOutlinedIcon /><span>New Checklist</span></Button>
         )
     }
 
