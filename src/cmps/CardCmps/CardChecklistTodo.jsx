@@ -104,9 +104,12 @@ export class CardChecklistTodo extends Component {
         } else {
             txt = `marked ${this.state.txtValue} incomplete`
         }
-        await this.props.addActivity(txt)
+        
         console.log('checking')
-        this.setState({ isDone: checkStatus}, this.updateChecklist)
+        this.setState({ isDone: checkStatus}, async() => {
+            await this.updateChecklist()
+            this.props.addActivity(txt)
+        })
     }
 
     onRemove = (ev) => {
