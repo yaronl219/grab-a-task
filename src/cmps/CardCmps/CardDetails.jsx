@@ -21,9 +21,12 @@ class _CardDetails extends Component {
     state = {
         groupId: null,
         groupName: '',
-        card: null
+        card: null,
+        isLabelPanelShowing: false
     }
-
+    onToggleLabelPanel = () => {
+        this.setState({ isLabelPanelShowing: !this.state.isLabelPanelShowing })
+    }
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.cardId !== this.props.cardId) {
             this.getCardDetails()
@@ -82,7 +85,7 @@ class _CardDetails extends Component {
         return <React.Fragment />
     }
 
-    addActivity = async(txt) => {
+    addActivity = async (txt) => {
         const activity = {
             "txt": txt,
             "commentTxt": '',
@@ -92,13 +95,13 @@ class _CardDetails extends Component {
             }
         }
 
-            const newActivity = boardService.createActivity(activity)
-            await this.props.addActivity(this.props.board,newActivity)
-            return true
+        const newActivity = boardService.createActivity(activity)
+        await this.props.addActivity(this.props.board, newActivity)
+        return true
 
     }
 
-    onArchiveCard = async() => {
+    onArchiveCard = async () => {
         let card = { ...this.state.card }
         card.archivedAt = Date.now()
         await this.addActivity('archived')
@@ -106,7 +109,7 @@ class _CardDetails extends Component {
         this.onCloseCard()
     }
 
-    onUpdateDueDate = async(dueDate) => {
+    onUpdateDueDate = async (dueDate) => {
         let card = { ...this.state.card }
         card.dueDate = dueDate
         await this.addActivity('updated due date')
@@ -123,11 +126,11 @@ class _CardDetails extends Component {
             }
         }
         const newActivity = boardService.createActivity(activity)
-        this.props.addActivity(this.props.board,newActivity)
+        this.props.addActivity(this.props.board, newActivity)
 
     }
 
-    onUpdateHeader = async(txt) => {
+    onUpdateHeader = async (txt) => {
         let card = { ...this.state.card }
         card.title = txt
         await this.addActivity('updated the title')
@@ -139,7 +142,7 @@ class _CardDetails extends Component {
         this.props.updateCard(this.props.board, card)
     }
 
-    onUpdateDesc = async(description) => {
+    onUpdateDesc = async (description) => {
         const card = { ...this.state.card }
         card.description = description
         await this.addActivity('updated the description')
@@ -147,7 +150,7 @@ class _CardDetails extends Component {
 
     }
 
-    onUpdateChecklists = async(newChecklist) => {
+    onUpdateChecklists = async (newChecklist) => {
         console.log(newChecklist)
         const card = { ...this.state.card }
         if (!card.checklists) card.checklists = []
@@ -167,7 +170,7 @@ class _CardDetails extends Component {
             if (checklist.title) return checklist
         }
         )
-        
+
         this.setState({ card }, () => this.submitCard(card))
     }
 
@@ -230,7 +233,7 @@ const mapDispatchToProps = {
     switchGroup,
     updateCard,
     addActivity
-    
+
 };
 
 export const CardDetails = connect(mapStateToProps, mapDispatchToProps)(connect(withRouter)(_CardDetails));

@@ -12,7 +12,7 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux';
 import { updateBoard, updatePosition } from './store/actions/boardActions';
 
-  
+
 
 
 class _App extends Component {
@@ -23,84 +23,86 @@ class _App extends Component {
 
   onDragEnd = (result) => {
 
-      const { destination, source, draggableId, type } = result
+    const { destination, source, draggableId, type } = result
 
-      if(!destination) return
-      if(destination.droppableId === source.droppableId && destination.index === source.index) return
-
-
+    if (!destination) return
+    if (destination.droppableId === source.droppableId && destination.index === source.index) return
 
 
-      if(type === 'card'){
-        const startGroupIndex = this.props.board.groups.findIndex(group => group.id === source.droppableId)
-        const endGroupIndex = this.props.board.groups.findIndex(group => group.id === destination.droppableId)
 
-        // moving in the same group
-        if (source.droppableId === destination.droppableId){
-  
-            const currGroup = this.props.board.groups.find(group => group.id === source.droppableId)
-            const currCard = currGroup.cards.find(card => card.id === draggableId)
-            const newCardsGroup = Array.from(currGroup.cards)
-            newCardsGroup.splice(source.index, 1)
-            newCardsGroup.splice(destination.index,0,currCard)
-            const newGroup = {...currGroup, cards: newCardsGroup}
-            const newGroups = [...this.props.board.groups]
-            newGroups[startGroupIndex] = newGroup
-            const newBoard = {...this.props.board, groups: newGroups}
-            this.props.updatePosition(newBoard)
-            this.props.updateBoard(newBoard)
-            return
-        }
-  
-        // moving between groups
-        if (source.droppableId !== destination.droppableId){
-          
-            const destinationGroup = this.props.board.groups.find(group => group.id === destination.droppableId)
-            const formerGroup = this.props.board.groups.find(group => group.id === source.droppableId)
-            const currCard = formerGroup.cards.find(card => card.id === draggableId)
-            const formerCardIndex = formerGroup.cards.findIndex(card => card.id === draggableId)
-            const newCardsArray = Array.from(destinationGroup.cards)
-                    
-            newCardsArray.splice(destination.index, 0, currCard)
-            formerGroup.cards.splice(formerCardIndex, 1)
-  
-            const newGroups = [...this.props.board.groups]
-            newGroups[startGroupIndex] = formerGroup
-            newGroups[endGroupIndex].cards = newCardsArray        
-  
-            const newBoard = {...this.props.board, groups: newGroups}
-            this.props.updatePosition(newBoard)
-            this.props.updateBoard(newBoard)
-            return
-        }
+
+    if (type === 'card') {
+      const startGroupIndex = this.props.board.groups.findIndex(group => group.id === source.droppableId)
+      const endGroupIndex = this.props.board.groups.findIndex(group => group.id === destination.droppableId)
+
+      // moving in the same group
+      if (source.droppableId === destination.droppableId) {
+
+        const currGroup = this.props.board.groups.find(group => group.id === source.droppableId)
+        const currCard = currGroup.cards.find(card => card.id === draggableId)
+        const newCardsGroup = Array.from(currGroup.cards)
+        newCardsGroup.splice(source.index, 1)
+        newCardsGroup.splice(destination.index, 0, currCard)
+        const newGroup = { ...currGroup, cards: newCardsGroup }
+        const newGroups = [...this.props.board.groups]
+        newGroups[startGroupIndex] = newGroup
+        const newBoard = { ...this.props.board, groups: newGroups }
+        this.props.updatePosition(newBoard)
+        this.props.updateBoard(newBoard)
+        return
       }
 
-            if (type === 'group') {
+      // moving between groups
+      if (source.droppableId !== destination.droppableId) {
 
-              const newGroupsOrder = Array.from(this.props.board.groups)
-              const currGroup = this.props.board.groups.find(group => group.id === draggableId)
-              newGroupsOrder.splice(source.index, 1)
-              newGroupsOrder.splice(destination.index, 0, currGroup)
+        const destinationGroup = this.props.board.groups.find(group => group.id === destination.droppableId)
+        const formerGroup = this.props.board.groups.find(group => group.id === source.droppableId)
+        const currCard = formerGroup.cards.find(card => card.id === draggableId)
+        const formerCardIndex = formerGroup.cards.findIndex(card => card.id === draggableId)
+        const newCardsArray = Array.from(destinationGroup.cards)
 
-              const newBoard = {
-                ...this.props.board,
-                groups: newGroupsOrder
-              }
-              this.props.updatePosition(newBoard)
-              this.props.updateBoard(newBoard)
-              return
+        newCardsArray.splice(destination.index, 0, currCard)
+        formerGroup.cards.splice(formerCardIndex, 1)
 
-            }
+        const newGroups = [...this.props.board.groups]
+        newGroups[startGroupIndex] = formerGroup
+        newGroups[endGroupIndex].cards = newCardsArray
+
+        const newBoard = { ...this.props.board, groups: newGroups }
+        this.props.updatePosition(newBoard)
+        this.props.updateBoard(newBoard)
+        return
+      }
+    }
+
+    if (type === 'group') {
+
+      const newGroupsOrder = Array.from(this.props.board.groups)
+      const currGroup = this.props.board.groups.find(group => group.id === draggableId)
+      newGroupsOrder.splice(source.index, 1)
+      newGroupsOrder.splice(destination.index, 0, currGroup)
+
+      const newBoard = {
+        ...this.props.board,
+        groups: newGroupsOrder
+      }
+      this.props.updatePosition(newBoard)
+      this.props.updateBoard(newBoard)
+      return
+
+    }
   }
 
-  render(){
-
-    // console.log(this.props.style)
+  render() {
+    const { style } = this.props
     return (
-      
-      (this.props.style) 
-      ? <DragDropContext onDragEnd={this.onDragEnd}>
-        <div className="app-bg" style={{ backgroundImage: this.props.style.bgImg }}>
+
+      (this.props.style)
+        ? <DragDropContext onDragEnd={this.onDragEnd}>
+          <div className="app-bg" style={{
+            backgroundImage: style.bgImg,
+            color: style.fontClr
+          }}>
             <div className="App">
               <header className="App-header">
                 <Navbar />
@@ -110,10 +112,10 @@ class _App extends Component {
                 <Route path="/board/:id/:cardId?" component={Board} exact />
                 <Route component={Board} path='/' />
               </Switch>
-            </div>     
-        </div>
-      </DragDropContext>
-      : <div>loading</div>
+            </div>
+          </div>
+        </DragDropContext>
+        : <div>loading</div>
     )
   }
 }
