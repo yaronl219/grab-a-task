@@ -16,14 +16,6 @@ export const boardService = {
 
 function createActivity(partialActivity) {
     // This fn needs to receive an object with the card id and title and the text in theh following format:
-        // {
-        //         "txt": the text to be added in the activity,
-        //         "commentTxt": if comment - text will be here. leave blank if not comment,
-        //         "card": {
-        //             "id": the relevant card id,
-        //             "title": the relevant card title
-        //         }
-        // }
 
         const user = userService.getLoggedInUser()
 

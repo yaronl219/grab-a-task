@@ -1,4 +1,4 @@
-import { IconButton } from '@material-ui/core';
+import { Button, IconButton } from '@material-ui/core';
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -21,7 +21,8 @@ class _CardDetails extends Component {
     state = {
         groupId: null,
         groupName: '',
-        card: null
+        card: null,
+        commentsOnly: false
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -66,6 +67,10 @@ class _CardDetails extends Component {
         console.log('should open edit labels modal')
     }
 
+    toggleCommentsOnly = () => {
+        if (this.state.commentsOnly) return this.setState({ commentsOnly: false })
+        return this.setState({ commentsOnly: true })
+    }
 
     getLabels = () => {
         const labels = this.state.card.labels
@@ -82,7 +87,7 @@ class _CardDetails extends Component {
         return <React.Fragment />
     }
 
-    addActivity = async(txt) => {
+    addActivity = async (txt) => {
         const activity = {
             "txt": txt,
             "commentTxt": '',
@@ -92,13 +97,13 @@ class _CardDetails extends Component {
             }
         }
 
-            const newActivity = boardService.createActivity(activity)
-            await this.props.addActivity(this.props.board,newActivity)
-            return true
+        const newActivity = boardService.createActivity(activity)
+        await this.props.addActivity(this.props.board, newActivity)
+        return true
 
     }
 
-    onArchiveCard = async() => {
+    onArchiveCard = async () => {
         let card = { ...this.state.card }
         card.archivedAt = Date.now()
         await this.addActivity('archived')
@@ -106,7 +111,7 @@ class _CardDetails extends Component {
         this.onCloseCard()
     }
 
-    onUpdateDueDate = async(dueDate) => {
+    onUpdateDueDate = async (dueDate) => {
         let card = { ...this.state.card }
         card.dueDate = dueDate
         await this.addActivity('updated due date')
@@ -123,11 +128,11 @@ class _CardDetails extends Component {
             }
         }
         const newActivity = boardService.createActivity(activity)
-        this.props.addActivity(this.props.board,newActivity)
+        this.props.addActivity(this.props.board, newActivity)
 
     }
 
-    onUpdateHeader = async(txt) => {
+    onUpdateHeader = async (txt) => {
         let card = { ...this.state.card }
         card.title = txt
         await this.addActivity('updated the title')
@@ -139,7 +144,7 @@ class _CardDetails extends Component {
         this.props.updateCard(this.props.board, card)
     }
 
-    onUpdateDesc = async(description) => {
+    onUpdateDesc = async (description) => {
         const card = { ...this.state.card }
         card.description = description
         await this.addActivity('updated the description')
@@ -147,7 +152,7 @@ class _CardDetails extends Component {
 
     }
 
-    onUpdateChecklists = async(newChecklist) => {
+    onUpdateChecklists = async (newChecklist) => {
         console.log(newChecklist)
         const card = { ...this.state.card }
         if (!card.checklists) card.checklists = []
@@ -167,11 +172,18 @@ class _CardDetails extends Component {
             if (checklist.title) return checklist
         }
         )
-        
+
         this.setState({ card }, () => this.submitCard(card))
     }
 
-
+    getFilteredActivities = () => {
+        const card = this.state.card
+        let cardActivities = this.props.board.activities.filter(activity => activity.card.id === card.id)
+        if (this.state.commentsOnly) cardActivities = cardActivities.filter(activity => {
+            if (activity.commentTxt.length) return activity
+        })
+        return cardActivities
+    }
 
     render() {
         const card = this.state.card
@@ -179,12 +191,14 @@ class _CardDetails extends Component {
         return (
             <div className="card-details-background">
                 <div className="card-details-container">
-                    <IconButton onClick={this.onCloseCard} aria-label="close">
-                        <CloseIcon />
-                    </IconButton>
                     <div className="card-details-header-container">
-                        <CardDetailsHeader headerTxt={card.title} onUpdate={this.onUpdateHeader} />
-                        <small>in list <span>{this.state.groupName}</span></small>
+                        <IconButton onClick={this.onCloseCard} aria-label="close">
+                            <CloseIcon />
+                        </IconButton>
+                        <div className="card-details-title-container">
+                            <CardDetailsHeader headerTxt={card.title} onUpdate={this.onUpdateHeader} />
+                            <small>in list <span>{this.state.groupName}</span></small>
+                        </div>
                     </div>
                     <div className="card-details-attrs">
                         {this.getLabels()}
@@ -197,22 +211,24 @@ class _CardDetails extends Component {
                         <main className="card-details-main">
                             <CardDescription onUpdateDesc={this.onUpdateDesc} description={card.description} />
                             <CardChecklistList addActivity={this.addActivity} checklists={card.checklists} onUpdate={this.onUpdateChecklists} />
+                            <div className="card-details-activity-log">
+                                <div className="card-details-activities-title">
+                                    <ListIcon />
+                                    <h5>Activities</h5>
+                                    <Button onClick={this.toggleCommentsOnly}>{(this.state.commentsOnly) ? 'Show Details' : 'Hide Details'}</Button>
+                                </div>
+                                <CardAddComment onAddComment={this.onAddComment} />
+                                <ActivityLog
+                                    boardId={this.props.board._id}
+                                    displayMode="card"
+                                    activities={this.getFilteredActivities()} />
+                            </div>
                         </main>
                         <aside className="card-details-sidebar">
                             <CardSidebar addActivity={this.addActivity} dueDate={card.dueDate} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} onUpdateChecklists={this.onUpdateChecklists} />
                         </aside>
                     </section>
-                    <div className="card-details-activity-log">
-                        <div className="card-details-activities-title">
-                            <ListIcon />
-                            <h5>Activities</h5>
-                        </div>
-                        <CardAddComment onAddComment={this.onAddComment} />
-                        <ActivityLog
-                            boardId={this.props.board._id}
-                            displayMode="card"
-                            activities={this.props.board.activities.filter(activity => activity.card.id === card.id)} />
-                    </div>
+
                 </div>
             </div>
         )
@@ -230,7 +246,7 @@ const mapDispatchToProps = {
     switchGroup,
     updateCard,
     addActivity
-    
+
 };
 
 export const CardDetails = connect(mapStateToProps, mapDispatchToProps)(connect(withRouter)(_CardDetails));

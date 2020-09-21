@@ -14,6 +14,10 @@ export class NewItem extends Component {
         this.setState({ txtValue })
     }
 
+    onKeyPress = (ev) => {
+        // console.log(ev.key)
+        if (ev.key === 'Enter') this.onSubmit(ev)
+    }
     setEditing = () => {
         this.setState({ isEditing: true })
     }
@@ -26,12 +30,12 @@ export class NewItem extends Component {
         if (!this.state.isEditing) return (
             <div className="new-item-btn" onClick={this.setEditing}><AddIcon style={{ fontSize: 14 }} />{this.props.addItemTxt}</div>
         )
-
+        
         return (
 
             <div className="new-item-form">
-                <form onBlur={this.setNotEditing} onSubmit={this.onSubmit} >
-                    <input placeholder={this.props.placeHolderTxt} autoFocus type="text" onChange={this.onChange} value={this.state.txtValue} />
+                <form  onKeyDown={this.onKeyPress} onBlur={this.setNotEditing} onSubmit={this.onSubmit} >
+                    <textarea placeholder={this.props.placeHolderTxt} autoFocus type="text" onChange={this.onChange} value={this.state.txtValue} />
                     <div className="save-btn-container">
                         <button className="save-btn" onMouseDown={this.onSubmit}>{this.props.addBtnTxt}</button>
                         <CloseIcon onClick={this.setNotEditing} />
@@ -42,10 +46,10 @@ export class NewItem extends Component {
     }
 
 
-    onSubmit = (ev) => {
+    onSubmit = async(ev) => {
         ev.preventDefault()
         if (!this.state.txtValue) return
-        this.props.onAdd(this.state.txtValue)
+        await this.props.onAdd(this.state.txtValue)
         const isEditing = false
         const txtValue = ''
         this.setState({ isEditing, txtValue })

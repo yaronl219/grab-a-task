@@ -11,16 +11,16 @@ class _Group extends Component {
 
 
 componentDidMount() {
-    console.log('yes');
+    console.log(this);
 
 }
 
     onAddCard = (txt) => {
-        this.props.addCard(this.props.board, txt, this.props.group.id)
+        return this.props.addCard(this.props.board, txt, this.props.group.id)
     }
 
     getAddItemTxt = () => {
-        if (this.props.group.length) return 'Add another card'
+        if (this.props.group.cards.length) return 'Add another card'
         return 'Add a card'
     }
 

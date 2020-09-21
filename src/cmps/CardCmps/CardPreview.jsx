@@ -7,7 +7,7 @@ import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
 import { toggleFullLabels } from '../../store/actions/boardActions';
 import { CardLabels } from './CardLabels';
 import { CardPreviewDueDate } from './CardPreviewDueDate';
-
+import ChatBubbleOutlineRoundedIcon from '@material-ui/icons/ChatBubbleOutlineRounded';
 import { Draggable } from 'react-beautiful-dnd'
 
 class _CardPreview extends Component {
@@ -39,6 +39,16 @@ class _CardPreview extends Component {
         return <div key="1" className="card-preview-attr"><SubjectOutlinedIcon style={{ fontSize: 16 }} /></div>
     }
 
+    getCardPreviewComments = () => {
+        let cardComm = this.props.board.activities.filter(activity => activity.card.id === this.props.card.id)
+        cardComm = cardComm.filter(activity => {
+            if (activity.commentTxt) return activity
+        })
+        if (!cardComm || !cardComm.length) return null
+        
+        return <div key="3" className="card-preview-attr"><ChatBubbleOutlineRoundedIcon style={{ fontSize: 16 }} /> {cardComm.length}</div>
+    }
+
     onOpenCardDetails = () => {
         // to later be switched to using history
 
@@ -66,22 +76,25 @@ class _CardPreview extends Component {
             })
         })
 
+        if (!totalTodos) return null
         if (doneTodos === totalTodos) {
-            doneClass=" card-preview-checklist-counter-done"
+            doneClass = " card-preview-checklist-counter-done"
         }
-        return <div key="2" className="card-preview-attr"><CheckBoxOutlinedIcon style={{ fontSize: 16 }} /> <span className={`card-preview-checklist-counter${doneClass}`}>{doneTodos}/{totalTodos}</span> </div>
+        return <div key="2" className={`card-preview-attr card-preview-checklist-counter${doneClass}`}><CheckBoxOutlinedIcon style={{ fontSize: 16 }} /> <span>{doneTodos}/{totalTodos}</span> </div>
     }
+
     getCardPreviewAttrs = () => {
         const attrs = [
             this.getCardPreviewAttachments(),
             this.getCardPreviewHoldDesc(),
-            this.getCardPreviewChecklist()
+            this.getCardPreviewChecklist(),
+            this.getCardPreviewComments()
         ]
         if (!attrs.every(item => !item)) {
             return (<div className="card-preview-attrs">
-                {attrs.map((att,idx) => {
+                {attrs.map((att, idx) => {
                     if (att) return att
-                    return  <React.Fragment key={idx}/>
+                    return <React.Fragment key={idx} />
                 })}
             </div>)
         }
@@ -96,37 +109,37 @@ class _CardPreview extends Component {
 
         return (
 
-            
-            <Draggable draggableId={this.props.card.id} index={this.props.index}>
-            {provided=>(
-                
-            <div 
-            ref={provided.innerRef}
-                {...provided.draggableProps}
-                {...provided.dragHandleProps}
 
-                className={'card-preview'}
-                onClick={this.onOpenCardDetails}>
-                {this.getCardPreviewStyle()}
-                <CardLabels onClickLabel={this.onToggleLabels}
-                    isFull={this.props.fullLabel}
-                    cardLabels={this.props.card.labels}
-                    boardLabels={this.props.board.labels}
-                    preview={true}
-                />
-                <div className="card-preview-header">
-                    {this.props.card.title}
-                </div>
-                <div className="card-preview-edit-container">
-                    <EditOutlinedIcon />
-                </div>
-                <div className="card-preview-attrs">
-                    <CardPreviewDueDate dueDate={this.props.card.dueDate} />
-                    {this.getCardPreviewAttrs()}
-                </div>
-                {provided.placeholder}
-            </div>
-            )}
+            <Draggable draggableId={this.props.card.id} index={this.props.index}>
+                {provided => (
+
+                    <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+
+                        className={'card-preview'}
+                        onClick={this.onOpenCardDetails}>
+                        {this.getCardPreviewStyle()}
+                        <CardLabels onClickLabel={this.onToggleLabels}
+                            isFull={this.props.fullLabel}
+                            cardLabels={this.props.card.labels}
+                            boardLabels={this.props.board.labels}
+                            preview={true}
+                        />
+                        <div className="card-preview-header">
+                            {this.props.card.title}
+                        </div>
+                        <div className="card-preview-edit-container">
+                            <EditOutlinedIcon />
+                        </div>
+                        <div className="card-preview-attrs">
+                            <CardPreviewDueDate dueDate={this.props.card.dueDate} />
+                            {this.getCardPreviewAttrs()}
+                        </div>
+                        {provided.placeholder}
+                    </div>
+                )}
 
             </Draggable>
         )
