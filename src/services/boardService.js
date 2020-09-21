@@ -11,6 +11,8 @@ export const boardService = {
     updateBoard,
     addNewGroup,
     filter,
+    archiveGroup,
+    archiveAllCards,
     createActivity
 };
 
@@ -125,4 +127,29 @@ function createActivity(partialActivity) {
         const boardToReturn = await updateBoard(newBoard)
         return boardToReturn
 
+    }
+
+    async function archiveGroup(groupId, boardId){
+
+        // waiting for server confirmation
+        const newBoard = await getBoardById(boardId)
+        const groupIdx = newBoard.groups.findIndex(group => group.id === groupId)
+        newBoard.groups[groupIdx].archivedAt = Date.now()
+        // newBoard.groups.splice(groupIdx, 1) // will be added for admin only
+        const boardToReturn = await updateBoard(newBoard)
+        return boardToReturn
+    }
+
+    async function archiveAllCards(groupId, boardId){
+        const newBoard = await getBoardById(boardId)
+        const groupIdx = newBoard.groups.findIndex(group => group.id === groupId)
+        const newCards = newBoard.groups[groupIdx].cards.map(card => {
+            const newCard = JSON.parse(JSON.stringify(card))
+            newCard.archivedAt = Date.now()
+            return newCard
+        });
+        
+        newBoard.groups[groupIdx].cards = newCards
+        const boardToReturn = await updateBoard(newBoard)
+        return boardToReturn
     }
