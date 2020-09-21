@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Group } from './Group'
 import { NewItem } from './NewItem'
-import { AddNewGroup } from './BoardHeader/GroupCmps/AddNewGroup'
+import { AddNewGroup } from './GroupCmps/AddNewGroup'
 // import { render } from '@testing-library/react'
 
 import { Droppable } from 'react-beautiful-dnd'
