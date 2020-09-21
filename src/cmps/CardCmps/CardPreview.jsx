@@ -78,11 +78,13 @@ class _CardPreview extends Component {
             })
         })
 
+        if (!totalTodos) return null
         if (doneTodos === totalTodos) {
             doneClass = " card-preview-checklist-counter-done"
         }
-        return <div key="2" className="card-preview-attr"><CheckBoxOutlinedIcon style={{ fontSize: 16 }} /> <span className={`card-preview-checklist-counter${doneClass}`}>{doneTodos}/{totalTodos}</span> </div>
+        return <div key="2" className={`card-preview-attr card-preview-checklist-counter${doneClass}`}><CheckBoxOutlinedIcon style={{ fontSize: 16 }} /> <span>{doneTodos}/{totalTodos}</span> </div>
     }
+
     getCardPreviewAttrs = () => {
         const attrs = [
             this.getCardPreviewAttachments(),
