@@ -37,11 +37,16 @@
     box-sizing: border-box;
     display: flex;
     overflow-x: hidden;
-    overflow-y: scroll;
+
     flex-direction: column;
     vertical-align: top;
     padding: 0px 4px;
     color: $textClr;
+
+    .card-container {
+        overflow-y: scroll;
+        border-radius: 3px;
+    }
     .group-header {
         line-height: 20px;
         padding: 10px 8px;

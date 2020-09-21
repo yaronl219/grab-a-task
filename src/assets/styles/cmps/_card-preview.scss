@@ -2,10 +2,11 @@
     background-color: #fff;
     min-height: 36px;
     box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
-    margin-bottom: 8px;
-    padding: 6px 8px 2px;
+    margin: 8px;
+    padding: 6px 8px 4px;
+    border-radius: 3px;
     position: relative;
-    cursor: pointer;
+    cursor: pointer !important;
     svg {
         cursor: pointer;
     }
@@ -15,6 +16,7 @@
         .card-preview-attr {
             margin-right: 6px;
             display: flex;
+            font-size: 12px;
             // line-height: 26px;
             align-items: center;
             // padding: 4px;
@@ -59,7 +61,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-
+        margin: 0.2rem;
         svg{
             margin-right: 4px;
         }
@@ -126,6 +128,15 @@
     .card-edit-left {
         .card-preview:hover {
             background-color: white;
+        }
+        .card-preview {
+            margin: 0px;
+
+        }
+        .save-btn {
+            margin: 1rem 0px;
+            padding: 6px 24px;
+            font-size: 14px;
         }
     }
 }
