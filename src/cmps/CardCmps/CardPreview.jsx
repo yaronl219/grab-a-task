@@ -16,8 +16,6 @@ class _CardPreview extends Component {
         isEditing: false
     }
 
-
-
     onSetEditing = () => {
         this.setState({ isEditing: true })
     }
