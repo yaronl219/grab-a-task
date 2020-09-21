@@ -1,7 +1,6 @@
 import React from 'react';
 import { IconButton } from '@material-ui/core';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
-// import { Label } from '../BoardHeader/Label';
 
 export function LabelEditModal({ label, action, setLabelEditId, card }) {
     const colors = ['green', 'yellow', 'orange', 'red', 'purple', 'blue', 'grey', 'black'];
@@ -27,7 +26,7 @@ export function LabelEditModal({ label, action, setLabelEditId, card }) {
                 </div>
                 <div className="save-cancel-btns">
                     <button className="save-btn">Save</button>
-                    <button className="cancel-btn">Delete</button>
+                    {label && <button className="cancel-btn">Delete</button>}
                 </div>
             </form>
         </div >
