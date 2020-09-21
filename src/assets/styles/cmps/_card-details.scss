@@ -1,11 +1,36 @@
 .card-details-background {
     display: flex;
     width: 100%;
+    flex-wrap: nowrap;
     position: relative;
     justify-content: center;
+<<<<<<< HEAD
+    & .label-palette {
+        padding: 0 rem(10px);
+        background-color: $groupClr;
+        width: 16vw;
+        position: fixed;
+        top: 10vh;
+        right: 50px;
+        z-index: 9;
+        border-radius: rem(3px);
+        font-size: 0.7rem;
+        box-shadow: 0 0 rem(3px) 0 $black;
+        & .label {
+            padding: 0;
+            display: flex;
+            align-items: center;
+            height: rem(20px);
+            & .label-color {
+                height: rem(20px);
+            }
+        }
+    }
+=======
     background-color:  rgba(0,0,0,.64);
     
     z-index: 8;
+>>>>>>> 81850b674fb470636d51e991104806156bd17a56
 }
 .card-details-container {
     position: fixed;
@@ -19,11 +44,10 @@
     overflow-y: scroll;
     overflow-x: hidden;
     background-color: $groupClr;
-    color:$textClr;
-    
-    .card-details-header-container {
+    color: $textClr;
 
-        display: flex; 
+    .card-details-header-container {
+        display: flex;
         flex-direction: row-reverse;
 
         .card-details-title-container {
@@ -36,7 +60,7 @@
             font-size: 1.25rem;
             cursor: pointer;
         }
-        
+
         input {
             width: 101%;
             height: 26px;
@@ -53,7 +77,7 @@
     .card-details-attrs {
         display: flex;
         margin-bottom: 1rem;
-    
+
         h5 {
             color: #5e6c84;
             font-weight: 500;
@@ -62,7 +86,7 @@
         .card-details-label-container {
             margin-right: 1rem;
             .card-details-label {
-                min-width: 40px;
+                min-width: 0px;
                 max-width: 100%;
                 width: fit-content;
                 white-space: nowrap;
@@ -76,17 +100,17 @@
                 padding: 0rem 0.75rem;
             }
         }
-            
+
         .set-due-date-expanded {
             width: fit-content;
         }
-        
+
         .card-preview-due-date-container {
             padding: 0.25rem 0.5rem;
             color: white;
             font-size: 0.75rem;
         }
-        
+
         .card-preview-due-date-container-long {
             color: #5e6c84;
         }
@@ -94,7 +118,7 @@
             background-color: $labelYellow;
         }
         .card-preview-due-date-container-close::after {
-            content: ' Due Soon';
+            content: " Due Soon";
         }
         .card-preview-due-date-container-near {
             background-color: $labelGreen;
@@ -103,79 +127,76 @@
             background-color: $labelRed;
         }
         .card-preview-due-date-container-overdue::after {
-            content: ' Overdue';
+            content: " Overdue";
         }
     }
-        
-        .item-details-description {
+
+    .item-details-description {
+        display: flex;
+
+        h3 {
+            margin: 0px;
+            font-size: 1rem;
+        }
+        div {
+            margin: 0.25rem;
+            width: 100%;
+        }
+        pre {
+            font-family: Roboto;
+            box-shadow: none;
+            border: none;
+            border-radius: 3px;
+            display: block;
+            min-height: 40px;
+            // padding: 8px 12px;
+            text-decoration: none;
+            cursor: pointer;
+            width: 100%;
+            font-size: 0.875rem;
+        }
+    }
+
+    section {
+        display: flex;
+
+        main {
+            flex-grow: 1;
+            padding: 0.5rem;
+        }
+
+        .checklist-title-container {
             display: flex;
-            
-            h3{
-                margin: 0px;
-                font-size: 1rem;
+            justify-content: space-between;
+            .checklist-title {
+                margin-left: 0.5rem;
             }
-            div {
-                margin: 0.25rem;
-                width: 100%;
-            }
-            pre {
-                font-family: Roboto;                
-                box-shadow: none;
-                border: none;
-                border-radius: 3px;
-                display: block;
-                min-height: 40px;
-                // padding: 8px 12px;
-                text-decoration: none;
-                cursor: pointer;
-                width: 100%;
-                font-size: 0.875rem;
+            .checklist-title-btns {
+                flex-grow: 1;
+                display: flex;
+                justify-content: flex-end;
+                button {
+                    background-color: rgba(9, 30, 66, 0.04);
+                    margin: 0px 0.25rem;
+                }
+                button:hover {
+                    background-color: rgba(9, 30, 66, 0.1);
+                }
             }
         }
-        
-        section {
-            display: flex;
-            
-            main {
-                flex-grow: 1;
-                padding: 0.5rem;
-
-            }
-
-        
-                .checklist-title-container {
-                    display: flex;
-                    justify-content: space-between;
-                    .checklist-title {
-                        margin-left: 0.5rem;
-                    }
-                    .checklist-title-btns {
-                        flex-grow: 1;
-                        display: flex;
-                        justify-content: flex-end;
-                        button {
-                            background-color: rgba(9, 30, 66, 0.04);
-                            margin: 0px 0.25rem;
-                        }
-                        button:hover {
-                            background-color: rgba(9, 30, 66, 0.1);
-                        }
-                        
-                    }
-                }
         .checklist-main {
             padding: 0px;
-            
-           .checklist-todo {
+
+            .checklist-todo {
                 display: flex;
                 span {
                     padding-left: 0px;
                 }
-                >button {
-                    background-color:rgba(9, 30, 66, 0.04)
+                > button {
+                    background-color: rgba(9, 30, 66, 0.04);
                 }
-                >button:hover {
-                    background-color:rgba(9, 30, 66, 0.1)
+                > button:hover {
+                    background-color: rgba(9, 30, 66, 0.1);
                 }
                 .checklist-todo-title {
                     width: 100%;
@@ -214,7 +235,7 @@
                 width: 100%;
                 text-align: left;
                 justify-content: flex-start;
-                background-color: rgba(9,30,66,.04);
+                background-color: rgba(9, 30, 66, 0.04);
                 margin-bottom: 0.5rem;
                 height: 2rem;
                 font-size: 0.875rem;
@@ -224,7 +245,7 @@
                 }
             }
             button:hover {
-                background-color: rgba(9,30,66,.12);
+                background-color: rgba(9, 30, 66, 0.12);
             }
 
             .new-checklist-form {
@@ -259,7 +280,7 @@
 }
 .card-details-activities-title {
     display: flex;
-    
+
     margin-bottom: 1rem;
     svg {
         margin: 0.25rem 0.5rem;
@@ -269,7 +290,6 @@
         font-size: 1rem;
         flex-grow: 1;
     }
-    
 }
 .editing-section-container {
     font-size: 0.875rem;
@@ -291,11 +311,10 @@
             min-height: inherit;
         }
     }
-        
+
     div {
         margin: 0px;
         padding: 0px;
-
 
         .MuiAccordionSummary-content {
             margin: 0px;
@@ -310,12 +329,12 @@
                 padding: 0px 2rem;
                 line-height: 36px;
                 border: 0px;
-                outline: 0px rgba(0,0,0,0)
+                outline: 0px rgba(0, 0, 0, 0);
             }
         }
     }
 }
-    
+
 .remove-date-btn-container {
     display: flex;
     justify-content: center;

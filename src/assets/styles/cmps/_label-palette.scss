@@ -1,4 +1,4 @@
-.label-panel-container {
+.label-palette {
     & .label {
         width: 100%;
         margin: 5px 0;
@@ -23,6 +23,7 @@
             align-items: center;
             border-radius: 3px;
             transition: all 0.15s;
+            overflow: hidden;
             cursor: pointer;
             & button {
                 color: $black;
@@ -52,8 +53,8 @@
                 box-shadow: -5px 0px 0px 0px darken($labelBlack, 20%);
             }
             &.add-label {
-                margin-top: rem(25px);
-                width: 90%;
+                margin: rem(20px) 0;
+                width: 100%;
                 background-color: $memberClr;
                 font-size: 0.7rem;
                 color: $closeClr;
@@ -65,13 +66,13 @@
                 
             }
         }
-        & span {
+        & .label-text {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            max-width: 80%;
             transition: all 0.15s;
         }
-        // & svg {
-        //     opacity: 0;
-        //     transition: all 0.15s;
-        // }
         & .label-color:hover {
             & span {
                 padding-left: rem(5px);
