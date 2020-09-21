@@ -2,12 +2,9 @@ import { CardDueDateSetter } from "./CardDueDateSetter"
 import React from 'react'
 import { CardNewChecklist } from "./CardNewChecklist"
 import { Button } from "@material-ui/core"
-<<<<<<< HEAD
-=======
 import ArchiveIcon from '@material-ui/icons/Archive';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { LabelPanel } from "../Sidebar/LabelPanel"
->>>>>>> 81850b674fb470636d51e991104806156bd17a56
 
 
 

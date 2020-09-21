@@ -4,7 +4,6 @@
     flex-wrap: nowrap;
     position: relative;
     justify-content: center;
-<<<<<<< HEAD
     & .label-palette {
         padding: 0 rem(10px);
         background-color: $groupClr;
@@ -26,11 +25,8 @@
             }
         }
     }
-=======
     background-color:  rgba(0,0,0,.64);
-    
     z-index: 8;
->>>>>>> 81850b674fb470636d51e991104806156bd17a56
 }
 .card-details-container {
     position: fixed;
