@@ -4,8 +4,8 @@ import { CardNewChecklist } from "./CardNewChecklist"
 import { Button } from "@material-ui/core"
 import ArchiveIcon from '@material-ui/icons/Archive';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import { LabelPanel } from "../Sidebar/LabelPanel"
-
+import LabelOutlinedIcon from '@material-ui/icons/LabelOutlined';
+import PeopleAltOutlinedIcon from '@material-ui/icons/PeopleAltOutlined';
 
 
 export function CardSidebar(props) {
@@ -14,7 +14,8 @@ export function CardSidebar(props) {
             <Button><ArrowForwardIcon /><span>Move Card</span></Button>
             <CardDueDateSetter dueDate={props.dueDate} onUpdateDueDate={props.onUpdateDueDate}/>
             <Button onClick={props.onArchiveCard}><ArchiveIcon /> <span>Archive Card</span></Button>
-            <Button onClick={()=>props.toggleLabelPalette()}>Labels</Button>
+            <Button onClick={props.toggleLabelPallete}><LabelOutlinedIcon /><span>Labels</span></Button>
+            <Button onClick={props.toggleDisplayMembers}><PeopleAltOutlinedIcon /><span>Members</span></Button>
             <CardNewChecklist addActivity={props.addActivity} onUpdate={props.onUpdateChecklists} />
         </div>
     )

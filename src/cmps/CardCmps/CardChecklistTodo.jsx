@@ -25,7 +25,7 @@ export class CardChecklistTodo extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps.txtValue !== this.props.txtValue || prevProps.isDone !== this.props.isDone) this.updateTodo()
+        if (prevProps.title !== this.props.title || prevProps.isDone !== this.props.isDone) this.updateTodo()
     }
 
     componentDidMount() {
@@ -38,7 +38,7 @@ export class CardChecklistTodo extends Component {
         if (this.state.isEditing) {
             return (
             <form onBlur={this.setNotEditing} onSubmit={this.onSubmit}>
-                <input type="text" autoFocus value={this.state.txtValue} onChange={this.onChange} />
+                <input className="checkbox-text-edit" type="text" autoFocus value={this.state.txtValue} onChange={this.onChange} />
                 <button className="save-btn" type="submit">Save</button>
             </form>
         )}
@@ -54,7 +54,7 @@ export class CardChecklistTodo extends Component {
             <React.Fragment>
                 <Checkbox checked={this.state.isDone} onChange={this.onCheck} />
                 <form onBlur={this.setNotEditing} onSubmit={this.onSubmit}>
-                    <input type="text" autoFocus value={this.state.txtValue} onChange={this.onChange} />
+                    <input className="checkbox-text-edit" type="text" autoFocus value={this.state.txtValue} onChange={this.onChange} />
                     <button className="save-btn" type="submit">Save</button>
                 </form>
             </React.Fragment>
@@ -62,7 +62,6 @@ export class CardChecklistTodo extends Component {
         return (
             <React.Fragment>
                 <Checkbox checked={this.state.isDone} onChange={this.onCheck} />
-
                 <div className="checklist-todo-title" onClick={this.setEditing}>
                     {this.state.txtValue}
                     <Button onClick={this.onRemove}>
@@ -74,6 +73,7 @@ export class CardChecklistTodo extends Component {
     }
 
     onSubmit = (ev) => {
+        console.log(ev)
         ev.preventDefault()
         // this.setNotEditing()
         this.updateChecklist()
@@ -81,6 +81,7 @@ export class CardChecklistTodo extends Component {
     }
 
     updateTodo = () => {
+        
         const todo = this.props.todo
         if (!todo) return
         const txtValue = todo.title
@@ -90,10 +91,12 @@ export class CardChecklistTodo extends Component {
     }
 
     onChange = (ev) => {
+        console.log(ev)
         this.setState({ txtValue: ev.target.value })
     }
 
     onCheck = async(ev) => {
+        
         let txt = ''
         let checkStatus = ev.target.checked
         if (checkStatus) {
@@ -102,6 +105,7 @@ export class CardChecklistTodo extends Component {
             txt = `marked ${this.state.txtValue} incomplete`
         }
         await this.props.addActivity(txt)
+        console.log('checking')
         this.setState({ isDone: checkStatus}, this.updateChecklist)
     }
 
@@ -124,7 +128,7 @@ export class CardChecklistTodo extends Component {
         }
         
         this.props.onUpdate(todo)
-        this.setState({txtValue:''})
+        if (this.state.isNew) this.setState({txtValue:''})
     }
 
     render() {
