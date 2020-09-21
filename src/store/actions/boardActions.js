@@ -148,6 +148,21 @@ export function setStyle(style){
   }
 }
 
+export function onArchiveGroup(groupId, board){
+  return async dispatch=>{
+    // waiting for server confirmation prior
+    const newBoard = await boardService.archiveGroup(groupId, board._id)
+    dispatch({ type: 'SET_BOARD', board: newBoard })
+  }
+}
+
+export function onArchiveAllCards(groupId, board){
+  return async dispatch=>{
+    const newBoard = await boardService.archiveAllCards(groupId, board._id)
+    dispatch({ type: 'SET_BOARD', board: newBoard })
+  }
+}
+
 export function switchGroup(){}
 
 // =============================================

@@ -13,6 +13,19 @@
     display: flex;
 }
 
+.dots-icon {
+    color: $generalIconColor;
+    text-align: center;
+    padding: rem(4px);
+    font-size: 1.2em;
+    
+    &:hover{
+        color: $generalIconColorHovered;
+        background-color: $generalIconHoverBox;
+        border-radius: 0.25em;
+    }
+}
+
 
 .group-container {
     background-color: $groupClr;
@@ -32,6 +45,10 @@
     .group-header {
         line-height: 20px;
         padding: 10px 8px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
     }
     
     .card-preview {

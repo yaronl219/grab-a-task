@@ -1,0 +1,33 @@
+.group-menu-container{
+    width: 200px;
+    // height: 200px;
+    position: absolute;
+    border-radius: 0.25em;
+    background-color: #fff;
+    border: 1px solid $groupClr;
+    z-index: 5;
+    box-shadow: $modalShadow;
+    transform: translate(100%, 60%);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: rem(12px);
+
+    cursor: auto;
+    >*{
+        margin-bottom: 8px;
+    }
+
+    &>.group-menu-item{
+        align-self: flex-start;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+
+        &:hover{
+            background-color: $cardHoverClr;
+            border-radius: 0.45em;
+        }
+    }
+}

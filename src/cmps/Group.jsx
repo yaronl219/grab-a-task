@@ -6,14 +6,14 @@ import { addCard } from '../store/actions/groupActions'
 import { CardList } from './CardCmps/CardList'
 
 import { Droppable, Draggable } from 'react-beautiful-dnd'
+import { GroupMenu } from './GroupCmps/GroupMenu'
+
 
 class _Group extends Component {
 
-
-componentDidMount() {
-    console.log(this);
-
-}
+    state = {
+        isMenuShown: false
+    }
 
     onAddCard = (txt) => {
         return this.props.addCard(this.props.board, txt, this.props.group.id)
@@ -22,6 +22,10 @@ componentDidMount() {
     getAddItemTxt = () => {
         if (this.props.group.cards.length) return 'Add another card'
         return 'Add a card'
+    }
+
+    toggleMenu=()=>{
+        this.setState({ isMenuShown: !this.state.isMenuShown })
     }
 
     render() {
@@ -34,6 +38,11 @@ componentDidMount() {
                         <div {...provided.dragHandleProps}
                             className="group-header">
                             {group.title}
+
+                            <span onClick={ this.toggleMenu } class="material-icons dots-icon">more_horiz</span>
+                            {this.state.isMenuShown && <GroupMenu toggleMenu={this.toggleMenu} groupId={group.id} 
+                            onAdd={this.onAddCard}/>}
+
                         </div>
                         <Droppable droppableId={group.id} type="card">
                         {provided=>(

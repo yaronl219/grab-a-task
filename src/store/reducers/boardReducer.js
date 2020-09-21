@@ -19,7 +19,6 @@ export default function(state = initialState, action = {}) {
         return {...state,fullLabel:true}
 
     case 'SET_STYLE':
-      console.log('enterd');
         return{ ...state, style: action.style }
 
     default:

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
 import { connect } from 'react-redux';
-import { onAddNewGroup } from '../../../store/actions/boardActions';
+import { onAddNewGroup } from '../../store/actions/boardActions';
 
 export class _AddNewGroup extends Component {
 
