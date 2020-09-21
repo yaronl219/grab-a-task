@@ -119,6 +119,7 @@
         position: absolute;
         top: 0;
         right: 0;
+        padding: rem(20px);
     }
     & .color-pallete {
         display: flex;
@@ -143,6 +144,8 @@
     & .save-cancel-btns {
         margin: 0 auto;
         & button {
+            width: rem(60px);
+            height: rem(30px);
             border-radius: rem(3px);
             cursor: pointer;
         }
