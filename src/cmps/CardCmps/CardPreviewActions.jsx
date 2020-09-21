@@ -84,10 +84,8 @@ class _CardPreviewActions extends Component {
     }
 
     getParentPos = () => {
-        const width = this.props.anchorEl.current.parentElement.offsetWidth
-        const offsetTop = this.props.anchorEl.current.parentElement.offsetTop
-        const offsetLeft = this.props.anchorEl.current.parentElement.offsetLeft
-        this.setState({ offsetTop, offsetLeft, width })
+        const pos = this.props.anchorEl.current.parentElement.getBoundingClientRect()
+        this.setState({ offsetTop:pos.top, offsetLeft:pos.left, width:pos.width })
     }
 
     getCurrTitle() {

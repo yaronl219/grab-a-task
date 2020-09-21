@@ -38,16 +38,42 @@
     box-sizing: border-box;
     display: flex;
     overflow-x: hidden;
-    overflow-y: scroll;
+
     flex-direction: column;
     vertical-align: top;
     padding: 0px 4px;
     color: $textClr;
 
+<<<<<<< HEAD
+=======
+    .card-container {
+        overflow-y: auto;
+        border-radius: 3px;
+        margin: 4px;
+    }
+    .card-container::-webkit-scrollbar  {
+        // height: 8px;
+        width: 8px;
+    }
+
+    .card-container::-webkit-scrollbar-track-piece {
+        background: rgba(9,30,66,.08);
+    }
+
+    .card-container::-webkit-scrollbar-thumb {
+        background: rgba(0,0,0,.2);
+        border-radius: 10px;
+      }
+
+      .card-container::-webkit-scrollbar-button {
+        height: 0px;
+        width: 0px;
+      }
+>>>>>>> 10a2d679d00ff9c43bd3a9e5f9a92e69cad940ad
 
     .group-header {
         line-height: 20px;
-        padding: 10px 8px;
+        padding: 10px 8px 0px;
         display: flex;
         align-items: center;
         justify-content: space-between;

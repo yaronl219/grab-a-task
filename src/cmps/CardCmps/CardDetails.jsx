@@ -17,6 +17,7 @@ import ListIcon from '@material-ui/icons/List';
 import { CardAddComment } from './CardAddComment';
 import { boardService } from '../../services/boardService';
 import { LabelPalette, LabelPallete } from '../Sidebar/LabelPalette';
+import { CardMembersList } from './CardMembersList';
 
 class _CardDetails extends Component {
 
@@ -25,7 +26,8 @@ class _CardDetails extends Component {
         groupName: '',
         card: null,
         commentsOnly: false,
-        isLabelPaletteShowing: false
+        isLabelPaletteShowing: false,
+        isCardMemeberShown: false
     }
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.cardId !== this.props.cardId) {
@@ -33,6 +35,7 @@ class _CardDetails extends Component {
         }
     }
 
+    ref = React.createRef()
 
     componentDidMount() {
         
@@ -75,10 +78,12 @@ class _CardDetails extends Component {
         return this.setState({ commentsOnly: true })
     }
     toggleLabelPalette = () => {
-        console.log(this.state.isLabelPaletteShowing)
         this.setState({ isLabelPaletteShowing: !this.state.isLabelPaletteShowing })
     }
-
+    toggleDisplayMembers = () => {
+        if (this.state.isCardMemeberShown) return this.setState({ isCardMemeberShown: false })
+        return this.setState({ isCardMemeberShown: true })
+    }
     getLabels = () => {
         const labels = this.state.card.labels
         if (labels && labels.length) return (
@@ -156,8 +161,8 @@ class _CardDetails extends Component {
         card.description = description
         await this.addActivity('updated the description')
         this.setState({ card }, () => this.submitCard(card))
-
     }
+
 
     onUpdateChecklists = async (newChecklist) => {
         console.log(newChecklist)
@@ -177,9 +182,7 @@ class _CardDetails extends Component {
         // removing excess checklists
         card.checklists = card.checklists.filter(checklist => {
             if (checklist.title) return checklist
-        }
-        )
-
+        })
         this.setState({ card }, () => this.submitCard(card))
     }
 
@@ -232,12 +235,13 @@ class _CardDetails extends Component {
                             </div>
                         </main>
                         <aside className="card-details-sidebar">
-                            <CardSidebar addActivity={this.addActivity} dueDate={card.dueDate} toggleLabelPallete={this.toggleLabelPalette} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} onUpdateChecklists={this.onUpdateChecklists} />
+                            <CardSidebar addActivity={this.addActivity} toggleDisplayMembers={this.toggleDisplayMembers} dueDate={card.dueDate} toggleLabelPallete={this.toggleLabelPalette} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} onUpdateChecklists={this.onUpdateChecklists} />
                         </aside>
                     </section>
 
                 </div>
                 {this.state.isLabelPaletteShowing && <LabelPalette card={card} />}
+                {this.state.isCardMemeberShown && <CardMembersList toggleList={this.toggleDisplayMembers} boardMembers={this.props.board.members} cardMembers={card.members} />}
             </div>
         )
     }
