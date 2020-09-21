@@ -17,13 +17,13 @@ export class _ChangeBackground extends Component {
         const boardStyles = [
             {
                 id: 'bs101',
-                fontClr: '#000000',
+                fontClr: '#202020',
                 bgClr: '#ffffff',
                 bgImg: 'url(https://image.freepik.com/free-vector/abstract-paper-hexagon-white-background_51543-7.jpg)'
             },
             {
                 id: 'bs102',
-                fontClr: '#ffffff',
+                fontClr: '#f9f9f9',
                 bgClr: '#007AC0',
                 bgImg: 'url(https://static4.depositphotos.com/1001351/322/v/450/depositphotos_3223514-stock-illustration-grunge-abstract-background-eps-10.jpg)'
             }

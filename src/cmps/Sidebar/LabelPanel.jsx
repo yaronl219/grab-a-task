@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { Drawer, Divider, IconButton } from '@material-ui/core';
 import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import CheckIcon from '@material-ui/icons/Check';
-import { addLabel, updateLabel } from '../../store/actions/boardActions.js';
+import { addLabel, updateLabel, removeLabel } from '../../store/actions/boardActions.js';
 import { LabelEditModal } from './LabelEditModal.jsx';
 
 class _LabelPanel extends Component {
@@ -29,11 +30,15 @@ class _LabelPanel extends Component {
         this.props.addLabel(this.props.board, newLabel);
         this.setLabelEditId();
     }
+    onRemoveLabel = (labelId) => {
+        this.props.removeLabel(this.props.board, labelId);
+        this.setLabelEditId();
+    }
     setLabelEditId = (labelEditId = null) => {
         this.setState({ labelEditId });
     }
     render() {
-        const { board, isShowing, onSetMenuOpt } = this.props;
+        const { board, card, isShowing, onSetMenuOpt } = this.props;
         return (
             <div className="sidebar-container" >
                 <Drawer classes={{ root: 'sidebar' }}
@@ -58,8 +63,15 @@ class _LabelPanel extends Component {
                                         : label.id
                                 )}>
                                 <span>{label.name}</span>
-                                <EditOutlinedIcon />
+                                {card && card.labels.find(cardLabel => cardLabel.id === label.id) && <CheckIcon fontSize="small" />}
                             </div>
+                            <IconButton className="edit-label-btn" onClick={() => this.setLabelEditId(
+                                this.state.labelEditId === label.id
+                                    ? null
+                                    : label.id
+                            )}>
+                                <EditOutlinedIcon fontSize='small' />
+                            </IconButton>
                             {this.state.labelEditId === label.id && <LabelEditModal
                                 label={label}
                                 action={this.onEditLabel}
@@ -91,6 +103,7 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = {
     addLabel,
-    updateLabel
+    updateLabel,
+    removeLabel
 };
 export const LabelPanel = connect(mapStateToProps, mapDispatchToProps)(_LabelPanel);

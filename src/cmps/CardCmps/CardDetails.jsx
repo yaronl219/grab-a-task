@@ -24,7 +24,6 @@ class _CardDetails extends Component {
         card: null,
         commentsOnly: false
     }
-
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.cardId !== this.props.cardId) {
             this.getCardDetails()

@@ -14,7 +14,7 @@ import { ActivityLog } from './ActivityLog'
 import { LabelPanel } from './LabelPanel';
 
 export class _Sidebar extends Component {
-    state = { selectedMenuOpt: 'labels' }
+    state = { selectedMenuOpt: null }
     onSetMenuOpt = (selectedMenuOpt) => {
         this.setState({ selectedMenuOpt });
     }

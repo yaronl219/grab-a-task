@@ -3,9 +3,19 @@
         width: 100%;
         margin: 5px 0;
         position: relative;
-
+        display: flex;
+        justify-content: space-between;
+        & .edit-label-btn {
+            width: 0.7rem;
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.1);
+            }
+        }
+        & button svg {
+            opacity: 1;
+        }
         & .label-color {
-            width: 100%;
+            width: 82.5%;
             height: rem(30px);
             padding: 0 rem(5px);
             display: flex;
@@ -38,25 +48,30 @@
             &.grey:hover {
                 box-shadow: -5px 0px 0px 0px darken($labelGrey, 20%);
             }
+            &.black:hover {
+                box-shadow: -5px 0px 0px 0px darken($labelBlack, 20%);
+            }
             &.add-label {
                 margin-top: rem(25px);
+                width: 90%;
                 background-color: $memberClr;
                 font-size: 0.7rem;
                 color: $closeClr;
                 display: flex;
                 justify-content: center;
                 & + div {
-                    top:rem(68px);
+                    top: -9.5rem;
                 }
+                
             }
         }
         & span {
             transition: all 0.15s;
         }
-        & svg {
-            opacity: 0;
-            transition: all 0.15s;
-        }
+        // & svg {
+        //     opacity: 0;
+        //     transition: all 0.15s;
+        // }
         & .label-color:hover {
             & span {
                 padding-left: rem(5px);
@@ -65,21 +80,28 @@
                 opacity: 1;
             }
         }
-        
     }
 }
 .label-edit-modal {
     background-color: #fff;
     height: fit-content;
-    left: 7.5%;
     top: rem(42px);
-    width: 85%;
+    width: rem(190px);
+    height: rem(180px);
     border-radius: rem(3px);
     padding: rem(10px);
     position: absolute;
     z-index: 1;
     box-shadow: 0px 0px 5px 0px #000000;
     text-align: center;
+    & form {
+        position: relative;
+        top: rem(30px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
     & input[type="text"] {
         height: rem(25px);
         padding-left: rem(5px);
@@ -91,9 +113,15 @@
     & input:focus {
         outline: none;
     }
+    & .close-modal {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
     & .color-pallete {
         display: flex;
         flex-wrap: wrap;
+        padding: 0 rem(4px);
         & input[type="radio"] + label {
             margin: rem(5px);
         }
