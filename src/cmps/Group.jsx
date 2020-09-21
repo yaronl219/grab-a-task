@@ -39,7 +39,7 @@ class _Group extends Component {
                             className="group-header">
                             {group.title}
 
-                            <span onClick={ this.toggleMenu } class="material-icons dots-icon">more_horiz</span>
+                            <span onClick={ this.toggleMenu } className="material-icons dots-icon">more_horiz</span>
                             {this.state.isMenuShown && <GroupMenu toggleMenu={this.toggleMenu} groupId={group.id} 
                             onAdd={this.onAddCard}/>}
 
