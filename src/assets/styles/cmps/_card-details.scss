@@ -22,6 +22,9 @@
             height: rem(20px);
             & .label-color {
                 height: rem(20px);
+                &.add-label{
+                    font-size: 0.68rem;
+                }
             }
         }
     }

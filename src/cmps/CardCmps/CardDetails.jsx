@@ -78,7 +78,6 @@ class _CardDetails extends Component {
         return this.setState({ commentsOnly: true })
     }
     toggleLabelPalette = () => {
-        console.log(this.state.isLabelPaletteShowing)
         this.setState({ isLabelPaletteShowing: !this.state.isLabelPaletteShowing })
     }
     toggleDisplayMembers = () => {

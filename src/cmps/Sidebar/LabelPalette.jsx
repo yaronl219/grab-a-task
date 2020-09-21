@@ -4,7 +4,7 @@ import { IconButton } from '@material-ui/core';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import CheckIcon from '@material-ui/icons/Check';
-import { addLabel, updateLabel, removeLabel } from '../../store/actions/boardActions.js';
+import { addLabel, updateLabel, removeLabel, updateCard } from '../../store/actions/boardActions.js';
 import { LabelEditModal } from './LabelEditModal.jsx';
 
 
@@ -36,8 +36,14 @@ class _LabelPalette extends Component {
         this.props.removeLabel(this.props.board, labelId);
         this.setLabelEditId();
     }
-    onToggleLabelToCard = (labelId) => {
-        console.log('hello', labelId)
+    onToggleLabelToCard = (card, labelId) => {
+        console.log('card\'s labels before:', card.labels);
+        const labelIdx = card.labels.findIndex(label => label.id === labelId);
+        card.labels = (labelIdx === -1)
+        ? [...card.labels, { id: labelId }]
+        : [...card.labels.slice(0, labelIdx), ...card.labels.slice(labelIdx + 1)];
+        console.log('card\'s labels after:', card.labels);
+        this.props.updateCard(this.props.board, card);
     }
     render() {
         const { board, card } = this.props;
@@ -47,7 +53,7 @@ class _LabelPalette extends Component {
                     {board.labels.map(label => <li key={label.id} className="label">
                         <div className={`label-color ${label.color}`}
                             onClick={card
-                                ? () => this.onToggleLabelToCard(label.id)
+                                ? () => this.onToggleLabelToCard(card, label.id)
                                 : () => this.setLabelEditId(
                                     this.state.labelEditId === label.id
                                         ? null
@@ -61,11 +67,15 @@ class _LabelPalette extends Component {
                                 ? null
                                 : label.id
                         )}>
-                            <EditOutlinedIcon fontSize='small' />
+                            <EditOutlinedIcon fontSize="small" />
                         </IconButton>
+                        {!card && <IconButton className="remove-label-btn" onClick={() => this.onRemoveLabel(label.id)}>
+                            <DeleteOutlinedIcon fontSize="small" />
+                        </IconButton>}
                         {this.state.labelEditId === label.id && <LabelEditModal
                             label={label}
                             action={this.onEditLabel}
+                            onRemoveLabel={this.onRemoveLabel}
                             setLabelEditId={this.setLabelEditId} />}
                     </li>)}
                     <li className="label add-label">
@@ -75,7 +85,7 @@ class _LabelPalette extends Component {
                                     ? null
                                     : 'addLabel'
                             )}>
-                            <div>Create a new label</div>
+                            Create a new label
                         </div>
                         {this.state.labelEditId === 'addLabel' && <LabelEditModal
                             action={this.onAddLabel}
@@ -94,6 +104,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     addLabel,
     updateLabel,
-    removeLabel
+    removeLabel,
+    updateCard
 };
 export const LabelPalette = connect(mapStateToProps, mapDispatchToProps)(_LabelPalette);
