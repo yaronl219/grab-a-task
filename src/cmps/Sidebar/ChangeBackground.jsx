@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Drawer, Divider, IconButton, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
 import { updateBoard, setStyle } from '../../store/actions/boardActions.js';
-
+import bg1 from './../../assets/imgs/backgrounds/bg-1.jpg';
 
 export class _ChangeBackground extends Component {
     onSetBoardStyle = (style) => {
@@ -17,13 +17,43 @@ export class _ChangeBackground extends Component {
         const boardStyles = [
             {
                 id: 'bs101',
-                fontClr: '#202020', //white
-                bgImg: 'url(https://image.freepik.com/free-vector/abstract-paper-hexagon-white-background_51543-7.jpg)'
+                fontClr: '#f9f9f9',
+                bgImg: 'url(https://res.cloudinary.com/duhz8ymod/image/upload/v1600708689/bg-1_ls68ox.jpg)'
             },
             {
                 id: 'bs102',
-                fontClr: '#f9f9f9', //black
-                bgImg: 'url(https://static4.depositphotos.com/1001351/322/v/450/depositphotos_3223514-stock-illustration-grunge-abstract-background-eps-10.jpg)'
+                fontClr: '#f9f9f9',
+                bgImg: 'url(https://res.cloudinary.com/duhz8ymod/image/upload/v1600708658/bg-2_r8mevb.jpg)'
+            },
+            {
+                id: 'bs103',
+                fontClr: '#f9f9f9',
+                bgImg: 'url(https://res.cloudinary.com/duhz8ymod/image/upload/v1600708664/bg-3_vrhygl.jpg)'
+            },
+            {
+                id: 'bs104',
+                fontClr: '#f9f9f9',
+                bgImg: 'url(https://res.cloudinary.com/duhz8ymod/image/upload/v1600708683/bg-4_jqpmcl.jpg)'
+            },
+            {
+                id: 'bs105',
+                fontClr: '#f9f9f9',
+                bgImg: 'url(https://res.cloudinary.com/duhz8ymod/image/upload/v1600708662/bg-5_r4mz7j.jpg)'
+            },
+            {
+                id: 'bs106',
+                fontClr: '#f9f9f9',
+                bgImg: 'url(https://res.cloudinary.com/duhz8ymod/image/upload/v1600708669/bg-6_tsrunp.jpg)'
+            },
+            {
+                id: 'bs107',
+                fontClr: '#f9f9f9',
+                bgImg: 'url(https://res.cloudinary.com/duhz8ymod/image/upload/v1600708679/bg-7_g0tqic.jpg)'
+            },
+            {
+                id: 'bs108',
+                fontClr: '#f9f9f9',
+                bgImg: 'url(https://res.cloudinary.com/duhz8ymod/image/upload/v1600708683/bg-8_hoe86h.jpg)'
             }
         ];
         return (
@@ -47,14 +77,16 @@ export class _ChangeBackground extends Component {
                                     className="bg-style"
                                     style={{
                                         backgroundColor: style.bgClr,
-                                        color: style.fontClr
                                     }}
                                     onClick={() => this.onSetBoardStyle(style)}>
                                     <div className="img-container" style={{
                                         backgroundImage: style.bgImg,
                                         backgroundRepeat: 'no-repeat',
                                         backgroundSize: 'cover'
-                                    }}></div>
+                                       
+                                    }}>
+                                         {/* <img src={bg1} /> */}
+                                    </div>
                                     <div>Select</div>
                                 </div>
                             })}
@@ -73,6 +105,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     updateBoard,
     setStyle
-    
+
 };
 export const ChangeBackground = connect(mapStateToProps, mapDispatchToProps)(_ChangeBackground);
