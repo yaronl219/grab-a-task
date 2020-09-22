@@ -47,6 +47,7 @@ export function updateBoard(board) {
 }
 
 export function updateCard(board, newCard) {
+  
   return async dispatch => {
     try {
       let newBoard = JSON.parse(JSON.stringify(board))
@@ -54,6 +55,7 @@ export function updateCard(board, newCard) {
       const cardIdx = newBoard.groups[groupIdx].cards.findIndex(card => card.id === newCard.id)
       newBoard.groups[groupIdx].cards[cardIdx] = newCard
       newBoard = await boardService.updateBoard(newBoard) // updating the DB
+      console.log(newBoard)
       dispatch({ type: 'SET_BOARD', board: newBoard })
     } catch (err) {
       console.log('error updating card', err)
