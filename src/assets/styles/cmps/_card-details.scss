@@ -195,8 +195,11 @@
             overflow: hidden;
             position: relative;
             height: 100%;
-            .card-details-activitiey-log {
-                overflow-y: scroll;
+            .card-details-activity-log {
+                // overflow-y: scroll;
+                ul {
+                    padding: 0px;
+                }
             }
         }
 
@@ -328,6 +331,7 @@
 }
 .editing-section-container {
     font-size: 0.875rem;
+
     .editing-container-collapsed {
         div {
             min-height: 36px;

@@ -16,6 +16,9 @@ import { CardAddComment } from './CardAddComment';
 import { boardService } from '../../services/boardService';
 import { LabelPalette, LabelPallete } from '../Sidebar/LabelPalette';
 import { CardMembersList } from './CardMembersList';
+import { CardImgUpload } from './CardImgUpload';
+import { cardService } from '../../services/cardService/cardService';
+import { CardImagesList } from './CardImagesList';
 
 class _CardDetails extends Component {
 
@@ -25,11 +28,16 @@ class _CardDetails extends Component {
         card: null,
         commentsOnly: false,
         isLabelPaletteShowing: false,
-        isCardMemeberShown: false
+        isCardMemeberShown: false,
+        isUploadZoneOpen: false,
+        isUploading: false
     }
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.cardId !== this.props.cardId) {
             this.getCardDetails()
+        }
+        if (prevState.isUploading !== this.state.isUploading) {
+            console.log('detected upload')
         }
     }
 
@@ -82,6 +90,10 @@ class _CardDetails extends Component {
         if (this.state.isCardMemeberShown) return this.setState({ isCardMemeberShown: false })
         return this.setState({ isCardMemeberShown: true })
     }
+    toggleUploadDropzone = () => {
+        if (this.state.isUploadZoneOpen) return this.setState({ isUploadZoneOpen: false })
+        return this.setState({ isUploadZoneOpen: true })
+    }
     getLabels = () => {
         const labels = this.state.card.labels
         if (labels && labels.length) return (
@@ -117,14 +129,14 @@ class _CardDetails extends Component {
         let card = { ...this.state.card }
         card.archivedAt = Date.now()
         await this.submitCard(card)
-        this.addActivity('archived')
+        await this.addActivity('archived')
         this.onCloseCard()
     }
 
     onUpdateDueDate = async (dueDate) => {
         let card = { ...this.state.card }
         card.dueDate = dueDate
-        await 
+        
         this.setState({ card }, async() => {
             await this.submitCard(card)
             this.addActivity('updated due date')})
@@ -167,7 +179,11 @@ class _CardDetails extends Component {
 
 
     submitCard = (card) => {
-        this.props.updateCard(this.props.board, card)
+        
+        return new Promise(resolve => {
+            this.props.updateCard(this.props.board, card).then(() => resolve())
+
+        })
     }
 
     onUpdateCardMembers = async (card,txt) => {
@@ -188,9 +204,48 @@ class _CardDetails extends Component {
         })
     }
 
+    setUploading = () => {
+        return new Promise(resolve => {
+            this.setState({isUploading:true},resolve(true))
+        })
+    }
+
+    onAddImage = (imgRef) => {
+        const newImg = cardService.createImage(imgRef)
+        const card = { ...this.state.card }
+        if (!card.attachments) card.attachments = []
+        card.attachments.push(newImg)
+        
+            this.setState({card}, async() => {
+            
+                await this.submitCard(card)
+                await this.addActivity('added an image')
+                this.setState({isUploading:false})
+            })
+        
+    }
+
+    onUpdateAttachments = async (newAttachment) => {
+        const card = { ...this.state.card }
+        const idx = card.attachments.findIndex(att => att.id === newAttachment.id)
+        console.log(newAttachment)
+        if (!newAttachment.title.length){
+            console.log('should remove')
+            card.attachments.splice(idx,1)
+        } else {
+            card.attachments[idx] = newAttachment
+        }
+        console.log(card.attachments)
+        this.setState({card},() => {
+            this.submitCard(card)
+            .then(() => {
+                (newAttachment.title.length) ? this.addActivity('edited the title of an image') : this.addActivity('removed an image')
+            })
+        }) 
+    }
+
 
     onUpdateChecklists = async (newChecklist) => {
-        
         const card = { ...this.state.card }
         if (!card.checklists) card.checklists = []
         // updating
@@ -246,7 +301,9 @@ class _CardDetails extends Component {
                     <section>
                         <main className="card-details-main">
                             <CardDescription onUpdateDesc={this.onUpdateDesc} description={card.description} />
+                            <CardImagesList onUpdate={this.onUpdateAttachments} attachments={this.state.card.attachments} />
                             <CardChecklistList addActivity={this.addActivity} checklists={card.checklists} onUpdate={this.onUpdateChecklists} />
+                            <CardImgUpload onAddImage={this.onAddImage} setUploading={this.setUploading} toggleOpen={this.toggleUploadDropzone} isOpen={this.state.isUploadZoneOpen} />
                             <div  className="card-details-activity-log">
                                 <div className="card-details-activities-title">
                                     <ListIcon />
@@ -254,6 +311,7 @@ class _CardDetails extends Component {
                                     <Button onClick={this.toggleCommentsOnly}>{(this.state.commentsOnly) ? 'Show Details' : 'Hide Details'}</Button>
                                 </div>
                                 <CardAddComment onAddComment={this.onAddComment} />
+
                                 <ActivityLog
                                     boardId={this.props.board._id}
                                     displayMode="card"
@@ -261,7 +319,7 @@ class _CardDetails extends Component {
                             </div>
                         </main>
                         <aside  className="card-details-sidebar">
-                            <CardSidebar  anchorRef={this.ref} addActivity={this.addActivity} toggleDisplayMembers={this.toggleDisplayMembers} dueDate={card.dueDate} toggleLabelPallete={this.toggleLabelPalette} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} onUpdateChecklists={this.onUpdateChecklists} />
+                            <CardSidebar  anchorRef={this.ref} addActivity={this.addActivity} isUploading={this.state.isUploading} toggleUploadDropzone={this.toggleUploadDropzone} toggleDisplayMembers={this.toggleDisplayMembers} dueDate={card.dueDate} toggleLabelPallete={this.toggleLabelPalette} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} onUpdateChecklists={this.onUpdateChecklists} />
                         </aside>
                     </section>
 

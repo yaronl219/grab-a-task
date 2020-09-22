@@ -54,7 +54,7 @@ class _CardPreview extends Component {
 
     getCardPreviewAttachments = () => {
         const cardAtt = this.props.card.attachments
-        if (!cardAtt || !Object.keys(cardAtt)) return null
+        if (!cardAtt || !Object.keys(cardAtt) || !cardAtt.length) return null
         return <div key="0" className="card-preview-attr"><AttachFileOutlinedIcon style={{ fontSize: 16 }} /></div>
     }
 

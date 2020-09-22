@@ -1,0 +1,52 @@
+.card-attachments-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    .card-attachment {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        
+        .att-image {
+            height: 5.5rem;
+            width: 6rem;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .att-details-container {
+            display: flex;
+            flex-grow: 1;
+            flex-direction: column;
+            justify-content: center;
+            // align-items: center;
+            input {
+                border: none;
+                outline: 0px;
+                padding: 0px;
+                font-weight: 700;
+                font-size: 1rem;
+                margin: 0.25rem 0rem;
+            }
+        }
+
+        .att-title {
+            display: flex;
+            align-items: center;
+        }
+        h5 {
+            line-height: 28px;
+            margin: 0.25rem 0rem;
+            
+        }
+        .att-date-added {
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+        }
+        .att-remove {
+            display: flex;
+            align-items: center;
+        }
+    }
+}
