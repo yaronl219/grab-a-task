@@ -107,11 +107,12 @@ class _App extends Component {
               <header className="App-header">
                 <Navbar />
               </header>
-
+              <main className="app-main">
               <Switch>
                 <Route path="/board/:id/:cardId?" component={Board} exact />
                 <Route component={Board} path='/' />
               </Switch>
+              </main>
             </div>
           </div>
         </DragDropContext>

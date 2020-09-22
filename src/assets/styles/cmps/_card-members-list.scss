@@ -28,7 +28,17 @@
             justify-content: space-between;
             padding: 0.5rem;
             cursor: pointer;
-
+            box-shadow: inset 0 0 0 2px #dfe1e6;
+            font-size: 0.875rem;
+            .MuiAvatar-root {
+                font-size: small;
+                width: 1.5rem;
+                height: 1.5rem;
+            }
+            div,
+            svg {
+                line-height: 1.5rem;
+            }
         }
         .board-member:hover {
             background-color: rgba(9,30,66,.04);

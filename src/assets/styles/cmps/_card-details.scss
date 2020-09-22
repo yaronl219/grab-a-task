@@ -1,8 +1,11 @@
 .card-details-background {
     display: flex;
     width: 100%;
+    height: 105vh;
     flex-wrap: nowrap;
-    position: relative;
+    position: fixed;
+    top: -5vh;
+
     
     justify-content: center;
     & .label-palette {

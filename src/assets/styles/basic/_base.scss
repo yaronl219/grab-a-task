@@ -2,6 +2,26 @@
     box-sizing: border-box;
 }
 
+*::-webkit-scrollbar  {
+    // height: 8px;
+    width: 8px;
+    padding: 2px;
+}
+
+*::-webkit-scrollbar-track-piece {
+    background: rgba(9,30,66,.08);
+}
+
+*::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,.15);
+    border-radius: 10px;
+  }
+
+*::-webkit-scrollbar-button {
+    height: 0px;
+    width: 0px;
+  }
+
 html {
     font-family: Roboto-Regular;
     line-height: 1.6;

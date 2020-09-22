@@ -41,18 +41,23 @@ class _Board extends Component {
     if (!board) return <div>Loading...</div>
 
     return (
+      <React.Fragment>
+      {(this.props.match.params.cardId) ? <CardDetails cardId={this.props.match.params.cardId} boardId={this.props.match.params.id} history={this.props.history} /> : <div></div>}
       <div className="board-container">
+        
         <BoardHeader title={board.title}
           members={board.members}
           onToggleSidebar={this.onToggleSidebar}
           onFilter={this.onFilter}
           style={board.style} />
+          
         <Sidebar board={board}
           isSidebarShowing={this.state.isSidebarShowing}
           onToggleSidebar={this.onToggleSidebar} />
         {(board.groups) ? <GroupList style={board.style} onAddGroup={this.onAddGroup} groups={board.groups} /> : <CircularProgress />}
-        {(this.props.match.params.cardId) ? <CardDetails cardId={this.props.match.params.cardId} boardId={this.props.match.params.id} history={this.props.history} /> : <div></div>}
+        
       </div>
+      </React.Fragment>
     )
   }
 }
