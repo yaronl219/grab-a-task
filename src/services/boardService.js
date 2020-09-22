@@ -59,7 +59,7 @@ function createActivity(partialActivity) {
         return httpService.get(`board/${boardId}`)
     }
     function remove(boardId) {
-        return httpService.delete(`review/${boardId}`);
+        return httpService.delete(`board/${boardId}`);
     }
     async function add(board) {
         const addedBoard = await httpService.post(`board`, board);

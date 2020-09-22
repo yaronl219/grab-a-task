@@ -13,6 +13,9 @@
 
 .sidebar-header {
     position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     & h4 {
         text-align: center;
         width: 100%;
