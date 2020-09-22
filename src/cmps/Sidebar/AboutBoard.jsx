@@ -13,10 +13,10 @@ export class _AboutBoard extends Component {
     }
     onEditDesc = (ev) => {
         ev.preventDefault();
-        console.log(ev.target.boardDesc.value)
-        const newBoard = { ...this.props.board, description: ev.target.boardDesc.value };
-        this.props.updateBoard(newBoard);
-        this.setState({ isEditDesc: false });
+        console.dir(ev.target)
+        // const newBoard = { ...this.props.board, description: ev.target.boardDesc.value };
+        // this.props.updateBoard(newBoard);
+        // this.setState({ isEditDesc: false });
     }
     render() {
         const { board, isShowing, onSetMenuOpt } = this.props;
@@ -53,7 +53,8 @@ export class _AboutBoard extends Component {
                                     Edit desciption
                                 </button>
                             </div>
-                            {isEditDesc && <form onSubmit={(ev) => this.onEditDesc(ev)}>
+                            {isEditDesc && <form>
+                            {/* onSubmit={(ev) => this.onEditDesc(ev)}> */}
                                 <textarea name="boardDesc"
                                     autoFocus
                                     defaultValue={board.description}
@@ -61,7 +62,8 @@ export class _AboutBoard extends Component {
                                     cols="30" rows="10"
                                     onBlur={() => this.setState({ isEditDesc: false })}></textarea>
                                 <div className="save-cancel-btns">
-                                    <button className="save-btn">Save</button>
+                                    <button type="button" className="save-btn"
+                                    onMouseDown={this.onEditDesc}>Save</button>
                                     <button className="cancel-btn"
                                         onClick={() => this.setState({ isEditDesc: false })}>Cancel</button>
                                 </div>
