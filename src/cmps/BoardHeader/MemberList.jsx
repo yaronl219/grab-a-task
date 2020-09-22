@@ -5,7 +5,6 @@ import { render } from '@testing-library/react';
 
 export class MemberList extends Component {
 
-
     state = {
         isModalShown: false
     }
@@ -34,7 +33,7 @@ export class MemberList extends Component {
                 }
                 <div className="member-preview" onClick={ () => this.onShowModal() }>+</div>
                 <div className="add-member-modal-container">
-                    {this.state.isModalShown && <AddMemberModal onCloseModal={ this.onCloseModal }/>}
+                    {this.state.isModalShown && <AddMemberModal onCloseModal={this.onCloseModal} allExistingUsers={this.props.allUsers}/>}
                 </div>
             </div>
         )

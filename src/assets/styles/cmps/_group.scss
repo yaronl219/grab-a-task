@@ -45,6 +45,7 @@
     color: $textClr;
 
     .card-container {
+        min-height: rem(17px);
         overflow-y: auto;
         border-radius: 3px;
         margin: 0px 4px;

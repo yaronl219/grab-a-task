@@ -42,7 +42,7 @@ export class _FilterByLabel extends Component {
         return (
             <ClickAwayListener onClickAway={this.props.toggleModal}>
             <div className="label-filter">
-                <h3>LABELS</h3>
+                <h3>Labels</h3>
                 <div className="labels-container">
 
                     <div className="label-inner-container"
@@ -50,7 +50,7 @@ export class _FilterByLabel extends Component {
                         <div className={`label grey`}></div>
                         <p>No labels</p>
                     </div>
-
+                    
                     {labels.map(label => {
                         return <Label name={label.name} 
                         color={label.color} 

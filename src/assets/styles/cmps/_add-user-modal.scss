@@ -1,6 +1,8 @@
 .add-member-modal {
-    width: rem(200px);
-    height: rem(350px) ;
+    width: rem(224px);
+    min-height: rem(350px) ;
+    max-height: rem(450px);
+    overflow-y: auto;    
     background-color: #fff;
     border: 1px solid $groupClr;
     text-align: center;
@@ -12,18 +14,37 @@
     z-index: 2;
     border-radius: 0.25em;
     box-shadow: $modalShadow;
+    color: $textClr;
+}
 
+.member-container{    
+    cursor: pointer;
+    display: flex;
+    margin: 0 rem(4px);
+    font-size: rem(15px);
+    align-items: center;    
     color: $textClr;
 
+    p{  
+        text-align: left;  
+        color: $textClr;
+        // margin: rem(6px);
+        line-height: 1;
+        flex-grow:1 ;
+    }
+
+    :last-child {
+        width: rem(18px);
+        opacity: 0.8;
+    }
+
+    &:hover {
+        background-color: $cardHoverClr;
+        border-radius: 0.45em;
+    }
 }
 
-.member-container{
-    display: flex;
-    cursor: pointer;
-    margin: rem(4px);
-    font-size: rem(15px);
-    align-items: center;
-}
+// .member-container
 
 .close-modal-btn{
     align-self: flex-end;
