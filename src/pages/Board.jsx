@@ -17,14 +17,15 @@ class _Board extends Component {
     isSidebarShowing: false
   }
 
-  onToggleSidebar = (isSidebarShowing) => {
-    this.setState({ isSidebarShowing });
-  }
-
   async componentDidMount() {
     await this.props.loadBoard('b101')
     this.props.setStyle(this.props.board.style)
   }
+
+  onToggleSidebar = (isSidebarShowing) => {
+    this.setState({ isSidebarShowing });
+  }
+
 
   onFilter = (filterBy) => {
     // this filter is sent to actions without updating the store yet
@@ -49,7 +50,9 @@ class _Board extends Component {
           members={board.members}
           onToggleSidebar={this.onToggleSidebar}
           onFilter={this.onFilter}
-          style={board.style} />
+          style={board.style} 
+          // users={this.props.allUsers}
+          />
           
         <Sidebar board={board}
           isSidebarShowing={this.state.isSidebarShowing}
@@ -72,7 +75,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   loadBoard,
   onSetFilterBy,
-  setStyle
+  setStyle,
 };
 
 export const Board = connect(mapStateToProps, mapDispatchToProps)(_Board);

@@ -29,9 +29,11 @@ class _Group extends Component {
         return 'Add a card'
     }
 
-    toggleMenu=(ev)=>{
-        ev.stopPropagation()
-        this.setState({ isMenuShown: !this.state.isMenuShown })
+    toggleMenu=()=>{
+        // ev.stopPropagation()
+        const isShown = !this.state.isMenuShown
+        this.setState({ isMenuShown: isShown })
+        
     }
 
     closeChangeGroupName = (ev) => {
