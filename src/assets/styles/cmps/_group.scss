@@ -47,26 +47,33 @@
     .card-container {
         overflow-y: auto;
         border-radius: 3px;
-        margin: 4px;
+        margin: 0px 4px;
     }
-    .card-container::-webkit-scrollbar  {
-        // height: 8px;
-        width: 8px;
-    }
+    // .card-container::-webkit-scrollbar  {
+    //     // height: 8px;
+    //     width: 8px;
+    // }
 
-    .card-container::-webkit-scrollbar-track-piece {
-        background: rgba(9,30,66,.08);
-    }
+    // .card-container::-webkit-scrollbar-track-piece {
+    //     background: rgba(9,30,66,.08);
+    // }
 
-    .card-container::-webkit-scrollbar-thumb {
-        background: rgba(0,0,0,.2);
-        border-radius: 10px;
-      }
+    // .card-container::-webkit-scrollbar-thumb {
+    //     background: rgba(0,0,0,.2);
+    //     border-radius: 10px;
+    //   }
 
+<<<<<<< HEAD
       .card-container::-webkit-scrollbar-button {
         height: 0px;
         width: 0px;
       }
+=======
+    //   .card-container::-webkit-scrollbar-button {
+    //     height: 0px;
+    //     width: 0px;
+    //   }
+>>>>>>> 4fd9889107dc9037bc2fc88ef5d8f25c8ec94e2b
 
     .group-header {
         line-height: 20px;
@@ -80,17 +87,18 @@
 }
 
     .new-item-btn {
-        min-height: 38px;
-        padding: 0px 8px 4px; 
+        // min-height: 38px;
+        padding-bottom: 4px;
         display: flex;
         align-items: center;
         color: #5e6c84;
     }
     .new-card-btn-container {
-        // padding: 4px 8px;
+        padding: 4px 8px;
         // margin: 2px 0px 8px;
         font-size: 0.875rem;
         line-height: 1.25rem;
+        
         font-family: Roboto-regular;
         .new-item-form {
             width: 100%;
@@ -117,8 +125,16 @@
             }
     }
 
-    .new-card-btn-container:hover {
+    .new-item-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-top: 4px;
+        border-radius: 3px;
+    }
+    .new-item-container:hover {
         background-color: rgba(9, 30, 66, 0.08);
+
     }
 }
 

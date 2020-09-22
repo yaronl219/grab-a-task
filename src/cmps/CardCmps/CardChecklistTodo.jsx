@@ -29,7 +29,7 @@ export class CardChecklistTodo extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.todo)
+        
         if (this.props.isNew) this.setState({ isNew: true })
         this.updateTodo()
     }
@@ -73,7 +73,7 @@ export class CardChecklistTodo extends Component {
     }
 
     onSubmit = (ev) => {
-        console.log(ev)
+        
         ev.preventDefault()
         // this.setNotEditing()
         this.updateChecklist()
@@ -91,7 +91,7 @@ export class CardChecklistTodo extends Component {
     }
 
     onChange = (ev) => {
-        console.log(ev)
+        
         this.setState({ txtValue: ev.target.value })
     }
 
@@ -104,9 +104,12 @@ export class CardChecklistTodo extends Component {
         } else {
             txt = `marked ${this.state.txtValue} incomplete`
         }
-        await this.props.addActivity(txt)
-        console.log('checking')
-        this.setState({ isDone: checkStatus}, this.updateChecklist)
+        
+        
+        this.setState({ isDone: checkStatus}, async() => {
+            await this.updateChecklist()
+            this.props.addActivity(txt)
+        })
     }
 
     onRemove = (ev) => {

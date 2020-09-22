@@ -12,11 +12,11 @@ export function loadBoard(boardId) {
 }
 
 export function addActivity(board, activity) {
-  console.log('add activity', activity)
+  
   return async dispatch => {
     try {
       let newBoard = JSON.parse(JSON.stringify(board))
-      console.log(newBoard)
+      
       newBoard.activities.unshift(activity)
       newBoard = await boardService.updateBoard(newBoard) // updating the DB
       dispatch({ type: 'SET_BOARD', board: newBoard })
@@ -34,7 +34,7 @@ export function toggleFullLabels() {
 
 
 export function updateBoard(board) {
-  console.log('update board action')
+  
   return async dispatch => {
     try {
       let newBoard = JSON.parse(JSON.stringify(board))

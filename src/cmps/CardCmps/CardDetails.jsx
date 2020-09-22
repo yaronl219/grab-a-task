@@ -1,10 +1,8 @@
-import { Button, CircularProgress, IconButton } from '@material-ui/core';
+import { Avatar, Button, CircularProgress, IconButton } from '@material-ui/core';
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { updateCard, loadBoard, switchGroup, addActivity } from '../../store/actions/boardActions';
-import { CardAttachmentList } from './CardAttachmentList';
-import { ClickAwayListener } from '@material-ui/core';
 import { CardSidebar } from './CardSidebar';
 import CloseIcon from '@material-ui/icons/Close';
 import { CardDescription } from './CardDescription';
@@ -38,7 +36,7 @@ class _CardDetails extends Component {
     ref = React.createRef()
 
     componentDidMount() {
-        
+
         if (!this.props.board || Object.keys(!this.props.board)) {
             this.props.loadBoard('b101').then(() => {
                 return this.getCardDetails()
@@ -62,9 +60,9 @@ class _CardDetails extends Component {
     }
 
     onCloseCard = () => {
-        const url = window.location.href
-        const regex = /\/board\/.+\//i
-        const targetUrl = url.match(regex)[0]
+        // const url = window.location.href
+        // const regex = /\/board\/.+\//i
+        // const targetUrl = url.match(regex)[0]
         this.props.history.push(`/board/${this.props.boardId}`)
     }
 
@@ -118,16 +116,18 @@ class _CardDetails extends Component {
     onArchiveCard = async () => {
         let card = { ...this.state.card }
         card.archivedAt = Date.now()
-        await this.addActivity('archived')
-        this.submitCard(card)
+        await this.submitCard(card)
+        this.addActivity('archived')
         this.onCloseCard()
     }
 
     onUpdateDueDate = async (dueDate) => {
         let card = { ...this.state.card }
         card.dueDate = dueDate
-        await this.addActivity('updated due date')
-        this.setState({ card }, () => this.submitCard(card))
+        await 
+        this.setState({ card }, async() => {
+            await this.submitCard(card)
+            this.addActivity('updated due date')})
     }
 
     onAddComment = (txt) => {
@@ -147,8 +147,22 @@ class _CardDetails extends Component {
     onUpdateHeader = async (txt) => {
         let card = { ...this.state.card }
         card.title = txt
-        await this.addActivity('updated the title')
-        this.setState({ card }, () => this.submitCard(card))
+        
+        this.setState({ card }, async() => {
+            await this.submitCard(card)
+            this.addActivity('updated the title')
+        })
+    }
+    getCardDetailsMembers = () => {
+        const cardMembers = this.state.card.members
+        if (!cardMembers || !cardMembers.length) return <React.Fragment />
+        
+        const cardMembersEl =  cardMembers.map((member, idx) => {
+            const splitName = member.fullName.split(' ')
+            const initials = splitName.map(name => name[0])
+            return <div key={100 + idx} className="card-details-member"><Avatar>{initials}</Avatar></div>
+        })
+        return <div className="card-details-members"><h5>Members</h5><div>{cardMembersEl}</div></div>
     }
 
 
@@ -156,16 +170,27 @@ class _CardDetails extends Component {
         this.props.updateCard(this.props.board, card)
     }
 
+    onUpdateCardMembers = async (card,txt) => {
+
+        this.setState({ card }, async() => {
+            await this.submitCard(card)
+            this.addActivity(txt)
+        })
+    }
+
     onUpdateDesc = async (description) => {
         const card = { ...this.state.card }
         card.description = description
-        await this.addActivity('updated the description')
-        this.setState({ card }, () => this.submitCard(card))
+
+        this.setState({ card }, async() => {
+            await this.submitCard(card)
+            this.addActivity('updated the description')
+        })
     }
 
 
     onUpdateChecklists = async (newChecklist) => {
-        console.log(newChecklist)
+        
         const card = { ...this.state.card }
         if (!card.checklists) card.checklists = []
         // updating
@@ -211,6 +236,7 @@ class _CardDetails extends Component {
                         </div>
                     </div>
                     <div className="card-details-attrs">
+                        {this.getCardDetailsMembers()}
                         {this.getLabels()}
                         <div>
                             {(this.state.card.dueDate ? <h5>Due Date</h5> : <React.Fragment />)}
@@ -221,7 +247,7 @@ class _CardDetails extends Component {
                         <main className="card-details-main">
                             <CardDescription onUpdateDesc={this.onUpdateDesc} description={card.description} />
                             <CardChecklistList addActivity={this.addActivity} checklists={card.checklists} onUpdate={this.onUpdateChecklists} />
-                            <div className="card-details-activity-log">
+                            <div  className="card-details-activity-log">
                                 <div className="card-details-activities-title">
                                     <ListIcon />
                                     <h5>Activities</h5>
@@ -234,14 +260,14 @@ class _CardDetails extends Component {
                                     activities={this.getFilteredActivities()} />
                             </div>
                         </main>
-                        <aside className="card-details-sidebar">
-                            <CardSidebar addActivity={this.addActivity} toggleDisplayMembers={this.toggleDisplayMembers} dueDate={card.dueDate} toggleLabelPallete={this.toggleLabelPalette} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} onUpdateChecklists={this.onUpdateChecklists} />
+                        <aside  className="card-details-sidebar">
+                            <CardSidebar  anchorRef={this.ref} addActivity={this.addActivity} toggleDisplayMembers={this.toggleDisplayMembers} dueDate={card.dueDate} toggleLabelPallete={this.toggleLabelPalette} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} onUpdateChecklists={this.onUpdateChecklists} />
                         </aside>
                     </section>
 
                 </div>
                 {this.state.isLabelPaletteShowing && <LabelPalette card={card} />}
-                {this.state.isCardMemeberShown && <CardMembersList toggleList={this.toggleDisplayMembers} boardMembers={this.props.board.members} cardMembers={card.members} />}
+                {this.state.isCardMemeberShown && <CardMembersList updateCardMembers={this.onUpdateCardMembers} anchorEl={this.ref} toggleList={this.toggleDisplayMembers} boardMembers={this.props.board.members} card={this.state.card} cardMembers={card.members} />}
             </div>
         )
     }

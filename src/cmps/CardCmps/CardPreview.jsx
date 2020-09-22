@@ -10,7 +10,8 @@ import { CardPreviewDueDate } from './CardPreviewDueDate';
 import ChatBubbleOutlineRoundedIcon from '@material-ui/icons/ChatBubbleOutlineRounded';
 import { Draggable } from 'react-beautiful-dnd'
 import { CardPreviewActions } from './CardPreviewActions';
-import { IconButton } from '@material-ui/core';
+import { Avatar } from '@material-ui/core';
+
 
 class _CardPreview extends Component {
 
@@ -39,6 +40,18 @@ class _CardPreview extends Component {
         return <div></div>
     }
 
+    getCardPreviewMembers = () => {
+        const cardMembers = this.props.card.members
+        if (!cardMembers || !cardMembers.length) return <React.Fragment />
+        
+        const cardMembersEl =  cardMembers.map((member, idx) => {
+            const splitName = member.fullName.split(' ')
+            const initials = splitName.map(name => name[0])
+            return <div key={100 + idx} className="card-preview-member"><Avatar>{initials}</Avatar></div>
+        })
+        return <div className="card-preview-members">{cardMembersEl}</div>
+    }
+
     getCardPreviewAttachments = () => {
         const cardAtt = this.props.card.attachments
         if (!cardAtt || !Object.keys(cardAtt)) return null
@@ -55,6 +68,7 @@ class _CardPreview extends Component {
         let cardComm = this.props.board.activities.filter(activity => activity.card.id === this.props.card.id)
         cardComm = cardComm.filter(activity => {
             if (activity.commentTxt) return activity
+            return null
         })
         if (!cardComm || !cardComm.length) return null
 
@@ -65,7 +79,7 @@ class _CardPreview extends Component {
         // to later be switched to using history
 
         let url = window.location.href
-        if (url.charAt(url.length-1) !== '/') url += '/'
+        if (url.charAt(url.length - 1) !== '/') url += '/'
         url += `${this.props.card.id}`
         window.location.assign(url)
     }
@@ -97,13 +111,15 @@ class _CardPreview extends Component {
     }
 
     getCardPreviewAttrs = () => {
+        // test all attributes
         const attrs = [
             this.getCardPreviewAttachments(),
             this.getCardPreviewHoldDesc(),
             this.getCardPreviewChecklist(),
             this.getCardPreviewComments()
         ]
-        if (!attrs.every(item => !item)) {
+        // if at least one of them is true OR there are members assing to this card - render the card-preview-attrs div
+        if (this.getCardPreviewMembers() || !attrs.every(item => !item)) {
             return (<div className="card-preview-attrs">
                 {attrs.map((att, idx) => {
                     if (att) return att
@@ -144,12 +160,13 @@ class _CardPreview extends Component {
                             {this.props.card.title}
                         </div>
                         <div ref={this.ref} onClick={this.onOpenCardActions} className="card-preview-edit-container">
-                            <EditOutlinedIcon  fontSize="inherit" />
+                            <EditOutlinedIcon fontSize="inherit" />
                             {(this.state.isEditing) ? <CardPreviewActions anchorEl={this.ref} props={this.props} onClose={this.onSetNotEditing} cardStyle={this.getCardPreviewStyle()} attrs={this.getCardPreviewAttrs()} /> : <React.Fragment />}
                         </div>
                         <div className="card-preview-attrs">
                             <CardPreviewDueDate dueDate={this.props.card.dueDate} />
                             {this.getCardPreviewAttrs()}
+                            {this.getCardPreviewMembers()}
                         </div>
                         {provided.placeholder}
                     </div>
