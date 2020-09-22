@@ -10,11 +10,12 @@
     justify-content: center;
     & .label-palette {
         padding: 0 rem(10px);
+        margin-left: 20vh;
         background-color: $groupClr;
         width: 16vw;
         position: fixed;
         top: 10vh;
-        right: 50px;
+        // right: 50%;
         z-index: 9;
         border-radius: rem(3px);
         font-size: 0.7rem;
