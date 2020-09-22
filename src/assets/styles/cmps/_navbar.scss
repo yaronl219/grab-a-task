@@ -1,5 +1,8 @@
 .App-header{
-    height: 5vh;
+    // min-height: 3.5vh;
+    min-height: rem(40px);
+    max-height: rem(44px);
+    padding: rem(4px);
     background-color: rgba(0, 0, 0, 0.2);
 }
 
@@ -8,4 +11,66 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0 rem(6px);
+
+}
+
+.navbar-left-container{
+    display: flex;
+    align-items: center;
+    justify-items: center;
+
+    &>.left{
+        height: 34px;
+        margin-right: rem(6px)
+    }
+
+    &>.left a {
+        line-height: 1;
+        color: #fff;
+        text-decoration: none;
+        font-size: rem(16px);
+    }
+
+    &>.left a>span {
+        margin: auto;
+        transform: translateY(20%);
+        color: #fff;
+        text-decoration: none;
+        font-size: rem(24px);
+    }
+
+}
+
+.boards-text{
+    margin: 0;
+    display: inline-block;
+    margin-left: rem(6px);
+    transform: translateY(-8%);
+}
+
+.navbar-right-container{
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    
+    &>.right {
+        height: 34px;
+        margin-right: rem(6px)
+    }
+
+    &>.right a {
+        line-height: 1;
+        color: #fff;
+        text-decoration: none;
+        font-size: rem(16px);
+        position: relative;
+
+    }
+
+    &>.right a>h4 {
+        margin: auto;
+        transform: translateY(50%);
+    }
+
 }

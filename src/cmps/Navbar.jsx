@@ -22,13 +22,14 @@ export class Navbar extends Component {
         return (
             <div className="navbar-container">
                 <div className="navbar-left-container">
-                    <NavLink to='main-url'>Home</NavLink>
-                    <NavLink to='/board'>Boards</NavLink>
+                    <div className="board-header-btn left"><NavLink to='main-url'><span class="material-icons">home</span></NavLink></div>
+                    <div className="board-header-btn left"><NavLink to='/board'><span class="material-icons">view_list</span><h4 className="boards-text">Boards</h4></NavLink></div>
                 </div>
                 <div className="navbar-right-container">
-                    <button onClick={ this.toggleModal}>+</button>
+                    <div className="board-header-btn right" onClick={this.toggleModal}><span class="material-icons">add</span></div>
                     {this.state.isNewBoardModalShown && <AddNewBoard onCloseModal={this.onCloseModal}/> }
-                    <NavLink to='/board'>Login</NavLink>
+                    <div className="board-header-btn right"><NavLink to='/login'><h4 className="login-text">Login</h4></NavLink></div>
+
                 </div>
             </div>
         )

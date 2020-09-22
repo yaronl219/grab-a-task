@@ -6,7 +6,7 @@
     overflow-y: hidden;
     height: 90vh;
     justify-content: flex-start;
-    padding: rem(8px) rem(4px);
+    padding: 0 0.5rem;
     position: relative;
 }
 
@@ -50,28 +50,12 @@
         border-radius: 3px;
         margin: 0px 4px;
     }
-    // .card-container::-webkit-scrollbar  {
-    //     // height: 8px;
-    //     width: 8px;
-    // }
 
-    // .card-container::-webkit-scrollbar-track-piece {
-    //     background: rgba(9,30,66,.08);
-    // }
-
-    // .card-container::-webkit-scrollbar-thumb {
-    //     background: rgba(0,0,0,.2);
-    //     border-radius: 10px;
-    //   }
 
       .card-container::-webkit-scrollbar-button {
         height: 0px;
         width: 0px;
       }
-    //   .card-container::-webkit-scrollbar-button {
-    //     height: 0px;
-    //     width: 0px;
-    //   }
 
     .group-header {
         line-height: 20px;

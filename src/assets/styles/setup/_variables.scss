@@ -2,6 +2,7 @@
 
 $closeClr: #42526e;
 $textClr: #172b4d;
+$textLightClr: #F4F5F7;
 $groupClr: #EBECF0;
 $cardHoverClr: #F4F5F7;
 $memberClr: #dfe1e6;
@@ -26,3 +27,26 @@ $generalIconHoverBox: #DADCE3;
 
 $modalShadow: 0px 12px 20px -12px rgba(0, 0, 0, 0.5);
 $labelBlack: #202020;
+
+// Baord bar buttons
+$buttonBgColor:  hsla(0, 0%, 100%, .24);
+$buttonBgColorHovered:  hsla(0, 0%, 100%, .3);
+$memberClrHovered: #C1C7D0
+
+
+
+// board-header-btn {
+//     border-radius: 3px;
+//     color: #fff;
+//     cursor: default;
+//     float: left;
+//     font-size: 14px;
+//     height: 32px;
+//     line-height: 32px;
+//     margin: 0 4px 4px 0;
+//     max-width: 400px;
+//     overflow: hidden;
+//     padding-left: 32px;
+//     position: relative;
+//     text-decoration: none;
+//     text-overflow: ellipsis;

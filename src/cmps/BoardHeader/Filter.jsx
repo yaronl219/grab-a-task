@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { FilterByLabel } from './FilterByLabel'
 
+
 export class Filter extends Component {
 
     state = {
@@ -26,15 +27,24 @@ export class Filter extends Component {
         return (
             <React.Fragment>
                 <div className="search-filter-container">
-                    <input type="search" id="search" autoCorrect="off" autoComplete="off"
-                        className="search-bar"
-                        onChange={this.handleChange} />
-                    <button onClick={this.toggleModal}>Labels</button>
+                    <div className="input-container">
+                        <input type="search" id="search" autoCorrect="off" autoComplete="off"
+                            className="search-bar"
+                            onChange={this.handleChange} />
+
+                        <div className="search-icon-container"><span class="material-icons">search</span></div>
+
+                    </div>
+
+                    <div className="board-header-btn filter-btn" onClick={this.toggleModal} ><span class="material-icons">sort</span></div>
                     {this.state.isLabelModalShown && 
                     <FilterByLabel toggleModal={this.toggleModal} 
                     />}
                 </div>
             </React.Fragment>
         )
-    }
+     }
+
 }
+
+

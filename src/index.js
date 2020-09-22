@@ -7,6 +7,8 @@ import * as serviceWorker from './serviceWorker';
 // import './assets/styles/global.scss'
 import { store } from './store/store';
 
+// const webpack = require('webpack')
+
 
 
 ReactDOM.render(
