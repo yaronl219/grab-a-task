@@ -6,7 +6,21 @@ import SubjectIcon from '@material-ui/icons/Subject';
 import { boardService } from '../boardService';
 
 export const cardService = {
-    addCard
+    addCard,
+    createImage
+}
+
+
+function createImage(imgRef) {
+    const attachment = {
+        type: 'img',
+        id: utils.makeId(),
+        src: imgRef,
+        title: 'Image',
+        createdAt: Date.now()
+    }
+    return attachment
+
 }
 
 async function addCard(board, cardTxt, groupId) {

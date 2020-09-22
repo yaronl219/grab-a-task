@@ -14,8 +14,12 @@ import { ActivityLog } from '../Sidebar/ActivityLog';
 import ListIcon from '@material-ui/icons/List';
 import { CardAddComment } from './CardAddComment';
 import { boardService } from '../../services/boardService';
-import { LabelPalette, LabelPallete } from '../Sidebar/LabelPalette';
+import { LabelPalette } from '../Sidebar/LabelPalette';
 import { CardMembersList } from './CardMembersList';
+import { CardImgUpload } from './CardImgUpload';
+import { cardService } from '../../services/cardService/cardService';
+import { CardImagesList } from './CardImagesList';
+import { CoverSelector } from './CoverSelector';
 
 class _CardDetails extends Component {
 
@@ -25,11 +29,17 @@ class _CardDetails extends Component {
         card: null,
         commentsOnly: false,
         isLabelPaletteShowing: false,
-        isCardMemeberShown: false
+        isCardMemeberShown: false,
+        isUploadZoneOpen: false,
+        isUploading: false,
+        isCoverSelectorShown: false
     }
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.cardId !== this.props.cardId) {
             this.getCardDetails()
+        }
+        if (prevState.isUploading !== this.state.isUploading) {
+            console.log('detected upload')
         }
     }
 
@@ -38,7 +48,8 @@ class _CardDetails extends Component {
     componentDidMount() {
 
         if (!this.props.board || Object.keys(!this.props.board)) {
-            this.props.loadBoard('b101').then(() => {
+            
+            this.props.loadBoard(this.props.boardId).then(() => {
                 return this.getCardDetails()
             })
         }
@@ -47,6 +58,7 @@ class _CardDetails extends Component {
 
 
     getCardDetails = () => {
+        
         this.props.board.groups.forEach(group => {
             group.cards.forEach(card => {
                 if (card.id === this.props.cardId) {
@@ -66,11 +78,6 @@ class _CardDetails extends Component {
         this.props.history.push(`/board/${this.props.boardId}`)
     }
 
-    openEditLabelsModal = () => {
-        // TODO - Create and connect the modal
-        console.log('should open edit labels modal')
-    }
-
     toggleCommentsOnly = () => {
         if (this.state.commentsOnly) return this.setState({ commentsOnly: false })
         return this.setState({ commentsOnly: true })
@@ -81,6 +88,14 @@ class _CardDetails extends Component {
     toggleDisplayMembers = () => {
         if (this.state.isCardMemeberShown) return this.setState({ isCardMemeberShown: false })
         return this.setState({ isCardMemeberShown: true })
+    }
+    toggleUploadDropzone = () => {
+        if (this.state.isUploadZoneOpen) return this.setState({ isUploadZoneOpen: false })
+        return this.setState({ isUploadZoneOpen: true })
+    }
+    toggleCoverSelector = () => {
+        if (this.state.isCoverSelectorShown) return this.setState({isCoverSelectorShown:false})
+        return this.setState({isCoverSelectorShown:true})
     }
     getLabels = () => {
         const labels = this.state.card.labels
@@ -117,14 +132,14 @@ class _CardDetails extends Component {
         let card = { ...this.state.card }
         card.archivedAt = Date.now()
         await this.submitCard(card)
-        this.addActivity('archived')
+        await this.addActivity('archived')
         this.onCloseCard()
     }
 
     onUpdateDueDate = async (dueDate) => {
         let card = { ...this.state.card }
         card.dueDate = dueDate
-        await 
+        
         this.setState({ card }, async() => {
             await this.submitCard(card)
             this.addActivity('updated due date')})
@@ -167,7 +182,11 @@ class _CardDetails extends Component {
 
 
     submitCard = (card) => {
-        this.props.updateCard(this.props.board, card)
+        
+        return new Promise(resolve => {
+            this.props.updateCard(this.props.board, card).then(() => resolve())
+
+        })
     }
 
     onUpdateCardMembers = async (card,txt) => {
@@ -178,6 +197,14 @@ class _CardDetails extends Component {
         })
     }
 
+    onUpdateCover = (cover) => {
+        const card = { ...this.state.card }
+        card.cover = cover
+        this.setState({card}, async() => {
+            await this.submitCard(card)
+            this.addActivity('updated the cover')
+        })
+    }
     onUpdateDesc = async (description) => {
         const card = { ...this.state.card }
         card.description = description
@@ -188,9 +215,48 @@ class _CardDetails extends Component {
         })
     }
 
+    setUploading = () => {
+        return new Promise(resolve => {
+            this.setState({isUploading:true},resolve(true))
+        })
+    }
+
+    onAddImage = (imgRef) => {
+        const newImg = cardService.createImage(imgRef)
+        const card = { ...this.state.card }
+        if (!card.attachments) card.attachments = []
+        card.attachments.push(newImg)
+        
+            this.setState({card}, async() => {
+            
+                await this.submitCard(card)
+                await this.addActivity('added an image')
+                this.setState({isUploading:false})
+            })
+        
+    }
+
+    onUpdateAttachments = async (newAttachment) => {
+        const card = { ...this.state.card }
+        const idx = card.attachments.findIndex(att => att.id === newAttachment.id)
+        console.log(newAttachment)
+        if (!newAttachment.title.length){
+            console.log('should remove')
+            card.attachments.splice(idx,1)
+        } else {
+            card.attachments[idx] = newAttachment
+        }
+        console.log(card.attachments)
+        this.setState({card},() => {
+            this.submitCard(card)
+            .then(() => {
+                (newAttachment.title.length) ? this.addActivity('edited the title of an image') : this.addActivity('removed an image')
+            })
+        }) 
+    }
+
 
     onUpdateChecklists = async (newChecklist) => {
-        
         const card = { ...this.state.card }
         if (!card.checklists) card.checklists = []
         // updating
@@ -220,12 +286,25 @@ class _CardDetails extends Component {
         return cardActivities
     }
 
+    getCardCover = () => {
+        const cover = this.state.card.cover
+        if (!cover) return <React.Fragment />
+
+        if (!cover.src) return (
+            // if there is no src - this is a color
+            <div className="card-details-cover-color" style={{backgroundColor:cover.color}} />
+        )
+        return (
+            <div className="card-details-cover-image" style={{backgroundImage:`url(${cover.src})`}} /> 
+        )
+    }
     render() {
         const card = this.state.card
         if (!card) return <div className="card-details-background"><div className="card-details-container"><CircularProgress /></div></div>
         return (
             <div className="card-details-background">
                 <div className="card-details-container">
+                    {this.getCardCover()}
                     <div className="card-details-header-container">
                         <IconButton onClick={this.onCloseCard} aria-label="close">
                             <CloseIcon />
@@ -246,7 +325,9 @@ class _CardDetails extends Component {
                     <section>
                         <main className="card-details-main">
                             <CardDescription onUpdateDesc={this.onUpdateDesc} description={card.description} />
+                            <CardImagesList onUpdate={this.onUpdateAttachments} attachments={this.state.card.attachments} />
                             <CardChecklistList addActivity={this.addActivity} checklists={card.checklists} onUpdate={this.onUpdateChecklists} />
+                            <CardImgUpload onAddImage={this.onAddImage} setUploading={this.setUploading} toggleOpen={this.toggleUploadDropzone} isOpen={this.state.isUploadZoneOpen} />
                             <div  className="card-details-activity-log">
                                 <div className="card-details-activities-title">
                                     <ListIcon />
@@ -254,6 +335,7 @@ class _CardDetails extends Component {
                                     <Button onClick={this.toggleCommentsOnly}>{(this.state.commentsOnly) ? 'Show Details' : 'Hide Details'}</Button>
                                 </div>
                                 <CardAddComment onAddComment={this.onAddComment} />
+
                                 <ActivityLog
                                     boardId={this.props.board._id}
                                     displayMode="card"
@@ -261,13 +343,13 @@ class _CardDetails extends Component {
                             </div>
                         </main>
                         <aside  className="card-details-sidebar">
-                            <CardSidebar  anchorRef={this.ref} addActivity={this.addActivity} toggleDisplayMembers={this.toggleDisplayMembers} dueDate={card.dueDate} toggleLabelPallete={this.toggleLabelPalette} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} onUpdateChecklists={this.onUpdateChecklists} />
+                            <CardSidebar  anchorRef={this.ref} addActivity={this.addActivity} isUploading={this.state.isUploading} toggleCoverSelector={this.toggleCoverSelector} toggleUploadDropzone={this.toggleUploadDropzone} toggleDisplayMembers={this.toggleDisplayMembers} dueDate={card.dueDate} toggleLabelPallete={this.toggleLabelPalette} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} onUpdateChecklists={this.onUpdateChecklists} />
                         </aside>
                     </section>
-
                 </div>
                 {this.state.isLabelPaletteShowing && <LabelPalette card={card} />}
                 {this.state.isCardMemeberShown && <CardMembersList updateCardMembers={this.onUpdateCardMembers} anchorEl={this.ref} toggleList={this.toggleDisplayMembers} boardMembers={this.props.board.members} card={this.state.card} cardMembers={card.members} />}
+                {this.state.isCoverSelectorShown && <CoverSelector card={this.state.card} anchorEl={this.ref} onUpdate={this.onUpdateCover} toggleList={this.toggleCoverSelector} />}
             </div>
         )
     }

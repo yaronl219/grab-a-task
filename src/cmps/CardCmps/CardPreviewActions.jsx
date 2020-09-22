@@ -26,8 +26,12 @@ class _CardPreviewActions extends Component {
     ref = React.createRef()
 
     submitCard = async (card) => {
-        await this.props.updateCard(this.props.board, card)
-        this.onClose()
+        return new Promise(resolve => {
+            this.props.updateCard(this.props.board, card).then(() => {
+                this.onClose()
+                resolve()
+            })
+        })
     }
 
     onClose = () => {

@@ -35,6 +35,19 @@
     background-color:  rgba(0,0,0,.64);
     z-index: 8;
 }
+.card-details-cover-image {
+    min-height: 10rem;
+    width: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.card-details-cover-color {
+    height: 7rem;
+    margin: -1rem -1rem 1rem -1rem;
+    width: calc(100% + 2rem);
+}
+
 .card-details-container {
     position: fixed;
     z-index: 8;
@@ -195,8 +208,11 @@
             overflow: hidden;
             position: relative;
             height: 100%;
-            .card-details-activitiey-log {
-                overflow-y: scroll;
+            .card-details-activity-log {
+                // overflow-y: scroll;
+                ul {
+                    padding: 0px;
+                }
             }
         }
 
@@ -328,6 +344,7 @@
 }
 .editing-section-container {
     font-size: 0.875rem;
+
     .editing-container-collapsed {
         div {
             min-height: 36px;
