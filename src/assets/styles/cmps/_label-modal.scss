@@ -11,7 +11,8 @@
     flex-direction: column;
     margin: rem(4px);
     font-size: rem(15px);
-    box-shadow: $modalShadow;
+    box-shadow: $modalShadow;    
+    color: $textClr;
 
     h3{
         text-align: center;
@@ -29,6 +30,8 @@
         background-color: $cardHoverClr;
         border-radius: 0.45em;
     }
+    color: $textClr;
+    
 }
 
 .label {

@@ -4,11 +4,20 @@ import React, { Component } from 'react'
 import { NewBoardColor } from './NewBoardColor'
 import { connect } from 'react-redux';
 import { allBoardColors } from '../../assets/bgColors/bgColors';
+import { addNewBoard } from '../../store/actions/boardActions';
+import { ClickAwayListener } from '@material-ui/core';
+
 export class _AddNewBoard extends Component {
 
     state = {
-        selectedColor: null
+        selectedColor: null,
+        newBoardName: ''
     }
+
+    componentDidMount() {
+        this.setState({  selectedColor: null, newBoardName: '' })
+    }
+    
 
     onSetColor=(color)=>{
         this.setState({ selectedColor: color })
@@ -19,19 +28,25 @@ export class _AddNewBoard extends Component {
         else return false
     }
 
-    onSubmit=()=>{
-        console.log('yes');
-        
+    handleChange=(ev)=>{
+        this.setState({ newBoardName: ev.target.value })
+    }
+
+    onSubmit=(ev)=>{
+        ev.preventDefault()
+        const boardColor = this.state.selectedColor
+        const boardName = this.state.newBoardName
+        this.props.addNewBoard(boardName, boardColor)
     }
 
     render() {    
-        console.log(allBoardColors)
         
         return (
+            <ClickAwayListener onClickAway={this.props.onCloseModal}>
             <div className="add-board-container">
-                <button onClick={ this.props.onCloseModal }>x</button>
+                {/* <button onClick={ this.props.onCloseModal }>x</button> */}
                 <h3>New board</h3>
-                <input type="text" placeholder="New Board's Name" autoFocus/>
+                <input onChange={this.handleChange} type="text" placeholder="New Board's Name" autoFocus />
                 <div className="new-board-colors-container">
                     {
                         allBoardColors.map(boardColor => {
@@ -44,16 +59,22 @@ export class _AddNewBoard extends Component {
                         })
                     }
                 </div>
-                <button onSubmit={ this.onSubmit }>Add New Board</button>
+                <button onClick={  this.onSubmit  }>Add New Board</button>
             </div>
+            </ClickAwayListener>
         )
     }
 }
-
+// colors are now imported from another file
+// need to remove this line and only bring the board
 const mapStateToProps = state => {
     return {
         boardColors: state.boardReducer.board.boardColors,
     };
 };
 
-export const AddNewBoard = connect(mapStateToProps)(_AddNewBoard)
+const mapDispatchToProps = {
+        addNewBoard
+}
+
+export const AddNewBoard = connect(mapStateToProps, mapDispatchToProps)(_AddNewBoard)

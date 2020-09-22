@@ -7,6 +7,7 @@
     height: 90vh;
     justify-content: flex-start;
     padding: rem(8px) rem(4px);
+    position: relative;
 }
 
 .group-list-container{
@@ -43,6 +44,8 @@
     padding: 0px 4px;
     color: $textClr;
 
+<<<<<<< HEAD
+=======
     .card-container {
         overflow-y: auto;
         border-radius: 3px;
@@ -66,6 +69,7 @@
         height: 0px;
         width: 0px;
       }
+>>>>>>> 10a2d679d00ff9c43bd3a9e5f9a92e69cad940ad
 
     .group-header {
         line-height: 20px;
@@ -74,8 +78,10 @@
         align-items: center;
         justify-content: space-between;
         cursor: pointer;
+        z-index: 1;
+
+
     }
-    
 }
 
     .new-item-btn {

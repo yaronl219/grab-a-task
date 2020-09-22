@@ -13,15 +13,16 @@
     flex-direction: column;
     padding: rem(12px);
     box-shadow: $modalShadow;
+    color: $textClr;
 
     h3{
         font-size: rem(18px);
     }
 
-    >:first-child{
-        align-self: flex-end;
-        position: absolute;
-    }
+    // >:first-child{
+    //     align-self: flex-end;
+    //     position: absolute;
+    // }
 }
 
 .new-board-color{
