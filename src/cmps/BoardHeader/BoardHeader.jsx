@@ -9,7 +9,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { MemberList } from './MemberList';
 import { Filter } from './Filter';
-import { Button } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import userService from '../../services/userService'
@@ -30,17 +29,12 @@ export class _BoardHeader extends Component {
                 <div className="boards-header-container" >
                     <h3>{this.props.title}</h3>
                     <div className="members-container">
-                    <MemberList members={this.props.members} allUsers={this.props.allUsers}/>
+                        <MemberList members={this.props.members} allUsers={this.props.allUsers}/>
                     </div>
                     <Filter onFilter={this.props.onFilter} />
-                    <Button onClick={() => this.props.onToggleSidebar(true)}>
-                        <MenuIcon />
-                    </Button>
-
-                    <Filter onFilter={this.props.onFilter} />
-                    <Button onClick={() => this.props.onToggleSidebar(true)}>
-                        <MenuIcon />
-                    </Button>
+                    <div className="board-header-btn" onClick={() => this.props.onToggleSidebar(true)}>
+                        <p>Show Menu</p>
+                    </div>
                 </div>
 
         )

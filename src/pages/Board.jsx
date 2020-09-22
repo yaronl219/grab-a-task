@@ -51,7 +51,7 @@ class _Board extends Component {
           onToggleSidebar={this.onToggleSidebar}
           onFilter={this.onFilter}
           style={board.style} 
-          // users={this.props.allUsers}
+          users={this.props.allUsers}
           />
           
         <Sidebar board={board}

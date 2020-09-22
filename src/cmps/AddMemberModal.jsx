@@ -23,10 +23,20 @@ export class _AddMemberModal extends Component {
     // }
  
     getMembers=(id)=>{
-        console.log('checlk', id);
+
         return this.props.members.find(member => {
-            if (member._id === id) return true
-            else return false
+
+            console.log('member', member._id, id)
+
+            if (member._id === id) {
+
+                return true}
+
+            else {
+                console.log('falsy')
+                
+                return false
+            }
         })
 
 
