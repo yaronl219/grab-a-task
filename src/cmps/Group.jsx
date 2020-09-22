@@ -9,7 +9,7 @@ import { CardList } from './CardCmps/CardList'
 
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { GroupMenu } from './GroupCmps/GroupMenu'
-import { ClickAwayListener } from '@material-ui/core'
+import { ClickAwayListener, Select } from '@material-ui/core'
 
 class _Group extends Component {
 
@@ -70,7 +70,8 @@ class _Group extends Component {
                                         <input className="change-group-name-input" 
                                         type="text" name="group-name" onChange={this.handleChangeGroupName} 
                                         defaultValue={ group.title }
-                                        autoFocus 
+                                        autoFocus spellCheck="false" autoComplete="off"
+                                        onFocus={ev => ev.target.select()}
                                         />  
                                     </form>
                                 </ClickAwayListener> : (group.title)}

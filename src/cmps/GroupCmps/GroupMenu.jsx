@@ -6,16 +6,23 @@ import { onArchiveGroup, onArchiveAllCards } from '../../store/actions/boardActi
 export class _GroupMenu extends Component {
 
 
+    // state = {
+    //     currGroup: null
+    // }
 
+    // componentDidMount() {
+        
+    // }
+    
 
-    addCard=()=>{
+    addCard=(ev)=>{
         // currently adding without moving to focus to new card
         // need to focus on "NewItem" and set its state with the help of parent element (same parent)
+        ev.stopPropagation()
         this.props.onAdd('New Card')
     }
 
-    archiveAllCards = (groupId)=>{
-        console.log('archive All Cards')
+    archiveAllCards = (ev, groupId)=>{        
         this.props.onArchiveAllCards(groupId, this.props.board)
     }
 

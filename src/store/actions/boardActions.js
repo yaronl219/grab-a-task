@@ -188,9 +188,10 @@ export function setNewGroupName(groupId, groupName, board){
   return async dispatch=>{
 
     const groupIdx = board.groups.findIndex(group => group.id === groupId)
-    if (groupName === board.groups[groupIdx].title || !groupName) return
+    if (groupName === board.groups[groupIdx].title || !groupName.trim()) return
     let newBoard = JSON.parse(JSON.stringify(board))
-    newBoard.groups[groupIdx].title = groupName
+    const newGroupName = groupName.replace(/\s+/g, " ")
+    newBoard.groups[groupIdx].title = newGroupName.trim()
     dispatch({ type: 'SET_BOARD', board: newBoard })
     await boardService.updateBoard(newBoard)
     
