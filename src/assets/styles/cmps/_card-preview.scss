@@ -6,7 +6,7 @@
     padding: 6px 8px 4px;
     border-radius: 3px;
     font-size: 0.875rem;
-    
+    overflow: hidden;
     position: relative;
     max-width: 300px;
     cursor: pointer !important;
@@ -114,6 +114,21 @@
 }
 .card-preview:hover {
     background-color: $cardHoverClr;
+}
+.card-preview-cover-color {
+    height: 2rem;
+    width: 120%;
+    margin: -1rem;
+    margin-bottom: 0.25rem;
+}
+.card-preview-cover-image {
+    height: 6rem;
+    width: 120%;
+    margin: -1rem;
+    margin-bottom: 0.25rem;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 .card-preview-edit-container {
     display: none;

@@ -14,11 +14,12 @@ import { ActivityLog } from '../Sidebar/ActivityLog';
 import ListIcon from '@material-ui/icons/List';
 import { CardAddComment } from './CardAddComment';
 import { boardService } from '../../services/boardService';
-import { LabelPalette, LabelPallete } from '../Sidebar/LabelPalette';
+import { LabelPalette } from '../Sidebar/LabelPalette';
 import { CardMembersList } from './CardMembersList';
 import { CardImgUpload } from './CardImgUpload';
 import { cardService } from '../../services/cardService/cardService';
 import { CardImagesList } from './CardImagesList';
+import { CoverSelector } from './CoverSelector';
 
 class _CardDetails extends Component {
 
@@ -30,7 +31,8 @@ class _CardDetails extends Component {
         isLabelPaletteShowing: false,
         isCardMemeberShown: false,
         isUploadZoneOpen: false,
-        isUploading: false
+        isUploading: false,
+        isCoverSelectorShown: false
     }
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.cardId !== this.props.cardId) {
@@ -46,7 +48,8 @@ class _CardDetails extends Component {
     componentDidMount() {
 
         if (!this.props.board || Object.keys(!this.props.board)) {
-            this.props.loadBoard('b101').then(() => {
+            
+            this.props.loadBoard(this.props.boardId).then(() => {
                 return this.getCardDetails()
             })
         }
@@ -55,6 +58,7 @@ class _CardDetails extends Component {
 
 
     getCardDetails = () => {
+        
         this.props.board.groups.forEach(group => {
             group.cards.forEach(card => {
                 if (card.id === this.props.cardId) {
@@ -74,11 +78,6 @@ class _CardDetails extends Component {
         this.props.history.push(`/board/${this.props.boardId}`)
     }
 
-    openEditLabelsModal = () => {
-        // TODO - Create and connect the modal
-        console.log('should open edit labels modal')
-    }
-
     toggleCommentsOnly = () => {
         if (this.state.commentsOnly) return this.setState({ commentsOnly: false })
         return this.setState({ commentsOnly: true })
@@ -93,6 +92,10 @@ class _CardDetails extends Component {
     toggleUploadDropzone = () => {
         if (this.state.isUploadZoneOpen) return this.setState({ isUploadZoneOpen: false })
         return this.setState({ isUploadZoneOpen: true })
+    }
+    toggleCoverSelector = () => {
+        if (this.state.isCoverSelectorShown) return this.setState({isCoverSelectorShown:false})
+        return this.setState({isCoverSelectorShown:true})
     }
     getLabels = () => {
         const labels = this.state.card.labels
@@ -194,6 +197,14 @@ class _CardDetails extends Component {
         })
     }
 
+    onUpdateCover = (cover) => {
+        const card = { ...this.state.card }
+        card.cover = cover
+        this.setState({card}, async() => {
+            await this.submitCard(card)
+            this.addActivity('updated the cover')
+        })
+    }
     onUpdateDesc = async (description) => {
         const card = { ...this.state.card }
         card.description = description
@@ -275,12 +286,25 @@ class _CardDetails extends Component {
         return cardActivities
     }
 
+    getCardCover = () => {
+        const cover = this.state.card.cover
+        if (!cover) return <React.Fragment />
+
+        if (!cover.src) return (
+            // if there is no src - this is a color
+            <div className="card-details-cover-color" style={{backgroundColor:cover.color}} />
+        )
+        return (
+            <div className="card-details-cover-image" style={{backgroundImage:`url(${cover.src})`}} /> 
+        )
+    }
     render() {
         const card = this.state.card
         if (!card) return <div className="card-details-background"><div className="card-details-container"><CircularProgress /></div></div>
         return (
             <div className="card-details-background">
                 <div className="card-details-container">
+                    {this.getCardCover()}
                     <div className="card-details-header-container">
                         <IconButton onClick={this.onCloseCard} aria-label="close">
                             <CloseIcon />
@@ -319,13 +343,13 @@ class _CardDetails extends Component {
                             </div>
                         </main>
                         <aside  className="card-details-sidebar">
-                            <CardSidebar  anchorRef={this.ref} addActivity={this.addActivity} isUploading={this.state.isUploading} toggleUploadDropzone={this.toggleUploadDropzone} toggleDisplayMembers={this.toggleDisplayMembers} dueDate={card.dueDate} toggleLabelPallete={this.toggleLabelPalette} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} onUpdateChecklists={this.onUpdateChecklists} />
+                            <CardSidebar  anchorRef={this.ref} addActivity={this.addActivity} isUploading={this.state.isUploading} toggleCoverSelector={this.toggleCoverSelector} toggleUploadDropzone={this.toggleUploadDropzone} toggleDisplayMembers={this.toggleDisplayMembers} dueDate={card.dueDate} toggleLabelPallete={this.toggleLabelPalette} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} onUpdateChecklists={this.onUpdateChecklists} />
                         </aside>
                     </section>
-
                 </div>
                 {this.state.isLabelPaletteShowing && <LabelPalette card={card} />}
                 {this.state.isCardMemeberShown && <CardMembersList updateCardMembers={this.onUpdateCardMembers} anchorEl={this.ref} toggleList={this.toggleDisplayMembers} boardMembers={this.props.board.members} card={this.state.card} cardMembers={card.members} />}
+                {this.state.isCoverSelectorShown && <CoverSelector card={this.state.card} anchorEl={this.ref} onUpdate={this.onUpdateCover} toggleList={this.toggleCoverSelector} />}
             </div>
         )
     }

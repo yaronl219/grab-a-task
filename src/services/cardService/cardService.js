@@ -10,6 +10,7 @@ export const cardService = {
     createImage
 }
 
+
 function createImage(imgRef) {
     const attachment = {
         type: 'img',

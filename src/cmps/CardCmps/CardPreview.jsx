@@ -77,11 +77,12 @@ class _CardPreview extends Component {
 
     onOpenCardDetails = () => {
         // to later be switched to using history
-
+    
         let url = window.location.href
         if (url.charAt(url.length - 1) !== '/') url += '/'
         url += `${this.props.card.id}`
         window.location.assign(url)
+        
     }
 
 
@@ -129,6 +130,19 @@ class _CardPreview extends Component {
         }
     }
 
+    getCardCover = () => {
+
+        const cardCover = this.props.card.cover
+        if (!cardCover) return <React.Fragment />
+        if (!cardCover.src) return (
+            // if there is no src - this is a color
+            <div className="card-preview-cover-color" style={{backgroundColor:cardCover.color}} />
+        )
+        return (
+            <div className="card-preview-cover-image" style={{backgroundImage:`url(${cardCover.src})`}} /> 
+        )
+    }
+
     onToggleLabels = (ev) => {
         ev.stopPropagation()
         return this.props.toggleFullLabels()
@@ -150,6 +164,7 @@ class _CardPreview extends Component {
                         className={'card-preview'}
                         onClick={this.onOpenCardDetails}>
                         {this.getCardPreviewStyle()}
+                        {this.getCardCover()}
                         <CardLabels onClickLabel={this.onToggleLabels}
                             isFull={this.props.fullLabel}
                             cardLabels={this.props.card.labels}
