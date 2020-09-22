@@ -1,0 +1,64 @@
+.card-members-list {
+    display: flex;
+    flex-direction: column;
+    width: 304px;
+    padding: 0px 12px 12px;
+    input {
+        margin: 4px 0 12px;
+        appearance: none;
+        border: 0px;
+        box-shadow: inset 0 0 0 2px #dfe1e6;
+        border-radius: 3px;
+        background-color: rgb(2525,253,253);
+        color: $black;
+        font-size: 0.875rem;
+        font-weight: 400;
+        height: 36px;
+    }
+    .board-members {
+        max-height: 20rem;
+        overflow-y: scroll;
+        position: relative;
+        h5 {
+            margin: 16px 30% 8px;
+            color: #5e6c84;
+        }
+        .board-member {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem;
+            cursor: pointer;
+
+        }
+        .board-member:hover {
+            background-color: rgba(9,30,66,.04);
+        }
+        
+    }
+}
+
+.card-members-list-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #5e6c84;
+    font-size: 0.875rem;
+    font-weight: 400;
+    border-bottom-color:rgba(9, 30, 66, 0.13);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    margin: 0px 12px;
+    height: 40px;
+    div {
+        flex-grow: 1;
+        height: 100%;
+        display: flex;
+        padding-left: 24px;
+        justify-content: center;
+        align-items: center;
+    }
+    svg {
+        font-size: 1rem;
+    }
+
+}

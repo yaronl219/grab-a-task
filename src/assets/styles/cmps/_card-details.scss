@@ -3,6 +3,7 @@
     width: 100%;
     flex-wrap: nowrap;
     position: relative;
+    
     justify-content: center;
     & .label-palette {
         padding: 0 rem(10px);
@@ -40,7 +41,7 @@
     width: 70vw;
     max-width: 768px;
     min-width: 370px;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
     background-color: $groupClr;
     color: $textClr;
@@ -76,14 +77,37 @@
     .card-details-attrs {
         display: flex;
         margin-bottom: 1rem;
-
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        .card-details-members {
+            min-width: 2rem;
+            margin-right: 0.5rem;
+            div {
+                display: flex;
+            }
+            .card-details-member {
+                div {
+                    width: 2rem;
+                    height: 2rem;
+                    font-size: 1rem;
+                    margin-right: 0.25rem;
+                }
+            }
+        }
         h5 {
             color: #5e6c84;
             font-weight: 500;
             text-transform: uppercase;
         }
         .card-details-label-container {
-            margin-right: 1rem;
+            // margin-right: 1rem;
+
+            .card-preview-labels {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 0.25rem;
+            }
             .card-details-label {
                 min-width: 0px;
                 max-width: 100%;
@@ -97,6 +121,7 @@
                 border-radius: 3px;
                 color: white;
                 padding: 0rem 0.75rem;
+
             }
         }
 
@@ -105,9 +130,11 @@
         }
 
         .card-preview-due-date-container {
-            padding: 0.25rem 0.5rem;
+            padding: 0.3125rem 0.5rem;
             color: white;
-            font-size: 0.75rem;
+            border-radius: 3px;
+            font-size: 0.875rem;
+            
         }
 
         .card-preview-due-date-container-long {
@@ -158,10 +185,16 @@
 
     section {
         display: flex;
-
+        position: relative;
         main {
             flex-grow: 1;
             padding: 0.5rem;
+            overflow: hidden;
+            position: relative;
+            height: 100%;
+            .card-details-activitiey-log {
+                overflow-y: scroll;
+            }
         }
 
         .checklist-title-container {

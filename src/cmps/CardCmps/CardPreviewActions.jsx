@@ -9,6 +9,8 @@ import { connect } from 'react-redux';
 import { addActivity, updateCard } from '../../store/actions/boardActions';
 import { boardService } from '../../services/boardService';
 import { CardDueDateSetter } from './CardDueDateSetter';
+import { CardMembersList } from './CardMembersList';
+import PeopleAltOutlinedIcon from '@material-ui/icons/PeopleAltOutlined';
 
 class _CardPreviewActions extends Component {
 
@@ -17,8 +19,11 @@ class _CardPreviewActions extends Component {
         offsetTop: null,
         offsetLeft: null,
         width: null,
-        txtValue: ''
+        txtValue: '',
+        isMemberListOpen: false
     }
+
+    ref = React.createRef()
 
     submitCard = async (card) => {
         await this.props.updateCard(this.props.board, card)
@@ -37,16 +42,17 @@ class _CardPreviewActions extends Component {
     onUpdateDueDate = async (dueDate) => {
         let card = { ...this.props.props.card }
         card.dueDate = dueDate
-        await this.addActivity('updated due date')
-        this.setState({ card }, () => this.submitCard(card))
+        await this.submitCard(card)
+        this.addActivity('updated due date')
     }
 
     onUpdateHeader = async () => {
         let card = { ...this.props.props.card }
         console.log(card)
         card.title = this.state.txtValue
-        await this.addActivity('updated the title')
-        this.setState({ card }, () => this.submitCard(card))
+         
+        await this.submitCard(card)
+        this.addActivity('updated the title')
 
     }
 
@@ -75,17 +81,29 @@ class _CardPreviewActions extends Component {
         if (ev.key === 'Enter') return this.onUpdateHeader()
     }
 
-
+    toggleCardMembersMenu = () => {
+        if (this.state.isMemberListOpen) return this.setState({isMemberListOpen:false})
+        this.setState({isMemberListOpen:true})
+    }
     onArchiveCard = async () => {
         let card = { ...this.props.props.card }
         card.archivedAt = Date.now()
-        await this.addActivity('archived')
-        this.submitCard(card)
+         await this.submitCard(card)
+         this.addActivity('archived')
     }
+
+    onUpdateCardMembers = async (card) => {
+        
+        this.setState({ card }, async() => {
+            await this.submitCard(card)
+            this.addActivity('edited the card members')
+        })
+    }
+
 
     getParentPos = () => {
         const pos = this.props.anchorEl.current.parentElement.getBoundingClientRect()
-        this.setState({ offsetTop:pos.top, offsetLeft:pos.left, width:pos.width })
+        this.setState({ offsetTop: pos.top, offsetLeft: pos.left, width: pos.width })
     }
 
     getCurrTitle() {
@@ -100,11 +118,13 @@ class _CardPreviewActions extends Component {
         return (
 
             <Dialog onClose={this.props.onClose} open={true} >
-                <div className="card-edit-container" onClick={(ev) => ev.stopPropagation()} style={{
+                <div  className="card-edit-container" onClick={(ev) => ev.stopPropagation()} style={{
                     left: `${this.state.offsetLeft}px`,
                     top: `${this.state.offsetTop}px`,
                     position: 'fixed'
                 }}>
+                    
+                    {(this.state.isMemberListOpen) ? <CardMembersList anchorEl={this.ref} updateCardMembers={this.onUpdateCardMembers} toggleList={this.toggleCardMembersMenu} boardMembers={this.props.board.members} card={props.card}/> : <React.Fragment />}
                     <div className="card-edit-left">
                         <div className="card-preview" style={{ width: `${this.state.width}px` }}>
                             {this.props.cardStyle}
@@ -124,10 +144,11 @@ class _CardPreviewActions extends Component {
                         </div>
                         <button className="save-btn" onClick={this.onUpdateHeader}>Save</button>
                     </div>
-                    <div className="card-edit-right">
+                    <div  className="card-edit-right">
                         <div className="card-preview-edit-actions-container">
-                        <Button onClick={this.onArchiveCard}><ArchiveOutlinedIcon /> <span>Archive Card</span></Button>
-                            <CardDueDateSetter dueDate={props.dueDate} onUpdateDueDate={this.onUpdateDueDate}/>
+                            <Button onClick={this.onArchiveCard}><ArchiveOutlinedIcon /> <span>Archive Card</span></Button>
+                            <CardDueDateSetter dueDate={props.dueDate} onUpdateDueDate={this.onUpdateDueDate} />
+                            <Button ref={this.ref} onClick={this.toggleCardMembersMenu}><PeopleAltOutlinedIcon /><span>Members</span></Button>
                         </div>
                     </div>
 

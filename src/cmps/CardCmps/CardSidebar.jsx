@@ -9,13 +9,14 @@ import PeopleAltOutlinedIcon from '@material-ui/icons/PeopleAltOutlined';
 
 
 export function CardSidebar(props) {
+    
     return (
         <div className="card-sidebar">
             <Button><ArrowForwardIcon /><span>Move Card</span></Button>
             <CardDueDateSetter dueDate={props.dueDate} onUpdateDueDate={props.onUpdateDueDate}/>
             <Button onClick={props.onArchiveCard}><ArchiveIcon /> <span>Archive Card</span></Button>
             <Button onClick={props.toggleLabelPallete}><LabelOutlinedIcon /><span>Labels</span></Button>
-            <Button onClick={props.toggleDisplayMembers}><PeopleAltOutlinedIcon /><span>Members</span></Button>
+            <Button ref={props.anchorRef} onClick={props.toggleDisplayMembers}><PeopleAltOutlinedIcon /><span>Members</span></Button>
             <CardNewChecklist addActivity={props.addActivity} onUpdate={props.onUpdateChecklists} />
         </div>
     )
