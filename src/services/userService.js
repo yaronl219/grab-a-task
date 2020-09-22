@@ -10,10 +10,12 @@ const userService = {
     remove,
     update,
     loginDefault,
-    getLoggedInUser
+    getLoggedInUser,
+
+    getUsersFromDb
 }
 
-window.userService = userService;
+// window.userService = userService;
 export default userService;
 
 function loginDefault() {
@@ -25,6 +27,10 @@ function loginDefault() {
       }
 
       _handleLogin(defaultGuest)
+}
+
+async function getUsersFromDb() {
+    return httpService.get('user')
 }
 
 function getUsers() {
