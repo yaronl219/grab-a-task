@@ -5,6 +5,7 @@ import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
 import UnarchiveOutlinedIcon from '@material-ui/icons/UnarchiveOutlined';
 import { loadBoard, updateCard, deleteCard, updateGroup } from '../../store/actions/boardActions.js';
+import { SidebarHeader } from './SidebarHeader.jsx';
 
 export class _SideArchive extends Component {
     state = {
@@ -19,7 +20,6 @@ export class _SideArchive extends Component {
     componentDidUpdate(prevProps) {
         if (prevProps.board !== this.props.board) this.loadArchive();
     }
-
     loadArchive = () => {
         const { filterBy } = this.state;
         const { board } = this.props;
@@ -75,13 +75,7 @@ export class _SideArchive extends Component {
                     open={isShowing}
                     BackdropProps={{ hideBackdrop: true }}
                     variant={'persistent'}>
-                    <div className="sidebar-header">
-                        <h4>ARCHIVE</h4>
-                        <IconButton size="small" onClick={() => onSetMenuOpt(null)}>
-                            <ArrowBackIosOutlinedIcon />
-                        </IconButton>
-                    </div>
-                    <Divider />
+                    <SidebarHeader titleTxt="ARCHIVE" onSetMenuOpt={onSetMenuOpt} />
                     <div className="search-archive-container">
                         <input type="text" onChange={(ev) => this.onFilter(ev)} />
                         <button

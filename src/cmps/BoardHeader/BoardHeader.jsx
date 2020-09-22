@@ -17,18 +17,18 @@ export class _BoardHeader extends Component {
 
 
     render() {
+        const { board } = this.props;
         return (
-                <div className="boards-header-container" >
-                    <h3>{this.props.title}</h3>
-                    <div className="members-container">
-                        <MemberList members={this.props.members} />
-                    </div>
-                    <Filter onFilter={this.props.onFilter} />
-                    <Button onClick={() => this.props.onToggleSidebar(true)}>
-                        <MenuIcon />
-                    </Button>
-
+            <div className="boards-header-container">
+                <h3>{this.props.title}</h3>
+                <div className="members-container">
+                    <MemberList members={this.props.members} />
                 </div>
+                <Filter onFilter={this.props.onFilter} />
+                <Button onClick={() => this.props.onToggleSidebar(true)}>
+                    <MenuIcon />
+                </Button>
+            </div>
         )
     }
 }

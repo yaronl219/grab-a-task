@@ -1,21 +1,28 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { Drawer, Divider, IconButton, TextField } from '@material-ui/core';
-import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
+import { Drawer, Divider } from '@material-ui/core';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import SubjectIcon from '@material-ui/icons/Subject';
 import { MemberPreview } from '../BoardHeader/MemberPreview';
 import { updateBoard } from '../../store/actions/boardActions.js';
+import { SidebarHeader } from './SidebarHeader';
 
 export class _AboutBoard extends Component {
     state = {
-        isEditDesc: false
+        isEditDesc: false,
+        currDesc: null
     }
-    onEditDesc = (ev) => {
-        ev.preventDefault();
-        console.log(ev.target.boardDesc.value)
-        const newBoard = { ...this.props.board, description: ev.target.boardDesc.value };
-        this.props.updateBoard(newBoard);
+    setCurrDesc = (ev) => {
+        const currDesc = ev.target.value;
+        this.setState({ currDesc });
+
+    }
+    onEditDesc = () => {
+        const description = this.state.currDesc;
+        if (description) {
+            const newBoard = { ...this.props.board, description };
+            this.props.updateBoard(newBoard);
+        }
         this.setState({ isEditDesc: false });
     }
     render() {
@@ -29,13 +36,7 @@ export class _AboutBoard extends Component {
                     open={isShowing}
                     BackdropProps={{ hideBackdrop: true }}
                     variant={'persistent'}>
-                    <div className="sidebar-header">
-                        <h4>ABOUT THIS BOARD</h4>
-                        <IconButton size="small" onClick={() => onSetMenuOpt(null)}>
-                            <ArrowBackIosOutlinedIcon />
-                        </IconButton>
-                    </div>
-                    <Divider />
+                    <SidebarHeader titleTxt="ABOUT THIS BOARD" onSetMenuOpt={onSetMenuOpt} />
                     <div className="about-container">
                         {board.createdBy && <div className="created-by">
                             <h5><PersonOutlineIcon /> CREATED BY</h5>
@@ -53,22 +54,24 @@ export class _AboutBoard extends Component {
                                     Edit desciption
                                 </button>
                             </div>
-                            {isEditDesc && <form onSubmit={(ev) => this.onEditDesc(ev)}>
+                            {isEditDesc && <React.Fragment>
                                 <textarea name="boardDesc"
                                     autoFocus
                                     defaultValue={board.description}
                                     style={{ resize: 'none' }}
                                     cols="30" rows="10"
+                                    onChange={(ev) => this.setCurrDesc(ev)}
                                     onBlur={() => this.setState({ isEditDesc: false })}></textarea>
                                 <div className="save-cancel-btns">
-                                    <button className="save-btn">Save</button>
+                                    <button type="button" className="save-btn"
+                                        onMouseDown={this.onEditDesc}>Save</button>
                                     <button className="cancel-btn"
                                         onClick={() => this.setState({ isEditDesc: false })}>Cancel</button>
                                 </div>
-                            </form>}
+                            </React.Fragment>}
                             {!isEditDesc && <pre
                                 style={{ cursor: 'pointer' }}
-                                onClick={() => this.setState({ isEditDesc: true })} >
+                                onClick={() => this.setState({ isEditDesc: true })}>
                                 {board.description}
                             </pre>}
                         </div>

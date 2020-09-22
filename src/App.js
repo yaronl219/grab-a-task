@@ -99,18 +99,15 @@ class _App extends Component {
 
       (this.props.style)
         ? <DragDropContext onDragEnd={this.onDragEnd}>
-          <div className="app-bg" style={{
-            backgroundImage: style.bgImg,
-            color: style.fontClr
-          }}>
+          <div className="app-bg" style={{backgroundImage: style.bgImg}}>
             <div className="App">
               <header className="App-header">
                 <Navbar />
               </header>
               <main className="app-main">
               <Switch>
-                <Route path="/board/:id/:cardId?" component={Board} exact />
-                <Route component={Board} path='/' />
+                <Route path="/board/:id/:cardId?" component={Board} />
+                {/* <Route component={Board} path='/' /> */}
               </Switch>
               </main>
             </div>

@@ -4,6 +4,7 @@ import { Drawer, Divider, IconButton, List, ListItem, ListItemIcon, ListItemText
 import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
 import { updateBoard, setStyle } from '../../store/actions/boardActions.js';
 import bg1 from './../../assets/imgs/backgrounds/bg-1.jpg';
+import { SidebarHeader } from './SidebarHeader.jsx';
 
 export class _ChangeBackground extends Component {
     onSetBoardStyle = (style) => {
@@ -13,7 +14,6 @@ export class _ChangeBackground extends Component {
     }
     render() {
         const { board, isShowing, onSetMenuOpt } = this.props;
-        const anchor = 'right';
         const boardStyles = [
             {
                 id: 'bs101',
@@ -59,17 +59,11 @@ export class _ChangeBackground extends Component {
         return (
             <div className="about-board sidebar-container" >
                 <Drawer classes={{ root: 'sidebar' }}
-                    anchor={anchor}
+                    anchor={'right'}
                     open={isShowing}
                     BackdropProps={{ hideBackdrop: true }}
                     variant={'persistent'}>
-                    <div className="sidebar-header">
-                        <h4>CHANGE BACKGROUND</h4>
-                        <IconButton size="small" onClick={() => onSetMenuOpt(null)}>
-                            <ArrowBackIosOutlinedIcon />
-                        </IconButton>
-                    </div>
-                    <Divider />
+                    <SidebarHeader titleTxt="CHANGE BACKGROUND" onSetMenuOpt={onSetMenuOpt} />
                     <div className="changeBG-container">
                         <div className="style-pallete">
                             {boardStyles.map(style => {
@@ -84,9 +78,7 @@ export class _ChangeBackground extends Component {
                                         backgroundRepeat: 'no-repeat',
                                         backgroundSize: 'cover'
                                        
-                                    }}>
-                                         {/* <img src={bg1} /> */}
-                                    </div>
+                                    }}></div>
                                     <div>Select</div>
                                 </div>
                             })}
@@ -105,6 +97,5 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     updateBoard,
     setStyle
-
 };
 export const ChangeBackground = connect(mapStateToProps, mapDispatchToProps)(_ChangeBackground);
