@@ -37,7 +37,12 @@ export class _BoardHeader extends Component {
                         <MenuIcon />
                     </Button>
 
+                    <Filter onFilter={this.props.onFilter} />
+                    <Button onClick={() => this.props.onToggleSidebar(true)}>
+                        <MenuIcon />
+                    </Button>
                 </div>
+
         )
     }
 }
