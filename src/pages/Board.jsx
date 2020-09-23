@@ -7,7 +7,7 @@ import { GroupList } from '../cmps/GroupList';
 
 import { Sidebar } from '../cmps/Sidebar/Sidebar';
 // import { connect } from 'socket.io-client';
-import { loadBoard, onSetFilterBy, setStyle } from '../store/actions/boardActions';
+import { loadBoard, onSetFilterBy, setStyle, updateBoard } from '../store/actions/boardActions';
 import socketService, { on } from '../services/socketService.js'
 
 
@@ -21,8 +21,16 @@ class _Board extends Component {
   async componentDidMount() {
     await this.props.loadBoard('5f6a0f6e973d861c5d72eb3f')
     this.props.setStyle(this.props.board.style)
-    socketService.on('init board', ()=>console.log(this.props.board._id))
+    socketService.setup()
+    socketService.emit('entered board', this.props.board._id)
+    socketService.on('spread board', board => updateBoard(board))
   }
+
+  componentWillUnmount() {
+    socketService.off(/*/*/)
+    socketService.terminate()
+  }
+
 
   onToggleSidebar = (isSidebarShowing) => {
     this.setState({ isSidebarShowing });
@@ -59,6 +67,7 @@ class _Board extends Component {
           <Sidebar board={board}
             isSidebarShowing={this.state.isSidebarShowing}
             onToggleSidebar={this.onToggleSidebar} />
+
           {(board.groups) ? <GroupList style={board.style} onAddGroup={this.onAddGroup} groups={board.groups} /> : <CircularProgress />}
 
         </div>

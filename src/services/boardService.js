@@ -1,6 +1,7 @@
 import { act } from 'react-dom/test-utils';
 import httpService from './httpService';
 import userService from './userService';
+import socketService from './socketService';
 import { utils } from './utils'
 
 export const boardService = {
@@ -68,13 +69,14 @@ function createActivity(partialActivity) {
 
     async function updateBoard(board) {
         const boardId = board._id
+        socketService.emit('board updated', board)
         return await httpService.put(`board/${boardId}`, board)
 
     }
-    async function switchGroup(board, card, oldGroupId, targetGroupId, targetIdx) {
+    async function switchGroup(board, card, oldGroupId, targetGroupId, targetCardIdx) {
         const newBoard = JSON.parse(JSON.stringify(board))
         newBoard.groups = newBoard.groups.map(group => {
-            if (group.id === targetGroupId) return [...group.splice(0, targetIdx), card, ...group.splice(targetIdx + 1)]
+            if (group.id === targetGroupId) return [...group.splice(0, targetCardIdx), card, ...group.splice(targetCardIdx + 1)]
             if (group.id === oldGroupId) return group.filter(currCard => currCard.id !== card.id)
             return group
         })

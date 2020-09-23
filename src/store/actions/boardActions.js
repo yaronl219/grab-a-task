@@ -34,7 +34,7 @@ export function toggleFullLabels() {
 
 
 export function updateBoard(board) {
-  
+  console.log(board.title)
   return async dispatch => {
     try {
       let newBoard = JSON.parse(JSON.stringify(board))
@@ -192,7 +192,7 @@ export function setNewGroupName(groupId, groupName, board){
     const groupIdx = board.groups.findIndex(group => group.id === groupId)
     if (groupName === board.groups[groupIdx].title || !groupName.trim()) return
     let newBoard = JSON.parse(JSON.stringify(board))
-    const newGroupName = groupName.replace(/\s+/g, " ")
+    const newGroupName = groupName.replace(/\s{2,}/g, " ")
     newBoard.groups[groupIdx].title = newGroupName.trim()
     dispatch({ type: 'SET_BOARD', board: newBoard })
     await boardService.updateBoard(newBoard)
