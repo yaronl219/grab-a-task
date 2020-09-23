@@ -29,7 +29,7 @@ class _Board extends Component {
   }
 
   componentWillUnmount() {
-    socketService.off(/*/*/)
+    socketService.off('board-updated')
     socketService.terminate()
   }
 
