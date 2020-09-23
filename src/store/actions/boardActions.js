@@ -47,17 +47,17 @@ export function updateCard(board, newCard,newActivity) {
       newBoard.groups[groupIdx].cards[cardIdx] = newCard
 
       // add activity
-      
+
       if (newActivity) {
         const activity = boardService.createActivity(newActivity)
         newBoard.activities.unshift(activity)
       }
 
-      
+
       dispatch({ type: 'SET_BOARD', board: newBoard })
-      boardService.updateBoard(newBoard) // updating the DB
+      await boardService.updateBoard(newBoard) // updating the DB
       // newBoard = boardService.updateBoard(newBoard) // updating the DB
-      
+
     } catch (err) {
       console.log('error updating card', err)
     }
