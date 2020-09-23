@@ -1,4 +1,4 @@
-import { Avatar, Button, CircularProgress, IconButton } from '@material-ui/core';
+import { Avatar, Button, CircularProgress, IconButton, Popover } from '@material-ui/core';
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -48,7 +48,7 @@ class _CardDetails extends Component {
     componentDidMount() {
 
         if (!this.props.board || Object.keys(!this.props.board)) {
-            
+
             this.props.loadBoard(this.props.boardId).then(() => {
                 return this.getCardDetails()
             })
@@ -58,7 +58,7 @@ class _CardDetails extends Component {
 
 
     getCardDetails = () => {
-        
+
         this.props.board.groups.forEach(group => {
             group.cards.forEach(card => {
                 if (card.id === this.props.cardId) {
@@ -94,8 +94,8 @@ class _CardDetails extends Component {
         return this.setState({ isUploadZoneOpen: true })
     }
     toggleCoverSelector = () => {
-        if (this.state.isCoverSelectorShown) return this.setState({isCoverSelectorShown:false})
-        return this.setState({isCoverSelectorShown:true})
+        if (this.state.isCoverSelectorShown) return this.setState({ isCoverSelectorShown: false })
+        return this.setState({ isCoverSelectorShown: true })
     }
     getLabels = () => {
         const labels = this.state.card.labels
@@ -139,10 +139,11 @@ class _CardDetails extends Component {
     onUpdateDueDate = async (dueDate) => {
         let card = { ...this.state.card }
         card.dueDate = dueDate
-        
-        this.setState({ card }, async() => {
+
+        this.setState({ card }, async () => {
             await this.submitCard(card)
-            this.addActivity('updated due date')})
+            this.addActivity('updated due date')
+        })
     }
 
     onAddComment = (txt) => {
@@ -162,8 +163,8 @@ class _CardDetails extends Component {
     onUpdateHeader = async (txt) => {
         let card = { ...this.state.card }
         card.title = txt
-        
-        this.setState({ card }, async() => {
+
+        this.setState({ card }, async () => {
             await this.submitCard(card)
             this.addActivity('updated the title')
         })
@@ -171,8 +172,8 @@ class _CardDetails extends Component {
     getCardDetailsMembers = () => {
         const cardMembers = this.state.card.members
         if (!cardMembers || !cardMembers.length) return <React.Fragment />
-        
-        const cardMembersEl =  cardMembers.map((member, idx) => {
+
+        const cardMembersEl = cardMembers.map((member, idx) => {
             const splitName = member.fullName.split(' ')
             const initials = splitName.map(name => name[0])
             return <div key={100 + idx} className="card-details-member"><Avatar>{initials}</Avatar></div>
@@ -182,16 +183,16 @@ class _CardDetails extends Component {
 
 
     submitCard = (card) => {
-        
+
         return new Promise(resolve => {
             this.props.updateCard(this.props.board, card).then(() => resolve())
 
         })
     }
 
-    onUpdateCardMembers = async (card,txt) => {
+    onUpdateCardMembers = async (card, txt) => {
 
-        this.setState({ card }, async() => {
+        this.setState({ card }, async () => {
             await this.submitCard(card)
             this.addActivity(txt)
         })
@@ -200,7 +201,7 @@ class _CardDetails extends Component {
     onUpdateCover = (cover) => {
         const card = { ...this.state.card }
         card.cover = cover
-        this.setState({card}, async() => {
+        this.setState({ card }, async () => {
             await this.submitCard(card)
             this.addActivity('updated the cover')
         })
@@ -209,7 +210,7 @@ class _CardDetails extends Component {
         const card = { ...this.state.card }
         card.description = description
 
-        this.setState({ card }, async() => {
+        this.setState({ card }, async () => {
             await this.submitCard(card)
             this.addActivity('updated the description')
         })
@@ -217,7 +218,7 @@ class _CardDetails extends Component {
 
     setUploading = () => {
         return new Promise(resolve => {
-            this.setState({isUploading:true},resolve(true))
+            this.setState({ isUploading: true }, resolve(true))
         })
     }
 
@@ -226,33 +227,33 @@ class _CardDetails extends Component {
         const card = { ...this.state.card }
         if (!card.attachments) card.attachments = []
         card.attachments.push(newImg)
-        
-            this.setState({card}, async() => {
-            
-                await this.submitCard(card)
-                await this.addActivity('added an image')
-                this.setState({isUploading:false})
-            })
-        
+
+        this.setState({ card }, async () => {
+
+            await this.submitCard(card)
+            await this.addActivity('added an image')
+            this.setState({ isUploading: false })
+        })
+
     }
 
     onUpdateAttachments = async (newAttachment) => {
         const card = { ...this.state.card }
         const idx = card.attachments.findIndex(att => att.id === newAttachment.id)
         console.log(newAttachment)
-        if (!newAttachment.title.length){
+        if (!newAttachment.title.length) {
             console.log('should remove')
-            card.attachments.splice(idx,1)
+            card.attachments.splice(idx, 1)
         } else {
             card.attachments[idx] = newAttachment
         }
         console.log(card.attachments)
-        this.setState({card},() => {
+        this.setState({ card }, () => {
             this.submitCard(card)
-            .then(() => {
-                (newAttachment.title.length) ? this.addActivity('edited the title of an image') : this.addActivity('removed an image')
-            })
-        }) 
+                .then(() => {
+                    (newAttachment.title.length) ? this.addActivity('edited the title of an image') : this.addActivity('removed an image')
+                })
+        })
     }
 
 
@@ -292,10 +293,10 @@ class _CardDetails extends Component {
 
         if (!cover.src) return (
             // if there is no src - this is a color
-            <div className="card-details-cover-color" style={{backgroundColor:cover.color}} />
+            <div className="card-details-cover-color" style={{ backgroundColor: cover.color }} />
         )
         return (
-            <div className="card-details-cover-image" style={{backgroundImage:`url(${cover.src})`}} /> 
+            <div className="card-details-cover-image" style={{ backgroundImage: `url(${cover.src})` }} />
         )
     }
     render() {
@@ -328,7 +329,7 @@ class _CardDetails extends Component {
                             <CardImagesList onUpdate={this.onUpdateAttachments} attachments={this.state.card.attachments} />
                             <CardChecklistList addActivity={this.addActivity} checklists={card.checklists} onUpdate={this.onUpdateChecklists} />
                             <CardImgUpload onAddImage={this.onAddImage} setUploading={this.setUploading} toggleOpen={this.toggleUploadDropzone} isOpen={this.state.isUploadZoneOpen} />
-                            <div  className="card-details-activity-log">
+                            <div className="card-details-activity-log">
                                 <div className="card-details-activities-title">
                                     <ListIcon />
                                     <h5>Activities</h5>
@@ -342,15 +343,30 @@ class _CardDetails extends Component {
                                     activities={this.getFilteredActivities()} />
                             </div>
                         </main>
-                        <aside  className="card-details-sidebar">
-                            <CardSidebar  anchorRef={this.ref} addActivity={this.addActivity} isUploading={this.state.isUploading} toggleCoverSelector={this.toggleCoverSelector} toggleUploadDropzone={this.toggleUploadDropzone} toggleDisplayMembers={this.toggleDisplayMembers} dueDate={card.dueDate} toggleLabelPallete={this.toggleLabelPalette} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} onUpdateChecklists={this.onUpdateChecklists} />
+                        <aside className="card-details-sidebar" ref={this.ref}>
+                            <CardSidebar anchorRef={this.ref} addActivity={this.addActivity} isUploading={this.state.isUploading} toggleCoverSelector={this.toggleCoverSelector} toggleUploadDropzone={this.toggleUploadDropzone} toggleDisplayMembers={this.toggleDisplayMembers} dueDate={card.dueDate} toggleLabelPallete={this.toggleLabelPalette} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} onUpdateChecklists={this.onUpdateChecklists} />
                         </aside>
                     </section>
                 </div>
-                {this.state.isLabelPaletteShowing && <LabelPalette card={card} />}
-                {this.state.isCardMemeberShown && <CardMembersList updateCardMembers={this.onUpdateCardMembers} anchorEl={this.ref} toggleList={this.toggleDisplayMembers} boardMembers={this.props.board.members} card={this.state.card} cardMembers={card.members} />}
-                {this.state.isCoverSelectorShown && <CoverSelector card={this.state.card} anchorEl={this.ref} onUpdate={this.onUpdateCover} toggleList={this.toggleCoverSelector} />}
-            </div>
+                {/* {this.state.isLabelPaletteShowing && <LabelPalette card={card} />} */}
+                <Popover
+                    anchorOrigin={{
+                        vertical: 'center',
+                        horizontal: 'center',
+                    }}
+                    transformOrigin={{
+                        vertical: 'center',
+                        horizontal: 'left',
+                    }}
+                    open={this.state.isLabelPaletteShowing}
+                    anchorEl={this.ref}
+                    onClose={this.toggleLabelPalette}
+                    onBackdropClick={this.toggleLabelPalette}>
+                    <LabelPalette card={card} />
+                </Popover>
+                { this.state.isCardMemeberShown && <CardMembersList updateCardMembers={this.onUpdateCardMembers} anchorEl={this.ref} toggleList={this.toggleDisplayMembers} boardMembers={this.props.board.members} card={this.state.card} cardMembers={card.members} />}
+                { this.state.isCoverSelectorShown && <CoverSelector card={this.state.card} anchorEl={this.ref} onUpdate={this.onUpdateCover} toggleList={this.toggleCoverSelector} />}
+            </div >
         )
     }
 }

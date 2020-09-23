@@ -11,6 +11,7 @@ import userService from './services/userService';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux';
 import { updateBoard, updatePosition } from './store/actions/boardActions';
+import { BoardHub } from './pages/BoardHub';
 
 
 
@@ -107,7 +108,7 @@ class _App extends Component {
               <main className="app-main">
               <Switch>
                 <Route path="/board/:id/:cardId?" component={Board} />
-                {/* <Route component={Board} path='/' /> */}
+                <Route component={BoardHub} path='/' />
               </Switch>
               </main>
             </div>

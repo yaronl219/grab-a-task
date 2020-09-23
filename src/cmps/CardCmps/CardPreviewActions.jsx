@@ -114,6 +114,18 @@ class _CardPreviewActions extends Component {
         const txtValue = this.props.props.card.title
         this.setState({ txtValue })
     }
+    getCardCover = () => {
+
+        const cardCover = this.props.props.card.cover
+        if (!cardCover) return <React.Fragment />
+        if (!cardCover.src) return (
+            // if there is no src - this is a color
+            <div className="card-preview-cover-color" style={{backgroundColor:cardCover.color}} />
+        )
+        return (
+            <div className="card-preview-cover-image" style={{backgroundImage:`url(${cardCover.src})`}} /> 
+        )
+    }
 
 
     render() {
@@ -129,8 +141,11 @@ class _CardPreviewActions extends Component {
                 }}>
                     
                     {(this.state.isMemberListOpen) ? <CardMembersList anchorEl={this.ref} updateCardMembers={this.onUpdateCardMembers} toggleList={this.toggleCardMembersMenu} boardMembers={this.props.board.members} card={props.card}/> : <React.Fragment />}
+                    
                     <div className="card-edit-left">
+
                         <div className="card-preview" style={{ width: `${this.state.width}px` }}>
+                            {this.getCardCover()}
                             {this.props.cardStyle}
                             <CardLabels
                                 cardLabels={props.card.labels}
