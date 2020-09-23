@@ -65,9 +65,7 @@ function createActivity(partialActivity) {
 
     async function updateBoard(board) {
         const boardId = board._id
-        socketService.emit('board updated', board)
         return await httpService.put(`board/${boardId}`, board)
-
     }
     async function switchGroup(board, card, oldGroupId, targetGroupId, targetCardIdx) {
         const newBoard = JSON.parse(JSON.stringify(board))
