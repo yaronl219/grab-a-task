@@ -128,25 +128,14 @@
         line-height: 1.5;
         letter-spacing: 0.025em;
     }
-
-
-
-    //     border-radius: 3px;
-    //     color: #fff;
-    //     cursor: default;
-    //     float: left;
-    //     font-size: 14px;
-    //     height: 32px;
-    //     line-height: 32px;
-    //     margin: 0 4px 4px 0;
-    //     max-width: 400px;
-    //     overflow: hidden;
-    //     padding-left: 32px;
-    //     position: relative;
-    //     text-decoration: none;
-    //     text-overflow: ellipsis;
 }
 
 .filter-btn{
         transform: translateX(-36%);
+}
+
+.header-logo{
+    display: flex;
+    width: 36px;
+    align-items: center;
 }
