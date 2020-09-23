@@ -1,5 +1,6 @@
 import React from 'react'
-import { MemberList } from './BoardHeader/MemberList'
+import { MemberPreview } from './BoardHeader/MemberPreview'
+
 
 export function BoardPreview(props) {
     console.log(props)
@@ -19,9 +20,9 @@ export function BoardPreview(props) {
                 <div className="board-description">
                     {board.description}
                 </div>
-                {/* <div className="board-members"> */}
-                    {/* <MemberList members={board.members} /> */}
-                {/* </div> */}
+                <div className="board-members">
+                    {board.members.map(member => <MemberPreview key={member._id} name={member.fullName} imgUrl={member.imgUrl}/>)}
+                </div>
                 <div className="board-creator">
                     Board created by {board.createdBy.fullName} on {createdAt}
                 </div>

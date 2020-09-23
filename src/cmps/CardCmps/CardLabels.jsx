@@ -14,9 +14,11 @@ export function CardLabels(props) {
         )
         if (props.isFull) return (
             <div className={`card-preview-full-label ${boardLabel.color}`}>
-                <div className="card-preview-label-mask">
+                <div>
                     {boardLabel.name}
-                </div>
+                    </div>
+                <div className="card-preview-label-mask" />
+                
             </div>
         )
         return (

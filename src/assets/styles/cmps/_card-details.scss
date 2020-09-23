@@ -37,7 +37,11 @@
     overflow-x: hidden;
     background-color: $groupClr;
     color: $textClr;
-
+    .close-button {
+        position: absolute;
+        right: 0.5rem;
+        top: 0.5rem;
+    }
     .card-details-header-container {
         display: flex;
         flex-direction: row-reverse;

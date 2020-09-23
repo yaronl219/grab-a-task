@@ -1,4 +1,3 @@
-import { act } from 'react-dom/test-utils';
 import httpService from './httpService';
 import userService from './userService';
 import { utils } from './utils'

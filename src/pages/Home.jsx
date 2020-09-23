@@ -1,5 +1,4 @@
-import { AppBar, Tabs } from '@material-ui/core'
-import { Tab } from '@material-ui/icons'
+
 import React, { Component } from 'react'
 
 export class Home extends Component {

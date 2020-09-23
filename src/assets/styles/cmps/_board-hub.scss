@@ -16,7 +16,7 @@
 
 .board-preview {
     .board-image {
-        border-radius: 3px;
+        border-radius: rem(3px);
         cursor: pointer;
         height: 12rem;
         background-position: center;
@@ -24,6 +24,7 @@
         background-repeat: repeat;
         .board-overlay {
             height: 100%;
+            border-radius: rem(3px);
             background: linear-gradient(170deg, rgba(32,32,32,1) 0%, rgba(204,207,213,0) 45%);
         }
         h3 {
@@ -39,5 +40,9 @@
         .board-overlay {
             background-color: rgba(32,32,32,0.1);
         }
+    }
+    .board-members {
+        display: flex;
+        gap: 0.125rem;
     }
 }
