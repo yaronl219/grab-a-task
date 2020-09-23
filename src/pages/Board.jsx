@@ -8,6 +8,7 @@ import { GroupList } from '../cmps/GroupList';
 import { Sidebar } from '../cmps/Sidebar/Sidebar';
 // import { connect } from 'socket.io-client';
 import { loadBoard, onSetFilterBy, setStyle } from '../store/actions/boardActions';
+import socketService, { on } from '../services/socketService.js'
 
 
 
@@ -20,6 +21,7 @@ class _Board extends Component {
   async componentDidMount() {
     await this.props.loadBoard('5f6a0f6e973d861c5d72eb3f')
     this.props.setStyle(this.props.board.style)
+    socketService.on('init board', ()=>console.log(this.props.board._id))
   }
 
   onToggleSidebar = (isSidebarShowing) => {
@@ -43,23 +45,23 @@ class _Board extends Component {
 
     return (
       <React.Fragment>
-      {(this.props.match.params.cardId) ? <CardDetails cardId={this.props.match.params.cardId} boardId={this.props.match.params.id} history={this.props.history} /> : <div></div>}
-      <div className="board-container">
-        
-        <BoardHeader title={board.title}
-          members={board.members}
-          onToggleSidebar={this.onToggleSidebar}
-          onFilter={this.onFilter}
-          style={board.style} 
-          users={this.props.allUsers}
+        {(this.props.match.params.cardId) ? <CardDetails cardId={this.props.match.params.cardId} boardId={this.props.match.params.id} history={this.props.history} /> : <div></div>}
+        <div className="board-container">
+
+          <BoardHeader title={board.title}
+            members={board.members}
+            onToggleSidebar={this.onToggleSidebar}
+            onFilter={this.onFilter}
+            style={board.style}
+            users={this.props.allUsers}
           />
-          
-        <Sidebar board={board}
-          isSidebarShowing={this.state.isSidebarShowing}
-          onToggleSidebar={this.onToggleSidebar} />
-        {(board.groups) ? <GroupList style={board.style} onAddGroup={this.onAddGroup} groups={board.groups} /> : <CircularProgress />}
-        
-      </div>
+
+          <Sidebar board={board}
+            isSidebarShowing={this.state.isSidebarShowing}
+            onToggleSidebar={this.onToggleSidebar} />
+          {(board.groups) ? <GroupList style={board.style} onAddGroup={this.onAddGroup} groups={board.groups} /> : <CircularProgress />}
+
+        </div>
       </React.Fragment>
     )
   }

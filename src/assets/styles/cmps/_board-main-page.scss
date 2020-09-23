@@ -2,13 +2,27 @@
     height: 95vh;
 }
 
-.App{
+.App {
     height: 100vh;
     overflow-y: hidden;
 }
 
-.app-bg{
+.app-bg {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
+}
+
+.group-list-outer-container::-webkit-scrollbar-track-piece {
+    background: rgba(9, 30, 66, 0.08);
+}
+
+.group-list-outer-container::-webkit-scrollbar-thumb {
+    background: rgba(233, 233, 233, 0.35);
+    border-radius: 10px;
+}
+
+.group-list-outer-container::-webkit-scrollbar {
+    height: rem(12px);
+    padding: 2px;
 }

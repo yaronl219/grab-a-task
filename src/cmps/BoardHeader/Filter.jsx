@@ -32,11 +32,11 @@ export class Filter extends Component {
                             className="search-bar"
                             onChange={this.handleChange} />
 
-                        <div className="search-icon-container"><span class="material-icons">search</span></div>
+                        <div className="search-icon-container"><span className="material-icons">search</span></div>
 
                     </div>
 
-                    <div className="board-header-btn filter-btn" onClick={this.toggleModal} ><span class="material-icons">sort</span></div>
+                    <div className="board-header-btn filter-btn" onClick={this.toggleModal} ><span className="material-icons">sort</span></div>
                     {this.state.isLabelModalShown && 
                     <FilterByLabel toggleModal={this.toggleModal} 
                     />}

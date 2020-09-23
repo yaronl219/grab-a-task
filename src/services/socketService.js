@@ -4,6 +4,7 @@ const BASE_URL =
   process.env.NODE_ENV === 'production' ? '/' : '//localhost:3030';
 
 let socket;
+setup();
 
 export default {
   setup,
