@@ -15,7 +15,6 @@ export class MemberList extends Component {
     
     onCloseModal = () => {        
         this.setState({ isModalShown: false })
-        // need to add closeModal when preesing outside the modal
     }
     
     render(){
@@ -29,8 +28,7 @@ export class MemberList extends Component {
                         return <MemberPreview key={member._id}
                             name={member.fullName} 
                             img={member.imgUrl}/>
-                })
-                }
+                })}
                 <div className="member-preview" onClick={ () => this.onShowModal() }>+</div>
                 <div className="add-member-modal-container">
                     {this.state.isModalShown && <AddMemberModal onCloseModal={this.onCloseModal} allExistingUsers={this.props.allUsers}/>}

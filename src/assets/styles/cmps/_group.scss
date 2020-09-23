@@ -19,7 +19,7 @@
 
 .group-container {
     background-color: $groupClr;
-    min-width: rem(272px);
+    width: rem(272px);
     height: fit-content;
     max-height: 100%;
     margin: 0 rem(4px);
@@ -138,6 +138,7 @@
     height: fit-content;
     color: inherit;
     font-size: rem(15px);
+
 }
 
 .add-new-group-text {
