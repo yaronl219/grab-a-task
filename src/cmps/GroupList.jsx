@@ -11,8 +11,13 @@ import { Droppable } from 'react-beautiful-dnd'
 export class GroupList extends Component {
 
     state = {
-        isNewGroupShown: false
+        isNewGroupShown: false,
+        groups: null
     }
+
+    // filterGroups=()=>{
+
+    // }
 
     closeNewGroup = () => {
         this.setState({ isNewGroupShown: false })

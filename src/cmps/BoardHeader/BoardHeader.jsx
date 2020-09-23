@@ -14,6 +14,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import userService from '../../services/userService'
 import { loadAllUsers } from '../../store/actions/userActions';
 
+
+
 export class _BoardHeader extends Component {
 
     async componentDidMount() {
@@ -28,6 +30,8 @@ export class _BoardHeader extends Component {
                     <div className="members-container">
                         <MemberList members={this.props.members} allUsers={this.props.allUsers}/>
                     </div>
+
+
                     <Filter onFilter={this.props.onFilter} />
                     <div className="board-header-btn" onClick={() => this.props.onToggleSidebar(true)}>
                         <p>Show Menu</p>

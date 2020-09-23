@@ -54,10 +54,10 @@ export function updateCard(board, newCard,newActivity) {
       }
 
       
+      dispatch({ type: 'SET_BOARD', board: newBoard })
       boardService.updateBoard(newBoard) // updating the DB
       // newBoard = boardService.updateBoard(newBoard) // updating the DB
       
-      dispatch({ type: 'SET_BOARD', board: newBoard })
     } catch (err) {
       console.log('error updating card', err)
     }
@@ -271,7 +271,8 @@ export function addToMembers({ _id, fullName, imgUrl }, board){
 
     let newBoard = JSON.parse(JSON.stringify(board))
     newBoard.members.unshift(userToPush)
-    dispatch({ type: 'SET_BOARD', board: newBoard })
+    dispatch({ type: 'SET_BOARD', board: newBoard })    
+    await boardService.updateBoard(newBoard) // updating the DB
 
     // update the backend as well after the dispatch
 
@@ -285,7 +286,8 @@ export function removeMember(id, board){
     let newBoard = JSON.parse(JSON.stringify(board))
     const memberIdx = newBoard.members.findIndex(member => member._id === id)
     newBoard.members.splice(memberIdx, 1)
-    dispatch({ type: 'SET_BOARD', board: newBoard })
+    dispatch({ type: 'SET_BOARD', board: newBoard })      
+    await boardService.updateBoard(newBoard) // updating the DB
 
     // update the backend as well after the dispatch
 
