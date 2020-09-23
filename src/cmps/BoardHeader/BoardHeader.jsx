@@ -14,7 +14,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import userService from '../../services/userService'
 import { loadAllUsers } from '../../store/actions/userActions';
 
-
 export class _BoardHeader extends Component {
 
     async componentDidMount() {
@@ -22,8 +21,6 @@ export class _BoardHeader extends Component {
     }
     
     render() {
-
-        // console.log(this.props.allUsers)
         
         return (
                 <div className="boards-header-container" >
@@ -36,7 +33,6 @@ export class _BoardHeader extends Component {
                         <p>Show Menu</p>
                     </div>
                 </div>
-
         )
     }
 }
