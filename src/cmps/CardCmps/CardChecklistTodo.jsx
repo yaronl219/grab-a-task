@@ -48,7 +48,11 @@ export class CardChecklistTodo extends Component {
             </Button>
         )
     }
-
+    
+    getTodoClassName = () => {
+        const doneClass = (this.state.isDone) ? 'todo-done' : 'todo-not-done'
+        return `checklist-todo-title ${doneClass}`
+    }
     getTextBox = () => {
         if (this.state.isEditing) return (
             <React.Fragment>
@@ -62,7 +66,7 @@ export class CardChecklistTodo extends Component {
         return (
             <React.Fragment>
                 <Checkbox checked={this.state.isDone} onChange={this.onCheck} />
-                <div className="checklist-todo-title" onClick={this.setEditing}>
+                <div className={this.getTodoClassName()} onClick={this.setEditing}>
                     {this.state.txtValue}
                     <Button onClick={this.onRemove}>
                         <DeleteOutlineOutlinedIcon fontSize="inherit" />
@@ -95,44 +99,58 @@ export class CardChecklistTodo extends Component {
         this.setState({ txtValue: ev.target.value })
     }
 
-    onCheck = async(ev) => {
+    onCheck = (ev) => {
         
-        let txt = ''
+        // let txt = ''
         let checkStatus = ev.target.checked
-        if (checkStatus) {
+        // if (checkStatus) {
+        //     txt = `completed ${this.state.txtValue}`
+        // } else {
+        //     txt = `marked ${this.state.txtValue} incomplete`
+        // }
+        
+        this.setState({ isDone: checkStatus}, () => {
+             this.updateChecklist()
+        })
+    }
+
+    getActivityTxt = () => {
+        let txt;
+        if (this.state.isDone) {
             txt = `completed ${this.state.txtValue}`
         } else {
             txt = `marked ${this.state.txtValue} incomplete`
         }
-        
-        
-        this.setState({ isDone: checkStatus}, async() => {
-            await this.updateChecklist()
-            this.props.addActivity(txt)
-        })
+        return txt
     }
-
     onRemove = (ev) => {
         ev.stopPropagation()
         this.setState({ txtValue: '' }, this.updateChecklist)
     }
 
     updateChecklist = () => {
-        let id;
-        if (this.props.todo) {
-            id = this.props.todo.id
-        } else {
-            id = utils.makeId()
-        }
-        const todo = {
-            id,
-            isDone: this.state.isDone,
-            title: this.state.txtValue
-        }
         
-        this.props.onUpdate(todo)
-        if (this.state.isNew) this.setState({txtValue:''})
-    }
+            let id;
+            if (this.props.todo) {
+                id = this.props.todo.id
+            } else {
+                id = utils.makeId()
+            }
+            const todo = {
+                id,
+                isDone: this.state.isDone,
+                title: this.state.txtValue
+            }
+            
+            const activityTxt = this.getActivityTxt()
+            if (this.state.isNew) {
+                this.props.onUpdate(todo)
+                this.setState({txtValue:''})
+            } else {
+                this.props.onUpdate(todo,activityTxt)
+            }
+        }
+    
 
     render() {
         if (!this.props.displayCompleted && this.state.isDone) return <React.Fragment />

@@ -112,7 +112,7 @@ class _CardDetails extends Component {
         return <React.Fragment />
     }
 
-    addActivity = async (txt) => {
+    createActivity = (txt) => {
         const activity = {
             "txt": txt,
             "commentTxt": '',
@@ -122,17 +122,14 @@ class _CardDetails extends Component {
             }
         }
 
-        const newActivity = boardService.createActivity(activity)
-        await this.props.addActivity(this.props.board, newActivity)
-        return true
-
+        return boardService.createActivity(activity)
     }
 
     onArchiveCard = async () => {
         let card = { ...this.state.card }
         card.archivedAt = Date.now()
-        await this.submitCard(card)
-        await this.addActivity('archived')
+        const activity = this.createActivity('archived')
+        await this.submitCard(card, activity)
         this.onCloseCard()
     }
 
@@ -141,8 +138,9 @@ class _CardDetails extends Component {
         card.dueDate = dueDate
 
         this.setState({ card }, async () => {
-            await this.submitCard(card)
-            this.addActivity('updated due date')
+            const activity = this.createActivity('updated due date')
+            await this.submitCard(card, activity)
+
         })
     }
 
@@ -165,8 +163,8 @@ class _CardDetails extends Component {
         card.title = txt
 
         this.setState({ card }, async () => {
-            await this.submitCard(card)
-            this.addActivity('updated the title')
+            const activity = this.createActivity('updated the title')
+            this.submitCard(card, activity)
         })
     }
     getCardDetailsMembers = () => {
@@ -182,10 +180,10 @@ class _CardDetails extends Component {
     }
 
 
-    submitCard = (card) => {
+    submitCard = (card, activity) => {
 
         return new Promise(resolve => {
-            this.props.updateCard(this.props.board, card).then(() => resolve())
+            this.props.updateCard(this.props.board, card, activity).then(() => resolve())
 
         })
     }
@@ -193,8 +191,8 @@ class _CardDetails extends Component {
     onUpdateCardMembers = async (card, txt) => {
 
         this.setState({ card }, async () => {
-            await this.submitCard(card)
-            this.addActivity(txt)
+            const activity = this.createActivity(txt)
+            await this.submitCard(card, activity)
         })
     }
 
@@ -202,8 +200,8 @@ class _CardDetails extends Component {
         const card = { ...this.state.card }
         card.cover = cover
         this.setState({ card }, async () => {
-            await this.submitCard(card)
-            this.addActivity('updated the cover')
+            const activity = this.createActivity('updated the cover')
+            this.submitCard(card, activity)
         })
     }
     onUpdateDesc = async (description) => {
@@ -211,8 +209,8 @@ class _CardDetails extends Component {
         card.description = description
 
         this.setState({ card }, async () => {
-            await this.submitCard(card)
-            this.addActivity('updated the description')
+            const activity = this.createActivity('updated the description')
+             this.submitCard(card,activity)
         })
     }
 
@@ -227,11 +225,9 @@ class _CardDetails extends Component {
         const card = { ...this.state.card }
         if (!card.attachments) card.attachments = []
         card.attachments.push(newImg)
-
+        const activity = this.createActivity('added an image')
         this.setState({ card }, async () => {
-
-            await this.submitCard(card)
-            await this.addActivity('added an image')
+            await this.submitCard(card, activity)
             this.setState({ isUploading: false })
         })
 
@@ -240,24 +236,24 @@ class _CardDetails extends Component {
     onUpdateAttachments = async (newAttachment) => {
         const card = { ...this.state.card }
         const idx = card.attachments.findIndex(att => att.id === newAttachment.id)
-        console.log(newAttachment)
+        
         if (!newAttachment.title.length) {
             console.log('should remove')
             card.attachments.splice(idx, 1)
         } else {
             card.attachments[idx] = newAttachment
         }
-        console.log(card.attachments)
+        
+        const activity = (newAttachment.title.length) ? this.createActivity('edited the title of an image') : this.createActivity('removed an image')
+        
         this.setState({ card }, () => {
-            this.submitCard(card)
-                .then(() => {
-                    (newAttachment.title.length) ? this.addActivity('edited the title of an image') : this.addActivity('removed an image')
-                })
+            this.submitCard(card, activity)
         })
     }
 
 
-    onUpdateChecklists = async (newChecklist) => {
+    onUpdateChecklists = (newChecklist, activityTxt) => {
+        console.log('updateChecklist', newChecklist, activityTxt)
         const card = { ...this.state.card }
         if (!card.checklists) card.checklists = []
         // updating
@@ -275,7 +271,16 @@ class _CardDetails extends Component {
         card.checklists = card.checklists.filter(checklist => {
             if (checklist.title) return checklist
         })
-        this.setState({ card }, () => this.submitCard(card))
+
+        this.setState({ card }, () => {
+            if (activityTxt) {
+                let activity = this.createActivity(activityTxt)
+
+                this.submitCard(card, activity)
+            } else {
+                this.submitCard(card)
+            }
+        })
     }
 
     getFilteredActivities = () => {
@@ -327,7 +332,7 @@ class _CardDetails extends Component {
                         <main className="card-details-main">
                             <CardDescription onUpdateDesc={this.onUpdateDesc} description={card.description} />
                             <CardImagesList onUpdate={this.onUpdateAttachments} attachments={this.state.card.attachments} />
-                            <CardChecklistList addActivity={this.addActivity} checklists={card.checklists} onUpdate={this.onUpdateChecklists} />
+                            <CardChecklistList checklists={card.checklists} onUpdate={this.onUpdateChecklists} />
                             <CardImgUpload onAddImage={this.onAddImage} setUploading={this.setUploading} toggleOpen={this.toggleUploadDropzone} isOpen={this.state.isUploadZoneOpen} />
                             <div className="card-details-activity-log">
                                 <div className="card-details-activities-title">
@@ -344,7 +349,7 @@ class _CardDetails extends Component {
                             </div>
                         </main>
                         <aside className="card-details-sidebar" ref={this.ref}>
-                            <CardSidebar anchorRef={this.ref} addActivity={this.addActivity} isUploading={this.state.isUploading} toggleCoverSelector={this.toggleCoverSelector} toggleUploadDropzone={this.toggleUploadDropzone} toggleDisplayMembers={this.toggleDisplayMembers} dueDate={card.dueDate} toggleLabelPallete={this.toggleLabelPalette} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} onUpdateChecklists={this.onUpdateChecklists} />
+                            <CardSidebar anchorRef={this.ref} addActivity={this.createActivity} isUploading={this.state.isUploading} toggleCoverSelector={this.toggleCoverSelector} toggleUploadDropzone={this.toggleUploadDropzone} toggleDisplayMembers={this.toggleDisplayMembers} dueDate={card.dueDate} toggleLabelPallete={this.toggleLabelPalette} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} onUpdateChecklists={this.onUpdateChecklists} />
                         </aside>
                     </section>
                 </div>

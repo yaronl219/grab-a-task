@@ -37,12 +37,12 @@ class _LabelPalette extends Component {
         this.setLabelEditId();
     }
     onToggleLabelToCard = (card, labelId) => {
-        console.log('card\'s labels before:', card.labels);
+        // console.log('card\'s labels before:', card.labels);
         const labelIdx = card.labels.findIndex(label => label.id === labelId);
         card.labels = (labelIdx === -1)
         ? [...card.labels, { id: labelId }]
         : [...card.labels.slice(0, labelIdx), ...card.labels.slice(labelIdx + 1)];
-        console.log('card\'s labels after:', card.labels);
+        // console.log('card\'s labels after:', card.labels);
         this.props.updateCard(this.props.board, card);
     }
     render() {

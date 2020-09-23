@@ -46,15 +46,27 @@ export function updateBoard(board) {
   }
 }
 
-export function updateCard(board, newCard) {
+export function updateCard(board, newCard,newActivity) {
   
   return async dispatch => {
     try {
+      // replicate board
       let newBoard = JSON.parse(JSON.stringify(board))
+      // find the group idx
       const groupIdx = newBoard.groups.findIndex(group => group.cards.find(card => card.id === newCard.id))
+      // find the card idx
       const cardIdx = newBoard.groups[groupIdx].cards.findIndex(card => card.id === newCard.id)
+      // replace the card content
       newBoard.groups[groupIdx].cards[cardIdx] = newCard
-      newBoard = await boardService.updateBoard(newBoard) // updating the DB
+
+      // add activity
+      console.log('new activity',newActivity)
+      if (newActivity) {
+        const activity = boardService.createActivity(newActivity)
+        newBoard.activities.unshift(activity)
+      }
+      
+      // newBoard = boardService.updateBoard(newBoard) // updating the DB
       console.log(newBoard)
       dispatch({ type: 'SET_BOARD', board: newBoard })
     } catch (err) {

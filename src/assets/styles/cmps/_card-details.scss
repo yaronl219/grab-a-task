@@ -226,10 +226,15 @@
                 .checklist-todo-title {
                     width: 100%;
                     display: flex;
+                    cursor: pointer;
                     justify-content: space-between;
                     button {
                         font-size: 1rem;
                     }
+                }
+                .todo-done {
+                    text-decoration: line-through;
+                    color : $labelGrey;
                 }
                 form {
                     width: 100%;
