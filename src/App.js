@@ -108,7 +108,8 @@ class _App extends Component {
               <main className="app-main">
               <Switch>
                 <Route path="/board/:id/:cardId?" component={Board} />
-                <Route component={BoardHub} path='/' />
+                <Route component={Home} path='/:view' />
+
               </Switch>
               </main>
             </div>

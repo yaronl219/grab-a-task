@@ -1,7 +1,7 @@
 // Edit card preivew - should have edit labels, change memebers change due date and archive
 import React, { Component } from 'react'
-import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
-import { Backdrop, Button, Dialog, IconButton, Popover } from '@material-ui/core';
+
+import {Button, Dialog } from '@material-ui/core';
 import { CardLabels } from './CardLabels';
 import { CardPreviewDueDate } from './CardPreviewDueDate';
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
