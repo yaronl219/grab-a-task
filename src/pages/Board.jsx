@@ -7,8 +7,8 @@ import { GroupList } from '../cmps/GroupList';
 
 import { Sidebar } from '../cmps/Sidebar/Sidebar';
 // import { connect } from 'socket.io-client';
-import { loadBoard, onSetFilterBy, setStyle, updateBoard } from '../store/actions/boardActions';
-import socketService, { on } from '../services/socketService.js'
+import { loadBoard, onSetFilterBy, setStyle } from '../store/actions/boardActions';
+import socketService from '../services/socketService.js'
 
 
 
