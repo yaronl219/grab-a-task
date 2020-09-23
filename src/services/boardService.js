@@ -9,10 +9,7 @@ export const boardService = {
     remove,
     getBoardById,
     updateBoard,
-    addNewGroup,
     filter,
-    archiveGroup,
-    archiveAllCards,
     addNewBoard,
     createActivity
 };
@@ -84,7 +81,6 @@ function createActivity(partialActivity) {
     async function filter(boardId, filterBy) {
 
         const boardToReturn = await getBoardById(boardId)
-
         // text in card filter
         if (filterBy.txt) {
             boardToReturn.groups = boardToReturn.groups.map(group => {
@@ -119,48 +115,6 @@ function createActivity(partialActivity) {
         return boardToReturn
     }
 
-    async function addNewGroup(boardId, groupTitle) {
-
-        // here it adds the additional data in the board
-        const newBoard = await getBoardById(boardId)
-        const groupToPush = {
-            id: utils.makeId(),
-            title: groupTitle,
-            cards: [],
-            archivedAt: false,
-            style: {}
-        }
-
-        newBoard.groups.push(groupToPush)
-        const boardToReturn = await updateBoard(newBoard)
-        return boardToReturn
-
-    }
-
-    async function archiveGroup(groupId, boardId){
-
-        // waiting for server confirmation
-        const newBoard = await getBoardById(boardId)
-        const groupIdx = newBoard.groups.findIndex(group => group.id === groupId)
-        newBoard.groups[groupIdx].archivedAt = Date.now()
-        // newBoard.groups.splice(groupIdx, 1) // will be added for admin only
-        const boardToReturn = await updateBoard(newBoard)
-        return boardToReturn
-    }
-
-    async function archiveAllCards(groupId, boardId){
-        const newBoard = await getBoardById(boardId)
-        const groupIdx = newBoard.groups.findIndex(group => group.id === groupId)
-        const newCards = newBoard.groups[groupIdx].cards.map(card => {
-            const newCard = JSON.parse(JSON.stringify(card))
-            newCard.archivedAt = Date.now()
-            return newCard
-        });
-
-        newBoard.groups[groupIdx].cards = newCards
-        const boardToReturn = await updateBoard(newBoard)
-        return boardToReturn
-    }
 
     async function addNewBoard(boardName, boardColor){
         console.log(boardName);
