@@ -1,15 +1,18 @@
 import { boardService } from "../../services/boardService";
 
+
 export function loadBoard(boardId) {
   return async dispatch => {
     try {
       const board = await boardService.getBoardById(boardId);
       dispatch({ type: 'SET_BOARD', board });
     } catch (err) {
-      console.log('ReviewActions: err in loadReviews', err);
+      console.log('boardAction: error in board action', err);
+      throw err;
     }
   };
 }
+
 
 export function addActivity(board, activity) {
   
