@@ -22,8 +22,8 @@ class _Board extends Component {
     await this.props.loadBoard('5f6a0f6e973d861c5d72eb3f')
     this.props.setStyle(this.props.board.style)
     socketService.setup()
-    socketService.emit('entered board', this.props.board._id)
-    socketService.on('spread board', board => updateBoard(board))
+    socketService.emit('entered-board', this.props.board._id)
+    socketService.on('spread-board', board => console.log(board.title))
   }
 
   componentWillUnmount() {

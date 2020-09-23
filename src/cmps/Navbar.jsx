@@ -13,15 +13,15 @@ export class Navbar extends Component {
         isNewBoardModalShown: false
     }
 
-    toggleModal=()=>{
-        this.setState({ isNewBoardModalShown: !this.state.isNewBoardModalShown })   
+    toggleModal = () => {
+        this.setState({ isNewBoardModalShown: !this.state.isNewBoardModalShown })
     }
 
     onCloseModal = () => {
         this.setState({ isNewBoardModalShown: false })
     }
 
-    showLove= () =>{
+    showLove = () => {
         alert('Snorelax Loves you 💤🌷')
     }
 
@@ -33,11 +33,11 @@ export class Navbar extends Component {
                     <div className="board-header-btn left"><NavLink to='/board'><span className="material-icons">view_list</span><h4 className="boards-text">Boards</h4></NavLink></div>
                 </div>
 
-                    <div onClick={ this.showLove } style={{ cursor: "pointer" }} className="header-logo"><img src={snorelax} alt="" /><img src={logo} alt="" /></div>
+                <div onClick={this.showLove} style={{ cursor: "pointer" }} className="header-logo"><img src={snorelax} alt="" /><img src={logo} alt="" /></div>
 
                 <div className="navbar-right-container">
                     <div className="board-header-btn right" onClick={this.toggleModal}><span className="material-icons">add</span></div>
-                    {this.state.isNewBoardModalShown && <AddNewBoard onCloseModal={this.onCloseModal}/> }
+                    {this.state.isNewBoardModalShown && <AddNewBoard onCloseModal={this.onCloseModal} />}
                     <div className="board-header-btn right"><NavLink to='/login'><h4 className="login-text">Login</h4></NavLink></div>
 
                 </div>

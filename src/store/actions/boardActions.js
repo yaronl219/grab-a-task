@@ -32,25 +32,8 @@ export function toggleFullLabels() {
 }
 
 
-<<<<<<< HEAD
-export function updateBoard(board) {
-  console.log(board.title)
-  return async dispatch => {
-    try {
-      let newBoard = JSON.parse(JSON.stringify(board))
-      newBoard = await boardService.updateBoard(newBoard) // updating the DB
-      dispatch({ type: 'SET_BOARD', board: newBoard })
-    } catch (err) {
-      console.log('error updating board', err)
-    }
-  }
-}
-
-export function updateCard(board, newCard) {
-=======
 // check that it updates the db
 export function updateCard(board, newCard,newActivity) {
->>>>>>> 97b62815055391a8ebfbe971af6a5fb535f43a8a
   
   return async dispatch => {
     try {
@@ -272,18 +255,7 @@ export function setNewGroupName(groupId, groupName, board) {
 // finish
 export function addNewBoard(boardName, boardColor = null){
   return async dispatch=>{
-<<<<<<< HEAD
-
-    const groupIdx = board.groups.findIndex(group => group.id === groupId)
-    if (groupName === board.groups[groupIdx].title || !groupName.trim()) return
-    let newBoard = JSON.parse(JSON.stringify(board))
-    const newGroupName = groupName.replace(/\s{2,}/g, " ")
-    newBoard.groups[groupIdx].title = newGroupName.trim()
-    dispatch({ type: 'SET_BOARD', board: newBoard })
-    await boardService.updateBoard(newBoard)
-=======
     const newBoard = await boardService.addNewBoard(boardName, boardColor)
->>>>>>> 97b62815055391a8ebfbe971af6a5fb535f43a8a
     
   }
 }
