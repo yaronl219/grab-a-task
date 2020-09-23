@@ -29,8 +29,8 @@ class _Group extends Component {
         return 'Add a card'
     }
 
-    toggleMenu=()=>{
-        // ev.stopPropagation()
+    toggleMenu=(ev = null)=>{
+        if (ev) ev.stopPropagation()
         const isShown = !this.state.isMenuShown
         this.setState({ isMenuShown: isShown })
         

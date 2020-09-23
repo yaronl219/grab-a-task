@@ -212,6 +212,36 @@ export function setNewGroupName(groupId, groupName, board){
   }
 }
 
+export function addToMembers({ _id, fullName, imgUrl }, board){
+  return async dispatch => {
+    const userToPush = {
+      _id,
+      fullName,
+      imgUrl
+    }
+
+    let newBoard = JSON.parse(JSON.stringify(board))
+    newBoard.members.unshift(userToPush)
+    dispatch({ type: 'SET_BOARD', board: newBoard })
+
+    // update the backend as well after the dispatch
+
+  }
+}
+
+export function removeMember(id, board){
+  return async dispatch => {
+
+    let newBoard = JSON.parse(JSON.stringify(board))
+    const memberIdx = newBoard.members.findIndex(member => member._id === id)
+    newBoard.members.splice(memberIdx, 1)
+    dispatch({ type: 'SET_BOARD', board: newBoard })
+
+    // update the backend as well after the dispatch
+
+  }
+}
+
 export function switchGroup(){}
 
 // =============================================
@@ -225,3 +255,13 @@ function _makeId(length = 8) {
 
   return text;
 }
+
+// 1. is updating the board with dispatch first, and only after sending the request to the server a good move?
+// because right now there are some delays and we want to fix them..
+// and even though the actions here are async, will it work? if so then why :P
+
+
+// 2. is updating a state in the store, will cause the parent elemnt to re-render all its child cmps?
+// couldnt find a straghit up answer to that..
+
+// 3. tip for animating modal entrences and exits? :D

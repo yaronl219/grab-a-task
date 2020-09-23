@@ -73,7 +73,7 @@
         outline: none;
         padding-left: rem(8px);
         padding-right: rem(30px);
-        transition: width .15s;
+        transition: .13s;
         width: rem(180px);
  }
  
@@ -107,7 +107,7 @@
     cursor: pointer;
     color: #fff;
     border-radius: 0.3em;
-    line-height: 0.5;
+    line-height: 0.75;
     font-size: rem(14px);
     font-family: Roboto-Regular;
     letter-spacing: 0.025em;
@@ -125,7 +125,7 @@
         min-width: 20px;
         max-width: 30px;
         border-radius: 0.3em;
-        line-height: 1.45;
+        line-height: 1.5;
         letter-spacing: 0.025em;
     }
 
