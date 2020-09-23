@@ -21,6 +21,10 @@ export class Navbar extends Component {
         this.setState({ isNewBoardModalShown: false })
     }
 
+    showLove= () =>{
+        alert('Snorelax Loves you 💤🌷')
+    }
+
     render() {
         return (
             <div className="navbar-container">
@@ -29,7 +33,7 @@ export class Navbar extends Component {
                     <div className="board-header-btn left"><NavLink to='/board'><span className="material-icons">view_list</span><h4 className="boards-text">Boards</h4></NavLink></div>
                 </div>
 
-                    <div className="header-logo"><img src={snorelax} alt="" /><img src={logo} alt="" /></div>
+                    <div onClick={ this.showLove } style={{ cursor: "pointer" }} className="header-logo"><img src={snorelax} alt="" /><img src={logo} alt="" /></div>
 
                 <div className="navbar-right-container">
                     <div className="board-header-btn right" onClick={this.toggleModal}><span className="material-icons">add</span></div>
