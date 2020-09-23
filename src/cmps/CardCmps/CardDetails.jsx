@@ -38,9 +38,6 @@ class _CardDetails extends Component {
         if (prevProps.cardId !== this.props.cardId) {
             this.getCardDetails()
         }
-        if (prevState.isUploading !== this.state.isUploading) {
-            console.log('detected upload')
-        }
     }
 
     ref = React.createRef()
@@ -210,7 +207,7 @@ class _CardDetails extends Component {
 
         this.setState({ card }, async () => {
             const activity = this.createActivity('updated the description')
-             this.submitCard(card,activity)
+            this.submitCard(card, activity)
         })
     }
 
@@ -236,16 +233,16 @@ class _CardDetails extends Component {
     onUpdateAttachments = async (newAttachment) => {
         const card = { ...this.state.card }
         const idx = card.attachments.findIndex(att => att.id === newAttachment.id)
-        
+
         if (!newAttachment.title.length) {
-            console.log('should remove')
+
             card.attachments.splice(idx, 1)
         } else {
             card.attachments[idx] = newAttachment
         }
-        
+
         const activity = (newAttachment.title.length) ? this.createActivity('edited the title of an image') : this.createActivity('removed an image')
-        
+
         this.setState({ card }, () => {
             this.submitCard(card, activity)
         })
@@ -253,7 +250,7 @@ class _CardDetails extends Component {
 
 
     onUpdateChecklists = (newChecklist, activityTxt) => {
-        console.log('updateChecklist', newChecklist, activityTxt)
+
         const card = { ...this.state.card }
         if (!card.checklists) card.checklists = []
         // updating
@@ -311,10 +308,13 @@ class _CardDetails extends Component {
             <div className="card-details-background">
                 <div className="card-details-container">
                     {this.getCardCover()}
-                    <div className="card-details-header-container">
+                    <div className="close-button">
                         <IconButton onClick={this.onCloseCard} aria-label="close">
                             <CloseIcon />
                         </IconButton>
+                    </div>
+                    <div className="card-details-header-container">
+
                         <div className="card-details-title-container">
                             <CardDetailsHeader headerTxt={card.title} onUpdate={this.onUpdateHeader} />
                             <small>in list <span>{this.state.groupName}</span></small>
@@ -367,7 +367,7 @@ class _CardDetails extends Component {
                     anchorEl={this.ref}
                     onClose={this.toggleLabelPalette}
                     onBackdropClick={this.toggleLabelPalette}>
-                    <LabelPalette card={card} />
+                    <LabelPalette createActivity={this.createActivity} card={card} />
                 </Popover>
                 { this.state.isCardMemeberShown && <CardMembersList updateCardMembers={this.onUpdateCardMembers} anchorEl={this.ref} toggleList={this.toggleDisplayMembers} boardMembers={this.props.board.members} card={this.state.card} cardMembers={card.members} />}
                 { this.state.isCoverSelectorShown && <CoverSelector card={this.state.card} anchorEl={this.ref} onUpdate={this.onUpdateCover} toggleList={this.toggleCoverSelector} />}

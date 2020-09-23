@@ -43,7 +43,9 @@ class _LabelPalette extends Component {
         ? [...card.labels, { id: labelId }]
         : [...card.labels.slice(0, labelIdx), ...card.labels.slice(labelIdx + 1)];
         // console.log('card\'s labels after:', card.labels);
-        this.props.updateCard(this.props.board, card);
+        
+        const activity = this.props.createActivity('updated a label')
+        this.props.updateCard(this.props.board, card, activity);
     }
     render() {
         const { board, card } = this.props;
