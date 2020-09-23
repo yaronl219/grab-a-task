@@ -29,8 +29,9 @@ export class CardNewChecklist extends Component {
                 "title": this.state.txtValue,
                 "todos": []             
         }
-        await this.props.addActivity(`added the checklist ${this.state.txtValue}`)
-        this.props.onUpdate(checklist)
+        // const activity =  this.props.addActivity(`added the checklist ${this.state.txtValue}`)
+        const activity = `added the checklist ${this.state.txtValue}`
+        this.props.onUpdate(checklist,activity)
         this.setState({txtValue:''})
         this.setNotEditing()
     }

@@ -37,7 +37,11 @@
     overflow-x: hidden;
     background-color: $groupClr;
     color: $textClr;
-
+    .close-button {
+        position: absolute;
+        right: 0.5rem;
+        top: 0.5rem;
+    }
     .card-details-header-container {
         display: flex;
         flex-direction: row-reverse;
@@ -226,10 +230,15 @@
                 .checklist-todo-title {
                     width: 100%;
                     display: flex;
+                    cursor: pointer;
                     justify-content: space-between;
                     button {
                         font-size: 1rem;
                     }
+                }
+                .todo-done {
+                    text-decoration: line-through;
+                    color : $labelGrey;
                 }
                 form {
                     width: 100%;

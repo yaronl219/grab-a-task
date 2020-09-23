@@ -9,8 +9,8 @@ export class Filter extends Component {
     }
 
     handleChange = async ({ target }) => {
+        // fix this
         await this.setState({ search: { txt: target.value } })
-
         // send action
         this.props.onFilter(this.state.search)
     }

@@ -49,7 +49,7 @@ class _App extends Component {
         newGroups[startGroupIndex] = newGroup
         const newBoard = { ...this.props.board, groups: newGroups }
         this.props.updatePosition(newBoard)
-        this.props.updateBoard(newBoard)
+        // this.props.updateBoard(newBoard)
         return
       }
 
@@ -71,7 +71,7 @@ class _App extends Component {
 
         const newBoard = { ...this.props.board, groups: newGroups }
         this.props.updatePosition(newBoard)
-        this.props.updateBoard(newBoard)
+        // this.props.updateBoard(newBoard)
         return
       }
     }
@@ -88,7 +88,7 @@ class _App extends Component {
         groups: newGroupsOrder
       }
       this.props.updatePosition(newBoard)
-      this.props.updateBoard(newBoard)
+      // this.props.updateBoard(newBoard)
       return
 
     }
