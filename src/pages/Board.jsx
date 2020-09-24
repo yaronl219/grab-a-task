@@ -11,35 +11,82 @@ import { loadBoard, onSetFilterBy, setStyle } from '../store/actions/boardAction
 import socketService from '../services/socketService.js'
 import { ToastContainer, toast } from 'react-toastify';
 
+import { diff, addedDiff, deletedDiff, updatedDiff, detailedDiff } from 'deep-object-diff';
 
 
 class _Board extends Component {
 
   state = {
-    isSidebarShowing: false
+    isSidebarShowing: false,
+    prevBoard: null
   }
 
   async componentDidMount() {
     // await this.props.loadBoard('5f6a0f6e973d861c5d72eb3f')
-    this.getBoardFromParams()
-    this.props.setStyle(this.props.board.style)
-    socketService.setup()
-    socketService.emit('entered-board', this.props.board._id)
-    socketService.on('board-updated', async updatedBoard => {
-      await this.props.loadBoard(updatedBoard._id)
-    })
+    const boardId = this.props.match.params.id
+    try {
+      await this.props.loadBoard(boardId)
+      // console.log(this)
+      this.props.setStyle(this.props.board.style)
+      socketService.setup()
+      socketService.on('init board', () => console.log(this.props.board._id))
+      socketService.emit('entered-board', this.props.board._id)
+      socketService.on('board-updated', async updatedBoard => {
+        
+        const prevBoard = JSON.parse(JSON.stringify(this.props.board))
+        await this.props.loadBoard(updatedBoard._id)
+        this.remoteUpdate(prevBoard)
+      })
+    } catch (err) {
+      toast.error('Oops! we seem to be missing the board you\'re looking for. going back to board selection.', {
+        position: "bottom-right",
+        autoClose: 3500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setTimeout(() => {
+        this.props.history.push('/board')
+      }, 1000)
+    }
+
   }
 
+  // componentDidUpdate(prevProps) {
+  //   if (prevProps.board.groups !== this.props.board.groups) {
+  //     const differ = detailedDiff(prevProps.board.groups, this.props.board.groups)
+  //     console.log(differ)
+  //   }
+  // }
+  
+
+  remoteUpdate = (prevBoard) => {
+    // this details the difference between the previous board and the current board
+    const differ = detailedDiff(prevBoard, this.props.board)
+    // if there are no differences - return
+    if (!Object.keys(differ.added).length && !Object.keys(differ.deleted).length && !Object.keys(differ.updated).length) return console.log('nothing to update')
+
+    console.log(differ)
+    // if there are differences - notify the user
+    toast.success('The board has been updated!', {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      });
+  }
+  
   componentWillUnmount() {
     socketService.off('board-updated')
     socketService.terminate()
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.match.params.id !== this.props.match.params.id) {
-      this.getBoardFromParams()
-    }
-  }
+
   getBoardFromParams = async () => {
     const boardId = this.props.match.params.id
     try {
