@@ -11,14 +11,11 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux';
 import { updateBoard, updatePosition } from './store/actions/boardActions';
 import { BoardHub } from './pages/BoardHub';
-<<<<<<< HEAD
 import { Login } from './pages/Login';
 
-=======
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Notify } from './cmps/Notify';
->>>>>>> 5e86f2ebaadf1c7ae844ad1afcd42f60c3dfe094
 
 
 
