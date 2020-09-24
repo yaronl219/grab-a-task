@@ -11,6 +11,8 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux';
 import { updateBoard, updatePosition } from './store/actions/boardActions';
 import { BoardHub } from './pages/BoardHub';
+import { Login } from './pages/Login';
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Notify } from './cmps/Notify';
@@ -25,6 +27,19 @@ class _App extends Component {
   }
   
   onDragEnd = (result) => {
+
+    // console.log((this.props.filterBy));
+    // console.log((this.props.filterBy.filterBy.txt));
+    // console.log((this.props.filterBy.filterBy.labels));
+    // console.log(this.props.filterBy.filterBy.labels.length)
+    // const{ filterBy } = this.props
+
+    // // return
+
+    // if (this.props.filterBy.filterBy.txt || this.props.filterBy.filterBy.labels.length) {
+    //   console.log(this.props.filterBy.filterBy.labels.length)
+    //   return
+    // }
 
     const { destination, source, draggableId, type } = result
 
@@ -111,8 +126,8 @@ class _App extends Component {
               <Notify />
               <Switch>
                 <Route path="/board/:id/:cardId?" component={Board} />
+                <Route path="/login" component={Login} />
                 <Route component={Home} path='/:view' />
-
               </Switch>
               </main>
             </div>
@@ -126,7 +141,8 @@ class _App extends Component {
 const mapStateToProps = state => {
   return {
     board: state.boardReducer.board,
-    style: state.boardReducer.style
+    style: state.boardReducer.style,
+    filterBy: state.boardReducer.filterBy
   }
 }
 

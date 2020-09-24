@@ -115,16 +115,14 @@ class _Board extends Component {
     this.setState({ isSidebarShowing });
   }
 
-
   onFilter = (filterBy) => {
-    // this filter is sent to actions without updating the store yet
     this.props.onSetFilterBy(this.props.board, filterBy)
   }
 
   onAddGroup = (txt) => {
     return txt
   }
-
+  
   render() {
 
     const { board } = this.props
