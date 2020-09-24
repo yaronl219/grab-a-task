@@ -6,7 +6,7 @@ export function BoardPreview(props) {
     const board = props.board
 
     const createdAt = new Date (board.createdAt).toDateString()
-    const lastEdited = new Date (board.activities[0].createdAt).toDateString()
+    const lastEdited = new Date (board.activities[0].createdAt).toDateString() || "1123"
 
     return (
         <div className="board-preview">

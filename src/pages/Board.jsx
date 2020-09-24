@@ -20,7 +20,6 @@ class _Board extends Component {
   }
 
   async componentDidMount() {
-    // await this.props.loadBoard('5f6a0f6e973d861c5d72eb3f')
     this.getBoardFromParams()
     this.props.setStyle(this.props.board.style)
     socketService.setup()
