@@ -4,14 +4,13 @@ import { connect } from 'react-redux';
 import { BoardHeader } from '../cmps/BoardHeader/BoardHeader';
 import { CardDetails } from '../cmps/CardCmps/CardDetails';
 import { GroupList } from '../cmps/GroupList';
-import { Notify } from '../cmps/Notify'
 import { Sidebar } from '../cmps/Sidebar/Sidebar';
 // import { connect } from 'socket.io-client';
 import { loadBoard, onSetFilterBy, setStyle } from '../store/actions/boardActions';
 import socketService from '../services/socketService.js'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
-import { diff, addedDiff, deletedDiff, updatedDiff, detailedDiff } from 'deep-object-diff';
+import {detailedDiff } from 'deep-object-diff';
 
 
 class _Board extends Component {
@@ -80,7 +79,7 @@ class _Board extends Component {
       progress: undefined,
       });
   }
-  
+
   componentWillUnmount() {
     socketService.off('board-updated')
     socketService.terminate()
@@ -132,7 +131,6 @@ class _Board extends Component {
       <React.Fragment>
         {(this.props.match.params.cardId) ? <CardDetails cardId={this.props.match.params.cardId} boardId={this.props.match.params.id} history={this.props.history} /> : <div></div>}
         <div className="board-container">
-
           <BoardHeader title={board.title}
             members={board.members}
             onToggleSidebar={this.onToggleSidebar}
