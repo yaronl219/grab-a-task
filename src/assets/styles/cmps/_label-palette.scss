@@ -1,7 +1,10 @@
 .label-palette {
+    display: flex;
+    align-items: center;
+    min-height: rem(300px);
     & .label {
-        width: 100%;
-        margin: 5px 0;
+        width: 90%;
+        margin: rem(5px) 0;
         position: relative;
         display: flex;
         justify-content: space-between;
