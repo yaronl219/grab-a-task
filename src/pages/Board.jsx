@@ -10,14 +10,14 @@ import { loadBoard, onSetFilterBy, setStyle } from '../store/actions/boardAction
 import socketService from '../services/socketService.js'
 import { toast } from 'react-toastify';
 
-import {detailedDiff } from 'deep-object-diff';
+import { detailedDiff } from 'deep-object-diff';
 
 
 class _Board extends Component {
 
   state = {
-    isSidebarShowing: false,
-    prevBoard: null
+    isSidebarShowing: false
+
   }
 
   async componentDidMount() {
@@ -31,10 +31,10 @@ class _Board extends Component {
       socketService.on('init board', () => console.log(this.props.board._id))
       socketService.emit('entered-board', this.props.board._id)
       socketService.on('board-updated', async updatedBoard => {
-        
+
         const prevBoard = JSON.parse(JSON.stringify(this.props.board))
         await this.props.loadBoard(updatedBoard._id)
-        this.remoteUpdate(prevBoard)
+        this.showUpdateMessage(prevBoard)
       })
     } catch (err) {
       toast.error('Oops! we seem to be missing the board you\'re looking for. going back to board selection.', {
@@ -59,9 +59,9 @@ class _Board extends Component {
   //     console.log(differ)
   //   }
   // }
-  
 
-  remoteUpdate = (prevBoard) => {
+
+  showUpdateMessage = (prevBoard) => {
     // this details the difference between the previous board and the current board
     const differ = detailedDiff(prevBoard, this.props.board)
     // if there are no differences - return
@@ -77,7 +77,7 @@ class _Board extends Component {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      });
+    });
   }
 
   componentWillUnmount() {
@@ -121,7 +121,7 @@ class _Board extends Component {
   onAddGroup = (txt) => {
     return txt
   }
-  
+
   render() {
 
     const { board } = this.props
