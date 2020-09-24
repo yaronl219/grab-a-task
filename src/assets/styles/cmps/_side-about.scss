@@ -10,20 +10,29 @@
     & pre {
         margin: 0 8.56px;
     }
+    & h2 {
+        cursor: pointer;
+    }
 
-    & textarea {
+    & textarea,
+    input[type="text"] {
         display: block;
         margin: 0 auto;
         border: none;
         background-color: rgba(9, 30, 66, 0.08);
         border-radius: 3px;
 
-        &:focus{
+        &:focus {
             outline: none;
         }
     }
-    &textarea:focus {
-        outline: none;
+    & input[type="text"] {
+        display: inline-block;
+        height: rem(30px);
+        width: 70%;
+        margin: rem(16px) 0;
+        padding-left: rem(5px);
+        font-size: 1rem;
     }
 
     & .board-creator {
