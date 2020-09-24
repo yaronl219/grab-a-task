@@ -135,7 +135,6 @@ class _Board extends Component {
         {(this.props.match.params.cardId) ? <CardDetails cardId={this.props.match.params.cardId} boardId={this.props.match.params.id} history={this.props.history} /> : <div></div>}
         <div className="board-container">
 
-          <button onClick={() => toast('wow')}>notify</button>
           <BoardHeader title={board.title}
             members={board.members}
             onToggleSidebar={this.onToggleSidebar}
