@@ -7,13 +7,18 @@ import { CardDetails } from './cmps/CardCmps/CardDetails';
 import { Board } from './pages/Board';
 import { Navbar } from './cmps/Navbar';
 import userService from './services/userService';
-
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux';
 import { updateBoard, updatePosition } from './store/actions/boardActions';
 import { BoardHub } from './pages/BoardHub';
+<<<<<<< HEAD
 import { Login } from './pages/Login';
 
+=======
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Notify } from './cmps/Notify';
+>>>>>>> 5e86f2ebaadf1c7ae844ad1afcd42f60c3dfe094
 
 
 
@@ -21,8 +26,9 @@ class _App extends Component {
 
   componentDidMount() {
     userService.loginDefault()
+    toast.configure()
   }
-
+  
   onDragEnd = (result) => {
 
     // console.log((this.props.filterBy));
@@ -120,10 +126,13 @@ class _App extends Component {
                 <Navbar />
               </header>
               <main className="app-main">
+              <Notify />
               <Switch>
                 <Route path="/board/:id/:cardId?" component={Board} />
                 <Route path="/login" component={Login} />
                 <Route component={BoardHub} path='/' />
+                <Route component={Home} path='/:view' />
+
               </Switch>
               </main>
             </div>

@@ -14,7 +14,6 @@ export class _SideArchive extends Component {
         filterBy: ''
     }
     async componentDidMount() {
-        await this.props.loadBoard('b101');
         this.loadArchive();
     }
     componentDidUpdate(prevProps) {

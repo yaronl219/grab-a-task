@@ -3,7 +3,6 @@ import { MemberPreview } from './BoardHeader/MemberPreview'
 
 
 export function BoardPreview(props) {
-    console.log(props)
     const board = props.board
 
     const createdAt = new Date (board.createdAt).toDateString()
@@ -11,7 +10,7 @@ export function BoardPreview(props) {
 
     return (
         <div className="board-preview">
-            <div className="board-image" onClick={() => props.history.push(`board/${board._id}`)} style={{ backgroundImage: board.style.bgImg }}>
+            <div className="board-image" onClick={() => props.onSelect(board._id)} style={{ backgroundImage: board.style.bgImg }}>
                 <div className="board-overlay">
                 <h3 style={{ color: board.style.fontClr }}>{board.title}</h3>
                 </div>

@@ -22,7 +22,12 @@
         "react-router": "^5.1.2",
         "react-router-dom": "^5.1.2",
         "react-scripts": "3.4.3",
+<<<<<<< HEAD
         "react-spring": "^8.0.27",
+=======
+        "react-swipeable-views": "^0.13.9",
+        "react-toastify": "^6.0.8",
+>>>>>>> 5e86f2ebaadf1c7ae844ad1afcd42f60c3dfe094
         "redux": "^4.0.5",
         "redux-thunk": "^2.3.0",
         "socket.io-client": "^2.3.0",

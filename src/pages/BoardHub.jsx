@@ -1,35 +1,21 @@
 import { CircularProgress } from '@material-ui/core'
-import React, { Component } from 'react'
 import { BoardPreview } from '../cmps/BoardPreview'
-import { boardService } from '../services/boardService'
+import React from 'react'
 
-export class BoardHub extends Component {
-    
-    state = {
-        boards: null
-    }
-    componentDidMount() {
+export function BoardHub(props) {
+    if (!props.boards) return <div className="board-hub"><CircularProgress /></div>
+    return (
+
+        <div className="board-hub">
+            
+            <header>
+                <h1>{props.header}</h1>
+            </header>
+            <section>
+                {props.boards.map(board => <BoardPreview key={board._id} history={props.history} onSelect={props.onSelect} board={board} />)}
+            </section>
+
         
-        this.getAllBoards()
-    }
-    
-
-    getAllBoards = async() => {
-        const boards = await boardService.query()
-        this.setState({boards}) 
-    }
-    
-    render() {
-        if (!this.state.boards) return <div class="board-hub"><CircularProgress /></div>
-        return (
-            <div class="board-hub">
-                <header>
-                    <h1>Boards</h1>
-                </header>
-                <section>
-                    {this.state.boards.map(board => <BoardPreview key={board._id} history={this.props.history} board={board} /> )}
-                </section>
-            </div>
-        )
-    }
+        </div>
+    )
 }

@@ -1,15 +1,18 @@
 import { boardService } from "../../services/boardService";
 
+
 export function loadBoard(boardId) {
   return async dispatch => {
     try {
       const board = await boardService.getBoardById(boardId);
       dispatch({ type: 'SET_BOARD', board });
     } catch (err) {
-      console.log('ReviewActions: err in loadReviews', err);
+      console.log('boardAction: error in board action', err);
+      throw err;
     }
   };
 }
+
 
 export function addActivity(board, activity) {
   
@@ -47,17 +50,17 @@ export function updateCard(board, newCard,newActivity) {
       newBoard.groups[groupIdx].cards[cardIdx] = newCard
 
       // add activity
-      
+
       if (newActivity) {
         const activity = boardService.createActivity(newActivity)
         newBoard.activities.unshift(activity)
       }
 
-      
+
       dispatch({ type: 'SET_BOARD', board: newBoard })
-      boardService.updateBoard(newBoard) // updating the DB
+      await boardService.updateBoard(newBoard) // updating the DB
       // newBoard = boardService.updateBoard(newBoard) // updating the DB
-      
+
     } catch (err) {
       console.log('error updating card', err)
     }
@@ -140,11 +143,11 @@ export function updateGroup(board, newGroup) {
 // // backup to filter
 export function onSetFilterBy(board, filterBy) {
   return async dispatch => {
-    try{
+    try {
       const filteredBoard = await boardService.filter(board._id, filterBy)
       dispatch({ type: 'FILTER_BY', filterBy })
       dispatch({ type: 'SET_BOARD', board: filteredBoard })
-    } catch(err){
+    } catch (err) {
       console.log('error setting filter group', err)
     }
   }
@@ -152,19 +155,19 @@ export function onSetFilterBy(board, filterBy) {
 
 export function onAddNewGroup(board, groupTitle) {
   return async dispatch => {
-    try{
+    try {
       let newBoard = JSON.parse(JSON.stringify(board))
       const groupToPush = {
-          id: makeId(),
-          title: groupTitle,
-          cards: [],
-          archivedAt: false,
-          style: {}
+        id: makeId(),
+        title: groupTitle,
+        cards: [],
+        archivedAt: false,
+        style: {}
       }
       newBoard.groups.push(groupToPush)
       dispatch({ type: 'SET_BOARD', board: newBoard })
       await boardService.updateBoard(newBoard)
-    } catch(err){
+    } catch (err) {
       console.log('error adding new group', err)
     }
   }
@@ -172,11 +175,11 @@ export function onAddNewGroup(board, groupTitle) {
 
 export function updatePosition(newBoardPositioning) {
   return async dispatch => {
-    try{
+    try {
       dispatch({ type: 'SET_BOARD', board: newBoardPositioning })
       let newBoard = JSON.parse(JSON.stringify(newBoardPositioning))
       await boardService.updateBoard(newBoard) // updating the DB
-    }catch(err){
+    } catch (err) {
       console.log('error updating board', err)
     }
   }
@@ -186,7 +189,7 @@ export function updateBoard(board) {
   return async dispatch => {
     try {
       let newBoard = JSON.parse(JSON.stringify(board))
-      dispatch({type: 'SET_BOARD',board: newBoard})
+      dispatch({ type: 'SET_BOARD', board: newBoard })
       await boardService.updateBoard(newBoard) // updating the DB
     } catch (err) {
       console.log('error updating board', err)
@@ -200,31 +203,31 @@ export function setStyle(style) {
   }
 }
 
-export function onArchiveGroup(groupId, board){
-  return async dispatch=>{
-    try{
+export function onArchiveGroup(groupId, board) {
+  return async dispatch => {
+    try {
       let newBoard = JSON.parse(JSON.stringify(board))
       const groupIdx = newBoard.groups.findIndex(group => group.id === groupId)
       newBoard.groups[groupIdx].archivedAt = Date.now()
       dispatch({ type: 'SET_BOARD', board: newBoard })
       await boardService.updateBoard(newBoard) // updating the DB
-    } catch(err){
+    } catch (err) {
       console.log('error archiving group', err)
     }
   }
 }
 
-export function onArchiveAllCards(groupId, board){
-  return async dispatch=>{
-    try{
+export function onArchiveAllCards(groupId, board) {
+  return async dispatch => {
+    try {
       let newBoard = JSON.parse(JSON.stringify(board))
       const groupIdx = newBoard.groups.findIndex(group => group.id === groupId)
       const newCards = newBoard.groups[groupIdx].cards.map(card => {
-          const newCard = JSON.parse(JSON.stringify(card))
-          newCard.archivedAt = Date.now()
-          return newCard
-          });
-      newBoard.groups[groupIdx].cards = newCards     
+        const newCard = JSON.parse(JSON.stringify(card))
+        newCard.archivedAt = Date.now()
+        return newCard
+      });
+      newBoard.groups[groupIdx].cards = newCards
       dispatch({ type: 'SET_BOARD', board: newBoard })
       await boardService.updateBoard(newBoard) // updating the DB
     } catch (err) {
@@ -253,15 +256,15 @@ export function setNewGroupName(groupId, groupName, board) {
 }
 
 // finish
-export function addNewBoard(boardName, boardColor = null){
-  return async dispatch=>{
+export function addNewBoard(boardName, boardColor = null) {
+  return async dispatch => {
     const newBoard = await boardService.addNewBoard(boardName, boardColor)
-    
+
   }
 }
 
 // finish
-export function addToMembers({ _id, fullName, imgUrl }, board){
+export function addToMembers({ _id, fullName, imgUrl }, board) {
   return async dispatch => {
     const userToPush = {
       _id,
@@ -271,7 +274,7 @@ export function addToMembers({ _id, fullName, imgUrl }, board){
 
     let newBoard = JSON.parse(JSON.stringify(board))
     newBoard.members.unshift(userToPush)
-    dispatch({ type: 'SET_BOARD', board: newBoard })    
+    dispatch({ type: 'SET_BOARD', board: newBoard })
     await boardService.updateBoard(newBoard) // updating the DB
 
     // update the backend as well after the dispatch
@@ -280,13 +283,13 @@ export function addToMembers({ _id, fullName, imgUrl }, board){
 }
 
 // finish
-export function removeMember(id, board){
+export function removeMember(id, board) {
   return async dispatch => {
 
     let newBoard = JSON.parse(JSON.stringify(board))
     const memberIdx = newBoard.members.findIndex(member => member._id === id)
     newBoard.members.splice(memberIdx, 1)
-    dispatch({ type: 'SET_BOARD', board: newBoard })      
+    dispatch({ type: 'SET_BOARD', board: newBoard })
     await boardService.updateBoard(newBoard) // updating the DB
 
     // update the backend as well after the dispatch
@@ -294,7 +297,7 @@ export function removeMember(id, board){
   }
 }
 
-export function switchGroup(){}
+export function switchGroup() { }
 
 // =============================================
 

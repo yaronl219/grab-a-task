@@ -3,7 +3,7 @@ import React from 'react'
 import { CardNewChecklist } from "./CardNewChecklist"
 import { Button, CircularProgress } from "@material-ui/core"
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+// import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import LabelOutlinedIcon from '@material-ui/icons/LabelOutlined';
 import PeopleAltOutlinedIcon from '@material-ui/icons/PeopleAltOutlined';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
