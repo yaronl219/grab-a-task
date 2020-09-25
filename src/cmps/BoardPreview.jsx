@@ -6,7 +6,13 @@ export function BoardPreview(props) {
     const board = props.board
 
     const createdAt = new Date (board.createdAt).toDateString()
-    const lastEdited = new Date (board.activities[0].createdAt).toDateString() || "1123"
+    let lastEdited
+    try {
+         lastEdited = new Date (board.activities[0].createdAt).toDateString() || "1123"
+    } catch (err) {
+         lastEdited = createdAt
+    }
+    
 
     return (
         <div className="board-preview">
@@ -20,7 +26,7 @@ export function BoardPreview(props) {
                     {board.description}
                 </div>
                 <div className="board-members">
-                    {board.members.map(member => <MemberPreview key={member._id} name={member.fullName} imgUrl={member.imgUrl}/>)}
+                    {board.members.map((member,idx) => <MemberPreview key={idx} name={member.fullName} imgUrl={member.imgUrl}/>)}
                 </div>
                 <div className="board-creator">
                     Board created by {board.createdBy.fullName} on {createdAt}

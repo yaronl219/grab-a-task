@@ -179,6 +179,7 @@
 
     section {
         display: flex;
+        flex-wrap: wrap;
         position: relative;
         main {
             flex-grow: 1;
@@ -253,16 +254,20 @@
                 }
             }
         }
+        aside {
+            display: flex;
 
+    justify-content: center;           
+    max-width: 100%;
+        }
         .card-sidebar {
             padding: 0.25rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            display: grid;
+            grid-template-columns: repeat(auto-fill,minmax(rem(155px),1fr));
             min-width: 168px;
 
             div {
-                width: 100%;
+                // width: 100%;
             }
 
             button {
