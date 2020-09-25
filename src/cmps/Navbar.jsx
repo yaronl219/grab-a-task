@@ -7,6 +7,11 @@ import { AddNewBoard } from './BoardHeader/AddNewBoard'
 import snorelax from '../assets/icons/snorelax.png'
 import logo from '../assets/icons/opus2.png'
 
+import logoFutura from '../assets/icons/newLogoFutura.png'
+import logoHel from '../assets/icons/newLogoHel.png'
+
+
+
 export class Navbar extends Component {
 
     state = {
@@ -32,8 +37,8 @@ export class Navbar extends Component {
                     <div className="board-header-btn left"><NavLink to='main-url'><span className="material-icons">home</span></NavLink></div>
                     <div className="board-header-btn left"><NavLink to='/board'><span className="material-icons">view_list</span><h4 className="boards-text">Boards</h4></NavLink></div>
                 </div>
-
-                <div onClick={this.showLove} style={{ cursor: "pointer" }} className="header-logo"><img src={snorelax} alt="" /></div>
+ 
+                <div onClick={this.showLove} style={{ cursor: "pointer" }} className="header-logo"><img src={logoFutura} alt="best logo ever" /></div>
 
                 <div className="navbar-right-container">
                     <div className="board-header-btn right" onClick={this.toggleModal}><span className="material-icons">add</span></div>

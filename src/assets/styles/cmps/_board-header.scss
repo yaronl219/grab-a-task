@@ -138,6 +138,12 @@
 
 .header-logo{
     display: flex;
-    width: 36px;
+    width: 5rem;
     align-items: center;
+    opacity: 0.65;
+    transition: 0.15s;
+
+    &:hover{
+        opacity: 1;
+    }
 }
