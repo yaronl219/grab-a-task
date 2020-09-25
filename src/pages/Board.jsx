@@ -129,6 +129,7 @@ class _Board extends Component {
 
     return (
       <React.Fragment>
+
         {(this.props.match.params.cardId) ? <CardDetails cardId={this.props.match.params.cardId} boardId={this.props.match.params.id} history={this.props.history} /> : <div></div>}
         <div className="board-container">
           <BoardHeader title={board.title}
@@ -145,8 +146,7 @@ class _Board extends Component {
 
           {(board.groups) ? <GroupList style={board.style} onAddGroup={this.onAddGroup} groups={board.groups} /> : <CircularProgress />}
 
-        </div>
-
+          </div>
 
       </React.Fragment>
     )

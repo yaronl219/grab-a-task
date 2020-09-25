@@ -161,9 +161,10 @@ function createActivity(partialActivity) {
                 imgUrl: 'http://some-img'
             },
             style: {
-                id: utils.makeId(),
+                // id: utils.makeId(),
                 fontClr: '#f9f9f9',
-                bgImg: null
+                bgImg: null,
+                boardColor
             },
             members: [{ // update from currUser
                 _id: 'u101', // update from user
@@ -185,8 +186,9 @@ function createActivity(partialActivity) {
             }]
         }        
 
+        console.log(newBoard);
         
-        const addedBoard = await httpService.post(`board`, newBoard);
-        return addedBoard
+        // const addedBoard = await httpService.post(`board`, newBoard);
+        // return addedBoard
         // push new board to board collection and forword user to the new route
     }

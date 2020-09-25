@@ -32,6 +32,13 @@ async function addCard(board, cardTxt, groupId) {
         createdAt: Date.now(),
         dueDate: null,
         attachments: null,
+        timeAnalysis:{ 
+            timeInGroupsMap:{},
+            currGroup: {
+                groupId,
+                enteredAt: Date.now()
+            }
+         },
         byMember: {
             // add user info here from session storage:
             //                         "byMember": {

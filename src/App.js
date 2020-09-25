@@ -1,21 +1,51 @@
-import React, { Component } from 'react';
+import React, {
+  Component
+} from 'react';
 import logo from './logo.svg';
-import { Home } from './pages/Home';
+import {
+  Home
+} from './pages/Home';
 import './assets/styles/global.scss'
-import { Route, Switch } from 'react-router';
-import { CardDetails } from './cmps/CardCmps/CardDetails';
-import { Board } from './pages/Board';
-import { Navbar } from './cmps/Navbar';
+import {
+  Route,
+  Switch
+} from 'react-router';
+import {
+  CardDetails
+} from './cmps/CardCmps/CardDetails';
+import {
+  Board
+} from './pages/Board';
+import {
+  Navbar
+} from './cmps/Navbar';
 import userService from './services/userService';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd'
-import { connect } from 'react-redux';
-import { updateBoard, updatePosition } from './store/actions/boardActions';
-import { BoardHub } from './pages/BoardHub';
-import { Login } from './pages/Login';
+import {
+  DragDropContext,
+  Droppable
+} from 'react-beautiful-dnd'
+import {
+  connect
+} from 'react-redux';
+import {
+  updateBoard,
+  updatePosition
+} from './store/actions/boardActions';
+import {
+  BoardHub
+} from './pages/BoardHub';
+import {
+  Login
+} from './pages/Login';
 
-import { ToastContainer, toast } from 'react-toastify';
+import {
+  ToastContainer,
+  toast
+} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Notify } from './cmps/Notify';
+import {
+  Notify
+} from './cmps/Notify';
 
 
 
@@ -25,31 +55,20 @@ class _App extends Component {
     userService.loginDefault()
     toast.configure()
   }
-  
+
+
   onDragEnd = (result) => {
 
-    // console.log((this.props.filterBy));
-    // console.log((this.props.filterBy.filterBy.txt));
-    // console.log((this.props.filterBy.filterBy.labels));
-    // console.log(this.props.filterBy.filterBy.labels.length)
-    // const{ filterBy } = this.props
-
-    // // return
-
-    // if (this.props.filterBy.filterBy.txt || this.props.filterBy.filterBy.labels.length) {
-    //   console.log(this.props.filterBy.filterBy.labels.length)
-    //   return
-    // }
-
-    const { destination, source, draggableId, type } = result
-
+    const {
+      destination,
+      source,
+      draggableId,
+      type
+    } = result
 
     if (!destination) return
-    if (destination.droppableId === source.droppableId && destination.index === source.index) return    
+    if (destination.droppableId === source.droppableId && destination.index === source.index) return
     if (!draggableId) return
-
-
-
 
     if (type === 'card') {
       const startGroupIndex = this.props.board.groups.findIndex(group => group.id === source.droppableId)
@@ -63,10 +82,16 @@ class _App extends Component {
         const newCardsGroup = Array.from(currGroup.cards)
         newCardsGroup.splice(source.index, 1)
         newCardsGroup.splice(destination.index, 0, currCard)
-        const newGroup = { ...currGroup, cards: newCardsGroup }
+        const newGroup = {
+          ...currGroup,
+          cards: newCardsGroup
+        }
         const newGroups = [...this.props.board.groups]
         newGroups[startGroupIndex] = newGroup
-        const newBoard = { ...this.props.board, groups: newGroups }
+        const newBoard = {
+          ...this.props.board,
+          groups: newGroups
+        }
         this.props.updatePosition(newBoard)
         // this.props.updateBoard(newBoard)
         return
@@ -81,6 +106,15 @@ class _App extends Component {
         const formerCardIndex = formerGroup.cards.findIndex(card => card.id === draggableId)
         const newCardsArray = Array.from(destinationGroup.cards)
 
+        // time analysis
+        const currCardTime = currCard.timeAnalysis
+        if (currCardTime){
+          currCardTime.timeInGroupsMap[currCardTime.currGroup.groupId] =
+            currCardTime.timeInGroupsMap[currCardTime.currGroup.groupId] + (Date.now() - currCardTime.currGroup.enteredAt) ||
+            (Date.now() - currCardTime.currGroup.enteredAt)
+          currCardTime.currGroup = { groupId: destinationGroup.id, enteredAt: Date.now() }
+        }
+
         newCardsArray.splice(destination.index, 0, currCard)
         formerGroup.cards.splice(formerCardIndex, 1)
 
@@ -88,7 +122,10 @@ class _App extends Component {
         newGroups[startGroupIndex] = formerGroup
         newGroups[endGroupIndex].cards = newCardsArray
 
-        const newBoard = { ...this.props.board, groups: newGroups }
+        const newBoard = {
+          ...this.props.board,
+          groups: newGroups
+        }
         this.props.updatePosition(newBoard)
         // this.props.updateBoard(newBoard)
         return
@@ -114,29 +151,59 @@ class _App extends Component {
   }
 
   render() {
-    const { style } = this.props
+    const {
+      style
+    } = this.props
     return (
 
-      (this.props.style)
-        ? <DragDropContext onDragEnd={this.onDragEnd}>
-          <div className="app-bg" style={{backgroundImage: style.bgImg, backgroundPosition:'center'}}>
-            <div className="App">
-              <header className="App-header">
-                <Navbar />
-              </header>
-              <main className="app-main">
-              <Notify />
-              <Switch>
-                <Route path="/board/:id/:cardId?" component={Board} />
-                {/* <Route path="/board?/:id?/login" component={Login} /> */}
-                <Route path="/login" component={Login} />
-                <Route component={Home} path='/:view' />
-              </Switch>
-              </main>
-            </div>
-          </div>
-        </DragDropContext>
-        : <div>loading</div>
+      (this.props.style) ?
+      < DragDropContext onDragEnd = {
+        this.onDragEnd
+      } >
+      <
+      div className = "app-bg"
+      style = {
+        {
+          backgroundImage: style.bgImg,
+          backgroundPosition: 'center'
+        }
+      } >
+      <
+      div className = "App" >
+      <
+      header className = "App-header" >
+      <
+      Navbar / >
+      <
+      /header> <
+      main className = "app-main" >
+      <
+      Notify / >
+      <
+      Switch >
+      <
+      Route path = "/board/:id/:cardId?"
+      component = {
+        Board
+      }
+      /> {
+        /* <Route path="/board?/:id?/login" component={Login} /> */ } <
+      Route path = "/login"
+      component = {
+        Login
+      }
+      /> <
+      Route component = {
+        Home
+      }
+      path = '/:view' / >
+      <
+      /Switch> <
+      /main> <
+      /div> <
+      /div> <
+      /DragDropContext> :
+      < div > loading < /div>
     )
   }
 }
@@ -162,4 +229,3 @@ export const App = connect(mapStateToProps, mapDispatchToProps)(_App);
 // color: style.fontClr
 // }}
 // >
-

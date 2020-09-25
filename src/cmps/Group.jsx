@@ -86,16 +86,16 @@ class _Group extends Component {
                         <Droppable droppableId={group.id} type="card">
                         {provided=>(
                                 <div className="card-container"
-                                ref={provided.innerRef}
-                                {...provided.droppableProps}
-                                >
-                                {group.cards.map((card, index) => {
-                                    if (!card.archivedAt) {
-                                        return <CardPreview key={card.id} card={card} index={index}/>
-                                    }
-                                })}
-                                {provided.placeholder}
-                            </div>
+                                    ref={provided.innerRef}
+                                    {...provided.droppableProps}
+                                    >
+                                    {group.cards.map((card, index) => {
+                                        if (!card.archivedAt) {
+                                            return <CardPreview key={card.id} card={card} index={index}/>
+                                        }
+                                    })}
+                                    {provided.placeholder}
+                                </div>
                         )}
                         </Droppable>
                         <div className="new-card-btn-container">
