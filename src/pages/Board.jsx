@@ -31,7 +31,7 @@ class _Board extends Component {
       socketService.on('init board', () => console.log(this.props.board._id))
       socketService.emit('entered-board', this.props.board._id)
       socketService.on('board-updated', async updatedBoard => {
-        console.log(updatedBoard)
+        
         const prevBoard = JSON.parse(JSON.stringify(this.props.board))
         await this.props.loadBoard(updatedBoard._id)
         this.showUpdateMessage(prevBoard)
