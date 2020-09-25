@@ -259,6 +259,8 @@ export function setNewGroupName(groupId, groupName, board) {
 export function addNewBoard(boardName, boardColor = null) {
   return async dispatch => {
     const newBoard = await boardService.addNewBoard(boardName, boardColor)
+    console.log(newBoard)
+    
 
   }
 }

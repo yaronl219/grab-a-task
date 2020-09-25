@@ -38,7 +38,7 @@ export class Navbar extends Component {
                 <div className="navbar-right-container">
                     <div className="board-header-btn right" onClick={this.toggleModal}><span className="material-icons">add</span></div>
                     {this.state.isNewBoardModalShown && <AddNewBoard onCloseModal={this.onCloseModal} />}
-                    <div className="board-header-btn right"><NavLink to='/login'><h4 className="login-text">Login</h4></NavLink></div>
+                    <div className="board-header-btn login right"><NavLink to='/login'><h4 className="login-text">Login</h4></NavLink></div>
 
                 </div>
             </div>

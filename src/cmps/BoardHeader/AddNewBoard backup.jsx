@@ -15,9 +15,12 @@ export class _AddNewBoard extends Component {
     }
 
     componentDidMount() {
+        console.log(this.props);
+        // 5f6dbfb9443c3502d14c2cf6
         this.setState({  selectedColor: null, newBoardName: '' })
     }
     
+
     onSetColor=(color)=>{
         this.setState({ selectedColor: color })
     }
@@ -33,6 +36,10 @@ export class _AddNewBoard extends Component {
 
     onSubmit=(ev)=>{
         ev.preventDefault()
+        //
+        
+
+        //
         const boardColor = this.state.selectedColor
         const boardName = this.state.newBoardName
         this.props.addNewBoard(boardName, boardColor)
@@ -59,6 +66,7 @@ export class _AddNewBoard extends Component {
                 </div>
                 <button onClick={  this.onSubmit  }>Add New Board</button>
             </div>
+            
             </ClickAwayListener>
         )
     }
