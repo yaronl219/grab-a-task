@@ -11,7 +11,7 @@ export class CardDetailsAttachment extends Component {
     }
 
     componentDidMount() {
-        console.log(this)
+        
         this.updateAttFromProps()
     }
     componentDidUpdate(prevProps, prevState) {

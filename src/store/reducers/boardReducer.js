@@ -21,6 +21,8 @@ export default function(state = initialState, action = {}) {
     case 'SET_STYLE':
         return{ ...state, style: action.style }
 
+  
+
     default:
       return state;
   }

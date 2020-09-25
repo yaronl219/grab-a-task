@@ -1,5 +1,5 @@
 import { CircularProgress } from '@material-ui/core'
-import { BoardPreview } from '../cmps/BoardPreview'
+import { BoardPreview } from '../cmps/GroupCmps/BoardPreview'
 import React from 'react'
 
 export function BoardHub(props) {

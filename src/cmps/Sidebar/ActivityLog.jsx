@@ -1,11 +1,13 @@
+import { CircularProgress } from '@material-ui/core';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import * as timeago from 'timeago.js';
 import { MemberPreview } from '../BoardHeader/MemberPreview';
 
 export function ActivityLog({ boardId, displayMode, activities }) {
-    if (!activities) return <div>Loading...</div>;
+    if (!activities) return <div><CircularProgress /></div>;
     if (activities && activities.length > 15) activities = activities.slice(0, 14);
+    
     return (
         <ul className="activity-log">
             {activities.map(activity => {

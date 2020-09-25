@@ -1,5 +1,5 @@
 import React from 'react'
-import { MemberPreview } from './BoardHeader/MemberPreview'
+import { MemberPreview } from '../BoardHeader/MemberPreview'
 
 
 export function BoardPreview(props) {
