@@ -34,6 +34,7 @@ class _Board extends Component {
 
         const prevBoard = JSON.parse(JSON.stringify(this.props.board))
         await this.props.loadBoard(updatedBoard._id)
+        if (prevBoard.style !== this.props.board.style) this.props.setStyle(this.props.board.style)
         this.showUpdateMessage(prevBoard)
       })
     } catch (err) {

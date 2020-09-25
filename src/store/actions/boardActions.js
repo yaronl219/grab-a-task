@@ -15,7 +15,7 @@ export function loadBoard(boardId) {
 
 
 export function addActivity(board, activity) {
-  
+
   return async dispatch => {
     try {
       let newBoard = JSON.parse(JSON.stringify(board))
@@ -36,8 +36,8 @@ export function toggleFullLabels() {
 
 
 // check that it updates the db
-export function updateCard(board, newCard,newActivity) {
-  
+export function updateCard(board, newCard, newActivity) {
+
   return async dispatch => {
     try {
       // replicate board
@@ -72,6 +72,7 @@ export function addLabel(board, newLabel) {
     try {
       let newBoard = JSON.parse(JSON.stringify(board))
       newLabel.id = makeId()
+      if (!newBoard.labels) newBoard.labels = [];
       newBoard.labels.push(newLabel)
       dispatch({ type: 'SET_BOARD', board: newBoard })
       await boardService.updateBoard(newBoard) // updating the DB
