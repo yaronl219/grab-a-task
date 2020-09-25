@@ -128,6 +128,7 @@ class _App extends Component {
               <Notify />
               <Switch>
                 <Route path="/board/:id/:cardId?" component={Board} />
+                {/* <Route path="/board?/:id?/login" component={Login} /> */}
                 <Route path="/login" component={Login} />
                 <Route component={Home} path='/:view' />
               </Switch>

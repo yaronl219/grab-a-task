@@ -19,7 +19,10 @@ export class CardMembersList extends Component {
     }
 
     filterBoardMembers = () => {
-        const filteredMembers = this.props.boardMembers.filter(member => member.fullName.toLowerCase().includes(this.state.filter.toLowerCase()))
+        let filteredMembers = this.props.boardMembers
+        console.log(filteredMembers)
+        if (!filteredMembers) return
+        filteredMembers = filteredMembers.filter(member => member.fullName.toLowerCase().includes(this.state.filter.toLowerCase()))
 
         this.setState({ boardMembers: filteredMembers })
     }

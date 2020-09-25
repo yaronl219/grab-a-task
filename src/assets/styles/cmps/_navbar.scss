@@ -53,10 +53,9 @@
     display: flex;
     align-items: center;
     justify-items: center;
-    
+
     &>.right {
         height: 34px;
-        margin-right: rem(6px)
     }
 
     &>.right a {
@@ -73,4 +72,8 @@
         transform: translateY(50%);
     }
 
+}
+
+.login{
+    margin-left: rem(6px);
 }

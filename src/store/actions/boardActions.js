@@ -19,6 +19,7 @@ export function addActivity(board, activity) {
   return async dispatch => {
     try {
       let newBoard = JSON.parse(JSON.stringify(board))
+      if (!newBoard.activities) newBoard.activities = []
       newBoard.activities.unshift(activity)
       dispatch({ type: 'SET_BOARD', board: newBoard })
       await boardService.updateBoard(newBoard) // updating the DB
@@ -260,6 +261,8 @@ export function setNewGroupName(groupId, groupName, board) {
 export function addNewBoard(boardName, boardColor = null) {
   return async dispatch => {
     const newBoard = await boardService.addNewBoard(boardName, boardColor)
+    console.log(newBoard)
+    
 
   }
 }
