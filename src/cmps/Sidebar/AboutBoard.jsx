@@ -10,12 +10,18 @@ import { SidebarHeader } from './SidebarHeader';
 export class _AboutBoard extends Component {
     state = {
         isEditDesc: false,
-        currDesc: null
+        isEditTitle: false,
+        currDesc: null,
+        currTitle: null
     }
     setCurrDesc = (ev) => {
         const currDesc = ev.target.value;
         this.setState({ currDesc });
 
+    }
+    setCurrTitle = (ev) => {
+        const currTitle = ev.target.value;
+        this.setState({ currTitle });
     }
     onEditDesc = () => {
         const description = this.state.currDesc;
@@ -25,9 +31,17 @@ export class _AboutBoard extends Component {
         }
         this.setState({ isEditDesc: false });
     }
+    onEditTitle = () => {
+        const title = this.state.currTitle;
+        if (title) {
+            const newBoard = { ...this.props.board, title };
+            this.props.updateBoard(newBoard);
+        }
+        this.setState({ isEditTitle: false });
+    }
     render() {
         const { board, isShowing, onSetMenuOpt } = this.props;
-        const { isEditDesc } = this.state;
+        const { isEditDesc, isEditTitle } = this.state;
         return (
             <div className="sidebar-container" >
                 <Drawer classes={{ root: 'sidebar' }}
@@ -37,6 +51,15 @@ export class _AboutBoard extends Component {
                     BackdropProps={{ hideBackdrop: true }}
                     variant={'persistent'}>
                     <SidebarHeader titleTxt="ABOUT THIS BOARD" onSetMenuOpt={onSetMenuOpt} />
+                    {isEditTitle
+                        ? <div>
+                            <input type="text" autoFocus 
+                            defaultValue={board.title} 
+                            onChange={(ev) => this.setCurrTitle(ev)} 
+                            onBlur={() => this.setState({ isEditTitle: false })} />
+                            <button type="button" className="save-btn" onMouseDown={this.onEditTitle}>Save</button>
+                        </div>
+                        : <h2 onClick={() => this.setState({ isEditTitle: true })}>{board.title}</h2>}
                     <div className="about-container">
                         {board.createdBy && <div className="created-by">
                             <h5><PersonOutlineIcon /> CREATED BY</h5>

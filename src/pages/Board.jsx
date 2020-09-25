@@ -4,21 +4,20 @@ import { connect } from 'react-redux';
 import { BoardHeader } from '../cmps/BoardHeader/BoardHeader';
 import { CardDetails } from '../cmps/CardCmps/CardDetails';
 import { GroupList } from '../cmps/GroupList';
-import { Notify } from '../cmps/Notify'
 import { Sidebar } from '../cmps/Sidebar/Sidebar';
 // import { connect } from 'socket.io-client';
 import { loadBoard, onSetFilterBy, setStyle } from '../store/actions/boardActions';
 import socketService from '../services/socketService.js'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
-import { diff, addedDiff, deletedDiff, updatedDiff, detailedDiff } from 'deep-object-diff';
+import { detailedDiff } from 'deep-object-diff';
 
 
 class _Board extends Component {
 
   state = {
-    isSidebarShowing: false,
-    prevBoard: null
+    isSidebarShowing: false
+
   }
 
   async componentDidMount() {
@@ -32,10 +31,10 @@ class _Board extends Component {
       socketService.on('init board', () => console.log(this.props.board._id))
       socketService.emit('entered-board', this.props.board._id)
       socketService.on('board-updated', async updatedBoard => {
-        
+
         const prevBoard = JSON.parse(JSON.stringify(this.props.board))
         await this.props.loadBoard(updatedBoard._id)
-        this.remoteUpdate(prevBoard)
+        this.showUpdateMessage(prevBoard)
       })
     } catch (err) {
       toast.error('Oops! we seem to be missing the board you\'re looking for. going back to board selection.', {
@@ -60,9 +59,9 @@ class _Board extends Component {
   //     console.log(differ)
   //   }
   // }
-  
 
-  remoteUpdate = (prevBoard) => {
+
+  showUpdateMessage = (prevBoard) => {
     // this details the difference between the previous board and the current board
     const differ = detailedDiff(prevBoard, this.props.board)
     // if there are no differences - return
@@ -78,9 +77,9 @@ class _Board extends Component {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      });
+    });
   }
-  
+
   componentWillUnmount() {
     socketService.off('board-updated')
     socketService.terminate()
@@ -122,7 +121,7 @@ class _Board extends Component {
   onAddGroup = (txt) => {
     return txt
   }
-  
+
   render() {
 
     const { board } = this.props
@@ -132,7 +131,6 @@ class _Board extends Component {
       <React.Fragment>
         {(this.props.match.params.cardId) ? <CardDetails cardId={this.props.match.params.cardId} boardId={this.props.match.params.id} history={this.props.history} /> : <div></div>}
         <div className="board-container">
-
           <BoardHeader title={board.title}
             members={board.members}
             onToggleSidebar={this.onToggleSidebar}

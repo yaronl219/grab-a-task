@@ -119,7 +119,7 @@ class _App extends Component {
 
       (this.props.style)
         ? <DragDropContext onDragEnd={this.onDragEnd}>
-          <div className="app-bg" style={{backgroundImage: style.bgImg}}>
+          <div className="app-bg" style={{backgroundImage: style.bgImg, backgroundPosition:'center'}}>
             <div className="App">
               <header className="App-header">
                 <Navbar />
