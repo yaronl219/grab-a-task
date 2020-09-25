@@ -282,7 +282,9 @@ class _CardDetails extends Component {
 
     getFilteredActivities = () => {
         const card = this.state.card
-        let cardActivities = this.props.board.activities.filter(activity => activity.card.id === card.id)
+        const activities = this.props.board.activities
+        if (!activities) return []
+        let cardActivities = activities.filter(activity => activity.card.id === card.id)
         if (this.state.commentsOnly) cardActivities = cardActivities.filter(activity => {
             if (activity.commentTxt.length) return activity
         })
