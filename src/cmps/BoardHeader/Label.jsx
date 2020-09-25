@@ -9,7 +9,7 @@ export class Label extends Component {
             <div className="label-inner-container"
                 onClick={() => this.props.onFilterByLabel(this.props.id)}>
                 <div className={`label ${this.props.color}`}></div>  
-                <p>{this.props.name}</p>
+                {this.props.name ? <p>{this.props.name}</p> : <p>Deafult</p>}
                 {isChecked && <div><CheckIcon /></div>}
             </div>
         )

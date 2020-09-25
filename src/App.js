@@ -43,8 +43,10 @@ class _App extends Component {
 
     const { destination, source, draggableId, type } = result
 
+
     if (!destination) return
-    if (destination.droppableId === source.droppableId && destination.index === source.index) return
+    if (destination.droppableId === source.droppableId && destination.index === source.index) return    
+    if (!draggableId) return
 
 
 
