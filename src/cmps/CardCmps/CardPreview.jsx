@@ -65,7 +65,9 @@ class _CardPreview extends Component {
     }
 
     getCardPreviewComments = () => {
-        let cardComm = this.props.board.activities.filter(activity => activity.card.id === this.props.card.id)
+        let activities =this.props.board.activities
+        if (!activities) return null
+        let cardComm = activities.filter(activity => activity.card.id === this.props.card.id)
         cardComm = cardComm.filter(activity => {
             if (activity.commentTxt) return activity
             return null

@@ -342,16 +342,18 @@ class _CardDetails extends Component {
                                 </div>
                                 <CardAddComment onAddComment={this.onAddComment} />
 
-                                <ActivityLog
-                                    boardId={this.props.board._id}
-                                    displayMode="card"
-                                    activities={this.getFilteredActivities()} />
+                                
                             </div>
                         </main>
                         <aside className="card-details-sidebar" ref={this.ref}>
                             <CardSidebar anchorRef={this.ref} addActivity={this.createActivity} isUploading={this.state.isUploading} toggleCoverSelector={this.toggleCoverSelector} toggleUploadDropzone={this.toggleUploadDropzone} toggleDisplayMembers={this.toggleDisplayMembers} dueDate={card.dueDate} toggleLabelPallete={this.toggleLabelPalette} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} onUpdateChecklists={this.onUpdateChecklists} />
                         </aside>
+                        
                     </section>
+                    <ActivityLog
+                                    boardId={this.props.board._id}
+                                    displayMode="card"
+                                    activities={this.getFilteredActivities()} />
                 </div>
                 {/* {this.state.isLabelPaletteShowing && <LabelPalette card={card} />} */}
                 <Popover
