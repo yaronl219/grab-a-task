@@ -115,45 +115,76 @@ async function filter(boardId, filterBy) {
             return newGroup
         })
     }
-    return boardToReturn
+
 }
+    async function addNewBoard(boardName, boardColor, currUser){
 
 
-async function addNewBoard(boardName, boardColor) {
-    console.log(boardName);
-    console.log(boardColor);
-    console.log('Finish backend to push new board');
-
-    const newBoard = {
-        _id: utils.makeId(),
-        title: boardName,
-        isArchived: false,
-        createdAt: Date.now,
-        createdBy: {
-            _id: 'u101',
-            fullName: 'Abi Abambi',
-            imgUrl: 'http://some-img'
-        },
-        style: {
-            id: utils.makeId(),
-            fontClr: '#f9f9f9',
-            bgImg: null
-        },
-        members: [],
-        groups: [{
-            id: utils.makeId(),
-            style: {},
-            title: 'Add New List Title',
-            archivedAt: false,
-            cards: [{
+        const newBoard = {
+            title: boardName,
+            isArchived: false,
+            createdAt: Date.now,
+            description: 'Board\'s description',
+            labels: [{
+                    "id": "l101",
+                    "name": "Default",
+                    "color": "green"
+                },
+                {
+                    "id": "l102",
+                    "name": "Default",
+                    "color": "yellow"
+                },
+                {
+                    "id": "l103",
+                    "name": "Default",
+                    "color": "orange"
+                },
+                {
+                    "id": "l104",
+                    "name": "Default",
+                    "color": "red"
+                },
+                {
+                    "id": "l105",
+                    "name": "Default",
+                    "color": "purple"
+                },
+                {
+                    "id": "l106",
+                    "name": "Default",
+                    "color": "blue"
+                }
+            ],
+            activities: [],
+            createdBy: { // update from currUser
+                _id: 'u101', // update from user
+                fullName: 'Abi Abambi',
+                imgUrl: 'http://some-img'
+            },
+            style: {
+                // id: utils.makeId(),
+                fontClr: '#f9f9f9',
+                bgImg: null,
+                boardColor
+            },
+            members: [{ // update from currUser
+                _id: 'u101', // update from user
+                fullName: 'Abi Abambi',
+                imgUrl: 'http://some-img'
+            }],
+            groups:[{
                 id: utils.makeId(),
                 title: 'Add New Card Title',
                 description: "description",
                 archivedAt: false,
                 labels: []
             }]
-        }]
-    }
+        }        
 
-    // push new board to board collection and forword user to the new route
-}
+        console.log(newBoard);
+        
+        // const addedBoard = await httpService.post(`board`, newBoard);
+        // return addedBoard
+        // push new board to board collection and forword user to the new route
+    }

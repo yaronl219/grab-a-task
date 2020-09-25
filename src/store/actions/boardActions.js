@@ -204,6 +204,12 @@ export function setStyle(style) {
   }
 }
 
+export function setDefaultStyle(){
+  return async dispatch => {
+    dispatch({ type: 'SET_DEFAULT_STYLE' })
+  }
+}
+
 export function onArchiveGroup(groupId, board) {
   return async dispatch => {
     try {
@@ -260,6 +266,8 @@ export function setNewGroupName(groupId, groupName, board) {
 export function addNewBoard(boardName, boardColor = null) {
   return async dispatch => {
     const newBoard = await boardService.addNewBoard(boardName, boardColor)
+    console.log(newBoard)
+    
 
   }
 }

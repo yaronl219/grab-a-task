@@ -6,6 +6,10 @@ const initialState = {
   fullLabel: false
 };
 
+const defaultStyle = {
+  backgroundImage: null
+}
+
 export default function(state = initialState, action = {}) {
   switch (action.type) {
     case 'SET_BOARD':
@@ -21,7 +25,11 @@ export default function(state = initialState, action = {}) {
     case 'SET_STYLE':
         return{ ...state, style: action.style }
 
-  
+    case 'SET_DEFAULT_STYLE':
+        return {
+          ...state,
+          style: defaultStyle
+        }
 
     default:
       return state;

@@ -25,31 +25,15 @@ class _App extends Component {
     userService.loginDefault()
     toast.configure()
   }
+
   
   onDragEnd = (result) => {
 
-    // console.log((this.props.filterBy));
-    // console.log((this.props.filterBy.filterBy.txt));
-    // console.log((this.props.filterBy.filterBy.labels));
-    // console.log(this.props.filterBy.filterBy.labels.length)
-    // const{ filterBy } = this.props
-
-    // // return
-
-    // if (this.props.filterBy.filterBy.txt || this.props.filterBy.filterBy.labels.length) {
-    //   console.log(this.props.filterBy.filterBy.labels.length)
-    //   return
-    // }
-
     const { destination, source, draggableId, type } = result
-
 
     if (!destination) return
     if (destination.droppableId === source.droppableId && destination.index === source.index) return    
     if (!draggableId) return
-
-
-
 
     if (type === 'card') {
       const startGroupIndex = this.props.board.groups.findIndex(group => group.id === source.droppableId)
@@ -80,6 +64,18 @@ class _App extends Component {
         const currCard = formerGroup.cards.find(card => card.id === draggableId)
         const formerCardIndex = formerGroup.cards.findIndex(card => card.id === draggableId)
         const newCardsArray = Array.from(destinationGroup.cards)
+
+        // time analysis
+        const currCardTime = currCard.timeAnalysis
+        if (currCardTime) {
+          currCardTime.timeInGroupsMap[currCardTime.currGroup.groupId] =
+            currCardTime.timeInGroupsMap[currCardTime.currGroup.groupId] + (Date.now() - currCardTime.currGroup.enteredAt) ||
+            (Date.now() - currCardTime.currGroup.enteredAt)
+          currCardTime.currGroup = {
+            groupId: destinationGroup.id,
+            enteredAt: Date.now()
+          }
+        }
 
         newCardsArray.splice(destination.index, 0, currCard)
         formerGroup.cards.splice(formerCardIndex, 1)
@@ -128,6 +124,7 @@ class _App extends Component {
               <Notify />
               <Switch>
                 <Route path="/board/:id/:cardId?" component={Board} />
+                {/* <Route path="/board?/:id?/login" component={Login} /> */}
                 <Route path="/login" component={Login} />
                 <Route component={Home} path='/:view' />
               </Switch>
