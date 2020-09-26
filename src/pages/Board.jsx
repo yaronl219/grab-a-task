@@ -6,7 +6,7 @@ import { CardDetails } from '../cmps/CardCmps/CardDetails';
 import { GroupList } from '../cmps/GroupList';
 import { Sidebar } from '../cmps/Sidebar/Sidebar';
 // import { connect } from 'socket.io-client';
-import { loadBoard, onSetFilterBy, setStyle } from '../store/actions/boardActions';
+import { loadBoard, onSetFilterBy, setStyle, resetBoard } from '../store/actions/boardActions';
 import socketService from '../services/socketService.js'
 import { toast } from 'react-toastify';
 
@@ -55,6 +55,7 @@ class _Board extends Component {
 
   }
 
+
   // componentDidUpdate(prevProps) {
   //   if (prevProps.board.groups !== this.props.board.groups) {
   //     const differ = detailedDiff(prevProps.board.groups, this.props.board.groups)
@@ -84,8 +85,11 @@ class _Board extends Component {
   }
 
   componentWillUnmount() {
-    socketService.off('board-updated')
-    socketService.terminate()
+    if (socketService) {
+      socketService.off('board-updated')
+      socketService.terminate()
+    }
+    this.props.resetBoard()
   }
 
 
@@ -144,7 +148,7 @@ class _Board extends Component {
             lastUpdate={this.state.lastReceivedUpdateAt}
           />
 
-          <Sidebar board={board}
+          <Sidebar board={board} history = {this.props.history}
             isSidebarShowing={this.state.isSidebarShowing}
             onToggleSidebar={this.onToggleSidebar} />
 
@@ -167,7 +171,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   loadBoard,
   onSetFilterBy,
-  setStyle
+  setStyle,
+  resetBoard
 
 };
 

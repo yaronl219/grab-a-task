@@ -38,10 +38,10 @@ class _CardPreviewActions extends Component {
         this.props.onClose()
     }
     componentDidMount() {
-        console.log(this.props)
         this.getParentPos()
         this.getCurrTitle()
     }
+    
     createActivity = (txt) => {
         const card = this.props.props.card
         const activity = {

@@ -12,6 +12,8 @@ import { ChangeBackground } from './ChangeBackground'
 import { SideArchive } from './SideArchive'
 import { ActivityLog } from './ActivityLog'
 import { LabelPanel } from './LabelPanel';
+import { CreateTemplate } from './CreateTemplate';
+import ViewAgendaOutlinedIcon from '@material-ui/icons/ViewAgendaOutlined';
 
 export class _Sidebar extends Component {
     state = { selectedMenuOpt: null }
@@ -34,6 +36,8 @@ export class _Sidebar extends Component {
                 return <LabelPanel isShowing={selectedMenuOpt === 'labels'}
                     onSetMenuOpt={this.onSetMenuOpt} />
             case null:
+                return <React.Fragment></React.Fragment>
+            default:
                 return <React.Fragment></React.Fragment>
         }
     }
@@ -71,6 +75,9 @@ export class _Sidebar extends Component {
                         <ListItem button className="menu-btn" onClick={() => { this.onSetMenuOpt('labels') }}>
                             <ListItemIcon><LabelOutlinedIcon /></ListItemIcon>
                             <ListItemText>Labels</ListItemText>
+                        </ListItem>
+                        <ListItem button className="menu-btn">
+                            <CreateTemplate history={this.props.history}  board={this.props.board} />
                         </ListItem>
                     </List>
                     <Divider />

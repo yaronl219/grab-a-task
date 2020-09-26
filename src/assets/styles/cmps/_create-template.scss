@@ -1,0 +1,106 @@
+.create-board-from-template-container {
+    width: 20rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+    height: 15rem;
+    background-color: $white;
+    
+
+    .create-board-header {
+    display: grid;
+    grid-template-columns: 3rem 1fr 3rem;
+    border-bottom: 1px solid rgba(9,30,66,.13);
+
+    div {
+        display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+    h6 {
+        margin: 0rem;
+        font-size: 0.875rem;
+        font-weight: 400;
+        color: $generalIconColor;
+    }
+    }
+
+    .form-container {
+        display: flex;
+        flex-grow: 1;
+        justify-content: space-around;
+        flex-direction: column;
+        text-align: center;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        input {
+            height: 2rem;
+            width: 100%;
+        }
+        button {
+            width: 50%;
+        }
+    }
+}
+.open-template-button{
+font-size: 1rem !important;
+font-weight: 400 !important;
+line-height: 1.5 !important; 
+text-transform: none !important;
+color: $generalIconColor;
+display: flex;
+align-items: center;
+
+span {
+    margin-left: rem(10px);
+    color: $black;
+}
+}
+
+
+.create-template {
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+    height: 450px;
+    background-color: $white;
+
+    .create-template-header {
+        display: grid;
+        grid-template-columns: 3rem 1fr 3rem;
+        border-bottom: 1px solid rgba(9,30,66,.13);
+    
+        div {
+            display: flex;
+        justify-content: center;
+        align-items: center;
+        }
+        h6 {
+            margin: 0rem;
+            font-size: 0.875rem;
+            font-weight: 400;
+            color: $generalIconColor;
+        }
+    }
+    .create-template-form {
+        height: 75%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .name div {
+        width: 100%;
+    }
+
+    .confirm {
+        margin: 0 auto;       
+    }
+}
+

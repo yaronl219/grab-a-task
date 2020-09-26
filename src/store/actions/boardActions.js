@@ -13,6 +13,15 @@ export function loadBoard(boardId) {
   };
 }
 
+export function resetBoard() {
+  return dispatch => {
+    try {
+      dispatch({type: 'SET_BOARD', board:null})
+    } catch (err) {
+      console.log('board action error in reseting board', err)
+    }
+  }
+}
 
 export function addActivity(board, activity) {
   
@@ -209,6 +218,8 @@ export function setDefaultStyle(){
     dispatch({ type: 'SET_DEFAULT_STYLE' })
   }
 }
+
+
 
 export function onArchiveGroup(groupId, board) {
   return async dispatch => {

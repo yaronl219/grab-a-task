@@ -14,7 +14,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import userService from '../../services/userService'
 import { loadAllUsers } from '../../store/actions/userActions';
 import { Notifications } from './Notifications';
-import { Share } from '../Share';
+
 
 
 
@@ -35,6 +35,7 @@ export class _BoardHeader extends Component {
 
 
                     <Filter onFilter={this.props.onFilter} />
+                    
                     <Notifications board={this.props.board} lastUpdate={this.props.lastUpdate}/>
                     <div className="board-header-btn" onClick={() => this.props.onToggleSidebar(true)}>
                         <p>Show Menu</p>
