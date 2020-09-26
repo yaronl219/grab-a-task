@@ -89,13 +89,9 @@ class _Group extends Component {
                                 <div className="card-container"
                                     ref={provided.innerRef}
                                     {...provided.droppableProps}
-
                                     style={{
                                         backgroundColor: snapshot.isDragging ? 'green' : '',
-                                    }}
-
-
-                                    >
+                                    }}>
                                     {group.cards.map((card, index) => {
                                         if (!card.archivedAt) {
                                             return <CardPreview key={card.id} card={card} index={index}/>
