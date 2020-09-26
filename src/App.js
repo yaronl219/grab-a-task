@@ -27,7 +27,8 @@ class _App extends Component {
     toast.configure()
   }
 
-  
+
+
   onDragEnd = (result) => {
 
     const { destination, source, draggableId, type } = result
@@ -115,10 +116,12 @@ class _App extends Component {
   //   else if (this.props.style.boardColor) return `backgroundColor:style.boardColor`
   // }
 
-  getStyle = () => {
-        if (this.props.style.bgImg) return `style={{backgroundImage: style.bgImg, backgroundPosition:'center'}}`
-        else if (this.props.style.boardColor) return `style{{backgroundColor:style.boardColor,backgroundPosition:'center' }}`
-  }
+  // getStyle = () => {
+  //       if (this.props.style.bgImg) return `style={{backgroundImage: style.bgImg, backgroundPosition:'center'}}`
+  //       else if (this.props.style.boardColor) return `style{{backgroundColor:style.boardColor,backgroundPosition:'center' }}`
+  // }
+
+
 
   render() {
     const { style } = this.props
@@ -126,7 +129,7 @@ class _App extends Component {
     return (
 
       (this.props.style)
-        ? <DragDropContext onDragEnd={this.onDragEnd}>
+        ? <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
           <div className="app-bg" 
           style={this.props.style.bgImg ? {backgroundImage: style.bgImg, backgroundPosition:'center'} : 
             {backgroundColor:style.boardColor, backgroundPosition:'center'}}>
