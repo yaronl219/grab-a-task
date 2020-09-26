@@ -60,12 +60,13 @@ class _Group extends Component {
         const group = this.props.group
         return (
             <Draggable draggableId={group.id} index={this.props.index}>
-                {provided=>(
+                {(provided, snapshot)=>(
                     <div {...provided.draggableProps} ref={provided.innerRef}
-                        className="group-container">
+                        className={snapshot.isDragging ? '' : 'group-container'}>
+                        <div className={snapshot.isDragging ? 'group-container-drag' : '' }>
+
                         <div {...provided.dragHandleProps}
                             className="group-header" onClick={()=> this.onOpenChangeGroupName(group.id, group.title) }>
-
                             {(this.state.isChangeGroupShown) ? 
                                 <ClickAwayListener onClickAway={this.closeChangeGroupName}>
                                     <form onSubmit={this.onSubmit} className="change-group-name">
@@ -84,11 +85,13 @@ class _Group extends Component {
 
                         </div>
                         <Droppable droppableId={group.id} type="card">
-                        {provided=>(
+                        {(provided, snapshot)=>(
                                 <div className="card-container"
                                     ref={provided.innerRef}
                                     {...provided.droppableProps}
-                                    >
+                                    style={{
+                                        backgroundColor: snapshot.isDragging ? 'green' : '',
+                                    }}>
                                     {group.cards.map((card, index) => {
                                         if (!card.archivedAt) {
                                             return <CardPreview key={card.id} card={card} index={index}/>
@@ -101,7 +104,10 @@ class _Group extends Component {
                         <div className="new-card-btn-container">
                             <NewItem addItemTxt={this.getAddItemTxt()} placeHolderTxt='Add a title for this card...' addBtnTxt="Add Card" onAdd={this.onAddCard} />
                         </div>
+                        </div>
                     </div>
+
+
                 )}
             </Draggable>
         )

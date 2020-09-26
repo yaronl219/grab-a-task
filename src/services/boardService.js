@@ -129,6 +129,8 @@ async function filter(boardId, filterBy) {
         })
     }
 
+    return boardToReturn;
+
 }
 
 
@@ -193,7 +195,8 @@ async function filter(boardId, filterBy) {
                 title: 'Add New Card Title',
                 description: "description",
                 archivedAt: false,
-                labels: []
+                labels: [],
+                cards:[]
             }]
         }        
 
