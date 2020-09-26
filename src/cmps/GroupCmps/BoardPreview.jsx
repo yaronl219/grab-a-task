@@ -1,7 +1,7 @@
 import React from 'react'
 import { MemberPreview } from '../BoardHeader/MemberPreview'
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
-import { IconButton } from '@material-ui/core';
+
 
 export function BoardPreview(props) {
 

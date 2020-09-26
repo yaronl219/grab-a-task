@@ -1,6 +1,5 @@
 import httpService from './httpService';
 import userService from './userService';
-import socketService from './socketService';
 import { utils } from './utils'
 
 export const boardService = {

@@ -1,6 +1,5 @@
 import httpService from "./httpService"
 const { default: userService } = require("./userService")
-const { utils } = require("./utils")
 
 
 export const templateService = {
@@ -47,20 +46,20 @@ function query(filterBy) {
     return httpService.get('template')
 }
 
-function createTemplate(type, boardName) {
-    const board = {
-        // _id: utils.makeId(),
-        title: boardName,
-        isArchived: false,
-        createdAt: Date.now,
-        createdBy: userService.getLoggedInUser(),
-        style: {
-            id: utils.makeId(),
-            fontClr: '#f9f9f9',
-            bgImg: null
-        },
-        members: [],
-        groups: []
-    }
-}
+// function createTemplate(type, boardName) {
+//     const board = {
+//         // _id: utils.makeId(),
+//         title: boardName,
+//         isArchived: false,
+//         createdAt: Date.now,
+//         createdBy: userService.getLoggedInUser(),
+//         style: {
+//             id: utils.makeId(),
+//             fontClr: '#f9f9f9',
+//             bgImg: null
+//         },
+//         members: [],
+//         groups: []
+//     }
+// }
 

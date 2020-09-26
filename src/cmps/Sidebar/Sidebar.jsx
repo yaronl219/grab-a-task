@@ -13,7 +13,7 @@ import { SideArchive } from './SideArchive'
 import { ActivityLog } from './ActivityLog'
 import { LabelPanel } from './LabelPanel';
 import { CreateTemplate } from './CreateTemplate';
-import ViewAgendaOutlinedIcon from '@material-ui/icons/ViewAgendaOutlined';
+
 
 export class _Sidebar extends Component {
     state = { selectedMenuOpt: null }

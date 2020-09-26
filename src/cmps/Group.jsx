@@ -4,12 +4,9 @@ import { CardPreview } from './CardCmps/CardPreview'
 import { NewItem } from './NewItem'
 import { addCard } from '../store/actions/groupActions'
 import { setNewGroupName } from '../store/actions/boardActions'
-
-import { CardList } from './CardCmps/CardList'
-
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { GroupMenu } from './GroupCmps/GroupMenu'
-import { ClickAwayListener, Select } from '@material-ui/core'
+import { ClickAwayListener } from '@material-ui/core'
 
 class _Group extends Component {
 

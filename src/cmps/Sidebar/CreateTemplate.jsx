@@ -1,5 +1,5 @@
 
-import { Button, Checkbox, Dialog, FormControl, FormControlLabel, FormGroup, FormLabel, IconButton, Popover, TextField } from '@material-ui/core'
+import { Button, Checkbox, Dialog, FormControl, FormControlLabel, FormGroup, FormLabel, IconButton, TextField } from '@material-ui/core'
 import { CloseOutlined } from '@material-ui/icons'
 import React, { Component } from 'react'
 import { templateService } from '../../services/templateService'
