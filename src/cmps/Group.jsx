@@ -62,6 +62,7 @@ class _Group extends Component {
                         className={snapshot.isDragging ? '' : 'group-container'}>
                         {/* <div className={snapshot.isDragging ? 'group-container-drag' : 'group-container' }> */}
                         {/* Why is this line needed? it messes up the view height */}
+                        {/* it is needed for transforming the style of the group while dragging, we'll sort this tommorrow */}
                         <div {...provided.dragHandleProps}
                             className="group-header" onClick={()=> this.onOpenChangeGroupName(group.id, group.title) }>
                             {(this.state.isChangeGroupShown) ? 
@@ -85,10 +86,7 @@ class _Group extends Component {
                         {(provided, snapshot)=>(
                                 <div className="card-container"
                                     ref={provided.innerRef}
-                                    {...provided.droppableProps}
-                                    style={{
-                                        backgroundColor: snapshot.isDragging ? 'green' : '',
-                                    }}>
+                                    {...provided.droppableProps}>
                                     {group.cards.map((card, index) => {
                                         if (!card.archivedAt) {
                                             return <CardPreview key={card.id} card={card} index={index}/>
