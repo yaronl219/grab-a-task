@@ -11,6 +11,7 @@ import { boardService } from '../../services/boardService';
 import { CardDueDateSetter } from './CardDueDateSetter';
 import { CardMembersList } from './CardMembersList';
 import PeopleAltOutlinedIcon from '@material-ui/icons/PeopleAltOutlined';
+import { Share } from '../Share';
 
 class _CardPreviewActions extends Component {
 
@@ -25,11 +26,10 @@ class _CardPreviewActions extends Component {
 
     ref = React.createRef()
 
-    submitCard = async (card) => {
+    submitCard = (card,activity) => {
         return new Promise(resolve => {
-            this.props.updateCard(this.props.board, card).then(() => {
+            this.props.updateCard(this.props.board, card,activity).then(() => {
                 this.onClose()
-                resolve()
             })
         })
     }
@@ -42,40 +42,35 @@ class _CardPreviewActions extends Component {
         this.getParentPos()
         this.getCurrTitle()
     }
-
-    onUpdateDueDate = async (dueDate) => {
-        let card = { ...this.props.props.card }
-        card.dueDate = dueDate
-        await this.submitCard(card)
-        this.addActivity('updated due date')
-    }
-
-    onUpdateHeader = async () => {
-        let card = { ...this.props.props.card }
-        console.log(card)
-        card.title = this.state.txtValue
-         
-        await this.submitCard(card)
-        this.addActivity('updated the title')
-
-    }
-
-    addActivity = async (txt) => {
+    createActivity = (txt) => {
         const card = this.props.props.card
         const activity = {
-            "txt": txt,
-            "commentTxt": '',
-            "card": {
-                "id": card.id,
-                "title": card.title
+            txt: txt,
+            commentTxt: '',
+            card: {
+                id: card.id,
+                title: card.title
             }
         }
 
-        const newActivity = boardService.createActivity(activity)
-        await this.props.addActivity(this.props.board, newActivity)
-        return true
-
+        return boardService.createActivity(activity)
     }
+    onUpdateDueDate = (dueDate) => {
+        let card = { ...this.props.props.card }
+        card.dueDate = dueDate
+        const activity = this.createActivity('updated due date')
+        this.submitCard(card,activity)
+        
+    }
+
+    onUpdateHeader =  () => {
+        let card = { ...this.props.props.card }
+        console.log(card)
+        card.title = this.state.txtValue
+        const activity = this.createActivity('updated the title')
+        this.submitCard(card,activity)
+    }
+
     onChange = (ev) => {
         const txtValue = ev.target.value
         this.setState({ txtValue })
@@ -89,18 +84,20 @@ class _CardPreviewActions extends Component {
         if (this.state.isMemberListOpen) return this.setState({isMemberListOpen:false})
         this.setState({isMemberListOpen:true})
     }
-    onArchiveCard = async () => {
+    onArchiveCard =   () => {
         let card = { ...this.props.props.card }
         card.archivedAt = Date.now()
-         await this.submitCard(card)
-         this.addActivity('archived')
+        const activity = this.createActivity('archived')
+        this.submitCard(card,activity)
+         
     }
 
     onUpdateCardMembers = async (card) => {
         
-        this.setState({ card }, async() => {
-            await this.submitCard(card)
-            this.addActivity('edited the card members')
+        this.setState({ card }, () => {
+            const activity = this.createActivity('edited the card members')
+            this.submitCard(card,activity)
+            
         })
     }
 
@@ -127,6 +124,11 @@ class _CardPreviewActions extends Component {
         )
     }
 
+    getCardPath = () => {
+        let href = window.location.href
+        let cardId = this.props.props.card.id
+        return `${href}/${cardId}`
+    }
 
     render() {
         if (!this.state.offsetTop || !this.state.offsetLeft) return <div></div>
@@ -168,6 +170,7 @@ class _CardPreviewActions extends Component {
                             <Button onClick={this.onArchiveCard}><ArchiveOutlinedIcon /> <span>Archive Card</span></Button>
                             <CardDueDateSetter dueDate={props.dueDate} onUpdateDueDate={this.onUpdateDueDate} />
                             <Button ref={this.ref} onClick={this.toggleCardMembersMenu}><PeopleAltOutlinedIcon /><span>Members</span></Button>
+                            <Share item="card" path={this.getCardPath()} />
                         </div>
                     </div>
 

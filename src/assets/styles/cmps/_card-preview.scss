@@ -94,13 +94,13 @@ overflow: hidden;
     .card-preview-due-date-container {
         font-size: 0.75rem;
         line-height: 1rem;
-        padding: 0.25rem 0.5rem;
+        padding: 0.2rem 0.5rem;
         color: white;
         border-radius: 0.375rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin: 0.2rem;
+        margin-right: 0.2rem;
         svg{
             margin-right: 4px;
         }
@@ -131,14 +131,17 @@ overflow: hidden;
 .card-preview:hover {
     background-color: $cardHoverClr;
 }
+.card-preview-header {
+    max-width: 210px;
+}
 .card-preview-cover-color {
-    height: 2rem;
+    height: 2.9rem;
     width: 120%;
     margin: -1rem;
     margin-bottom: 0.25rem;
 }
 .card-preview-cover-image {
-    height: 6rem;
+    height: 10rem;
     width: 120%;
     margin: -1rem;
     margin-bottom: 0.25rem;
@@ -162,7 +165,7 @@ overflow: hidden;
 
 
 .card-preview-edit-container:hover {
-    background-color: #dadce4;
+    background-color: #dadce498;
 }
 
 .card-edit-container {

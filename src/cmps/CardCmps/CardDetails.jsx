@@ -20,6 +20,7 @@ import { CardImgUpload } from './CardImgUpload';
 import { cardService } from '../../services/cardService/cardService';
 import { CardImagesList } from './CardImagesList';
 import { CoverSelector } from './CoverSelector';
+import { toast } from 'react-toastify';
 
 class _CardDetails extends Component {
 
@@ -55,17 +56,34 @@ class _CardDetails extends Component {
 
 
     getCardDetails = () => {
-
+        let foundCard = false;
         this.props.board.groups.forEach(group => {
             group.cards.forEach(card => {
                 if (card.id === this.props.cardId) {
                     const groupId = group.id
                     const groupName = group.title
+                    foundCard = true
                     this.setState({ groupId, groupName, card })
                     return
                 }
             })
         })
+        // if no card is found - this means the card id is invalid
+        if (!foundCard) {
+            toast.error('Oops! we seem to be missing the card you\'re looking for.', {
+                position: "bottom-right",
+                autoClose: 3500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            setTimeout(() => {
+                
+                this.props.history.push(`/board/${this.props.board._id}`)
+            }, 1000)
+        }
     }
 
     onCloseCard = () => {
@@ -142,6 +160,7 @@ class _CardDetails extends Component {
     }
 
     onAddComment = (txt) => {
+        
         const activity = {
             "txt": "",
             "commentTxt": txt,
@@ -151,6 +170,7 @@ class _CardDetails extends Component {
             }
         }
         const newActivity = boardService.createActivity(activity)
+        console.log(newActivity)
         this.props.addActivity(this.props.board, newActivity)
 
     }
@@ -336,7 +356,14 @@ class _CardDetails extends Component {
                             <CardImagesList onUpdate={this.onUpdateAttachments} attachments={this.state.card.attachments} />
                             <CardChecklistList checklists={card.checklists} onUpdate={this.onUpdateChecklists} />
                             <CardImgUpload onAddImage={this.onAddImage} setUploading={this.setUploading} toggleOpen={this.toggleUploadDropzone} isOpen={this.state.isUploadZoneOpen} />
-                            <div className="card-details-activity-log">
+
+                        </main>
+                        <aside className="card-details-sidebar" ref={this.ref}>
+                            <CardSidebar anchorRef={this.ref} addActivity={this.createActivity} isUploading={this.state.isUploading} toggleCoverSelector={this.toggleCoverSelector} toggleUploadDropzone={this.toggleUploadDropzone} toggleDisplayMembers={this.toggleDisplayMembers} dueDate={card.dueDate} toggleLabelPallete={this.toggleLabelPalette} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} onUpdateChecklists={this.onUpdateChecklists} />
+                        </aside>
+                        
+                    </section>
+                    <div className="card-details-activity-log">
                                 <div className="card-details-activities-title">
                                     <ListIcon />
                                     <h5>Activities</h5>
@@ -345,17 +372,11 @@ class _CardDetails extends Component {
                                 <CardAddComment onAddComment={this.onAddComment} />
 
                                 
-                            </div>
-                        </main>
-                        <aside className="card-details-sidebar" ref={this.ref}>
-                            <CardSidebar anchorRef={this.ref} addActivity={this.createActivity} isUploading={this.state.isUploading} toggleCoverSelector={this.toggleCoverSelector} toggleUploadDropzone={this.toggleUploadDropzone} toggleDisplayMembers={this.toggleDisplayMembers} dueDate={card.dueDate} toggleLabelPallete={this.toggleLabelPalette} onUpdateDueDate={this.onUpdateDueDate} onArchiveCard={this.onArchiveCard} onUpdateChecklists={this.onUpdateChecklists} />
-                        </aside>
-                        
-                    </section>
                     <ActivityLog
                                     boardId={this.props.board._id}
                                     displayMode="card"
                                     activities={this.getFilteredActivities()} />
+                                    </div>
                 </div>
                 {/* {this.state.isLabelPaletteShowing && <LabelPalette card={card} />} */}
                 <Popover
@@ -368,7 +389,7 @@ class _CardDetails extends Component {
                         horizontal: 'left',
                     }}
                     open={this.state.isLabelPaletteShowing}
-                    anchorEl={this.ref}
+                    anchorEl={this.ref.current}
                     onClose={this.toggleLabelPalette}
                     onBackdropClick={this.toggleLabelPalette}>
                     <LabelPalette createActivity={this.createActivity} card={card} />

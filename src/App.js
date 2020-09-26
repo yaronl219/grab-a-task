@@ -16,6 +16,7 @@ import { Login } from './pages/Login';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Notify } from './cmps/Notify';
+import { Main } from './pages/Main';
 
 
 
@@ -140,6 +141,7 @@ class _App extends Component {
                 {/* <Route path="/board?/:id?/login" component={Login} /> */}
                 <Route path="/login" component={Login} />
                 <Route component={Home} path='/:view' />
+                <Route component={Main} path='/' />
               </Switch>
               </main>
             </div>

@@ -178,11 +178,11 @@
     }
 
     section {
-        display: flex;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px,1fr));
         position: relative;
         main {
-            flex-grow: 1;
+            grid-column: 1/4;
             padding: 0.5rem;
             overflow: hidden;
             position: relative;
@@ -254,28 +254,21 @@
                 }
             }
         }
-        aside {
-            display: flex;
 
-    justify-content: center;           
-    max-width: 100%;
         }
         .card-sidebar {
             padding: 0.25rem;
             display: grid;
+            gap: 0.25rem;
             grid-template-columns: repeat(auto-fill,minmax(rem(155px),1fr));
             min-width: 168px;
 
-            div {
-                // width: 100%;
-            }
 
             button {
                 width: 100%;
                 text-align: left;
                 justify-content: flex-start;
                 background-color: rgba(9, 30, 66, 0.04);
-                margin-bottom: 0.5rem;
                 height: 2rem;
                 font-size: 0.875rem;
                 font-weight: 400;
@@ -316,7 +309,11 @@
             font-size: 0.875rem;
         }
     }
-}
+    @media screen and (max-width: 992px) {
+        aside {
+            grid-column: 1/-1;
+        }
+    }
 .card-details-activities-title {
     display: flex;
 

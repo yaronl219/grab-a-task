@@ -2,19 +2,19 @@ const { MuiPickersUtilsProvider } = require("@material-ui/pickers")
 const { default: userService } = require("./userService")
 const { utils } = require("./utils")
 
-function createTemplateFromBoard(board) {
-    return new Promise((resolve,reject) => {
-        const newBoard = JSON.parse(JSON.stringify(board))
-        newBoard.createdAt = null
-        newBoard.boardName = ''
-        newBoard.members = []
-        newBoard.title = newBoard.title += ' (template)'
+// function createTemplateFromBoard(board) {
+//     return new Promise((resolve,reject) => {
+//         const newBoard = JSON.parse(JSON.stringify(board))
+//         newBoard.createdAt = null
+//         newBoard.boardName = ''
+//         newBoard.members = []
+//         newBoard.title = newBoard.title += ' (template)'
         
 
 
-    })
+//     })
 
-}
+// }
 
 function createTemplate(type, boardName) {
     const board = {

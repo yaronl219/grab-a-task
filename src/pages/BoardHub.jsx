@@ -1,8 +1,9 @@
 import { CircularProgress } from '@material-ui/core'
-import { BoardPreview } from '../cmps/BoardPreview'
+
 import React, { Component } from 'react'
 import { setDefaultStyle } from '../store/actions/boardActions'
 import { connect } from 'react-redux'
+import { BoardPreview } from '../cmps/GroupCmps/BoardPreview'
 
 export class _BoardHub extends Component {
 

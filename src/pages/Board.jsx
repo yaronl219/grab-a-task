@@ -16,8 +16,8 @@ import { detailedDiff } from 'deep-object-diff';
 class _Board extends Component {
 
   state = {
-    isSidebarShowing: false
-
+    isSidebarShowing: false,
+    lastReceivedUpdateAt: null
   }
 
   async componentDidMount() {
@@ -33,7 +33,7 @@ class _Board extends Component {
       socketService.on('init board', () => console.log(this.props.board._id))
       socketService.emit('entered-board', this.props.board._id)
       socketService.on('board-updated', async updatedBoard => {
-
+        
         const prevBoard = JSON.parse(JSON.stringify(this.props.board))
         await this.props.loadBoard(updatedBoard._id)
         this.showUpdateMessage(prevBoard)
@@ -69,17 +69,18 @@ class _Board extends Component {
     // if there are no differences - return
     if (!Object.keys(differ.added).length && !Object.keys(differ.deleted).length && !Object.keys(differ.updated).length) return console.log('nothing to update')
 
-    console.log(differ)
-    // if there are differences - notify the user
-    toast.success('The board has been updated!', {
-      position: "bottom-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+    // if there are differences - sets the last received update time
+    this.setState({ lastReceivedUpdateAt: Date.now() })
+
+    // toast.success('The board has been updated!', {
+    //   position: "bottom-right",
+    //   autoClose: 2000,
+    //   hideProgressBar: false,
+    //   closeOnClick: true,
+    //   pauseOnHover: true,
+    //   draggable: true,
+    //   progress: undefined,
+    // });
   }
 
   componentWillUnmount() {
@@ -140,6 +141,7 @@ class _Board extends Component {
             onFilter={this.onFilter}
             style={board.style}
             users={this.props.allUsers}
+            lastUpdate={this.state.lastReceivedUpdateAt}
           />
 
           <Sidebar board={board}

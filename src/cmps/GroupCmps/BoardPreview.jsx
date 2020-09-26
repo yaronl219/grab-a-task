@@ -1,10 +1,11 @@
 import React from 'react'
-import { MemberPreview } from './BoardHeader/MemberPreview'
+import { MemberPreview } from '../BoardHeader/MemberPreview'
 
 
 export function BoardPreview(props) {
     const board = props.board
 
+    if (board.isArchived) return <React.Fragment />
     const createdAt = new Date (board.createdAt).toDateString()
     let lastEdited
     try {
