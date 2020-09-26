@@ -205,6 +205,12 @@ export function setStyle(style) {
   }
 }
 
+export function setDefaultStyle(){
+  return async dispatch => {
+    dispatch({ type: 'SET_DEFAULT_STYLE' })
+  }
+}
+
 export function onArchiveGroup(groupId, board) {
   return async dispatch => {
     try {

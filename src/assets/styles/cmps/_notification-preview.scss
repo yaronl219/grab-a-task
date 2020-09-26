@@ -1,0 +1,38 @@
+.notification-preview {
+    padding: 0.5rem;
+    width: rem(375px);
+    height: 25rem;
+    overflow: hidden;
+
+    .activity-log-container {
+        overflow-y: scroll;
+        max-height: 85%;
+    }
+}
+
+.notification-preview-header {
+    display: grid;
+    grid-template-columns: 3rem 1fr 3rem;
+    border-bottom: 1px solid rgba(9,30,66,.13);
+
+    div {
+        display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+    h6 {
+        margin: 0rem;
+        font-size: 0.875rem;
+        font-weight: 400;
+        color: $generalIconColor;
+    }
+}
+
+.notifications-empty-state-container {
+    padding: 10%;
+    height: 85%;
+    background-image: url(../../imgs/no-notifications.svg);
+    background-position: right bottom;
+    background-size: contain;
+    background-repeat: no-repeat;
+}

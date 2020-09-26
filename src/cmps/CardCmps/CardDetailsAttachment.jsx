@@ -11,7 +11,7 @@ export class CardDetailsAttachment extends Component {
     }
 
     componentDidMount() {
-        console.log(this)
+        
         this.updateAttFromProps()
     }
     componentDidUpdate(prevProps, prevState) {
@@ -19,14 +19,14 @@ export class CardDetailsAttachment extends Component {
             this.updateAttFromProps()
         }
         if (this.state.att !== prevState.att) {
-            console.log(this.state.att)
+            
         }
     }
     
     updateAttFromProps = () => {
         const att = {...this.props.attachment}
         const title = this.props.attachment.title 
-        console.log(att,title)
+        
         this.setState({ att, title })
     }
 
