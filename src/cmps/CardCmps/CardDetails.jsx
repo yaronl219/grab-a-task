@@ -42,7 +42,7 @@ class _CardDetails extends Component {
 
     ref = React.createRef()
 
-    componentDidMount() {
+    componentDidMount() {        
 
         if (!this.props.board || Object.keys(!this.props.board)) {
 

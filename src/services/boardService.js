@@ -188,7 +188,7 @@ function createActivity(partialActivity) {
 
         console.log(newBoard);
         
-        // const addedBoard = await httpService.post(`board`, newBoard);
-        // return addedBoard
+        const addedBoard = await httpService.post(`board`, newBoard);
+        return addedBoard
         // push new board to board collection and forword user to the new route
     }

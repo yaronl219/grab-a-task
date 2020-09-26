@@ -109,16 +109,29 @@ class _App extends Component {
     }
   }
 
+  // getImgOrBg = ()=>{
+  //   if (this.props.style.bgImg) return `backgroundImage: style.bgImg`
+  //   else if (this.props.style.boardColor) return `backgroundColor:style.boardColor`
+  // }
+
+  getStyle = () => {
+        if (this.props.style.bgImg) return `style={{backgroundImage: style.bgImg, backgroundPosition:'center'}}`
+        else if (this.props.style.boardColor) return `style{{backgroundColor:style.boardColor,backgroundPosition:'center' }}`
+  }
+
   render() {
     const { style } = this.props
+    
     return (
 
       (this.props.style)
         ? <DragDropContext onDragEnd={this.onDragEnd}>
-          <div className="app-bg" style={{backgroundImage: style.bgImg, backgroundPosition:'center'}}>
+          <div className="app-bg" 
+          style={this.props.style.bgImg ? {backgroundImage: style.bgImg, backgroundPosition:'center'} : 
+            {backgroundColor:style.boardColor, backgroundPosition:'center'}}>
             <div className="App">
               <header className="App-header">
-                <Navbar />
+                <Route  path="/" component={Navbar} />
               </header>
               <main className="app-main">
               <Notify />

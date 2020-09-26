@@ -16,7 +16,7 @@ export function BoardPreview(props) {
 
     return (
         <div className="board-preview">
-            <div className="board-image" onClick={() => props.onSelect(board._id)} style={{ backgroundImage: board.style.bgImg }}>
+            <div className="board-image" onClick={() => props.onSelect(board._id)} style={{ backgroundImage: board.style.bgImg, backgroundColor: board.style.boardColor }}>
                 <div className="board-overlay">
                 <h3 style={{ color: board.style.fontClr }}>{board.title}</h3>
                 </div>
