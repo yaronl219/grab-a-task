@@ -11,7 +11,7 @@ import { MemberList } from './MemberList';
 import { Filter } from './Filter';
 import { loadAllUsers } from '../../store/actions/userActions';
 import { Notifications } from './Notifications';
-
+import MoreHorizOutlinedIcon from '@material-ui/icons/MoreHorizOutlined';
 
 
 
@@ -35,6 +35,7 @@ export class _BoardHeader extends Component {
                     
                     <Notifications board={this.props.board} lastUpdate={this.props.lastUpdate}/>
                     <div className="board-header-btn" onClick={() => this.props.onToggleSidebar(true)}>
+                        <MoreHorizOutlinedIcon />
                         <p>Show Menu</p>
                     </div>
                 </div>
