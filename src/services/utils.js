@@ -14,6 +14,9 @@ function makeId(length = 10) {
     }
     return txt;
 }
+function getRandomInteger(max, min = 0) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
 
 function getUniqueHeaders(items, key) {
     let uniqueItems = []
@@ -33,9 +36,7 @@ function getRandomColor(opacity = 100) {
     return strHtml;
 }
 
-function getRandomInteger(max, min = 0) {
-    return Math.floor(Math.random() * (max - min)) + min;
-}
+
 
 function calculatePercentToHex(percentage) {
     const val = Math.round(percentage / 100 * 255)

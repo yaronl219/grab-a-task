@@ -20,7 +20,6 @@ export class Notifications extends Component {
     ref = React.createRef()
 
     receiveUpdate() {
-        console.log('receive update')
         const boardActivities = this.props.board.activities
         let newActivities = []
         const lastUpdated = notificationService.getUpdated(this.props.board._id)

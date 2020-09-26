@@ -15,7 +15,6 @@ export class _AddNewBoard extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props);
         // 5f6dbfb9443c3502d14c2cf6
         this.setState({  selectedColor: null, newBoardName: '' })
     }

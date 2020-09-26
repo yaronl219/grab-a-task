@@ -15,7 +15,6 @@ export class NewItem extends Component {
     }
 
     onKeyPress = (ev) => {
-        // console.log(ev.key)
         if (ev.key === 'Enter') this.onSubmit(ev)
     }
     setEditing = () => {

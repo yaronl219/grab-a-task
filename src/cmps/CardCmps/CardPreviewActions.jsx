@@ -38,10 +38,10 @@ class _CardPreviewActions extends Component {
         this.props.onClose()
     }
     componentDidMount() {
-        console.log(this.props)
         this.getParentPos()
         this.getCurrTitle()
     }
+    
     createActivity = (txt) => {
         const card = this.props.props.card
         const activity = {
@@ -65,7 +65,6 @@ class _CardPreviewActions extends Component {
 
     onUpdateHeader =  () => {
         let card = { ...this.props.props.card }
-        console.log(card)
         card.title = this.state.txtValue
         const activity = this.createActivity('updated the title')
         this.submitCard(card,activity)

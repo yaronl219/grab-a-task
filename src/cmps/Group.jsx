@@ -4,12 +4,9 @@ import { CardPreview } from './CardCmps/CardPreview'
 import { NewItem } from './NewItem'
 import { addCard } from '../store/actions/groupActions'
 import { setNewGroupName } from '../store/actions/boardActions'
-
-import { CardList } from './CardCmps/CardList'
-
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { GroupMenu } from './GroupCmps/GroupMenu'
-import { ClickAwayListener, Select } from '@material-ui/core'
+import { ClickAwayListener } from '@material-ui/core'
 
 class _Group extends Component {
 
@@ -63,8 +60,8 @@ class _Group extends Component {
                 {(provided, snapshot)=>(
                     <div {...provided.draggableProps} ref={provided.innerRef}
                         className={snapshot.isDragging ? '' : 'group-container'}>
-                        <div className={snapshot.isDragging ? 'group-container-drag' : '' }>
-
+                        {/* <div className={snapshot.isDragging ? 'group-container-drag' : 'group-container' }> */}
+                        {/* Why is this line needed? it messes up the view height */}
                         <div {...provided.dragHandleProps}
                             className="group-header" onClick={()=> this.onOpenChangeGroupName(group.id, group.title) }>
                             {(this.state.isChangeGroupShown) ? 
@@ -105,7 +102,7 @@ class _Group extends Component {
                             <NewItem addItemTxt={this.getAddItemTxt()} placeHolderTxt='Add a title for this card...' addBtnTxt="Add Card" onAdd={this.onAddCard} />
                         </div>
                         </div>
-                    </div>
+                    // </div>
 
 
                 )}

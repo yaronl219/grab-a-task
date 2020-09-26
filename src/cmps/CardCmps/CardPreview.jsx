@@ -11,7 +11,7 @@ import ChatBubbleOutlineRoundedIcon from '@material-ui/icons/ChatBubbleOutlineRo
 import { Draggable } from 'react-beautiful-dnd'
 import { CardPreviewActions } from './CardPreviewActions';
 import { Avatar } from '@material-ui/core';
-import { Transform } from '@material-ui/icons';
+
 
 
 class _CardPreview extends Component {

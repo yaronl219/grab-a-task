@@ -1,6 +1,5 @@
 import httpService from './httpService';
 import userService from './userService';
-import socketService from './socketService';
 import { utils } from './utils'
 
 export const boardService = {
@@ -11,7 +10,8 @@ export const boardService = {
     updateBoard,
     filter,
     addNewBoard,
-    createActivity
+    createActivity,
+    archiveBoard
 };
 
 function createActivity(partialActivity) {
@@ -71,6 +71,18 @@ async function updateBoard(board) {
     const boardId = board._id
     return await httpService.put(`board/${boardId}`, board)
 }
+
+
+async function archiveBoard(boardId) {
+    console.log('archive board service')
+    const board = await getBoardById(boardId)
+    board.isArchived = true
+    await updateBoard(board)
+    return Promise.resolve(boardId)
+}
+
+
+
 async function switchGroup(board, card, oldGroupId, targetGroupId, targetCardIdx) {
     const newBoard = JSON.parse(JSON.stringify(board))
     newBoard.groups = newBoard.groups.map(group => {
@@ -119,6 +131,8 @@ async function filter(boardId, filterBy) {
     return boardToReturn;
 
 }
+
+
     async function addNewBoard(boardName, boardColor, currUser){
 
 

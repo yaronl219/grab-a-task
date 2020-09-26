@@ -22,7 +22,7 @@ function loginDefault() {
     const defaultGuest= {
         "_id": "u900",
         "username": "Guest",
-        "fullname": "Guesty guest",
+        "fullName": "Guesty guest",
         "imgUrl": "https://images-na.ssl-images-amazon.com/images/I/41v4Cc8iZ-L._AC_.jpg"
       }
 

@@ -104,7 +104,23 @@
 
 
 // buttons
+.boards-header-container {
+    .board-header-btn {
+        height: rem(38px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
+
+}
+
+
+@media screen and (max-width: rem(1000px)) {
+    .boards-header-container p {
+        font-size: 0px;
+    }
+}
 .board-header-btn{
     background-color: $buttonBgColor;
     cursor: pointer;

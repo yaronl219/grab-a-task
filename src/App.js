@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+
 import { Home } from './pages/Home';
 import './assets/styles/global.scss'
 import { Route, Switch } from 'react-router';
-import { CardDetails } from './cmps/CardCmps/CardDetails';
+
 import { Board } from './pages/Board';
 import { Navbar } from './cmps/Navbar';
 import userService from './services/userService';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd'
+import { DragDropContext } from 'react-beautiful-dnd'
 import { connect } from 'react-redux';
 import { updateBoard, updatePosition } from './store/actions/boardActions';
-import { BoardHub } from './pages/BoardHub';
+
 import { Login } from './pages/Login';
 
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Notify } from './cmps/Notify';
 import { Main } from './pages/Main';

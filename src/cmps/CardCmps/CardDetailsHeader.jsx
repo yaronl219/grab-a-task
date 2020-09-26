@@ -26,7 +26,6 @@ export class CardDetailsHeader extends Component {
     }
 
     setEditing = () => {
-        console.log('setEditing')
         this.setState({ isEditing: true })
     }
 
