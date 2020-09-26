@@ -10,13 +10,14 @@ import logo from '../assets/icons/opus2.png'
 import logoFutura from '../assets/icons/newLogoFutura.png'
 import logoHel from '../assets/icons/newLogoHel.png'
 import { connect } from 'react-redux'
-
+import { LoginDrawer } from './LoginDrawer'
 
 
 export class _Navbar extends Component {
 
     state = {
-        isNewBoardModalShown: false
+        isNewBoardModalShown: false,
+        isLoginDrawerShown: false
     }
 
     componentDidMount() {
@@ -40,6 +41,17 @@ export class _Navbar extends Component {
         this.props.history.replace(`/board/${id}`)
         this.onCloseModal()
     }
+
+    showLoginDrawer = (ev) => {
+        ev.stopPropagation()
+        ev.nativeEvent.stopImmediatePropagation();
+        this.setState({ isLoginDrawerShown: true })
+    }
+
+    hideLoginDrawer= (ev) =>{
+        ev.stopPropagation()
+        this.setState({ isLoginDrawerShown: false })
+    }
  
     render() {
         return (
@@ -54,13 +66,14 @@ export class _Navbar extends Component {
                 <div className="navbar-right-container">
                     <div className="board-header-btn right" onClick={this.toggleModal}><span className="material-icons">add</span></div>
                     {this.state.isNewBoardModalShown && <AddNewBoard onCloseModal={this.onCloseModal} redirectPath={this.redirectPath}/>}
-                    <div className="board-header-btn login right"><NavLink to='/login'><h4 className="login-text">Login</h4></NavLink></div>
 
+                    {/* <div className="board-header-btn login right"><NavLink to='/login'><h4 className="login-text">Login</h4></NavLink></div> */}
+                    <div className="board-header-btn login right" onClick={this.showLoginDrawer}><h4 className="login-text">Login</h4></div>
+                    <LoginDrawer isShowing={this.state.isLoginDrawerShown} hideLoginDrawer={this.hideLoginDrawer}/>
                 </div>
             </div>
         )
     }
 }
-
 export const Navbar = connect(withRouter)(_Navbar)
 

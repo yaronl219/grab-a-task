@@ -111,8 +111,6 @@ class _Board extends Component {
     }
   }
 
-
-
   onToggleSidebar = (isSidebarShowing) => {
     this.setState({ isSidebarShowing });
   }
