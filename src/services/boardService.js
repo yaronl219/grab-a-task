@@ -116,6 +116,8 @@ async function filter(boardId, filterBy) {
         })
     }
 
+    return boardToReturn;
+
 }
     async function addNewBoard(boardName, boardColor, currUser){
 
