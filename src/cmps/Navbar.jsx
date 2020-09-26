@@ -34,7 +34,7 @@ export class Navbar extends Component {
         return (
             <div className="navbar-container">
                 <div className="navbar-left-container">
-                    <div className="board-header-btn left"><NavLink to='main-url'><span className="material-icons">home</span></NavLink></div>
+                    <div className="board-header-btn left"><NavLink to='/'><span className="material-icons">home</span></NavLink></div>
                     <div className="board-header-btn left"><NavLink to='/board'><span className="material-icons">view_list</span><h4 className="boards-text">Boards</h4></NavLink></div>
                 </div>
  

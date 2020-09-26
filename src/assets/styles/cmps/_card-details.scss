@@ -259,19 +259,16 @@
         .card-sidebar {
             padding: 0.25rem;
             display: grid;
+            gap: 0.25rem;
             grid-template-columns: repeat(auto-fill,minmax(rem(155px),1fr));
             min-width: 168px;
 
-            div {
-                // width: 100%;
-            }
 
             button {
                 width: 100%;
                 text-align: left;
                 justify-content: flex-start;
                 background-color: rgba(9, 30, 66, 0.04);
-                margin-bottom: 0.5rem;
                 height: 2rem;
                 font-size: 0.875rem;
                 font-weight: 400;

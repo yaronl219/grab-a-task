@@ -14,6 +14,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import userService from '../../services/userService'
 import { loadAllUsers } from '../../store/actions/userActions';
 import { Notifications } from './Notifications';
+import { Share } from '../Share';
 
 
 

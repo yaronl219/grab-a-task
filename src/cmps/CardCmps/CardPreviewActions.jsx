@@ -11,6 +11,7 @@ import { boardService } from '../../services/boardService';
 import { CardDueDateSetter } from './CardDueDateSetter';
 import { CardMembersList } from './CardMembersList';
 import PeopleAltOutlinedIcon from '@material-ui/icons/PeopleAltOutlined';
+import { Share } from '../Share';
 
 class _CardPreviewActions extends Component {
 
@@ -123,6 +124,11 @@ class _CardPreviewActions extends Component {
         )
     }
 
+    getCardPath = () => {
+        let href = window.location.href
+        let cardId = this.props.props.card.id
+        return `${href}/${cardId}`
+    }
 
     render() {
         if (!this.state.offsetTop || !this.state.offsetLeft) return <div></div>
@@ -164,6 +170,7 @@ class _CardPreviewActions extends Component {
                             <Button onClick={this.onArchiveCard}><ArchiveOutlinedIcon /> <span>Archive Card</span></Button>
                             <CardDueDateSetter dueDate={props.dueDate} onUpdateDueDate={this.onUpdateDueDate} />
                             <Button ref={this.ref} onClick={this.toggleCardMembersMenu}><PeopleAltOutlinedIcon /><span>Members</span></Button>
+                            <Share item="card" path={this.getCardPath()} />
                         </div>
                     </div>
 

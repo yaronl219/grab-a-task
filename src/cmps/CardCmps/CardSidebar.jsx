@@ -8,6 +8,7 @@ import LabelOutlinedIcon from '@material-ui/icons/LabelOutlined';
 import PeopleAltOutlinedIcon from '@material-ui/icons/PeopleAltOutlined';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import WebAssetOutlinedIcon from '@material-ui/icons/WebAssetOutlined';
+import { Share } from "../Share";
 
 export function CardSidebar(props) {
 
@@ -19,8 +20,9 @@ export function CardSidebar(props) {
             <Button onClick={props.onArchiveCard}><ArchiveOutlinedIcon /> <span>Archive Card</span></Button>
             <Button onClick={props.toggleLabelPallete}><LabelOutlinedIcon /><span>Labels</span></Button>
             <Button ref={props.anchorRef} onClick={props.toggleDisplayMembers}><PeopleAltOutlinedIcon /><span>Members</span></Button>
-            {(props.isUploading) ? <Button disabled><CircularProgress size='14px' /></Button> : <Button onClick={props.toggleUploadDropzone}><ImageOutlinedIcon /> Upload Image</Button>}
+            {(props.isUploading) ? <Button disabled><CircularProgress size='14px' /></Button> : <Button onClick={props.toggleUploadDropzone}><ImageOutlinedIcon /><span>Upload Image</span></Button>}
             <CardNewChecklist addActivity={props.addActivity} onUpdate={props.onUpdateChecklists} />
+            <Share item="card" path={window.location.href}/>
         </div>
     )
 }
