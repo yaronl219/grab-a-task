@@ -17,11 +17,6 @@ export class CreateTemplate extends Component {
     }
 
 
-    componentDidMount() {
-        console.log(this)
-    }
-
-
     onOpen = () => {
         this.setState({ isOpen: true })
     }

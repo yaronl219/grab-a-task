@@ -20,7 +20,7 @@ export class CardMembersList extends Component {
 
     filterBoardMembers = () => {
         let filteredMembers = this.props.boardMembers
-        console.log(filteredMembers)
+        
         if (!filteredMembers) return
         filteredMembers = filteredMembers.filter(member => member.fullName.toLowerCase().includes(this.state.filter.toLowerCase()))
 
@@ -33,7 +33,7 @@ export class CardMembersList extends Component {
 
     onSelectBoardMember = (member,shouldAdd) => {
         let txt = ''
-        console.log(member,shouldAdd)
+        
         const card = {...this.props.card}
         if (shouldAdd) {
             card.members.push(member)

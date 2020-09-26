@@ -21,7 +21,6 @@ export class CardNewChecklist extends Component {
     }
 
     onSubmit = async(ev) => {
-        console.log('onsubmit')
         ev.preventDefault()
         if (!this.state.txtValue) return this.setNotEditing()
         const checklist = {

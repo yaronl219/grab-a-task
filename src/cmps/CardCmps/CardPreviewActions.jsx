@@ -65,7 +65,6 @@ class _CardPreviewActions extends Component {
 
     onUpdateHeader =  () => {
         let card = { ...this.props.props.card }
-        console.log(card)
         card.title = this.state.txtValue
         const activity = this.createActivity('updated the title')
         this.submitCard(card,activity)

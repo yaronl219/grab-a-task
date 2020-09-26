@@ -76,7 +76,7 @@ export class Home extends Component {
     }
 
     onRemoveTemplate = async(templateId) => {
-        console.log(templateId)
+        
         this.setState({isLoading:true}, async() => {
             await templateService.remove(templateId)
             const templates = await templateService.query()

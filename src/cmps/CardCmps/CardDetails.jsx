@@ -170,7 +170,7 @@ class _CardDetails extends Component {
             }
         }
         const newActivity = boardService.createActivity(activity)
-        console.log(newActivity)
+        
         this.props.addActivity(this.props.board, newActivity)
 
     }

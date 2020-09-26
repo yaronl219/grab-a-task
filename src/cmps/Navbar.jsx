@@ -16,9 +16,6 @@ export class _Navbar extends Component {
         isNewBoardModalShown: false
     }
 
-    componentDidMount() {
-        console.log(this.props);
-    }
 
     toggleModal = () => {
         this.setState({ isNewBoardModalShown: !this.state.isNewBoardModalShown })
