@@ -1,0 +1,157 @@
+.main-screen {
+
+    overflow: scroll;
+    height: 97vh;
+
+    section {
+        height: 50%;
+        display: grid;
+        grid-template-columns: 1rem 1fr 1fr 1rem;
+    }
+
+    .home {
+        display: block;
+        height: 90%;
+        .bg {
+            width: 100%;
+            background-image: url(../../imgs/userflow.svg);
+            background-position: right bottom;
+        background-repeat: no-repeat;        
+        background-size: 80%;
+
+            height: 100%;
+            padding: 1rem;
+            color: $white;
+        }
+        background: linear-gradient(135deg, #0079bf, #5067c5);
+        
+        .header {
+            font-size: 2rem;
+            // display: flex;
+            img {
+                width: 200px;
+                height: 60px;
+            }
+        }
+        
+        .main-screen-cta {
+            width: 200px;
+            height: 60px;
+            background-color: $labelGreen;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            font-size: 1.25rem;
+            cursor: pointer;
+            &:hover {
+                background-color: #50a73f;
+                font-size: 1.32rem;
+                transition: 0.2s;
+            }
+        }
+
+
+    }
+    .team .text,
+    .data .text {
+        grid-column: 2;
+    }
+
+    .info .text,
+    .last-cta .text {
+        grid-column: 3;
+    }
+    
+    .info .img,
+    .last-cta .img {
+        grid-column: 2;
+    }
+    
+    .team .img {
+        background-image: url(../../imgs/scrum.svg);
+    }
+
+
+    .info .img{
+        background-image: url(../../imgs/details.svg);
+    }
+
+    .data .img {
+        background-image: url(../../imgs/charts.svg);
+    }
+    .text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .img {
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+    .last-cta {
+        .img {
+            background-image: url(../../imgs/portfolio.svg);
+        }
+        .cta {
+            width: 200px;
+            height: 60px;
+            background-color: $labelGreen;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            font-size: 1.25rem;
+            cursor: pointer;
+            color: white;
+            &:hover {
+                background-color: #50a73f;
+                font-size: 1.32rem;
+                transition: 0.2s;
+            }
+        }
+    }
+
+    .text {
+        padding: 1rem;
+    }
+
+    .about {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .about-cards-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+        gap: 1rem;
+        grid-auto-rows: auto;
+        
+        
+        .about-card {
+            
+            
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .photo {
+            margin: 1rem;
+            overflow: hidden;
+            width: 190px;
+            height: 190px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 100px;
+        }
+        img {
+            width: 200px;
+        }
+    }
+    
+}
+

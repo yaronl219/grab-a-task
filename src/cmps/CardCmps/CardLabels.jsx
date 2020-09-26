@@ -1,8 +1,8 @@
 import React from 'react'
 
 export function CardLabels(props) {
-    if (!props.cardLabels) return <React.Fragment />
-
+    if (!props.cardLabels || !props.boardLabels) return <React.Fragment />
+    
     function displayLabel(label) {
         const boardLabel = props.boardLabels.find(boardLabel => boardLabel.id === label.id)
         if (!props.preview) return (
