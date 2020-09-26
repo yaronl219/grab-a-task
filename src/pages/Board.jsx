@@ -28,10 +28,8 @@ class _Board extends Component {
       // console.log(this)
       this.props.setStyle(this.props.board.style)
       socketService.setup()
-      socketService.on('init board', () => console.log(this.props.board._id))
       socketService.emit('entered-board', this.props.board._id)
       socketService.on('board-updated', async updatedBoard => {
-
         const prevBoard = JSON.parse(JSON.stringify(this.props.board))
         await this.props.loadBoard(updatedBoard._id)
         if (prevBoard.style !== this.props.board.style) this.props.setStyle(this.props.board.style)
@@ -53,13 +51,6 @@ class _Board extends Component {
     }
 
   }
-
-  // componentDidUpdate(prevProps) {
-  //   if (prevProps.board.groups !== this.props.board.groups) {
-  //     const differ = detailedDiff(prevProps.board.groups, this.props.board.groups)
-  //     console.log(differ)
-  //   }
-  // }
 
 
   showUpdateMessage = (prevBoard) => {
