@@ -163,6 +163,14 @@ export function onSetFilterBy(board, filterBy) {
   }
 }
 
+export function resetFilterBy(boardId){
+  return async dispatch=>{
+      const board = await boardService.getBoardById(boardId);
+      dispatch({ type: 'SET_BOARD', board });
+      dispatch({ type: 'RESET_FILTER_BY' })
+  }
+}
+
 export function onAddNewGroup(board, groupTitle) {
   return async dispatch => {
     try {

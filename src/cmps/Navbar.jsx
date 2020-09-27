@@ -8,6 +8,8 @@ import logoFutura from '../assets/icons/newLogoFutura.png'
 
 import { connect } from 'react-redux'
 import { LoginDrawer } from './LoginDrawer'
+import { loadUser } from '../store/actions/userActions'
+import { MemberPreview } from './BoardHeader/MemberPreview'
 
 
 export class _Navbar extends Component {
@@ -61,13 +63,30 @@ export class _Navbar extends Component {
                     <div className="board-header-btn right" onClick={this.toggleModal}><span className="material-icons">add</span></div>
                     {this.state.isNewBoardModalShown && <AddNewBoard onCloseModal={this.onCloseModal} redirectPath={this.redirectPath}/>}
 
-                    {/* <div className="board-header-btn login right"><NavLink to='/login'><h4 className="login-text">Login</h4></NavLink></div> */}
-                    <div className="board-header-btn login right" onClick={this.showLoginDrawer}><h4 className="login-text">Login</h4></div>
+                    {(!this.props.loggedInUser) ? <div className="board-header-btn login right" onClick={this.showLoginDrawer}><h4 className="login-text">Login</h4></div>:
+                        <MemberPreview img={this.props.loggedInUser.imgUrl} name={this.props.loggedInUser.fullName} />
+                    } 
                     <LoginDrawer isShowing={this.state.isLoginDrawerShown} hideLoginDrawer={this.hideLoginDrawer}/>
                 </div>
             </div>
         )
     }
 }
-export const Navbar = connect(withRouter)(_Navbar)
 
+
+// export const Navbar = connect(withRouter)(_Navbar)
+
+
+
+
+const mapStateToProps = state => {
+    return {
+        loggedInUser: state.userReducer.loggedInUser
+    }
+}
+
+const mapDispatchToProps = {
+    loadUser
+}
+
+export const Navbar = connect(mapStateToProps, mapDispatchToProps)(_Navbar);

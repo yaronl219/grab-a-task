@@ -3,7 +3,7 @@
     position: absolute;
     z-index: 3;
     background-color: #fafafa;
-    transform: translate(-57%, 60%);
+    transform: translate(-70%, 60%);
     border-radius: 0.25em;
     background-color: #fff;
     border: 1px solid $groupClr;
@@ -19,10 +19,6 @@
         font-size: rem(18px);
     }
 
-    // >:first-child{
-    //     align-self: flex-end;
-    //     position: absolute;
-    // }
 }
 
 .new-board-color{
