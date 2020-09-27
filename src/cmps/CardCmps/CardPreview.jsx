@@ -13,6 +13,7 @@ import { CardPreviewActions } from './CardPreviewActions';
 import { Avatar } from '@material-ui/core';
 
 
+
 class _CardPreview extends Component {
 
     state = {
@@ -20,6 +21,8 @@ class _CardPreview extends Component {
     }
 
     ref = React.createRef()
+
+
 
     onSetEditing = () => {
         this.setState({ isEditing: true })
@@ -150,42 +153,48 @@ class _CardPreview extends Component {
         return this.props.toggleFullLabels()
     }
 
-    render() {
+    componentDidMount = () => {
+        // console.log(this.ref.current)
 
+    }
+
+
+    render() {        
         return (
 
 
             <Draggable draggableId={this.props.card.id} index={this.props.index}>
-                {provided => (
-
+                {(provided, snapshot) => ( 
                     <div
-                        ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
-
-                        className={'card-preview'}
+                        ref={provided.innerRef}
+                        className={snapshot.isDragging ? '' : 'card-preview'}
                         onClick={this.onOpenCardDetails}>
-                        {this.getCardPreviewStyle()}
-                        {this.getCardCover()}
-                        <CardLabels onClickLabel={this.onToggleLabels}
-                            isFull={this.props.fullLabel}
-                            cardLabels={this.props.card.labels}
-                            boardLabels={this.props.board.labels}
-                            preview={true}
-                        />
-                        <div className="card-preview-header">
-                            {this.props.card.title}
-                        </div>
-                        <div ref={this.ref} onClick={this.onOpenCardActions} className="card-preview-edit-container">
-                            <EditOutlinedIcon fontSize="inherit" />
-                            {(this.state.isEditing) ? <CardPreviewActions anchorEl={this.ref} props={this.props} onClose={this.onSetNotEditing} cardStyle={this.getCardPreviewStyle()} attrs={this.getCardPreviewAttrs()} /> : <React.Fragment />}
-                        </div>
-                        <div className="card-preview-attrs">
-                            <CardPreviewDueDate dueDate={this.props.card.dueDate} />
-                            {this.getCardPreviewAttrs()}
-                            {this.getCardPreviewMembers()}
-                        </div>
-                        {provided.placeholder}
+
+                            <div className={snapshot.isDragging ? 'card-preview-drag' : ''}>
+                                {this.getCardPreviewStyle()}
+                                {this.getCardCover()}
+                                <CardLabels onClickLabel={this.onToggleLabels}
+                                    isFull={this.props.fullLabel}
+                                    cardLabels={this.props.card.labels}
+                                    boardLabels={this.props.board.labels}
+                                    preview={true}
+                                />
+                                <div className="card-preview-header">
+                                    {this.props.card.title}
+                                </div>
+                                <div ref={this.ref} onClick={this.onOpenCardActions} className="card-preview-edit-container">
+                                    <EditOutlinedIcon fontSize="inherit" />
+                                    {(this.state.isEditing) ? <CardPreviewActions anchorEl={this.ref} props={this.props} onClose={this.onSetNotEditing} cardStyle={this.getCardPreviewStyle()} attrs={this.getCardPreviewAttrs()} /> : <React.Fragment />}
+                                </div>
+                                <div className="card-preview-attrs">
+                                    <CardPreviewDueDate dueDate={this.props.card.dueDate} />
+                                    {this.getCardPreviewAttrs()}
+                                    {this.getCardPreviewMembers()}
+                                </div>
+                                {provided.placeholder}
+                            </div>
                     </div>
                 )}
 
@@ -206,3 +215,9 @@ const mapDispatchToProps = {
 };
 
 export const CardPreview = connect(mapStateToProps, mapDispatchToProps)(_CardPreview);
+
+
+// className = {`
+//      ${snapshot.isDragging ? 'check card-preview' : 'card-preview'}
+//      ${snapshot.isDropAnimating ? 'yes' : ''}
+//                         `}

@@ -3,7 +3,7 @@
     min-height: rem(40px);
     max-height: rem(44px);
     padding: rem(4px);
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .navbar-container{
@@ -58,18 +58,13 @@
         height: 34px;
     }
 
-    &>.right a {
-        line-height: 1;
-        color: #fff;
-        text-decoration: none;
-        font-size: rem(16px);
-        position: relative;
-
-    }
-
-    &>.right a>h4 {
+    &>.right>h4 {
         margin: auto;
         transform: translateY(50%);
+        margin: 0;
+        display: inline-block;
+        margin-left: 0.375rem;
+        font-size: rem(16px);
     }
 
 }

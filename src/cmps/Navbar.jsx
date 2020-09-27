@@ -1,17 +1,25 @@
 // This contains link to boards (project view) and user details
 
 import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, withRouter } from 'react-router-dom'
 import { AddNewBoard } from './BoardHeader/AddNewBoard'
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5b0229cb4c570de31dac170b096f1a5bd97062a7
 import logoFutura from '../assets/icons/newLogoFutura.png'
 
+import { connect } from 'react-redux'
+import { LoginDrawer } from './LoginDrawer'
 
 
-export class Navbar extends Component {
+export class _Navbar extends Component {
 
     state = {
-        isNewBoardModalShown: false
+        isNewBoardModalShown: false,
+        isLoginDrawerShown: false
     }
+
 
     toggleModal = () => {
         this.setState({ isNewBoardModalShown: !this.state.isNewBoardModalShown })
@@ -25,6 +33,23 @@ export class Navbar extends Component {
         alert('Snorelax Loves you 💤🌷')
     }
 
+    redirectPath = (id) => {
+        this.props.history.replace(`/`)
+        this.props.history.replace(`/board/${id}`)
+        this.onCloseModal()
+    }
+
+    showLoginDrawer = (ev) => {
+        ev.stopPropagation()
+        ev.nativeEvent.stopImmediatePropagation();
+        this.setState({ isLoginDrawerShown: true })
+    }
+
+    hideLoginDrawer= (ev) =>{
+        ev.stopPropagation()
+        this.setState({ isLoginDrawerShown: false })
+    }
+ 
     render() {
         return (
             <div className="navbar-container">
@@ -37,14 +62,15 @@ export class Navbar extends Component {
 
                 <div className="navbar-right-container">
                     <div className="board-header-btn right" onClick={this.toggleModal}><span className="material-icons">add</span></div>
-                    {this.state.isNewBoardModalShown && <AddNewBoard onCloseModal={this.onCloseModal} />}
-                    <div className="board-header-btn login right"><NavLink to='/login'><h4 className="login-text">Login</h4></NavLink></div>
+                    {this.state.isNewBoardModalShown && <AddNewBoard onCloseModal={this.onCloseModal} redirectPath={this.redirectPath}/>}
 
+                    {/* <div className="board-header-btn login right"><NavLink to='/login'><h4 className="login-text">Login</h4></NavLink></div> */}
+                    <div className="board-header-btn login right" onClick={this.showLoginDrawer}><h4 className="login-text">Login</h4></div>
+                    <LoginDrawer isShowing={this.state.isLoginDrawerShown} hideLoginDrawer={this.hideLoginDrawer}/>
                 </div>
             </div>
         )
     }
 }
+export const Navbar = connect(withRouter)(_Navbar)
 
-// in the Login NavLink will be prop from store if the user is logged in it will
-// show its name initials

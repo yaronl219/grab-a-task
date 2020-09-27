@@ -43,7 +43,7 @@ class _CardDetails extends Component {
 
     ref = React.createRef()
 
-    componentDidMount() {
+    componentDidMount() {        
 
         if (!this.props.board || Object.keys(!this.props.board)) {
 
@@ -170,7 +170,7 @@ class _CardDetails extends Component {
             }
         }
         const newActivity = boardService.createActivity(activity)
-        console.log(newActivity)
+        
         this.props.addActivity(this.props.board, newActivity)
 
     }

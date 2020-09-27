@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { NewBoardColor } from './NewBoardColor'
 import { connect } from 'react-redux';
 import { allBoardColors } from '../../assets/bgColors/bgColors';
-import { addNewBoard } from '../../store/actions/boardActions';
+import { addNewBoard, loadBoard, setDefaultStyle } from '../../store/actions/boardActions';
 import { ClickAwayListener } from '@material-ui/core';
 
 export class _AddNewBoard extends Component {
@@ -14,7 +14,7 @@ export class _AddNewBoard extends Component {
         newBoardName: ''
     }
 
-    componentDidMount() {
+    componentDidMount() {        
         this.setState({  selectedColor: null, newBoardName: '' })
     }
     
@@ -31,11 +31,15 @@ export class _AddNewBoard extends Component {
         this.setState({ newBoardName: ev.target.value })
     }
 
-    onSubmit=(ev)=>{
+    onSubmit = async (ev) => {
         ev.preventDefault()
         const boardColor = this.state.selectedColor
         const boardName = this.state.newBoardName
-        this.props.addNewBoard(boardName, boardColor)
+        if (!boardName) return // add an error message when no name has been entered
+        const newBoard = await this.props.addNewBoard(boardName, boardColor)
+        this.props.redirectPath(newBoard._id)
+        // await this.props.loadBoard(newBoard._id)
+        // this.props.setDefaultStyle()
     }
 
     render() {    
@@ -45,6 +49,7 @@ export class _AddNewBoard extends Component {
             <div className="add-board-container">
                 <h3>New board</h3>
                 <input onChange={this.handleChange} type="text" placeholder="New Board's Name" autoFocus />
+                {/* description field */}
                 <div className="new-board-colors-container">
                     {
                         allBoardColors.map(boardColor => {
@@ -68,12 +73,17 @@ export class _AddNewBoard extends Component {
 // need to remove this line and only bring the board
 const mapStateToProps = state => {
     return {
-        boardColors: state.boardReducer.board.boardColors,
+        // boardColors: state.boardReducer.board.boardColors,
     };
 };
 
 const mapDispatchToProps = {
-        addNewBoard
+        addNewBoard,
+        loadBoard,
+        setDefaultStyle
 }
 
 export const AddNewBoard = connect(mapStateToProps, mapDispatchToProps)(_AddNewBoard)
+
+
+

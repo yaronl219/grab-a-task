@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+
 import { Home } from './pages/Home';
 import './assets/styles/global.scss'
 import { Route, Switch } from 'react-router';
-import { CardDetails } from './cmps/CardCmps/CardDetails';
+
 import { Board } from './pages/Board';
 import { Navbar } from './cmps/Navbar';
 import userService from './services/userService';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd'
+import { DragDropContext } from 'react-beautiful-dnd'
 import { connect } from 'react-redux';
 import { updateBoard, updatePosition } from './store/actions/boardActions';
-import { BoardHub } from './pages/BoardHub';
+
 import { Login } from './pages/Login';
 
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Notify } from './cmps/Notify';
 import { Main } from './pages/Main';
@@ -28,7 +28,8 @@ class _App extends Component {
     toast.configure()
   }
 
-  
+
+
   onDragEnd = (result) => {
 
     const { destination, source, draggableId, type } = result
@@ -111,16 +112,31 @@ class _App extends Component {
     }
   }
 
+  // getImgOrBg = ()=>{
+  //   if (this.props.style.bgImg) return `backgroundImage: style.bgImg`
+  //   else if (this.props.style.boardColor) return `backgroundColor:style.boardColor`
+  // }
+
+  // getStyle = () => {
+  //       if (this.props.style.bgImg) return `style={{backgroundImage: style.bgImg, backgroundPosition:'center'}}`
+  //       else if (this.props.style.boardColor) return `style{{backgroundColor:style.boardColor,backgroundPosition:'center' }}`
+  // }
+
+
+
   render() {
     const { style } = this.props
+    
     return (
 
       (this.props.style)
-        ? <DragDropContext onDragEnd={this.onDragEnd}>
-          <div className="app-bg" style={{backgroundImage: style.bgImg, backgroundPosition:'center'}}>
+        ? <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
+          <div className="app-bg" 
+          style={this.props.style.bgImg ? {backgroundImage: style.bgImg, backgroundPosition:'center'} : 
+            {backgroundColor:style.boardColor, backgroundPosition:'center'}}>
             <div className="App">
               <header className="App-header">
-                <Navbar />
+                <Route  path="/" component={Navbar} />
               </header>
               <main className="app-main">
               <Notify />

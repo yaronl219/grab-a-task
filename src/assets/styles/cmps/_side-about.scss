@@ -1,3 +1,8 @@
+.about-container {
+    padding: 0.5rem;
+
+}
+
 .about-board {
     & > div:first-of-type {
         padding: 0 5px;
@@ -12,6 +17,7 @@
     }
     & h2 {
         cursor: pointer;
+        padding: 0rem 0.5rem;
     }
 
     & textarea,

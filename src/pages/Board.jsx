@@ -6,7 +6,7 @@ import { CardDetails } from '../cmps/CardCmps/CardDetails';
 import { GroupList } from '../cmps/GroupList';
 import { Sidebar } from '../cmps/Sidebar/Sidebar';
 // import { connect } from 'socket.io-client';
-import { loadBoard, onSetFilterBy, setStyle } from '../store/actions/boardActions';
+import { loadBoard, onSetFilterBy, setStyle, resetBoard } from '../store/actions/boardActions';
 import socketService from '../services/socketService.js'
 import { toast } from 'react-toastify';
 
@@ -21,6 +21,11 @@ class _Board extends Component {
   }
 
   async componentDidMount() {
+<<<<<<< HEAD
+=======
+    
+    // await this.props.loadBoard('5f6a0f6e973d861c5d72eb3f')
+>>>>>>> 5b0229cb4c570de31dac170b096f1a5bd97062a7
     const boardId = this.props.match.params.id
     try {
       await this.props.loadBoard(boardId)
@@ -51,6 +56,17 @@ class _Board extends Component {
 
   }
 
+<<<<<<< HEAD
+=======
+
+  // componentDidUpdate(prevProps) {
+  //   if (prevProps.board.groups !== this.props.board.groups) {
+  //     const differ = detailedDiff(prevProps.board.groups, this.props.board.groups)
+  //     console.log(differ)
+  //   }
+  // }
+
+>>>>>>> 5b0229cb4c570de31dac170b096f1a5bd97062a7
 
   showUpdateMessage = (prevBoard) => {
     // this details the difference between the previous board and the current board
@@ -73,8 +89,11 @@ class _Board extends Component {
   }
 
   componentWillUnmount() {
-    socketService.off('board-updated')
-    socketService.terminate()
+    if (socketService) {
+      socketService.off('board-updated')
+      socketService.terminate()
+    }
+    this.props.resetBoard()
   }
 
 
@@ -99,8 +118,6 @@ class _Board extends Component {
       }, 1000)
     }
   }
-
-
 
   onToggleSidebar = (isSidebarShowing) => {
     this.setState({ isSidebarShowing });
@@ -133,7 +150,7 @@ class _Board extends Component {
             lastUpdate={this.state.lastReceivedUpdateAt}
           />
 
-          <Sidebar board={board}
+          <Sidebar board={board} history = {this.props.history}
             isSidebarShowing={this.state.isSidebarShowing}
             onToggleSidebar={this.onToggleSidebar} />
 
@@ -156,7 +173,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   loadBoard,
   onSetFilterBy,
-  setStyle
+  setStyle,
+  resetBoard
 
 };
 

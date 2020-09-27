@@ -4,12 +4,18 @@
     background-color: $white;
     position: fixed;
     header {
-        padding: 0rem 1rem;
+        padding: 0.5rem 1rem;
+        h1 {
+            margin: 0px;
+            text-align: center;
+        }
     }
     section {
-        padding: 1rem;
+        height: calc(100vh - 9.75rem);
+        overflow-y: scroll;
+        padding: 0rem 1rem;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(12rem,20rem));
+        grid-template-columns: repeat(auto-fit, minmax(12rem,24rem));
         gap: 1rem;
     }
 }
@@ -21,6 +27,7 @@
         height: 12rem;
         background-position: center;
         background-size: cover;
+        position: relative;
         background-repeat: repeat;
         .board-overlay {
             height: 100%;
@@ -30,6 +37,28 @@
         h3 {
             padding: 5%;
             
+        }
+        .remove {
+            position: absolute;
+            display: none;
+            width: 2rem;
+            height: 2rem;
+            background-color: $generalIconColor;
+            opacity: 70%;
+            border-radius: rem(3px);
+            margin: 0.25rem;
+            right: 0px;
+        }
+    }
+
+    .board-image:hover {
+        .remove {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .remove:hover {
+            background-color: $generalIconHoverBox;
         }
     }
     .board-creator,

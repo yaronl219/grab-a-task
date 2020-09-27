@@ -10,18 +10,19 @@ export class _BoardHub extends Component {
 
     componentDidMount() {
         this.props.setDefaultStyle()
+        
     }
     
     render(){
 
-        if (!this.props.boards) return <div className="board-hub"><CircularProgress /></div>
+        if (!this.props.boards || this.props.isLoading) return <div className="board-hub"><CircularProgress /></div>
         return (
             <div className="board-hub">
                 <header>
                     <h1>{this.props.header}</h1>
                 </header>
                 <section>
-                    {this.props.boards.map(board => <BoardPreview key={board._id} history={this.props.history} onSelect={this.props.onSelect} board={board} />)}
+                    {this.props.boards.map(board => <BoardPreview key={board._id} onRemove={this.props.onRemove} history={this.props.history} onSelect={this.props.onSelect} board={board} />)}
                 </section>
             </div>
         )

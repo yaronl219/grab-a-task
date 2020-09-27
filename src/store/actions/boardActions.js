@@ -13,6 +13,15 @@ export function loadBoard(boardId) {
   };
 }
 
+export function resetBoard() {
+  return dispatch => {
+    try {
+      dispatch({type: 'SET_BOARD', board:null})
+    } catch (err) {
+      console.log('board action error in reseting board', err)
+    }
+  }
+}
 
 export function addActivity(board, activity) {
 
@@ -211,6 +220,8 @@ export function setDefaultStyle(){
   }
 }
 
+
+
 export function onArchiveGroup(groupId, board) {
   return async dispatch => {
     try {
@@ -267,9 +278,8 @@ export function setNewGroupName(groupId, groupName, board) {
 export function addNewBoard(boardName, boardColor = null) {
   return async dispatch => {
     const newBoard = await boardService.addNewBoard(boardName, boardColor)
-    console.log(newBoard)
-    
-
+    // dispatch({ type: 'SET_BOARD', newBoard });
+    return newBoard
   }
 }
 
@@ -281,29 +291,21 @@ export function addToMembers({ _id, fullName, imgUrl }, board) {
       fullName,
       imgUrl
     }
-
     let newBoard = JSON.parse(JSON.stringify(board))
     newBoard.members.unshift(userToPush)
     dispatch({ type: 'SET_BOARD', board: newBoard })
     await boardService.updateBoard(newBoard) // updating the DB
-
-    // update the backend as well after the dispatch
-
   }
 }
 
 // finish
 export function removeMember(id, board) {
   return async dispatch => {
-
     let newBoard = JSON.parse(JSON.stringify(board))
     const memberIdx = newBoard.members.findIndex(member => member._id === id)
     newBoard.members.splice(memberIdx, 1)
     dispatch({ type: 'SET_BOARD', board: newBoard })
     await boardService.updateBoard(newBoard) // updating the DB
-
-    // update the backend as well after the dispatch
-
   }
 }
 
