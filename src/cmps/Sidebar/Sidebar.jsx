@@ -6,13 +6,16 @@ import WallpaperOutlinedIcon from '@material-ui/icons/WallpaperOutlined';
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
 import LabelOutlinedIcon from '@material-ui/icons/LabelOutlined';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
+import AssessmentOutlinedIcon from '@material-ui/icons/AssessmentOutlined';
 import FormatListBulletedOutlinedIcon from '@material-ui/icons/FormatListBulletedOutlined';
+import TableChartOutlinedIcon from '@material-ui/icons/TableChartOutlined';
 import { AboutBoard } from './AboutBoard'
 import { ChangeBackground } from './ChangeBackground'
 import { SideArchive } from './SideArchive'
 import { ActivityLog } from './ActivityLog'
 import { LabelPanel } from './LabelPanel';
 import { CreateTemplate } from './CreateTemplate';
+import { Link } from 'react-router-dom';
 
 
 export class _Sidebar extends Component {
@@ -68,6 +71,10 @@ export class _Sidebar extends Component {
                             <ListItemIcon><WallpaperOutlinedIcon /></ListItemIcon>
                             <ListItemText>Change background</ListItemText>
                         </ListItem>
+                        <ListItem button className="menu-btn" component={Link} to={`/analysis/${board._id}/`}>
+                            <ListItemIcon><AssessmentOutlinedIcon /></ListItemIcon>
+                            <ListItemText>Board Analysis</ListItemText>
+                        </ListItem>
                         <ListItem button className="menu-btn" onClick={() => { this.onSetMenuOpt('archive') }}>
                             <ListItemIcon><ArchiveOutlinedIcon /></ListItemIcon>
                             <ListItemText>Archive</ListItemText>
@@ -77,11 +84,11 @@ export class _Sidebar extends Component {
                             <ListItemText>Labels</ListItemText>
                         </ListItem>
                         <ListItem button className="menu-btn">
-                            <CreateTemplate history={this.props.history}  board={this.props.board} />
+                            <CreateTemplate history={this.props.history} board={this.props.board} />
                         </ListItem>
                     </List>
                     <Divider />
-                    <h5><FormatListBulletedOutlinedIcon size="small" /> ACTIVITY LOG</h5>
+                    <h5><FormatListBulletedOutlinedIcon size="small" />ACTIVITY LOG</h5>
                     <ActivityLog activities={board.activities} boardId={board._id} />
                 </Drawer>
 

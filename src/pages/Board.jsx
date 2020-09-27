@@ -5,7 +5,6 @@ import { BoardHeader } from '../cmps/BoardHeader/BoardHeader';
 import { CardDetails } from '../cmps/CardCmps/CardDetails';
 import { GroupList } from '../cmps/GroupList';
 import { Sidebar } from '../cmps/Sidebar/Sidebar';
-// import { connect } from 'socket.io-client';
 import { loadBoard, onSetFilterBy, setStyle, resetBoard } from '../store/actions/boardActions';
 import socketService from '../services/socketService.js'
 import { toast } from 'react-toastify';
@@ -21,11 +20,8 @@ class _Board extends Component {
   }
 
   async componentDidMount() {
-<<<<<<< HEAD
-=======
     
     // await this.props.loadBoard('5f6a0f6e973d861c5d72eb3f')
->>>>>>> 5b0229cb4c570de31dac170b096f1a5bd97062a7
     const boardId = this.props.match.params.id
     try {
       await this.props.loadBoard(boardId)
@@ -56,8 +52,6 @@ class _Board extends Component {
 
   }
 
-<<<<<<< HEAD
-=======
 
   // componentDidUpdate(prevProps) {
   //   if (prevProps.board.groups !== this.props.board.groups) {
@@ -66,7 +60,6 @@ class _Board extends Component {
   //   }
   // }
 
->>>>>>> 5b0229cb4c570de31dac170b096f1a5bd97062a7
 
   showUpdateMessage = (prevBoard) => {
     // this details the difference between the previous board and the current board

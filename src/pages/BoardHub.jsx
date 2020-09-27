@@ -10,10 +10,10 @@ export class _BoardHub extends Component {
 
     componentDidMount() {
         this.props.setDefaultStyle()
-        
+
     }
-    
-    render(){
+
+    render() {
 
         if (!this.props.boards || this.props.isLoading) return <div className="board-hub"><CircularProgress /></div>
         return (

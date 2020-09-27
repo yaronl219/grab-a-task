@@ -34,7 +34,7 @@ export class _BoardHeader extends Component {
                     <Filter onFilter={this.props.onFilter} />
                     
                     <Notifications board={this.props.board} lastUpdate={this.props.lastUpdate}/>
-                    <div className="board-header-btn" onClick={() => this.props.onToggleSidebar(true)}>
+                    <div className="board-header-btn show-menu" onClick={() => this.props.onToggleSidebar(true)}>
                         <MoreHorizOutlinedIcon />
                         <p>Show Menu</p>
                     </div>

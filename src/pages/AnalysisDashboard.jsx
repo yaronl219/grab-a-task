@@ -91,10 +91,8 @@ export default class _AnalysisDashboard extends Component {
             }
             return acc;
         }, {})
-        const lineData = Object.keys(timeInGroupsMap).map(group => ((timeInGroupsMap[group].time / (1000 * 60 * 60)) / timeInGroupsMap[group].count));
-        const barsData = Object.keys(timeInGroupsMap).map(group => timeInGroupsMap[group].time / (1000 * 60 * 60));
-        console.log('lineData:', lineData)
-        console.log('barsData:', barsData)
+        const lineData = Object.keys(timeInGroupsMap).map(group => ((timeInGroupsMap[group].time / (1000 * 60 * 60)) / timeInGroupsMap[group].count).toFixed(2));
+        const barsData = Object.keys(timeInGroupsMap).map(group => (timeInGroupsMap[group].time / (1000 * 60 * 60)).toFixed(2));
         const clr1 = this.getRndHexColor();
         const clr2 = this.getRndHexColor();
         return {
@@ -153,7 +151,8 @@ export default class _AnalysisDashboard extends Component {
         }
     }
     render() {
-        const { board } = this.props;
+        const { board, style } = this.props;
+        if (!board) return <div>Loading...</div>
         const cardsByMemberOptions = {
             scales: {
                 xAxes: [{
@@ -170,8 +169,8 @@ export default class _AnalysisDashboard extends Component {
         return (
             !board
                 ? <div>Loading...</div>
-                : <React.Fragment>
-                    <h1>{board.title} - Data Analysis</h1>
+                : <div className="page-container">
+                    <h1 style={{ color: style.fontClr }}>{board.title} - Data Analysis</h1>
                     <div className="analysis-dashboard-container">
                         {cardsByGroup && <div className="chart-container cards-by-group-container">
                             <h3>Cards Per group</h3>
@@ -182,16 +181,18 @@ export default class _AnalysisDashboard extends Component {
                             <HorizontalBar data={cardsByMember} options={cardsByMemberOptions} />
                         </div>}
                         {timeInGroups && <div className="chart-container time-in-groups-container">
-                            <Bar data={timeInGroups.data} options={timeInGroups.options} />
+                            <h3>Cards' time analysis</h3>
+                            <Bar data={timeInGroups.data} options={timeInGroups.options} height="" />
                         </div>}
                     </div>
-                </React.Fragment>
+                </div>
         )
     }
 }
 const mapStateToProps = state => {
     return {
         board: state.boardReducer.board,
+        style: state.boardReducer.style
     };
 };
 const mapDispatchToProps = {

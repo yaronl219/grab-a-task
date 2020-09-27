@@ -1,25 +1,32 @@
 h1 {
     text-align: center;
+    margin: 0.7rem;
+}
+.page-container{
+    height: 90%;
+    overflow: auto;
 }
 .analysis-dashboard-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    overflow: auto;
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 2rem 1fr 1fr 2rem;
+    grid-template-rows: 1fr 1fr;
     .chart-container {
-        min-width: 40vw;
-        height: fit-content;
         display: inline-block;
         background-color: rgba(255, 255, 255, 0.75);
         border-radius: rem(3px);
-        margin: rem(20px) rem(5px);
-        padding: rem(5px);
+        // padding: rem(5px);
         h3 {
             text-align: center;
         }
+        &.cards-by-group-container {
+            grid-column: 2;
+        }
+        &.cards-by-member-container {
+            grid-column: 3;
+        }
         &.time-in-groups-container {
-            width: 80vw;
-            height: 50vh;
+            grid-column: 2;
         }
     }
 }
