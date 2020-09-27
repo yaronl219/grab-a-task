@@ -17,6 +17,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Notify } from './cmps/Notify';
 import { Main } from './pages/Main';
+import { AnalysisDashboard } from './pages/AnalysisDashboard';
 
 
 
@@ -124,6 +125,7 @@ class _App extends Component {
               <main className="app-main">
               <Notify />
               <Switch>
+                <Route path="/analysis/:id/" component={AnalysisDashboard} />
                 <Route path="/board/:id/:cardId?" component={Board} />
                 {/* <Route path="/board?/:id?/login" component={Login} /> */}
                 <Route path="/login" component={Login} />

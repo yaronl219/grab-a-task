@@ -3,12 +3,7 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import { AddNewBoard } from './BoardHeader/AddNewBoard'
-
-import snorelax from '../assets/icons/snorelax.png'
-import logo from '../assets/icons/opus2.png'
-
 import logoFutura from '../assets/icons/newLogoFutura.png'
-import logoHel from '../assets/icons/newLogoHel.png'
 
 
 

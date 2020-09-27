@@ -1,0 +1,25 @@
+h1 {
+    text-align: center;
+}
+.analysis-dashboard-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    overflow: auto;
+    .chart-container {
+        min-width: 40vw;
+        height: fit-content;
+        display: inline-block;
+        background-color: rgba(255, 255, 255, 0.75);
+        border-radius: rem(3px);
+        margin: rem(20px) rem(5px);
+        padding: rem(5px);
+        h3 {
+            text-align: center;
+        }
+        &.time-in-groups-container {
+            width: 80vw;
+            height: 50vh;
+        }
+    }
+}

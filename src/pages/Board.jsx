@@ -21,19 +21,14 @@ class _Board extends Component {
   }
 
   async componentDidMount() {
-    // await this.props.loadBoard('5f6a0f6e973d861c5d72eb3f')
     const boardId = this.props.match.params.id
     try {
       await this.props.loadBoard(boardId)
-      // console.log(this)
       this.props.setStyle(this.props.board.style)
       socketService.setup()
       socketService.emit('entered-board', this.props.board._id)
       socketService.on('board-updated', async updatedBoard => {
-<<<<<<< HEAD
-=======
         
->>>>>>> f7b14c2efcb42a861b30b19dfdd5857f278403de
         const prevBoard = JSON.parse(JSON.stringify(this.props.board))
         await this.props.loadBoard(updatedBoard._id)
         if (prevBoard.style !== this.props.board.style) this.props.setStyle(this.props.board.style)
