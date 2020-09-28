@@ -1,3 +1,4 @@
+import { Popover } from '@material-ui/core'
 import React, { Component } from 'react'
 import { FilterByLabel } from './FilterByLabel'
 
@@ -8,6 +9,7 @@ export class Filter extends Component {
         isLabelModalShown: false
     }
 
+    ref = React.createRef()
     handleChange = async ({ target }) => {
         // fix this
         await this.setState({ search: { txt: target.value } })
@@ -19,8 +21,13 @@ export class Filter extends Component {
 
     }
 
-    toggleModal = () => {
-        this.setState({ isLabelModalShown: !this.state.isLabelModalShown })
+    openModal = () => {
+        this.setState({ isLabelModalShown:true })
+    }
+
+    closeModal = () => {
+        
+        this.setState({isLabelModalShown:false})
     }
 
     render() {
@@ -36,14 +43,30 @@ export class Filter extends Component {
 
                     </div>
 
-                    <div className="board-header-btn filter-btn" onClick={this.toggleModal} ><span className="material-icons">sort</span></div>
-                    {this.state.isLabelModalShown && 
-                    <FilterByLabel toggleModal={this.toggleModal} 
-                    />}
+                    <div className="board-header-btn filter-btn" ref={this.ref} onClick={this.openModal} ><span className="material-icons">sort</span></div>
+                    {/* {this.state.isLabelModalShown &&
+                        <FilterByLabel toggleModal={this.toggleModal}
+                        />} */}
+                                        <Popover
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    }}
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'left',
+                    }}
+                    open={this.state.isLabelModalShown}
+                    anchorEl={this.ref.current}
+                    onClose={this.closeModal}
+                    onBackdropClick={this.closeModal}
+                >
+                    <FilterByLabel onClose={this.closeModal} toggleModal={this.closeModal} />
+                </Popover>
                 </div>
             </React.Fragment>
         )
-     }
+    }
 
 }
 

@@ -1,4 +1,4 @@
-import { Avatar, Button, CircularProgress, IconButton, Popover } from '@material-ui/core';
+import { Avatar, Button, CircularProgress, ClickAwayListener, IconButton, Popover } from '@material-ui/core';
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -21,6 +21,7 @@ import { cardService } from '../../services/cardService/cardService';
 import { CardImagesList } from './CardImagesList';
 import { CoverSelector } from './CoverSelector';
 import { toast } from 'react-toastify';
+import { MemberPreview } from '../BoardHeader/MemberPreview';
 
 class _CardDetails extends Component {
 
@@ -188,10 +189,15 @@ class _CardDetails extends Component {
         const cardMembers = this.state.card.members
         if (!cardMembers || !cardMembers.length) return <React.Fragment />
 
+        // const cardMembersEl = cardMembers.map((member, idx) => {
+        //     const splitName = member.fullName.split(' ')
+        //     const initials = splitName.map(name => name[0])
+        //     return <div key={100 + idx} className="card-details-member"><Avatar>{initials}</Avatar></div>
+        // })
+
         const cardMembersEl = cardMembers.map((member, idx) => {
-            const splitName = member.fullName.split(' ')
-            const initials = splitName.map(name => name[0])
-            return <div key={100 + idx} className="card-details-member"><Avatar>{initials}</Avatar></div>
+            
+            return <MemberPreview key={100+idx} name={member.fullName} imgUrl={member.imgUrl} />
         })
         return <div className="card-details-members"><h5>Members</h5><div>{cardMembersEl}</div></div>
     }
@@ -328,6 +334,7 @@ class _CardDetails extends Component {
         if (!card) return <div className="card-details-background"><div className="card-details-container"><div className="circular-progress-container"><CircularProgress /></div></div></div>
         return (
             <div className="card-details-background">
+                <ClickAwayListener onClickAway={this.onCloseCard}>
                 <div className="card-details-container">
                     {this.getCardCover()}
                     <div className="close-button">
@@ -378,6 +385,7 @@ class _CardDetails extends Component {
                                     activities={this.getFilteredActivities()} />
                                     </div>
                 </div>
+                </ClickAwayListener>
                 {/* {this.state.isLabelPaletteShowing && <LabelPalette card={card} />} */}
                 <Popover
                     anchorOrigin={{

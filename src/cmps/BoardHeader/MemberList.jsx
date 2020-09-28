@@ -23,7 +23,7 @@ export class MemberList extends Component {
 
         return (
             <div className="members-container">
-                <div className="member-preview" onClick={() => this.onShowModal()}>+</div>
+                <div className="member-preview add-member-btn" onClick={() => this.onShowModal()}>+</div>
                 <div className="add-member-modal-container">
                     {this.state.isModalShown && <AddMemberModal onCloseModal={this.onCloseModal} allExistingUsers={this.props.allUsers} />}
                 </div>
@@ -31,7 +31,7 @@ export class MemberList extends Component {
                     members.map(member => {
                         return <MemberPreview key={member._id}
                             name={member.fullName} 
-                            img={member.imgUrl}
+                            imgUrl={member.imgUrl}
                             />
                 })}
             </div>

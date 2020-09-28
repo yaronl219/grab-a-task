@@ -1,11 +1,11 @@
 .label-filter {
-    position: absolute;
+    // position: absolute;
     width: rem(300px);
     min-height: rem(200px);
     background-color: #fff;
     border: 1px solid $groupClr;
     z-index: 5;
-    transform: translate(60%, 54%);
+    // transform: translate(60%, 54%);
     border-radius: 0.25em;
     display: flex;
     flex-direction: column;
@@ -57,5 +57,25 @@
     :last-child {
         width: rem(18px);
         opacity: 0.8;
+    }
+}
+
+.labels-header {
+    height: 3rem;
+    direction: rtl;
+    display: grid;
+    grid-template-columns: 3rem 1fr 3rem;
+    border-bottom: 1px solid rgba(9,30,66,.13);
+
+    div {
+        display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+    h6 {
+        margin: 0rem;
+        font-size: 0.875rem;
+        font-weight: 400;
+        color: $generalIconColor;
     }
 }

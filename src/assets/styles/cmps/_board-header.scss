@@ -1,6 +1,6 @@
 .boards-header-container {
     width: 100%;
-    max-height: rem(50px);
+    // max-height: rem(50px);
     display: flex;
     align-items: center;
     z-index: 4;
@@ -37,9 +37,10 @@
     border-radius: 50%;
     font-family: Roboto-Bold;
     font-size: rem(14px);
+    margin-right: rem(4px);
     text-align: center;
     line-height: rem(28px);
-    cursor: pointer;
+    cursor: default;
     transition: 0.1s;
     overflow: hidden;
     background-position: center;
@@ -118,11 +119,7 @@
     }
 }
 
-@media screen and (max-width: rem(1000px)) {
-    .boards-header-container p {
-        font-size: 0px;
-    }
-}
+
 .board-header-btn {
     background-color: $buttonBgColor;
     cursor: pointer;
@@ -164,5 +161,18 @@
 
     &:hover {
         opacity: 1;
+    }
+}
+
+
+@media screen and (max-width: rem(900px)) {
+    .boards-header-container {
+        flex-wrap: wrap;
+        padding-bottom: 0.25rem;
+    }
+    .show-menu {
+        font-size: 0px;
+        width: fit-content !important;
+        padding: 0 0.75rem !important;
     }
 }
