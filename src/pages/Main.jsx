@@ -7,21 +7,17 @@ import elad from '../assets/imgs/elad2.jpeg';
 const logo = require('../assets/imgs/opus.png')
 
 
-export function Home(props) {
+export function Main(props) {
     return (
         <div className="main-screen">
             <section className="home">
                 <div className="bg">
-                    <div className="bg-overlay">
-                        <div className="header">
-                            <div className="welcome">
-                                <h1>Welcome To</h1>
-                                <span><img src={logo} alt="logo" /><h1>!</h1></span>
-                            </div>
-                        </div>
-                        <p>Opus is a beautiful Kanban style project managment software prefect for keeping track of teams' progress</p>
-                        <div onClick={() => props.history.push('/board')} className="main-screen-cta">See a Demo</div>
+                    <div className="header">
+                        <img src={logo} alt="logo" />
+                        <h1>Welcome To Opus</h1>
                     </div>
+                    <p>Opus is a beautiful Kanban style project managment software prefect for keeping track of teams' progress</p>
+                    <div onClick={() => props.history.push('/board')} className="main-screen-cta">See a Demo</div>
                 </div>
             </section>
             <section className="team">
@@ -55,13 +51,12 @@ export function Home(props) {
             <section className="about">
                 <div className="about-intro">
                     <h2>Meet the Team</h2>
-                    <p>We are 3 of  &copy;MisterBit Coding Academy alumni that came together and assmebled <b>OPUS</b> as our Full-Stack Developer course's final hand-in.</p>
-
+                    <p>We are 3 of  &copy;MisterBit Coding Academy alumni that came together and assmebled this project for the Full-Stack Developer course's final sprint</p>
                 </div>
                 <div className="about-cards-container">
                     <div className="about-card">
                         <div className="photo">
-                            <img src={yaron} alt="Yaron" />
+                            <img src={yaron} alt="Yaron Lipshitz" />
                         </div>
                         <h3>Yaron Lipshitz</h3>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid vitae molestias omnis sapiente ex ducimus maxime nam ipsum at. Impedit neque quae beatae corrupti doloremque adipisci ut quis! Eaque, assumenda.</p>
@@ -73,7 +68,7 @@ export function Home(props) {
                     </div>
                     <div className="about-card">
                         <div className="photo">
-                            <img src={elad} alt="Elad" />
+                            <img src={elad} alt="Elad Becker" />
                         </div>
                         <h3>Elad Becker</h3>
                         <p>

@@ -2,25 +2,24 @@
     box-sizing: border-box;
 }
 
-*::-webkit-scrollbar  {
-    // height: 8px;
+*::-webkit-scrollbar {
     width: 8px;
     padding: 2px;
 }
 
 *::-webkit-scrollbar-track-piece {
-    background: rgba(9,30,66,.08);
+    background: rgba(9, 30, 66, 0.08);
 }
 
 *::-webkit-scrollbar-thumb {
-    background: rgba(0,0,0,.15);
+    background: rgba(0, 0, 0, 0.15);
     border-radius: 10px;
-  }
+}
 
 *::-webkit-scrollbar-button {
     height: 0;
     width: 0;
-  }
+}
 
 html {
     font-family: Roboto-Regular;
@@ -79,3 +78,17 @@ img {
     color: set-text-color($labelGrey);
 }
 
+.facebook-icon,
+.linkedin-icon,
+.mail-icon {
+    color: gray;
+}
+.facebook-icon:hover {
+    color: $facebook;
+}
+.linkedin-icon:hover {
+    color: $linkedin;
+}
+.mail-icon:hover{
+    color: $gmail;
+}

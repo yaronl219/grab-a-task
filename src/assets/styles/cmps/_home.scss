@@ -1,4 +1,6 @@
-
+.opus {
+    font-family: Futura;
+}
 
 .main-screen {
     background-color: $white;
@@ -9,38 +11,52 @@
         height: 50%;
         display: grid;
         grid-template-columns: 1rem 1fr 1fr 1rem;
-        
+        gap: rem(10px);
     }
 
     .home {
         display: block;
-        height: 90%;
+        height: 75%;
         .bg {
             width: 100%;
             background-image: url(../../imgs/userflow.svg);
             background-position: right bottom;
-        background-repeat: no-repeat;        
-        background-size: 68%;
-
+            background-repeat: no-repeat;
+            background-size: 68%;
             height: 100%;
-            
             color: white;
-
-            .bg-overlay{
+            .bg-overlay {
                 padding: 1rem;
             }
         }
         background: linear-gradient(135deg, #0079bf, #5067c5);
-        
+
         .header {
             font-size: 2rem;
-            // display: flex;
+            h1 {
+                display: flex;
+                align-items: center;
+                margin: rem(20px) rem(10px);
+            }
             img {
                 width: 200px;
                 height: 60px;
             }
+            .welcome{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                & span{
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    h1 {
+                        margin: 0 rem(10px);
+                    }
+                }
+            }
         }
-        
+
         .main-screen-cta {
             width: 200px;
             height: 60px;
@@ -57,8 +73,6 @@
                 transition: 0.2s;
             }
         }
-
-
     }
     .team .text,
     .data .text {
@@ -69,18 +83,17 @@
     .last-cta .text {
         grid-column: 3;
     }
-    
+
     .info .img,
     .last-cta .img {
         grid-column: 2;
     }
-    
+
     .team .img {
         background-image: url(../../imgs/scrum.svg);
     }
 
-
-    .info .img{
+    .info .img {
         background-image: url(../../imgs/details.svg);
     }
 
@@ -127,19 +140,34 @@
     .about {
         display: flex;
         flex-direction: column;
+        margin-top: rem(10px);
         padding: 1rem;
+        background-color: $groupClr;
+        height:fit-content;
     }
 
     .about-cards-container {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 1rem;
         grid-auto-rows: auto;
-        
-        
+        .links-container {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            margin-bottom: rem(30px);
+            a,
+            a:visited {
+                color: inherit;
+                margin: 0 rem(5px);
+                svg {
+                    width: 2rem;
+                    height: 2rem;
+                }
+            }
+        }
+
         .about-card {
-            
-            
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -159,30 +187,33 @@
             width: 200px;
         }
     }
-    
 }
-
 
 @media screen and (max-width: rem(660px)) {
     .home {
         // height: 70% !important;
         .bg {
-        background-size: 80% !important;
+            background-size: 80% !important;
+        }
+        .bg-overlay {
+            height: 100%;
+            background-color: rgba(32, 32, 32, 0.25);
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            // opacity: 0.2;
+            // background: radial-gradient(circle, rgba(32,32,32,0.2) 39%, rgba(242,242,242,0) 84%);
+        }
+        .welcome{
+            flex-direction: column;
+            h1 {
+                text-align: center;
+            }
+        }
     }
-    .bg-overlay {
-        height: 100%;
-        background-color: rgba(32,32,32,0.25);
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        // opacity: 0.2;
-        // background: radial-gradient(circle, rgba(32,32,32,0.2) 39%, rgba(242,242,242,0) 84%);
+    .main-screen {
+        section {
+            height: 60%;
+        }
     }
 }
-.main-screen {
-    section {
-        height: 60%;
-    }
-}
-}
-
