@@ -35,7 +35,8 @@
     height: rem(28px);
     width: rem(28px);
     border-radius: 50%;
-    font-family: Roboto-Bold;
+    font-family: inherit;
+    font-weight: 600;
     font-size: rem(14px);
     margin-right: rem(4px);
     text-align: center;
@@ -115,6 +116,8 @@
         &.show-menu {
             padding: 0 rem(3px);
             width: rem(110px);
+            border-radius: rem(3px);
+            font-size: 0.85rem;
         }
     }
 }
@@ -171,7 +174,7 @@
         padding-bottom: 0.25rem;
     }
     .show-menu {
-        font-size: 0px;
+        font-size: 0px !important;
         width: fit-content !important;
         padding: 0 0.75rem !important;
     }
