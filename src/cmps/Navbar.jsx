@@ -3,7 +3,6 @@
 import React, { Component } from 'react'
 import { NavLink, withRouter } from 'react-router-dom'
 import { AddNewBoard } from './BoardHeader/AddNewBoard'
-
 import logoFutura from '../assets/icons/newLogoFutura.png'
 
 import { connect } from 'react-redux'

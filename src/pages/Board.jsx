@@ -5,7 +5,6 @@ import { BoardHeader } from '../cmps/BoardHeader/BoardHeader';
 import { CardDetails } from '../cmps/CardCmps/CardDetails';
 import { GroupList } from '../cmps/GroupList';
 import { Sidebar } from '../cmps/Sidebar/Sidebar';
-// import { connect } from 'socket.io-client';
 import { loadBoard, onSetFilterBy, setStyle, resetBoard } from '../store/actions/boardActions';
 import socketService from '../services/socketService.js'
 import { toast } from 'react-toastify';
@@ -27,7 +26,6 @@ class _Board extends Component {
     socketService.setup()
     try {
       await this.props.loadBoard(boardId)
-      // console.log(this)
       this.props.setStyle(this.props.board.style)
       socketService.on('init board', () => console.log(this.props.board._id))
       socketService.emit('entered-board', this.props.board._id)
@@ -35,6 +33,7 @@ class _Board extends Component {
         
         const prevBoard = JSON.parse(JSON.stringify(this.props.board))
         await this.props.loadBoard(updatedBoard._id)
+        if (prevBoard.style !== this.props.board.style) this.props.setStyle(this.props.board.style)
         this.showUpdateMessage(prevBoard)
       })
     } catch (err) {

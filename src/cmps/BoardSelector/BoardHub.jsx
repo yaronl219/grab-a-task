@@ -11,7 +11,7 @@ export class _BoardHub extends Component {
 
     componentDidMount() {
         this.props.setDefaultStyle()
-        
+
     }
     
     render(){

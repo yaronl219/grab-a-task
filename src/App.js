@@ -17,9 +17,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Notify } from './cmps/Notify';
 import { Main } from './pages/Main';
-import { Users } from './cmps/Users/UsersMain';
-import { HashRouter } from 'react-router-dom';
 import { BoardSelection } from './cmps/BoardSelector/BoardSelection';
+import { AnalysisDashboard } from './pages/AnalysisDashboard';
 
 
 
@@ -141,17 +140,15 @@ class _App extends Component {
                 <Route path="/" component={Navbar} />
               </header>
               <main className="app-main">
-                <Notify />
-                <HashRouter>
-                  <Switch>
-                    <Route path="/board/:id/:cardId?" component={Board} />
-                    <Route path="/board" component={BoardSelection} />
-                    <Route path="/login" component={Login} />
-                    <Route component={Users} path='/user' />
-                    {/* <Route component={Home} path='/:view' /> */}
-                    <Route component={Main} path='/' />
-                  </Switch>
-                </HashRouter>
+              <Notify />
+              <Switch>
+                <Route path="/analysis/:id/" component={AnalysisDashboard} />
+                <Route path="/board/:id/:cardId?" component={Board} />
+                <Route path="/board" component={BoardSelection} />
+                {/* <Route path="/board?/:id?/login" component={Login} /> */}
+                <Route path="/login" component={Login} />
+                <Route component={Main} path='/' />
+              </Switch>
               </main>
             </div>
           </div>
