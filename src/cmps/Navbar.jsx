@@ -7,10 +7,12 @@ import logoFutura from '../assets/icons/newLogoFutura.png'
 
 import { connect } from 'react-redux'
 import { LoginDrawer } from './LoginDrawer'
+import { loadUser } from '../store/actions/userActions'
+import { MemberPreview } from './BoardHeader/MemberPreview'
 import { Dialog, IconButton } from '@material-ui/core'
 import { Users } from './Users/UsersMain'
 
-import { MemberPreview } from './BoardHeader/MemberPreview'
+// import { MemberPreview } from './BoardHeader/MemberPreview'
 import userService from '../services/userService'
 import { CloseOutlined } from '@material-ui/icons'
 
@@ -97,13 +99,43 @@ export class _Navbar extends Component {
                         {/* {this.state.isNewBoardModalShown && <AddNewBoard onCloseModal={this.onCloseModal} redirectPath={this.redirectPath} />} */}
 
                         {/* <div className="board-header-btn login right"><NavLink to='/login'><h4 className="login-text">Login</h4></NavLink></div> */}
-                        <div className="board-header-btn login right" onClick={this.showLoginDrawer}><h4 className="login-text">{(!this.state.loggedInUser || this.state.loggedInUser._id === 'u900') ? 'Login' : 'Logout'}</h4></div>
+                        {/* <div className="board-header-btn login right" onClick={this.showLoginDrawer}><h4 className="login-text">{(!this.state.loggedInUser || this.state.loggedInUser._id === 'u900') ? 'Login' : 'Logout'}</h4></div>
+                        <LoginDrawer isShowing={this.state.isLoginDrawerShown} hideLoginDrawer={this.hideLoginDrawer} /> */}
+
+                        {(!this.props.loggedInUser) ? <div className="board-header-btn login right" onClick={this.showLoginDrawer}><h4 className="login-text">Login</h4></div> :
+                            <MemberPreview img={this.props.loggedInUser.imgUrl} name={this.props.loggedInUser.fullName} />
+                        }
                         <LoginDrawer isShowing={this.state.isLoginDrawerShown} hideLoginDrawer={this.hideLoginDrawer} />
+
                     </div>
                 </div>
             </React.Fragment>
         )
     }
 }
-export const Navbar = connect(withRouter)(_Navbar)
 
+
+// export const Navbar = connect(withRouter)(_Navbar)
+
+
+
+
+const mapStateToProps = state => {
+    return {
+        loggedInUser: state.userReducer.loggedInUser
+    }
+}
+
+const mapDispatchToProps = {
+    loadUser
+}
+
+export const Navbar = connect(mapStateToProps, mapDispatchToProps)(_Navbar);
+
+
+
+// {
+//     (!this.props.loggedInUser) ? <div className="board-header-btn login right" onClick={this.showLoginDrawer}><h4 className="login-text">Login</h4></div> :
+//     <MemberPreview img={this.props.loggedInUser.imgUrl} name={this.props.loggedInUser.fullName} />
+// }
+// <LoginDrawer isShowing={this.state.isLoginDrawerShown} hideLoginDrawer={this.hideLoginDrawer} />

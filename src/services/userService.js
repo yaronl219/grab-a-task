@@ -11,6 +11,7 @@ const userService = {
     update,
     loginDefault,
     getLoggedInUser,
+    // getByIdDb,
     getUserDetails,
     getUsersFromDb
 }
@@ -35,6 +36,13 @@ async function getUserDetails() {
     return httpService.get(`user/details/${loggedInUser._id}`)
 }
 
+
+async function login(userCred) {
+    const user = await httpService.post('auth/login', userCred)
+    sessionStorage.setItem('user', JSON.stringify(user))
+    return _handleLogin(user)
+}
+
 async function getUsersFromDb() {
     return httpService.get('user')
 }
@@ -51,6 +59,7 @@ function getById(userId) {
     // return httpService.get(`user/${userId}`)
     return storageService.get('user', userId)
 }
+
 function remove(userId) {
     // return httpService.delete(`user/${userId}`)
     return storageService.remove('user', userId)
@@ -61,12 +70,7 @@ function update(user) {
     return httpService.put(`user/${user._id}`, user)
 }
 
-async function login(userCred) {
-    // const user = await httpService.post('auth/login', userCred)
-    const users = await storageService.query('user')
-    const user = users.find(user => user.username === userCred.username)
-    if (user) return _handleLogin(user)
-}
+
 async function signup(userCred) {
     // const user = await httpService.post('auth/signup', userCred)
     const user = await storageService.post('user', userCred)

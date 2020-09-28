@@ -22,11 +22,12 @@
 
 
 .group-container {
+    
     background-color: $groupClr;
     width: rem(272px);
     height: fit-content;
     max-height: 100%;
-    margin: 0 rem(4px);
+    // margin: 0 rem(4px);
     border-radius: 3px;
     box-sizing: border-box;
     display: flex;
@@ -70,7 +71,57 @@
 
 }
 
+
+.group-outer-container{
+        background-color: $groupClr;
+        width: rem(272px);
+        height: fit-content;
+        max-height: 100%;
+        margin: 0 rem(4px);
+        border-radius: 3px;
+        box-sizing: border-box;
+        display: flex;
+        overflow-x: hidden;
+
+        flex-direction: column;
+        vertical-align: top;
+        // padding: 0px 4px;
+        color: $textClr;
+
+        .card-container {
+            min-height: rem(17px);
+            overflow-y: auto;
+            border-radius: 3px;
+            // margin: 0px 4px;
+            overflow-x: hidden;
+
+        }
+
+
+        .card-container::-webkit-scrollbar-button {
+            height: 0px;
+            width: 0px;
+        }
+
+        .group-header {
+            font-size: rem(15px);
+            font-weight: 800;
+            line-height: 20px;
+            padding: 10px 8px 0px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        .group-header:last-child {
+            font-size: 20px;
+        }
+}
+
 .group-container-drag{
+    
         background-color: $groupClr;
         // backdrop-filter: saturate(180%) blur(20px);
         width: rem(272px);

@@ -9,10 +9,13 @@ import { Navbar } from './cmps/Navbar';
 import userService from './services/userService';
 import { DragDropContext } from 'react-beautiful-dnd'
 import { connect } from 'react-redux';
-import { addActivity, updateBoard, updatePosition } from './store/actions/boardActions';
+import { updateBoard, updatePosition, resetFilterBy, addActivity } from './store/actions/boardActions';
+// import { addActivity, updateBoard, updatePosition } from './store/actions/boardActions';
 
-import { Login } from './pages/Login';
+// import { Login } from './pages/Login';
 
+// import { Login } from './pages/Login';
+import {Main} from './pages/Main'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Notify } from './cmps/Notify';
@@ -30,7 +33,9 @@ class _App extends Component {
     toast.configure()
   }
 
-
+  onDragStart = () => {
+    this.props.resetFilterBy(this.props.board._id)
+  }
 
   onDragEnd = (result) => {
 
@@ -163,7 +168,7 @@ class _App extends Component {
                   <Route path="/board/:id/:cardId?" component={Board} />
                   <Route path="/board" component={BoardSelection} />
                   {/* <Route path="/board?/:id?/login" component={Login} /> */}
-                  <Route path="/login" component={Login} />
+                  {/* <Route path="/login" component={Login} /> */}
                   <Route component={Home} path='/' />
                 </Switch>
               </main>
@@ -186,6 +191,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   updateBoard,
   updatePosition,
+  resetFilterBy,
   addActivity
 };
 
