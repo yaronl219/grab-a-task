@@ -72,3 +72,13 @@
 .login{
     margin-left: rem(6px);
 }
+
+@media screen and (max-width: rem(450px)) {
+.boards-text {
+    font-size: 0px;
+
+}
+.board-header-btn {
+    padding: 0 0.5rem;
+}
+}
