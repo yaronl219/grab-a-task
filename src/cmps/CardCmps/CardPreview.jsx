@@ -10,7 +10,8 @@ import { CardPreviewDueDate } from './CardPreviewDueDate';
 import ChatBubbleOutlineRoundedIcon from '@material-ui/icons/ChatBubbleOutlineRounded';
 import { Draggable } from 'react-beautiful-dnd'
 import { CardPreviewActions } from './CardPreviewActions';
-import { Avatar } from '@material-ui/core';
+// import { Avatar } from '@material-ui/core';
+import { MemberPreview } from '../BoardHeader/MemberPreview';
 
 
 
@@ -47,11 +48,16 @@ class _CardPreview extends Component {
         const cardMembers = this.props.card.members
         if (!cardMembers || !cardMembers.length) return <React.Fragment />
         
-        const cardMembersEl =  cardMembers.map((member, idx) => {
-            const splitName = member.fullName.split(' ')
-            const initials = splitName.map(name => name[0])
-            return <div key={100 + idx} className="card-preview-member"><Avatar>{initials}</Avatar></div>
+        // const cardMembersEl =  cardMembers.map((member, idx) => {
+        //     const splitName = member.fullName.split(' ')
+        //     const initials = splitName.map(name => name[0])
+        //     return <div key={100 + idx} className="card-preview-member"><Avatar>{initials}</Avatar></div>
+        // })
+
+        const cardMembersEl = cardMembers.map((member,idx) => {
+            return <MemberPreview key={idx} name={member.fullName} imgUrl={member.imgUrl} />
         })
+
         return <div className="card-preview-members">{cardMembersEl}</div>
     }
 

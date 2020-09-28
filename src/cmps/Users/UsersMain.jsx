@@ -49,7 +49,7 @@ class _Users extends Component {
                     showLabels
                 >
                     <BottomNavigationAction label="Details" icon={<PermIdentityOutlinedIcon />} />
-                    <BottomNavigationAction label="Boards and Cards" icon={<ViewAgendaOutlinedIcon />} />
+                    <BottomNavigationAction label="Cards" icon={<ViewAgendaOutlinedIcon />} />
                     <BottomNavigationAction label="Activities" icon={<FormatListBulletedOutlinedIcon />} />
                 </BottomNavigation>
                 <SwipeableViews onSwitching={this.setView} index={this.state.view} containerStyle={{ height: '100vh' }}>

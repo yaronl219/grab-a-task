@@ -1,16 +1,18 @@
 
+import { Tooltip } from '@material-ui/core'
 import React, { Component } from 'react'
 
 export class MemberPreview extends Component {
-   
+
     state = {
         imgUrl: null
     }
 
-    componentDidMount() {
-        this.testImage(this.props.imgUrl,this.setImgResult)
-    }
     
+    componentDidMount() {
+        this.testImage(this.props.imgUrl, this.setImgResult)
+    }
+
     testImage = (url, callback, timeout = 5000) => {
 
         var timedOut = false, timer;
@@ -47,21 +49,28 @@ export class MemberPreview extends Component {
         return initials
     }
 
-    setImgResult = (url,res) => {
-        if (res === 'success') this.setState({imgUrl:url})
+    setImgResult = (url, res) => {
+        if (res === 'success') this.setState({ imgUrl: url })
     }
 
     getStyle = () => {
-        if (this.state.imgUrl) return {backgroundImage:`url(${this.props.imgUrl})`}
+        if (this.state.imgUrl) return { backgroundImage: `url(${this.props.imgUrl})` }
         return {}
+    }
+
+    getName = () => {
+        if (this.props.name) return this.props.name
+        return ''
     }
 
     render() {
 
         return (
-        <div className="member-preview" style={this.getStyle()}>
-            {(this.state.imgUrl) ? <React.Fragment /> : this.getInitials(this.props.name)}
-        </div>
+            <Tooltip title={this.getName()}>
+                <div className="member-preview" style={this.getStyle()}>
+                    {(this.state.imgUrl) ? <React.Fragment /> : this.getInitials(this.props.name)}
+                </div>
+            </Tooltip>
         )
     }
 }
