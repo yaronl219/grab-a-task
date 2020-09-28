@@ -11,8 +11,19 @@ export const boardService = {
     filter,
     addNewBoard,
     createActivity,
-    archiveBoard
+    archiveBoard,
+    getCardTitleById
 };
+
+function getCardTitleById(cardId,board) {
+    let cardTitle;
+     board.groups.forEach(group => group.cards.forEach(card => {
+        if (card.id === cardId) {
+            cardTitle = card.title
+        }
+    }))
+    return cardTitle
+}
 
 function createActivity(partialActivity) {
     // activity = {txt:'your text here'}
@@ -32,7 +43,7 @@ function createActivity(partialActivity) {
         "createdAt": Date.now(),
         "byMember": {
             "_id": user._id,
-            "fullName": user.fullname,
+            "fullName": user.fullName,
             "imgUrl": user.imgUrl
         }
     }
@@ -50,6 +61,10 @@ function createActivity(partialActivity) {
 
 }
 
+function addActivity(board,partialActivity) {
+    const activity = boardService.createActivity(partialActivity)
+    addActivity(board,activity)
+}
 
 function query(filterBy) {
     

@@ -16,7 +16,7 @@ export function loadBoard(boardId) {
 export function resetBoard() {
   return dispatch => {
     try {
-      dispatch({type: 'SET_BOARD', board:null})
+      dispatch({ type: 'SET_BOARD', board: null })
     } catch (err) {
       console.log('board action error in reseting board', err)
     }
@@ -24,13 +24,13 @@ export function resetBoard() {
 }
 
 export function addActivity(board, activity) {
-
   return async dispatch => {
     try {
       let newBoard = JSON.parse(JSON.stringify(board))
       if (!newBoard.activities) newBoard.activities = []
       newBoard.activities.unshift(activity)
       dispatch({ type: 'SET_BOARD', board: newBoard })
+      console.log('should have been updated')
       await boardService.updateBoard(newBoard) // updating the DB
     } catch (err) {
       console.log('error removing board', err)
@@ -184,12 +184,18 @@ export function onAddNewGroup(board, groupTitle) {
   }
 }
 
-export function updatePosition(newBoardPositioning) {
+export function updatePosition(newBoardPositioning, cardId) {
+
   return async dispatch => {
     try {
       dispatch({ type: 'SET_BOARD', board: newBoardPositioning })
       let newBoard = JSON.parse(JSON.stringify(newBoardPositioning))
+
+
+
+
       await boardService.updateBoard(newBoard) // updating the DB
+
     } catch (err) {
       console.log('error updating board', err)
     }
@@ -214,7 +220,7 @@ export function setStyle(style) {
   }
 }
 
-export function setDefaultStyle(){
+export function setDefaultStyle() {
   return async dispatch => {
     dispatch({ type: 'SET_DEFAULT_STYLE' })
   }
