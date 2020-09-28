@@ -3,7 +3,6 @@ import { Button, Checkbox, Dialog, FormControl, FormControlLabel, FormGroup, For
 import { CloseOutlined } from '@material-ui/icons'
 import React, { Component } from 'react'
 import { templateService } from '../../services/templateService'
-import ArtTrackIcon from '@material-ui/icons/ArtTrack';
 import TableChartOutlinedIcon from '@material-ui/icons/TableChartOutlined';
 
 

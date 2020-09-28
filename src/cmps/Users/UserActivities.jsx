@@ -47,7 +47,7 @@ export class UserActivities extends Component {
 
     getBoardList = () => {
         const uniqueIds = {}
-        const boards = this.props.activities.forEach(activity => {
+        this.props.activities.forEach(activity => {
             uniqueIds[activity.board.id] = activity.board
         })
         const uniqueBoards = Object.values(uniqueIds)

@@ -56,6 +56,20 @@ async function addCard(board, cardTxt, groupId) {
         }
         return group
     })
-    await boardService.updateBoard(newBoard)
+
+    const partialActivity = {
+        "txt": 'create this card',
+        "commentTxt": '',
+        "card": {
+          "id": newCard.id,
+          "title": cardTxt
+        }
+      }
+
+      
+    const activity = boardService.createActivity(partialActivity)
+      if (!newBoard.activities) newBoard.activities = []
+      newBoard.activities.push(activity)
+    // await boardService.updateBoard(newBoard)
     return newBoard
 }

@@ -11,8 +11,19 @@ export const boardService = {
     filter,
     addNewBoard,
     createActivity,
-    archiveBoard
+    archiveBoard,
+    getCardTitleById
 };
+
+function getCardTitleById(cardId,board) {
+    let cardTitle;
+     board.groups.forEach(group => group.cards.forEach(card => {
+        if (card.id === cardId) {
+            cardTitle = card.title
+        }
+    }))
+    return cardTitle
+}
 
 function createActivity(partialActivity) {
     // activity = {txt:'your text here'}
@@ -32,7 +43,7 @@ function createActivity(partialActivity) {
         "createdAt": Date.now(),
         "byMember": {
             "_id": user._id,
-            "fullName": user.fullname,
+            "fullName": user.fullName,
             "imgUrl": user.imgUrl
         }
     }
@@ -49,7 +60,6 @@ function createActivity(partialActivity) {
     return activity
 
 }
-
 
 function query(filterBy) {
     
@@ -85,15 +95,15 @@ async function archiveBoard(boardId) {
 
 
 
-async function switchGroup(board, card, oldGroupId, targetGroupId, targetCardIdx) {
-    const newBoard = JSON.parse(JSON.stringify(board))
-    newBoard.groups = newBoard.groups.map(group => {
-        if (group.id === targetGroupId) return [...group.splice(0, targetCardIdx), card, ...group.splice(targetCardIdx + 1)]
-        if (group.id === oldGroupId) return group.filter(currCard => currCard.id !== card.id)
-        return group
-    })
-    return await updateBoard(newBoard)
-}
+// async function switchGroup(board, card, oldGroupId, targetGroupId, targetCardIdx) {
+//     const newBoard = JSON.parse(JSON.stringify(board))
+//     newBoard.groups = newBoard.groups.map(group => {
+//         if (group.id === targetGroupId) return [...group.splice(0, targetCardIdx), card, ...group.splice(targetCardIdx + 1)]
+//         if (group.id === oldGroupId) return group.filter(currCard => currCard.id !== card.id)
+//         return group
+//     })
+//     return await updateBoard(newBoard)
+// }
 
 async function filter(boardId, filterBy) {
 
