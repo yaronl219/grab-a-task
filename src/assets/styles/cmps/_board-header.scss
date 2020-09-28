@@ -41,6 +41,11 @@
     line-height: rem(28px);
     cursor: pointer;
     transition: 0.1s;
+    overflow: hidden;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    
     
     &:hover{
         background-color: $memberClrHovered;

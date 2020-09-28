@@ -50,10 +50,12 @@ function createActivity(partialActivity) {
 
 }
 
+
 function query(filterBy) {
-    //   var queryStr = (!filterBy)? '' : `?name=${filterBy.name}&sort=anaAref`
-    //   return httpService.get(`board${queryStr}`);
-    return httpService.get('board')
+    
+    const params = (!filterBy) ? '' : utils.createQueryString(filterBy)
+    console.log('board',params)
+    return httpService.get(`board${params}`)
 }
 
 function getBoardById(boardId) {

@@ -4,7 +4,7 @@ import SwipeableViews from 'react-swipeable-views';
 import { boardService } from '../services/boardService';
 import DeveloperBoardIcon from '@material-ui/icons/DeveloperBoard';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import { BoardHub } from './BoardHub';
+import { BoardHub } from '../cmps/BoardSelector/BoardHub';
 import { templateService } from '../services/templateService';
 import { CloseOutlined } from '@material-ui/icons';
 
@@ -25,8 +25,8 @@ export class Home extends Component {
     async componentDidMount() {
 
         this.setViewFromParams()
-        const boards = await boardService.query()
-        const templates = await templateService.query()
+        const boards = await boardService.query({filter:{isArchived:false},limit:2,skip:0})
+        const templates = await templateService.query({limit:3,skip:0})
         this.setState({ boards, templates })
     }
 
@@ -102,7 +102,7 @@ export class Home extends Component {
     render() {
         return (
             <div>
-                <Backdrop open={this.state.isLoading}><CircularProgress /></Backdrop> 
+                <Backdrop open={this.state.isLoading}><div className="circular-progress-container"><CircularProgress /></div></Backdrop> 
                 <Dialog
                     onClose={this.onCloseCreateTemplate}
                     onBackdropClick={this.onCloseCreateTemplate}
@@ -123,7 +123,6 @@ export class Home extends Component {
                         </form>
                     </div>
                     </div>
-
                 </Dialog>
                 <BottomNavigation
                     className="home-nav"
@@ -136,10 +135,13 @@ export class Home extends Component {
                     <BottomNavigationAction label="Boards" icon={<DashboardIcon />} />
                     <BottomNavigationAction label="Templates" icon={<DeveloperBoardIcon />} />
                 </BottomNavigation>
+
                 <SwipeableViews onSwitching={this.setView} index={this.state.view} containerStyle={{ height: '100vh' }}>
                     <BoardHub boards={this.state.boards} onSelect={this.onSelectBoard} onRemove={this.onRemoveBoard} header="Boards" />
                     <BoardHub boards={this.state.templates} onSelect={this.onSelectTemplate} onRemove={this.onRemoveTemplate} isLoading={this.state.templateLoading} header="Templates" />
                 </SwipeableViews>
+                
+
             </div>
         )
     }
