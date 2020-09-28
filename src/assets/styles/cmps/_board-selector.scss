@@ -1,0 +1,29 @@
+.board-selector {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    background-color: $white;
+    overflow-y: scroll;
+    padding-bottom: 5rem;
+    position: relative;
+    .boards,
+    .templates {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+}
+
+@media screen and (min-width: rem(1250px)) {
+    .board-selector {
+        background-image: url('../../imgs/design.svg');
+        background-position: 95% 90%;
+        background-size: rem(300px);
+        background-repeat: no-repeat;
+    }
+}

@@ -12,6 +12,7 @@ const userService = {
     loginDefault,
     getLoggedInUser,
     // getByIdDb,
+    getUserDetails,
     getUsersFromDb
 }
 
@@ -19,14 +20,20 @@ const userService = {
 export default userService;
 
 function loginDefault() {
-    const defaultGuest= {
+    const defaultGuest = {
         "_id": "u900",
         "username": "Guest",
         "fullName": "Guesty guest",
         "imgUrl": "https://images-na.ssl-images-amazon.com/images/I/41v4Cc8iZ-L._AC_.jpg"
-      }
+    }
 
-      _handleLogin(defaultGuest)
+    _handleLogin(defaultGuest)
+}
+
+
+async function getUserDetails() {
+    const loggedInUser = getLoggedInUser()
+    return httpService.get(`user/details/${loggedInUser._id}`)
 }
 
 
@@ -59,8 +66,8 @@ function remove(userId) {
 }
 
 function update(user) {
-    return storageService.put('user', user)
-    // return httpService.put(`user/${user._id}`, user)
+    // return storageService.put('user', user)
+    return httpService.put(`user/${user._id}`, user)
 }
 
 
@@ -80,6 +87,6 @@ async function logout() {
 
 function _handleLogin(user) {
     // THIS SAVES TO LOCAL STORAGE INSTEAD OF SESSION STORAGE!!!
-        localStorage.setItem('user', JSON.stringify(user))
-        return user;
-    }
+    localStorage.setItem('user', JSON.stringify(user))
+    return user;
+}

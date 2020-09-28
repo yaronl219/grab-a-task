@@ -6,24 +6,23 @@
     padding: 1rem;
     height: 15rem;
     background-color: $white;
-    
 
     .create-board-header {
-    display: grid;
-    grid-template-columns: 3rem 1fr 3rem;
-    border-bottom: 1px solid rgba(9,30,66,.13);
+        display: grid;
+        grid-template-columns: 3rem 1fr 3rem;
+        border-bottom: 1px solid rgba(9, 30, 66, 0.13);
 
-    div {
-        display: flex;
-    justify-content: center;
-    align-items: center;
-    }
-    h6 {
-        margin: 0rem;
-        font-size: 0.875rem;
-        font-weight: 400;
-        color: $generalIconColor;
-    }
+        div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        h6 {
+            margin: 0rem;
+            font-size: 0.875rem;
+            font-weight: 400;
+            color: $generalIconColor;
+        }
     }
 
     .form-container {
@@ -47,24 +46,18 @@
         }
     }
 }
-.open-template-button{
-font-size: 1rem !important;
-font-weight: 400 !important;
-line-height: 1.5 !important; 
-text-transform: none !important;
-color: $generalIconColor;
-display: flex;
-align-items: center;
-height: 2rem;
-span {
-    margin-left: rem(10px);
-    color: $black;
+.open-template-button {
+    font-size: 1rem !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+    text-transform: none !important;
+    color: $generalIconColor;
+    display: flex;
+    align-items: center;
+    height: 2rem;
 }
-}
-
 
 .create-template {
-    
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -75,12 +68,12 @@ span {
     .create-template-header {
         display: grid;
         grid-template-columns: 3rem 1fr 3rem;
-        border-bottom: 1px solid rgba(9,30,66,.13);
-    
+        border-bottom: 1px solid rgba(9, 30, 66, 0.13);
+
         div {
             display: flex;
-        justify-content: center;
-        align-items: center;
+            justify-content: center;
+            align-items: center;
         }
         h6 {
             margin: 0rem;
@@ -100,7 +93,6 @@ span {
     }
 
     .confirm {
-        margin: 0 auto;       
+        margin: 0 auto;
     }
 }
-

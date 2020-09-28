@@ -1,0 +1,103 @@
+
+.user-profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+    .user-profile {
+        width: 20rem;
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: 1fr 1fr;
+    }
+    .user-img {
+        border-radius: 10rem;
+        overflow: hidden;
+        border: 1px solid $black;
+    }
+}
+
+.user-details-preview-header {
+    display: grid;
+    grid-template-columns: 3rem 1fr 3rem;
+    border-bottom: 1px solid rgba(9,30,66,.13);
+
+    div {
+        display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+    h6 {
+        margin: 0rem;
+        font-size: 0.875rem;
+        font-weight: 400;
+        color: $generalIconColor;
+    }
+}
+
+.board-filter {
+    margin: 2rem rem(45px);
+}
+
+.users-container {
+    .react-swipeable-view-container {
+        // overridng material UI 100vh default
+        height: 80vh !important;
+        
+        
+    }
+}
+@media screen and (min-width: 660px) {
+
+    .users-container {
+        width: 590px;       
+    }
+}
+
+.user-cards-container {
+    padding: 0.5rem;
+    .user-board {
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+        border-radius: rem(3px);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .user-cards-preview {
+        display: flex;
+        flex-wrap: wrap;
+        
+        min-height: 10rem;
+    }
+
+
+    .user-card-preview {
+        cursor: pointer;
+        background-color: $groupClr;
+        padding: 1rem;
+        flex-grow: 1;
+        margin: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        border-radius: rem(3px);
+        * {
+            width: fit-content;
+        }
+
+    }
+    .user-card-preview:hover {
+        background-color: $cardHoverClr;
+    }
+    .user-card-header {
+        h5{
+            margin: 0px;
+        }
+    }
+
+    .user-card-details {
+        font-size: 0.875rem;
+    }
+}

@@ -2,9 +2,20 @@ export const utils = {
     getUniqueHeaders,
     getRandomColor,
     getRandomInteger,
-    makeId
+    makeId,
+    createQueryString
 }
 
+
+function createQueryString(data) {
+    const URI = Object.keys(data).map(key => {
+      let val = data[key]
+      if (typeof val === 'object') val = createQueryString(val)
+      return `${key}=${encodeURIComponent(`${val}`.replace(/\s/g, '_'))}`
+    }).join('&')
+    const queryParams = new URLSearchParams(URI)
+    return `?${queryParams.toString()}`
+  }
 
 function makeId(length = 10) {
     var txt = '';

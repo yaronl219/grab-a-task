@@ -7,7 +7,7 @@ export function BoardPreview(props) {
 
     const board = props.board
 
-    if (board.isArchived) return <React.Fragment />
+    if (board.isArchived && !props.displayArchived) return <React.Fragment />
     const createdAt = new Date(board.createdAt).toDateString()
     let lastEdited
     try {

@@ -1,9 +1,11 @@
 
-import { Button, Checkbox, Dialog, FormControl, FormControlLabel, FormGroup, FormLabel, IconButton, TextField } from '@material-ui/core'
+import { Button, Checkbox, Dialog, FormControl, FormControlLabel, FormGroup, FormLabel, IconButton, ListItemIcon, TextField } from '@material-ui/core'
 import { CloseOutlined } from '@material-ui/icons'
 import React, { Component } from 'react'
 import { templateService } from '../../services/templateService'
 import ArtTrackIcon from '@material-ui/icons/ArtTrack';
+import TableChartOutlinedIcon from '@material-ui/icons/TableChartOutlined';
+
 
 export class CreateTemplate extends Component {
 
@@ -42,7 +44,7 @@ export class CreateTemplate extends Component {
 
         return (
             <div>
-                <div className="open-template-button" onClick={this.onOpen}><ArtTrackIcon /><span>Create template</span></div>
+                <div className="open-template-button" onClick={this.onOpen}><ListItemIcon><TableChartOutlinedIcon /></ListItemIcon> <span>Create template</span></div>
                 <Dialog open={this.state.isOpen} onClose={this.onClose} onBackdropClick={this.onClose}>
                     <div className="create-template">
                         <div className="create-template-header">

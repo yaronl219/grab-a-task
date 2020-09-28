@@ -1,46 +1,52 @@
-.boards-header-container{
+.boards-header-container {
     width: 100%;
-    max-height: rem(50px);
+    // max-height: rem(50px);
     display: flex;
     align-items: center;
     z-index: 4;
-    background-color: rgba(0,0,0, .225);
+    background-color: rgba(0, 0, 0, 0.225);
     padding: 0 0.5rem;
     margin-bottom: 0.5rem;
 
-    >*{
-        margin-left: rem(4px) ;
+    > * {
+        margin-left: rem(4px);
         margin-right: 0.5rem;
     }
 
-    &>:last-child{
+    & > :last-child {
         margin-right: rem(2px);
     }
-    
-    &>h3{
+
+    & > h3 {
         font-size: rem(18px);
         color: $textLightClr;
-    }   
+    }
 }
 
-.members-container{
+.members-container {
     height: 100%;
     display: flex;
     align-items: center;
 }
 
-.member-preview{
+.member-preview {
     background-color: $memberClr;
-    color:$textClr;
+    color: $textClr;
     height: rem(28px);
     width: rem(28px);
     border-radius: 50%;
     font-family: Roboto-Bold;
     font-size: rem(14px);
+    margin-right: rem(4px);
     text-align: center;
     line-height: rem(28px);
-    cursor: pointer;
+    cursor: default;
     transition: 0.1s;
+    overflow: hidden;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    
     
     &:hover{
         background-color: $memberClrHovered;
@@ -49,79 +55,72 @@
 
 // filter
 
-.search-filter-container{
+.search-filter-container {
     align-items: center;
     justify-content: flex-start;
     display: flex;
     flex-grow: 1;
 
-    &>*{
+    & > * {
         align-self: center;
         justify-self: center;
     }
-
 }
 
+.search-bar {
+    color: #fff;
+    font-size: rem(16px);
+    background-color: hsla(0, 0%, 100%, 0.3);
+    border-radius: rem(3px);
+    border: none;
+    box-shadow: none;
+    color: $textClr;
+    height: rem(36px);
+    margin: 0;
+    outline: none;
+    padding-left: rem(8px);
+    padding-right: rem(30px);
+    transition: 0.13s;
+    width: rem(180px);
+}
 
-.search-bar{
+.input-container {
+    display: flex;
+    transition: 0.2s;
+
+    & > .search-icon-container {
+        transform: translate(-120%, 10%);
         color: #fff;
+    }
+
+    input:focus + .search-icon-container {
+        color: #464646;
+    }
+
+    input:focus {
+        box-shadow: $modalShadow;
+        background-color: rgba(255, 255, 255, 0.95);
+        width: rem(260px);
         font-size: rem(16px);
-        background-color: hsla(0, 0%, 100%, .3);
-        border-radius: rem(3px);
-        border: none;
-        box-shadow: none;
-        color: $textClr;
-        height: rem(36px);
-        margin: 0;
-        outline: none;
-        padding-left: rem(8px);
-        padding-right: rem(30px);
-        transition: .13s;
-        width: rem(180px);
- }
- 
- .input-container {
-     display: flex;
-     transition: 0.2s;
-
-
-     &>.search-icon-container {
-         transform: translate(-120%, 10%);
-         color: #fff;
-     }
-
-     input:focus+.search-icon-container {
-         color: #464646
-     }
-
-     input:focus {
-         box-shadow: $modalShadow;
-         background-color: rgba(255, 255, 255, 0.95);
-         width: rem(260px);
-         font-size: rem(16px);
-     }
- }
-
+    }
+}
 
 // buttons
 .boards-header-container {
     .board-header-btn {
         height: rem(38px);
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
         align-items: center;
-    }
-
-
-}
-
-
-@media screen and (max-width: rem(1000px)) {
-    .boards-header-container p {
-        font-size: 0px;
+        &.show-menu {
+            padding: 0 rem(3px);
+            width: rem(110px);
+        }
     }
 }
-.board-header-btn{
+
+
+.board-header-btn {
     background-color: $buttonBgColor;
     cursor: pointer;
     color: #fff;
@@ -133,11 +132,11 @@
     padding: 0 rem(12px);
     transition: 0.1s;
 
-    &:hover{
+    &:hover {
         background-color: $buttonBgColorHovered;
     }
 
-    &>span {
+    & > span {
         justify-self: center;
         align-self: center;
         text-align: center;
@@ -149,20 +148,31 @@
     }
 }
 
-.filter-btn{
-        transform: translateX(-36%);
+.filter-btn {
+    transform: translateX(-36%);
 }
 
-.header-logo{
+.header-logo {
     display: flex;
     width: 5rem;
     align-items: center;
     opacity: 0.65;
     transition: 0.15s;
 
-    &:hover{
+    &:hover {
         opacity: 1;
     }
 }
 
 
+@media screen and (max-width: rem(900px)) {
+    .boards-header-container {
+        flex-wrap: wrap;
+        padding-bottom: 0.25rem;
+    }
+    .show-menu {
+        font-size: 0px;
+        width: fit-content !important;
+        padding: 0 0.75rem !important;
+    }
+}

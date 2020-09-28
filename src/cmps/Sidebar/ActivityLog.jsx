@@ -12,19 +12,19 @@ export function ActivityLog({ boardId, displayMode, activities }) {
         <ul className="activity-log">
             {activities.map(activity => {
                 return <li key={activity.id}>
-                    <MemberPreview name={activity.byMember.fullName} />
+                    {(displayMode !== 'user') ? <MemberPreview name={activity.byMember.fullName} img={activity.byMember.imgUrl} /> : <React.Fragment />}
                     <pre>
                         <div>
-                            <Link to={`/board/${boardId}`}>{activity.byMember.fullName + ' '}</Link>
+                            {(displayMode==='user') ? <React.Fragment /> : (boardId) ? (<Link to={`/board/${boardId}`}>{activity.byMember.fullName + ' '}</Link>) : `${activity.byMember.fullName} `}
                             <span>{activity.commentTxt ? 'commented:' : activity.txt + ' '}</span>
                             {activity.commentTxt && <div className="comment-txt">
                                 {activity.commentTxt}
                             </div>}
                             {displayMode !== 'card' && <span>
                                 {'in '}
-                                <Link to={`/board/${boardId}/${activity.card.id}/`}>
+                                {(boardId) ? <Link to={`/board/${boardId}/${activity.card.id}/`}>
                                     {activity.card.title}
-                                </Link>
+                                </Link> : `${activity.card.title}`}
                             </span>}
                         </div>
                         <span className="time-ago">{timeago.format(activity.createdAt)}</span>

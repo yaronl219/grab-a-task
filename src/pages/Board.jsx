@@ -5,7 +5,6 @@ import { BoardHeader } from '../cmps/BoardHeader/BoardHeader';
 import { CardDetails } from '../cmps/CardCmps/CardDetails';
 import { GroupList } from '../cmps/GroupList';
 import { Sidebar } from '../cmps/Sidebar/Sidebar';
-// import { connect } from 'socket.io-client';
 import { loadBoard, onSetFilterBy, setStyle, resetBoard } from '../store/actions/boardActions';
 import socketService from '../services/socketService.js'
 import { toast } from 'react-toastify';
@@ -24,17 +23,17 @@ class _Board extends Component {
     
     // await this.props.loadBoard('5f6a0f6e973d861c5d72eb3f')
     const boardId = this.props.match.params.id
+    socketService.setup()
     try {
       await this.props.loadBoard(boardId)
-      // console.log(this)
       this.props.setStyle(this.props.board.style)
-      socketService.setup()
       socketService.on('init board', () => console.log(this.props.board._id))
       socketService.emit('entered-board', this.props.board._id)
       socketService.on('board-updated', async updatedBoard => {
         
         const prevBoard = JSON.parse(JSON.stringify(this.props.board))
         await this.props.loadBoard(updatedBoard._id)
+        if (prevBoard.style !== this.props.board.style) this.props.setStyle(this.props.board.style)
         this.showUpdateMessage(prevBoard)
       })
     } catch (err) {
@@ -84,10 +83,10 @@ class _Board extends Component {
   }
 
   componentWillUnmount() {
-    if (socketService) {
+    
       socketService.off('board-updated')
       socketService.terminate()
-    }
+    
     this.props.resetBoard()
   }
 
@@ -96,8 +95,8 @@ class _Board extends Component {
     const boardId = this.props.match.params.id
     try {
       await this.props.loadBoard(boardId)
+      socketService.on('init board', () => console.log('init board',this.props.board._id))
       this.props.setStyle(this.props.board.style)
-      socketService.on('init board', () => console.log(this.props.board._id))
     } catch (err) {
       toast.error('Oops! we seem to be missing the board you\'re looking for. going back to board selection.', {
         position: "bottom-right",
@@ -129,7 +128,7 @@ class _Board extends Component {
   render() {
 
     const { board } = this.props
-    if (!board) return <div>Loading...</div>
+    if (!board) return <div className="board-container"><CircularProgress /></div>
 
     return (
       <React.Fragment>
