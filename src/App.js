@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Home } from './pages/Home';
+
 import './assets/styles/global.scss'
 import { Route, Switch } from 'react-router';
 
@@ -16,7 +16,7 @@ import { Login } from './pages/Login';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Notify } from './cmps/Notify';
-import { Main } from './pages/Main';
+import { Home } from './pages/Home';
 import { BoardSelection } from './cmps/BoardSelector/BoardSelection';
 import { AnalysisDashboard } from './pages/AnalysisDashboard';
 
@@ -147,7 +147,7 @@ class _App extends Component {
                 <Route path="/board" component={BoardSelection} />
                 {/* <Route path="/board?/:id?/login" component={Login} /> */}
                 <Route path="/login" component={Login} />
-                <Route component={Main} path='/' />
+                <Route component={Home} path='/' />
               </Switch>
               </main>
             </div>

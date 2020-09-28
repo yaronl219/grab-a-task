@@ -54,7 +54,7 @@ function createActivity(partialActivity) {
 function query(filterBy) {
     
     const params = (!filterBy) ? '' : utils.createQueryString(filterBy)
-    console.log('board',params)
+    
     return httpService.get(`board${params}`)
 }
 

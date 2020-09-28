@@ -7,7 +7,7 @@ import { BoardHub } from './BoardHub';
 import { boardService } from '../../services/boardService';
 import { templateService } from '../../services/templateService';
 import { AddNewBoard } from '../BoardHeader/AddNewBoard';
-import { withRouter } from 'react-router';
+
 
 export class BoardSelection extends Component {
 

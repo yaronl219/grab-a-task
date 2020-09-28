@@ -1,148 +1,80 @@
-import { Backdrop, BottomNavigation, BottomNavigationAction, CircularProgress, Dialog, IconButton } from '@material-ui/core';
-import React, { Component } from 'react'
-import SwipeableViews from 'react-swipeable-views';
-import { boardService } from '../services/boardService';
-import DeveloperBoardIcon from '@material-ui/icons/DeveloperBoard';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import { BoardHub } from '../cmps/BoardSelector/BoardHub';
-import { templateService } from '../services/templateService';
-import { CloseOutlined } from '@material-ui/icons';
+import React from 'react'
+import yaron from '../assets/imgs/yaron.jpeg';
+import elad from '../assets/imgs/elad.jpeg';
+const logo = require('../assets/imgs/opus.png')
 
 
-
-export class Home extends Component {
-
-    state = {
-        view: 0,
-        boards: null,
-        templates: null,
-        templateLoading: false,
-        selectedTemplate: null,
-        isCreateTemplateOpen: false,
-        isLoading: false
-    }
-
-    async componentDidMount() {
-
-        this.setViewFromParams()
-        const boards = await boardService.query({filter:{isArchived:false},limit:2,skip:0})
-        const templates = await templateService.query({limit:3,skip:0})
-        this.setState({ boards, templates })
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.match.params.view !== this.props.match.params.view) {
-            this.setViewFromParams()
-        }
-    }
-
-    setViewFromParams = () => {
-        const view = this.props.match.params.view
-
-        if (view === 'templates') return this.setState({ view: 1 })
-        return this.setState({ view: 0 })
-    }
-
-    onSelectBoard = (boardId) => {
-        this.props.history.push(`/board/${boardId}`)
-    }
-
-
-    onSelectTemplate = async (templateId) => {
-        this.setState({ selectedTemplate: templateId, isCreateTemplateOpen: true })
-
-    }
-
-    onCloseCreateTemplate = () => {
-        this.setState({ selectedTemplate: null, isCreateTemplateOpen: false })
-    }
-
-    onCreateBoardFromTemplate = async (boardName) => {
-        this.setState({ templateLoading: true }, async () => {
-            const boardId = await templateService.createBoardFromTemplate(this.state.selectedTemplate,boardName)
-            this.setState({ templateLoading: false })
-            this.props.history.push(`board/${boardId}`)
-        })
-    }
-
-    onRemoveBoard = async(boardId) => {
-        this.setState({isLoading:true}, async() => {
-            await boardService.archiveBoard(boardId)
-            const boards = await boardService.query()
-            this.setState({boards}, () => {
-                this.setState({isLoading:false})
-            })
-        })
-    }
-
-    onRemoveTemplate = async(templateId) => {
-        
-        this.setState({isLoading:true}, async() => {
-            await templateService.remove(templateId)
-            const templates = await templateService.query()
-            this.setState({templates}, ()=> this.setState({isLoading:false}))
-        })
-    }
-
-    onSubmit = (ev) => {
-        ev.preventDefault()
-        this.onCreateBoardFromTemplate(ev.target[0].value)
-    }
-
-    setView = (idx) => {
-        if (!idx) {
-            this.props.history.push('/board')
-        } else {
-            this.props.history.push('/templates')
-        }
-    }
-
-
-
-    render() {
-        return (
-            <div>
-                <Backdrop open={this.state.isLoading}><div className="circular-progress-container"><CircularProgress /></div></Backdrop> 
-                <Dialog
-                    onClose={this.onCloseCreateTemplate}
-                    onBackdropClick={this.onCloseCreateTemplate}
-                    open={this.state.isCreateTemplateOpen}>
-                    <div className="create-board-from-template-container">
-                        <div className="create-board-header">
-                            <div></div>
-                            <div><h6>Create Board</h6></div>
-                            <IconButton onClick={this.onCloseCreateTemplate}>
-                                <CloseOutlined />
-                            </IconButton>
+export function Home(props) {
+    return (
+        <div className="main-screen">
+            <section className="home">
+                <div className="bg">
+                    <div className="bg-overlay">
+                        <div className="header">
+                            <img src={logo} alt="logo" />
+                            <h1>Welcome To Opus</h1>
                         </div>
-                        <div className="form-container">
-                            <span>Enter a name for your board</span>
-                        <form onSubmit={this.onSubmit}>
-                            <input name="title" type="text"/>
-                            <button className="save-btn">Create</button>
-                        </form>
+                        <p>Opus is a beautiful Kanban style project managment software prefect for keeping track of teams' progress</p>
+                        <div onClick={() => props.history.push('/board')} className="main-screen-cta">See a Demo</div>
                     </div>
+                </div>
+            </section>
+            <section className="team">
+                <div className="text">
+                    <h2>Work as a team</h2>
+                    <p>Use Opus' advanced features to assign and keep track of your team's efforts</p>
+                </div>
+                <div className="img"></div>
+            </section>
+            <section className="info">
+                <div className="img"></div>
+                <div className="text">
+                    <h2>Get detailed information</h2>
+                    <p>You can use Opus to specify what every task entails, and make sure everyone is synced</p>
+                </div>
+            </section>
+            <section className="data">
+                <div className="text">
+                    <h2>Better understand your progress</h2>
+                    <p>Use Opus' extensive data modeling tools to get a glimpse on how your team is doing</p>
+                </div>
+                <div className="img"></div>
+            </section>
+            <section className="last-cta">
+                <div className="img"></div>
+                <div className="text">
+                    <h2>What are you waiting for?</h2>
+                    <div onClick={() => props.history.push('/board')} className="cta">View the demo now</div>
+                </div>
+            </section>
+            <section className="about">
+                <div className="about-intro">
+                    <h2>Meet the Team</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia molestias possimus amet vel facere, quod officiis consequatur commodi quam repudiandae laboriosam, omnis optio quaerat debitis accusantium quae deleniti, esse sed!</p>
+                </div>
+                <div className="about-cards-container">
+                    <div className="about-card">
+                        <div className="photo">
+                            <img src={yaron} alt="Yaron" />
+                        </div>
+                        <h3>Yaron Lipshitz</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid vitae molestias omnis sapiente ex ducimus maxime nam ipsum at. Impedit neque quae beatae corrupti doloremque adipisci ut quis! Eaque, assumenda.</p>
                     </div>
-                </Dialog>
-                <BottomNavigation
-                    className="home-nav"
-                    value={this.state.view}
-                    onChange={(event, newValue) => {
-                        this.setView(newValue);
-                    }}
-                    showLabels
-                >
-                    <BottomNavigationAction label="Boards" icon={<DashboardIcon />} />
-                    <BottomNavigationAction label="Templates" icon={<DeveloperBoardIcon />} />
-                </BottomNavigation>
-
-                <SwipeableViews onSwitching={this.setView} index={this.state.view} containerStyle={{ height: '100vh' }}>
-                    <BoardHub boards={this.state.boards} onSelect={this.onSelectBoard} onRemove={this.onRemoveBoard} header="Boards" />
-                    <BoardHub boards={this.state.templates} onSelect={this.onSelectTemplate} onRemove={this.onRemoveTemplate} isLoading={this.state.templateLoading} header="Templates" />
-                </SwipeableViews>
-                
-
-            </div>
-        )
-    }
+                    <div className="about-card">
+                        <div className="photo">
+                            <img src={elad} alt="Elad" />
+                        </div>
+                        <h3>Elad Becker</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid vitae molestias omnis sapiente ex ducimus maxime nam ipsum at. Impedit neque quae beatae corrupti doloremque adipisci ut quis! Eaque, assumenda.</p>
+                    </div>
+                    <div className="about-card">
+                        <div className="photo"></div>
+                        <h3>Daniel Dante</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid vitae molestias omnis sapiente ex ducimus maxime nam ipsum at. Impedit neque quae beatae corrupti doloremque adipisci ut quis! Eaque, assumenda.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    )
 }
+
