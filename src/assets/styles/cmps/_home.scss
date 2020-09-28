@@ -7,7 +7,6 @@
         height: 50%;
         display: grid;
         grid-template-columns: 1rem 1fr 1fr 1rem;
-        
     }
 
     .home {
@@ -17,15 +16,15 @@
             width: 100%;
             background-image: url(../../imgs/userflow.svg);
             background-position: right bottom;
-        background-repeat: no-repeat;        
-        background-size: 80%;
+            background-repeat: no-repeat;
+            background-size: 80%;
 
             height: 100%;
             padding: 1rem;
             color: $white;
         }
         background: linear-gradient(135deg, #0079bf, #5067c5);
-        
+
         .header {
             font-size: 2rem;
             // display: flex;
@@ -34,7 +33,7 @@
                 height: 60px;
             }
         }
-        
+
         .main-screen-cta {
             width: 200px;
             height: 60px;
@@ -51,8 +50,6 @@
                 transition: 0.2s;
             }
         }
-
-
     }
     .team .text,
     .data .text {
@@ -63,18 +60,17 @@
     .last-cta .text {
         grid-column: 3;
     }
-    
+
     .info .img,
     .last-cta .img {
         grid-column: 2;
     }
-    
+
     .team .img {
         background-image: url(../../imgs/scrum.svg);
     }
 
-
-    .info .img{
+    .info .img {
         background-image: url(../../imgs/details.svg);
     }
 
@@ -126,14 +122,26 @@
 
     .about-cards-container {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 1rem;
         grid-auto-rows: auto;
-        
-        
+        .links-container {
+            display: flex;
+            width:100%;
+            justify-content: center;
+            margin-bottom: rem(30px);
+            a,
+            a:visited {
+                color: inherit;
+                margin: 0 rem(5px);
+                svg {
+                    width: 2rem;
+                    height: 2rem;
+                }
+            }
+        }
+
         .about-card {
-            
-            
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -153,6 +161,4 @@
             width: 200px;
         }
     }
-    
 }
-
