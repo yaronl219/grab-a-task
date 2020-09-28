@@ -10,7 +10,7 @@ import { CloseOutlined } from '@material-ui/icons';
 export class Notifications extends Component {
 
     state = {
-        onlyNonUserAlerts: false,
+        onlyNonUserAlerts: true,
         isOpen: false,
         isRinging: false,
         alerts: 0,
@@ -34,8 +34,10 @@ export class Notifications extends Component {
         }
 
         if (this.state.onlyNonUserAlerts) {
-            const loggedInUser = userService.getLoggedInUser
-            newActivities = newActivities.filter(activity => activity.byMember._id === loggedInUser._id)
+            const loggedInUser = userService.getLoggedInUser()
+            console.log(loggedInUser)
+            newActivities = newActivities.filter(activity => activity.byMember._id !== loggedInUser._id)
+            console.log(newActivities)
         }
 
         this.setState({ alerts: newActivities.length, newActivities})

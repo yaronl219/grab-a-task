@@ -8,6 +8,14 @@ export function loadAllUsers(){
     }
 }
 
+export function updateUser(user) {
+    return async dispatch => {
+        dispatch({type: 'SET_USER',loggedInUser:user})
+        await userService.update(user)
+        userService.updateUserInLocalStorage(user)
+    }
+}
+
 export function loadUser(creds) {
     return async dispatch => {
         // const users = await userService.getByIdDb()

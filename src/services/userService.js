@@ -13,21 +13,26 @@ const userService = {
     getLoggedInUser,
     // getByIdDb,
     getUserDetails,
-    getUsersFromDb
+    getUsersFromDb,
+    updateUserInLocalStorage
 }
 
 // window.userService = userService;
 export default userService;
 
 function loginDefault() {
-    const defaultGuest = {
-        "_id": "u900",
-        "username": "Guest",
-        "fullName": "Guesty guest",
-        "imgUrl": "https://images-na.ssl-images-amazon.com/images/I/41v4Cc8iZ-L._AC_.jpg"
-    }
+    const user = getLoggedInUser()
+    if (!user) {
 
-    _handleLogin(defaultGuest)
+        const defaultGuest = {
+            "_id": "u900",
+            "userName": "Guest",
+            "fullName": "Guesty guest",
+            "imgUrl": "https://images-na.ssl-images-amazon.com/images/I/41v4Cc8iZ-L._AC_.jpg"
+        }
+        
+        _handleLogin(defaultGuest)
+    }
 }
 
 
@@ -56,8 +61,8 @@ function getLoggedInUser() {
 }
 
 function getById(userId) {
-    // return httpService.get(`user/${userId}`)
-    return storageService.get('user', userId)
+    return httpService.get(`user/${userId}`)
+    // return storageService.get('user', userId)
 }
 
 function remove(userId) {
@@ -84,6 +89,10 @@ async function logout() {
 //     sessionStorage.setItem('user', JSON.stringify(user))
 //     return user;
 // }
+
+function updateUserInLocalStorage(user) {
+    _handleLogin(user)
+}
 
 function _handleLogin(user) {
     // THIS SAVES TO LOCAL STORAGE INSTEAD OF SESSION STORAGE!!!

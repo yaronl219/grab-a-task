@@ -43,6 +43,7 @@ export class _Navbar extends Component {
         this.setState({ loggedInUser: userService.getLoggedInUser() })
     }
 
+    
     redirectPath = (id) => {
         this.props.history.replace(`/`)
         this.props.history.replace(`/board/${id}`)
@@ -94,7 +95,7 @@ export class _Navbar extends Component {
                     <div onClick={this.showLove} style={{ cursor: "pointer" }} className="header-logo"><img src={logoFutura} alt="best logo ever" /></div>
 
                     <div className="navbar-right-container">
-                        {(this.state.loggedInUser) ? <div onClick={this.onOpenUserDetails}><MemberPreview name={this.state.loggedInUser.fullName} imgUrl={this.state.loggedInUser.imgUrl} /></div> : <React.Fragment />}
+                        {(this.state.loggedInUser) ? <div onClick={this.onOpenUserDetails}><MemberPreview name={this.props.loggedInUser.fullName} imgUrl={this.props.loggedInUser.imgUrl} /></div> : <React.Fragment />}
                         <div className="board-header-btn right" onClick={this.toggleModal}><span className="material-icons">add</span></div>
                         {/* {this.state.isNewBoardModalShown && <AddNewBoard onCloseModal={this.onCloseModal} redirectPath={this.redirectPath} />} */}
 
