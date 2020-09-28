@@ -31,6 +31,12 @@ export default function(state = initialState, action = {}) {
           style: defaultStyle
         }
 
+    case 'RESET_FILTER_BY':
+        return{
+          ...state,
+          filterBy: null
+        }
+
     default:
       return state;
   }

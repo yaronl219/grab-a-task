@@ -12,7 +12,7 @@ export function ActivityLog({ boardId, displayMode, activities }) {
         <ul className="activity-log">
             {activities.map(activity => {
                 return <li key={activity.id}>
-                    {(displayMode !== 'user') ? <MemberPreview name={activity.byMember.fullName} img={activity.byMember.imgUrl} /> : <React.Fragment />}
+                    {(displayMode !== 'user') ? <MemberPreview name={activity.byMember.fullName} imgUrl={activity.byMember.imgUrl} /> : <React.Fragment />}
                     <pre>
                         <div>
                             {(displayMode==='user') ? <React.Fragment /> : (boardId) ? (<Link to={`/board/${boardId}`}>{activity.byMember.fullName + ' '}</Link>) : `${activity.byMember.fullName} `}

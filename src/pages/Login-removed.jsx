@@ -4,7 +4,6 @@ import { withRouter } from 'react-router';
 
 export class _Login extends Component {
 
-
     state = {
         loginOrSignup: ''
     }
@@ -12,23 +11,13 @@ export class _Login extends Component {
     componentDidMount() {
         console.log('entered login');
         console.log(this.props);
-        
-        this.setState({ loginOrSignup: 'login' })
-        
+        this.setState({ loginOrSignup: 'login' }) 
     }
 
     componentDidUpdate(prevProps, prevState) {
         console.log(prevProps);
-        
     }
     
-
-
-
-
-
-
-
 
     render() {
         return (

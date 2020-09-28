@@ -8,7 +8,6 @@ import FormatListBulletedOutlinedIcon from '@material-ui/icons/FormatListBullete
 import { UserDetails } from './UserDetails';
 import { UserActivities } from './UserActivities';
 import { UserCards } from './UserCards';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 

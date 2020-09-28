@@ -11,28 +11,41 @@ const userService = {
     update,
     loginDefault,
     getLoggedInUser,
+    // getByIdDb,
     getUserDetails,
-    getUsersFromDb
+    getUsersFromDb,
+    updateUserInLocalStorage
 }
 
 // window.userService = userService;
 export default userService;
 
 function loginDefault() {
-    const defaultGuest = {
-        "_id": "u900",
-        "username": "Guest",
-        "fullName": "Guesty guest",
-        "imgUrl": "https://images-na.ssl-images-amazon.com/images/I/41v4Cc8iZ-L._AC_.jpg"
-    }
+    const user = getLoggedInUser()
+    if (!user) {
 
-    _handleLogin(defaultGuest)
+        const defaultGuest = {
+            "_id": "u900",
+            "userName": "Guest",
+            "fullName": "Guesty guest",
+            "imgUrl": "https://images-na.ssl-images-amazon.com/images/I/41v4Cc8iZ-L._AC_.jpg"
+        }
+        
+        _handleLogin(defaultGuest)
+    }
 }
 
 
 async function getUserDetails() {
     const loggedInUser = getLoggedInUser()
     return httpService.get(`user/details/${loggedInUser._id}`)
+}
+
+
+async function login(userCred) {
+    const user = await httpService.post('auth/login', userCred)
+    sessionStorage.setItem('user', JSON.stringify(user))
+    return _handleLogin(user)
 }
 
 async function getUsersFromDb() {
@@ -48,9 +61,10 @@ function getLoggedInUser() {
 }
 
 function getById(userId) {
-    // return httpService.get(`user/${userId}`)
-    return storageService.get('user', userId)
+    return httpService.get(`user/${userId}`)
+    // return storageService.get('user', userId)
 }
+
 function remove(userId) {
     // return httpService.delete(`user/${userId}`)
     return storageService.remove('user', userId)
@@ -61,12 +75,7 @@ function update(user) {
     return httpService.put(`user/${user._id}`, user)
 }
 
-async function login(userCred) {
-    // const user = await httpService.post('auth/login', userCred)
-    const users = await storageService.query('user')
-    const user = users.find(user => user.username === userCred.username)
-    if (user) return _handleLogin(user)
-}
+
 async function signup(userCred) {
     // const user = await httpService.post('auth/signup', userCred)
     const user = await storageService.post('user', userCred)
@@ -80,6 +89,10 @@ async function logout() {
 //     sessionStorage.setItem('user', JSON.stringify(user))
 //     return user;
 // }
+
+function updateUserInLocalStorage(user) {
+    _handleLogin(user)
+}
 
 function _handleLogin(user) {
     // THIS SAVES TO LOCAL STORAGE INSTEAD OF SESSION STORAGE!!!

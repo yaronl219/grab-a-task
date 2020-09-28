@@ -54,6 +54,9 @@
     align-items: center;
     justify-items: center;
 
+    .member-preview {
+        cursor: pointer;
+    }
     &>.right {
         height: 34px;
     }
@@ -65,6 +68,15 @@
         display: inline-block;
         margin-left: 0.375rem;
         font-size: rem(16px);
+    }
+
+    &>.member-preview{
+        margin-left: rem(6px);
+        width: rem(34px);
+        height: rem(34px);
+        font-size: rem(16px);
+        padding-top: rem(3.5px);
+        
     }
 
 }

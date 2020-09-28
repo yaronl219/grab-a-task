@@ -9,16 +9,20 @@ import { Navbar } from './cmps/Navbar';
 import userService from './services/userService';
 import { DragDropContext } from 'react-beautiful-dnd'
 import { connect } from 'react-redux';
-import { updateBoard, updatePosition } from './store/actions/boardActions';
+import { updateBoard, updatePosition, resetFilterBy, addActivity } from './store/actions/boardActions';
+// import { addActivity, updateBoard, updatePosition } from './store/actions/boardActions';
 
-import { Login } from './pages/Login';
+// import { Login } from './pages/Login';
 
+// import { Login } from './pages/Login';
+import {Main} from './pages/Main'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Notify } from './cmps/Notify';
 import { Home } from './pages/Home';
 import { BoardSelection } from './cmps/BoardSelector/BoardSelection';
 import { AnalysisDashboard } from './pages/AnalysisDashboard';
+import { boardService } from './services/boardService';
 
 
 
@@ -29,7 +33,9 @@ class _App extends Component {
     toast.configure()
   }
 
-
+  onDragStart = () => {
+    this.props.resetFilterBy(this.props.board._id)
+  }
 
   onDragEnd = (result) => {
 
@@ -89,8 +95,24 @@ class _App extends Component {
         newGroups[endGroupIndex].cards = newCardsArray
 
         const newBoard = { ...this.props.board, groups: newGroups }
-        this.props.updatePosition(newBoard)
+        this.props.updatePosition(newBoard, draggableId)
         // this.props.updateBoard(newBoard)
+
+        // add activity
+        // get the title
+        const cardTitle = boardService.getCardTitleById(draggableId, newBoard)
+        // build a partial activity
+        const partialActivity = {
+          "txt": 'moved the card',
+          "commentTxt": '',
+          "card": {
+            "id": draggableId,
+            "title": cardTitle
+          }
+        }
+
+        const activity = boardService.createActivity(partialActivity)
+        this.props.addActivity(newBoard, activity)
         return
       }
     }
@@ -140,15 +162,15 @@ class _App extends Component {
                 <Route path="/" component={Navbar} />
               </header>
               <main className="app-main">
-              <Notify />
-              <Switch>
-                <Route path="/analysis/:id/" component={AnalysisDashboard} />
-                <Route path="/board/:id/:cardId?" component={Board} />
-                <Route path="/board" component={BoardSelection} />
-                {/* <Route path="/board?/:id?/login" component={Login} /> */}
-                <Route path="/login" component={Login} />
-                <Route component={Home} path='/' />
-              </Switch>
+                <Notify />
+                <Switch>
+                  <Route path="/analysis/:id/" component={AnalysisDashboard} />
+                  <Route path="/board/:id/:cardId?" component={Board} />
+                  <Route path="/board" component={BoardSelection} />
+                  {/* <Route path="/board?/:id?/login" component={Login} /> */}
+                  {/* <Route path="/login" component={Login} /> */}
+                  <Route component={Home} path='/' />
+                </Switch>
               </main>
             </div>
           </div>
@@ -168,7 +190,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   updateBoard,
-  updatePosition
+  updatePosition,
+  resetFilterBy,
+  addActivity
 };
 
 export const App = connect(mapStateToProps, mapDispatchToProps)(_App);

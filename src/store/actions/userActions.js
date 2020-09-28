@@ -7,3 +7,21 @@ export function loadAllUsers(){
         dispatch({ type: 'SET_USERS', users })
     }
 }
+
+export function updateUser(user) {
+    return async dispatch => {
+        dispatch({type: 'SET_USER',loggedInUser:user})
+        await userService.update(user)
+        userService.updateUserInLocalStorage(user)
+    }
+}
+
+export function loadUser(creds) {
+    return async dispatch => {
+        // const users = await userService.getByIdDb()
+        try{
+            const user = await userService.login(creds)
+            dispatch({ type: 'SET_USER', loggedInUser: user })
+        }catch{console.log('no such user');}
+    }
+}
