@@ -79,7 +79,7 @@ export function Home(props) {
                         <p>
                             Full-Stack Developer<br />
                             Former IDF Intelligence Officer (Maj.)<br />
-                            Whiskey Enthisiast
+                            Whiskey Enthusiast
                         </p>
                         <div className="links-container">
                             <a href="https://www.facebook.com/elad.becker"><FacebookIcon className="facebook-icon" /></a>
