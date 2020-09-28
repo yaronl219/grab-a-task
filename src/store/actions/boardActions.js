@@ -30,7 +30,6 @@ export function addActivity(board, activity) {
       if (!newBoard.activities) newBoard.activities = []
       newBoard.activities.unshift(activity)
       dispatch({ type: 'SET_BOARD', board: newBoard })
-      console.log('should have been updated')
       await boardService.updateBoard(newBoard) // updating the DB
     } catch (err) {
       console.log('error removing board', err)

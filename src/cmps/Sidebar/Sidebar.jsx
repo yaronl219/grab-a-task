@@ -8,7 +8,6 @@ import LabelOutlinedIcon from '@material-ui/icons/LabelOutlined';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 import AssessmentOutlinedIcon from '@material-ui/icons/AssessmentOutlined';
 import FormatListBulletedOutlinedIcon from '@material-ui/icons/FormatListBulletedOutlined';
-import TableChartOutlinedIcon from '@material-ui/icons/TableChartOutlined';
 import { AboutBoard } from './AboutBoard'
 import { ChangeBackground } from './ChangeBackground'
 import { SideArchive } from './SideArchive'

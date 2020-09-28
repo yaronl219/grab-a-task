@@ -1,4 +1,4 @@
-import { Avatar, Button, CircularProgress, ClickAwayListener, IconButton, Popover } from '@material-ui/core';
+import {  Button, CircularProgress, ClickAwayListener, IconButton, Popover } from '@material-ui/core';
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';

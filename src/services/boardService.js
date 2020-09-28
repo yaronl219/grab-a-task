@@ -61,11 +61,6 @@ function createActivity(partialActivity) {
 
 }
 
-function addActivity(board,partialActivity) {
-    const activity = boardService.createActivity(partialActivity)
-    addActivity(board,activity)
-}
-
 function query(filterBy) {
     
     const params = (!filterBy) ? '' : utils.createQueryString(filterBy)
@@ -100,15 +95,15 @@ async function archiveBoard(boardId) {
 
 
 
-async function switchGroup(board, card, oldGroupId, targetGroupId, targetCardIdx) {
-    const newBoard = JSON.parse(JSON.stringify(board))
-    newBoard.groups = newBoard.groups.map(group => {
-        if (group.id === targetGroupId) return [...group.splice(0, targetCardIdx), card, ...group.splice(targetCardIdx + 1)]
-        if (group.id === oldGroupId) return group.filter(currCard => currCard.id !== card.id)
-        return group
-    })
-    return await updateBoard(newBoard)
-}
+// async function switchGroup(board, card, oldGroupId, targetGroupId, targetCardIdx) {
+//     const newBoard = JSON.parse(JSON.stringify(board))
+//     newBoard.groups = newBoard.groups.map(group => {
+//         if (group.id === targetGroupId) return [...group.splice(0, targetCardIdx), card, ...group.splice(targetCardIdx + 1)]
+//         if (group.id === oldGroupId) return group.filter(currCard => currCard.id !== card.id)
+//         return group
+//     })
+//     return await updateBoard(newBoard)
+// }
 
 async function filter(boardId, filterBy) {
 

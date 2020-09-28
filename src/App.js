@@ -34,7 +34,6 @@ class _App extends Component {
 
   onDragEnd = (result) => {
 
-    console.log(result)
     const { destination, source, draggableId, type } = result
 
     if (!destination) return
