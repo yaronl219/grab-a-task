@@ -1,4 +1,4 @@
-import {  Button, CircularProgress, ClickAwayListener, IconButton, Popover } from '@material-ui/core';
+import {  Button, CircularProgress, IconButton, Popover } from '@material-ui/core';
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -334,7 +334,7 @@ class _CardDetails extends Component {
         if (!card) return <div className="card-details-background"><div className="card-details-container"><div className="circular-progress-container"><CircularProgress /></div></div></div>
         return (
             <div className="card-details-background">
-                <ClickAwayListener onClickAway={this.onCloseCard}>
+                
                 <div className="card-details-container">
                     {this.getCardCover()}
                     <div className="close-button">
@@ -385,7 +385,7 @@ class _CardDetails extends Component {
                                     activities={this.getFilteredActivities()} />
                                     </div>
                 </div>
-                </ClickAwayListener>
+                
                 {/* {this.state.isLabelPaletteShowing && <LabelPalette card={card} />} */}
                 <Popover
                     anchorOrigin={{
