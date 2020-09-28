@@ -34,7 +34,7 @@ export class CardImgUpload extends Component {
             acceptedFiles={['image/*']}
             cancelButtonText={"cancel"}
             submitButtonText={"submit"}
-            maxFileSize={500000}
+            maxFileSize={512000}
             open={this.props.isOpen}
             onClose={() => this.props.toggleOpen()}
             onSave={(files) => {

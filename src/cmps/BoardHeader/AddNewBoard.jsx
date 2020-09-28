@@ -5,7 +5,8 @@ import { NewBoardColor } from './NewBoardColor'
 import { connect } from 'react-redux';
 import { allBoardColors } from '../../assets/bgColors/bgColors';
 import { addNewBoard, loadBoard, setDefaultStyle } from '../../store/actions/boardActions';
-import { ClickAwayListener } from '@material-ui/core';
+import {  IconButton } from '@material-ui/core';
+import { CloseOutlined } from '@material-ui/icons';
 
 export class _AddNewBoard extends Component {
 
@@ -14,20 +15,20 @@ export class _AddNewBoard extends Component {
         newBoardName: ''
     }
 
-    componentDidMount() {        
-        this.setState({  selectedColor: null, newBoardName: '' })
+    componentDidMount() {
+        this.setState({ selectedColor: null, newBoardName: '' })
     }
-    
-    onSetColor=(color)=>{
+
+    onSetColor = (color) => {
         this.setState({ selectedColor: color })
     }
 
-    isSelected(color){
-        if(this.state.selectedColor === color) return true
+    isSelected(color) {
+        if (this.state.selectedColor === color) return true
         else return false
     }
 
-    handleChange=(ev)=>{
+    handleChange = (ev) => {
         this.setState({ newBoardName: ev.target.value })
     }
 
@@ -42,29 +43,35 @@ export class _AddNewBoard extends Component {
         // this.props.setDefaultStyle()
     }
 
-    render() {    
-        
+    render() {
+
         return (
-            <ClickAwayListener onClickAway={this.props.onCloseModal}>
-            <div className="add-board-container">
-                <h3>New board</h3>
-                <input onChange={this.handleChange} type="text" placeholder="New Board's Name" autoFocus />
-                {/* description field */}
-                <div className="new-board-colors-container">
-                    {
-                        allBoardColors.map(boardColor => {
-                            return <NewBoardColor 
-                                color={boardColor.color}
-                                key={boardColor.id}
-                                onSetColor={this.onSetColor}
-                                isSelected={this.isSelected(boardColor.color)}
-                            />
-                        })
-                    }
+            
+                <div className="add-board-container">
+                    <div className="notification-preview-header">
+                        <div></div>
+                        <div><h6>Create Board</h6></div>
+                        <IconButton onClick={this.props.onCloseModal}>
+                            <CloseOutlined />
+                        </IconButton>
+                    </div>
+                    <input onChange={this.handleChange} type="text" placeholder="New Board's Name" autoFocus />
+                    {/* description field */}
+                    <div className="new-board-colors-container">
+                        {
+                            allBoardColors.map(boardColor => {
+                                return <NewBoardColor
+                                    color={boardColor.color}
+                                    key={boardColor.id}
+                                    onSetColor={this.onSetColor}
+                                    isSelected={this.isSelected(boardColor.color)}
+                                />
+                            })
+                        }
+                    </div>
+                    <button onClick={this.onSubmit}>Add New Board</button>
                 </div>
-                <button onClick={  this.onSubmit  }>Add New Board</button>
-            </div>
-            </ClickAwayListener>
+            
         )
     }
 }
@@ -78,9 +85,9 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-        addNewBoard,
-        loadBoard,
-        setDefaultStyle
+    addNewBoard,
+    loadBoard,
+    setDefaultStyle
 }
 
 export const AddNewBoard = connect(mapStateToProps, mapDispatchToProps)(_AddNewBoard)

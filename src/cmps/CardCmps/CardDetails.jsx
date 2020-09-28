@@ -325,7 +325,7 @@ class _CardDetails extends Component {
     }
     render() {
         const card = this.state.card
-        if (!card) return <div className="card-details-background"><div className="card-details-container"><CircularProgress /></div></div>
+        if (!card) return <div className="card-details-background"><div className="card-details-container"><div className="circular-progress-container"><CircularProgress /></div></div></div>
         return (
             <div className="card-details-background">
                 <div className="card-details-container">

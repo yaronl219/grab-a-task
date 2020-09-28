@@ -1,4 +1,5 @@
 import httpService from "./httpService"
+import { utils } from "./utils";
 const { default: userService } = require("./userService")
 
 
@@ -40,10 +41,15 @@ async function createTemplateFromBoard(board,templateName,attachments,checklists
     return Promise.resolve(boardId)
 }
 
+
+
+
 function query(filterBy) {
     //   var queryStr = (!filterBy)? '' : `?name=${filterBy.name}&sort=anaAref`
     //   return httpService.get(`board${queryStr}`);
-    return httpService.get('template')
+    const params = (!filterBy) ? '' : utils.createQueryString(filterBy)
+    console.log(params)
+    return httpService.get(`template${params}`)
 }
 
 // function createTemplate(type, boardName) {

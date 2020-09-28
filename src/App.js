@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Home } from './pages/Home';
+
 import './assets/styles/global.scss'
 import { Route, Switch } from 'react-router';
 
@@ -16,7 +16,8 @@ import { Login } from './pages/Login';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Notify } from './cmps/Notify';
-import { Main } from './pages/Main';
+import { Home } from './pages/Home';
+import { BoardSelection } from './cmps/BoardSelector/BoardSelection';
 import { AnalysisDashboard } from './pages/AnalysisDashboard';
 
 
@@ -35,7 +36,7 @@ class _App extends Component {
     const { destination, source, draggableId, type } = result
 
     if (!destination) return
-    if (destination.droppableId === source.droppableId && destination.index === source.index) return    
+    if (destination.droppableId === source.droppableId && destination.index === source.index) return
     if (!draggableId) return
 
     if (type === 'card') {
@@ -126,27 +127,27 @@ class _App extends Component {
 
   render() {
     const { style } = this.props
-    
+
     return (
 
       (this.props.style)
         ? <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
-          <div className="app-bg" 
-          style={this.props.style.bgImg ? {backgroundImage: style.bgImg, backgroundPosition:'center'} : 
-            {backgroundColor:style.boardColor, backgroundPosition:'center'}}>
+          <div className="app-bg"
+            style={this.props.style.bgImg ? { backgroundImage: style.bgImg, backgroundPosition: 'center' } :
+              { backgroundColor: style.boardColor, backgroundPosition: 'center' }}>
             <div className="App">
               <header className="App-header">
-                <Route  path="/" component={Navbar} />
+                <Route path="/" component={Navbar} />
               </header>
               <main className="app-main">
               <Notify />
               <Switch>
                 <Route path="/analysis/:id/" component={AnalysisDashboard} />
                 <Route path="/board/:id/:cardId?" component={Board} />
+                <Route path="/board" component={BoardSelection} />
                 {/* <Route path="/board?/:id?/login" component={Login} /> */}
                 <Route path="/login" component={Login} />
-                <Route component={Home} path='/:view' />
-                <Route component={Main} path='/' />
+                <Route component={Home} path='/' />
               </Switch>
               </main>
             </div>

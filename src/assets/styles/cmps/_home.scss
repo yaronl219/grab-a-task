@@ -1,3 +1,5 @@
+
+
 .main-screen {
     background-color: $white;
     overflow: scroll;
@@ -16,12 +18,21 @@
             width: 100%;
             background-image: url(../../imgs/userflow.svg);
             background-position: right bottom;
+<<<<<<< HEAD
             background-repeat: no-repeat;
             background-size: 80%;
+=======
+        background-repeat: no-repeat;        
+        background-size: 68%;
+>>>>>>> 56eedde0ce64826d5bc6063d5ed9f1601f157cc1
 
             height: 100%;
-            padding: 1rem;
-            color: $white;
+            
+            color: white;
+
+            .bg-overlay{
+                padding: 1rem;
+            }
         }
         background: linear-gradient(135deg, #0079bf, #5067c5);
 
@@ -162,3 +173,26 @@
         }
     }
 }
+<<<<<<< HEAD
+=======
+
+
+@media screen and (max-width: rem(660px)) {
+    .home {
+        // height: 70% !important;
+        .bg {
+        background-size: 80% !important;
+    }
+    .bg-overlay {
+        height: 100%;
+        background-color: rgba(32,32,32,0.25);
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        // opacity: 0.2;
+        // background: radial-gradient(circle, rgba(32,32,32,0.2) 39%, rgba(242,242,242,0) 84%);
+    }
+}
+}
+
+>>>>>>> 56eedde0ce64826d5bc6063d5ed9f1601f157cc1
