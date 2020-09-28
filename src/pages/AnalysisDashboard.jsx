@@ -41,6 +41,32 @@ export default class _AnalysisDashboard extends Component {
             }]
         };
     }
+    dashboardNumbers = (board) => {
+        if (!board || !board.members || !board.groups) return;
+        let numOfMembers = board.members.length;
+        let unarchivedCardsCount = 0;
+        let archivedCardsCount = 0;
+        board.groups.forEach(group => {
+            const archivedCards = group.cards.filter(card => card.archivedAt);
+            archivedCardsCount += archivedCards.length;
+            unarchivedCardsCount += group.cards.length - archivedCards.length;
+        })
+        const cards = board.groups.reduce((acc, group) => [...acc, ...group.cards], []);
+        const todosCount = cards.reduce((acc, card) => {
+            if (!card.checklists) return acc;
+            card.checklists.forEach(checklist => {
+                checklist.todos.forEach(todo => {
+                    if (todo.isDone) acc.checked++;
+                    acc.total++;
+                })
+            })
+            return acc;
+        }, { checked: 0, total: 0 });
+        if (todosCount.checked / todosCount.total > 0.75) todosCount.colorClass = 'todos-green';
+        if (todosCount.checked / todosCount.total <= 0.5) todosCount.colorClass = 'todos-red';
+        console.log(todosCount)
+        return { numOfMembers, archivedCardsCount, unarchivedCardsCount, todosCount };
+    }
     cardsByGroups = (groups) => {
         if (!groups) return;
         const cardsByGroupsMap = groups.reduce((acc, group) => {
@@ -63,17 +89,31 @@ export default class _AnalysisDashboard extends Component {
             acc[member.fullName] = memberCardsCount;
             return acc;
         }, {});
-        return this.getDataForChart(cardsByMembersMap);
+        return {
+            data: this.getDataForChart(cardsByMembersMap),
+            options: {
+                legend: { display: false },
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            min: 0
+                        }
+                    }]
+                }
+            }
+        };
     }
-    timeInGroup = (groups) => {
+    timeInGroups = (groups) => {
         if (!groups) return;
         const groupIdNameMap = groups.reduce((acc, group) => {
             acc[group.id] = group.title;
             return acc
         }, {})
-        const cards = groups.reduce((acc, group) => {
+        let cards = groups.reduce((acc, group) => {
             return [...acc, ...group.cards];
         }, []);
+        cards = cards.filter(card => !card.archivedAt);
         const timeInGroupsMap = cards.reduce((acc, card) => {
             if (!card.timeAnalysis || !card.timeAnalysis.currGroup) return acc;
             const currGroupName = groupIdNameMap[card.timeAnalysis.currGroup.groupId];
@@ -104,12 +144,11 @@ export default class _AnalysisDashboard extends Component {
                     data: lineData,
                     fill: false,
                     borderColor: clr1,
-                    backgroundColor: clr1,
                     pointBorderColor: clr1,
                     pointBackgroundColor: clr1,
                     pointHoverBackgroundColor: clr1,
                     pointHoverBorderColor: clr1,
-                    yAxisID: 'y-axis-2'
+                    yAxisID: 'y-axis-1'
                 }, {
                     type: 'bar',
                     label: 'Total hours in Group (Hrs)',
@@ -123,6 +162,7 @@ export default class _AnalysisDashboard extends Component {
                 }]
             },
             options: {
+                legend: { labels: { backgroundColor: [clr1, clr2] } },
                 responsive: true,
                 tooltips: { mode: 'label' },
                 elements: { line: { fill: false } },
@@ -150,43 +190,102 @@ export default class _AnalysisDashboard extends Component {
             }
         }
     }
+    cardsByLabels = (groups, labels) => {
+        if (!groups || !labels) return;
+        const colorsMap = {
+            green: '#61BD4F',
+            yellow: '#F2D600',
+            orange: '#FF9F1A',
+            red: '#EB5A46',
+            purple: '#C377E0',
+            blue: '#028ad8',
+            grey: '#a7a7a7',
+            black: '#202020'
+        }
+        let cards = groups.reduce((acc, group) => [...acc, ...group.cards], []);
+        cards = cards.filter(card => !card.archivedAt);
+        const labelsMap = labels.reduce((acc, currLabel) => {
+            let cardsWithLabelCount = 0;
+            cards.forEach(card => {
+                if (card.labels.some(label => label.id === currLabel.id)) cardsWithLabelCount++;
+            })
+            acc[currLabel.id] = { name: currLabel.name, color: currLabel.color, count: cardsWithLabelCount };
+            return acc;
+        }, {})
+        return {
+            data: {
+                labels: Object.keys(labelsMap).map(label => labelsMap[label].name),
+                datasets: [
+                    {
+                        borderWidth: 1,
+                        backgroundColor: Object.keys(labelsMap).map(label => colorsMap[labelsMap[label].color]),
+                        strokeColor: "rgba(220,220,220,0.8)",
+                        highlightFill: "rgba(220,220,220,0.75)",
+                        highlightStroke: "rgba(220,220,220,1)",
+                        data: Object.keys(labelsMap).map(label => labelsMap[label].count),
+                    }
+                ]
+            },
+            options: {
+                legend: { display: false },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            min: 0
+                        }
+                    }]
+                }
+            }
+        }
+
+    }
     render() {
         const { board, style } = this.props;
-        if (!board) return <div>Loading...</div>
-        const cardsByMemberOptions = {
-            scales: {
-                xAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                        min: 0
-                    }
-                }]
-            }
-        };
-        const cardsByGroup = this.cardsByGroups(board.groups);
-        const cardsByMember = this.cardsByMembers(board);
-        const timeInGroups = this.timeInGroup(board.groups);
-        return (
-            !board
-                ? <div>Loading...</div>
-                : <div className="page-container">
-                    <h1 style={{ color: style.fontClr }}>{board.title} - Data Analysis</h1>
-                    <div className="analysis-dashboard-container">
-                        {cardsByGroup && <div className="chart-container cards-by-group-container">
-                            <h3>Cards Per group</h3>
-                            <Doughnut data={cardsByGroup} />
-                        </div>}
-                        {cardsByMember && <div className="chart-container cards-by-member-container">
-                            <h3>Cards Per Member</h3>
-                            <HorizontalBar data={cardsByMember} options={cardsByMemberOptions} />
-                        </div>}
-                        {timeInGroups && <div className="chart-container time-in-groups-container">
-                            <h3>Cards' time analysis</h3>
-                            <Bar data={timeInGroups.data} options={timeInGroups.options} height="" />
-                        </div>}
-                    </div>
+        if (!board) return <div>Loading...</div>;
+        const dashboardNumbers = this.dashboardNumbers(board);
+        const cardsByGroups = this.cardsByGroups(board.groups);
+        const cardsByMembers = this.cardsByMembers(board);
+        const timeInGroups = this.timeInGroups(board.groups);
+        const cardsByLabels = this.cardsByLabels(board.groups, board.labels)
+        return !board
+            ? <div>Loading...</div>
+            : <div className="page-container">
+                <h2 style={{ color: style.fontClr }}>{board.title} - Data Analysis</h2>
+                <div className="analysis-dashboard-container">
+                    {dashboardNumbers && <div className="chart-container summary-numbers-conatiner">
+                        <div><h3>{dashboardNumbers.numOfMembers}</h3><span>Total Members</span></div>
+                        <div>
+                            <h3>
+                                {dashboardNumbers.unarchivedCardsCount}
+                                <span className="total">{` (${dashboardNumbers.archivedCardsCount} archived)`}</span>
+                            </h3>
+                            <span>Cards On Board</span>
+                        </div>
+                        <div>
+                            <h3 className={dashboardNumbers.todosCount.colorClass}>
+                                {`${dashboardNumbers.todosCount.checked}`}
+                                <span className="total">{` /${dashboardNumbers.todosCount.total}`}</span>
+                            </h3><span>To-Dos Checked</span></div>
+                    </div>}
+                    {cardsByGroups && <div className="chart-container cards-by-group-container">
+                        <h3>Cards Per Group</h3>
+                        <Doughnut data={cardsByGroups} />
+                    </div>}
+                    {cardsByMembers && <div className="chart-container cards-by-member-container">
+                        <h3>Cards Per Member</h3>
+                        <HorizontalBar data={cardsByMembers.data} options={cardsByMembers.options} />
+                    </div>}
+                    {timeInGroups && <div className="chart-container time-in-groups-container">
+                        <h3>Groups' Time Analysis</h3>
+                        <Bar data={timeInGroups.data} options={timeInGroups.options} />
+                    </div>}
+                    {cardsByLabels && <div className="chart-container cards-by-labels-container">
+                        <h3>Labels Summary</h3>
+                        <Bar data={cardsByLabels.data} options={cardsByLabels.options} />
+                    </div>}
                 </div>
-        )
+            </div>
     }
 }
 const mapStateToProps = state => {

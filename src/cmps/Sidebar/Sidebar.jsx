@@ -73,7 +73,7 @@ export class _Sidebar extends Component {
                         </ListItem>
                         <ListItem button className="menu-btn" component={Link} to={`/analysis/${board._id}/`}>
                             <ListItemIcon><AssessmentOutlinedIcon /></ListItemIcon>
-                            <ListItemText>Board Analysis</ListItemText>
+                            <ListItemText>Board analysis</ListItemText>
                         </ListItem>
                         <ListItem button className="menu-btn" onClick={() => { this.onSetMenuOpt('archive') }}>
                             <ListItemIcon><ArchiveOutlinedIcon /></ListItemIcon>
