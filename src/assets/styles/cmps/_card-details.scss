@@ -221,6 +221,9 @@
             .checklist-todo {
                 display: flex;
                 span {
+                    &:hover, &:active, &:focus {
+                        background-color: inherit;
+                    }
                     padding-left: 0px;
                 }
                 > button {
@@ -232,6 +235,7 @@
                 .checklist-todo-title {
                     width: 100%;
                     display: flex;
+                    align-items: center;
                     cursor: pointer;
                     justify-content: space-between;
                     button {
@@ -411,3 +415,4 @@
         margin: rem(5px) 0;
     }
 }
+

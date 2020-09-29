@@ -11,14 +11,18 @@
     text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding: rem(12px);
-
+    justify-content: space-between;    
+    padding: rem(6px) ;
     position: absolute;
 
     cursor: auto;
-    >*{
-        margin-bottom: 8px;
+    // >*{
+    // margin-bottom: 8px;
+    // padding: rem(6px);
+
+    // }
+    &>:first-child{
+        padding: rem(8px) 0;
     }
 
     &>.group-menu-item{
@@ -26,6 +30,7 @@
         width: 100%;
         text-align: left;
         cursor: pointer;
+        padding: rem(8px);
 
         &:hover{
             background-color: $cardHoverClr;

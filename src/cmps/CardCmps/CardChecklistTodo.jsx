@@ -56,7 +56,7 @@ export class CardChecklistTodo extends Component {
     getTextBox = () => {
         if (this.state.isEditing) return (
             <React.Fragment>
-                <Checkbox checked={this.state.isDone} onChange={this.onCheck} />
+                <Checkbox checked={this.state.isDone} onChange={this.onCheck} className="checkbox-todo" />
                 <form onBlur={this.setNotEditing} onSubmit={this.onSubmit}>
                     <input className="checkbox-text-edit" type="text" autoFocus value={this.state.txtValue} onChange={this.onChange} />
                     <button className="save-btn" type="submit">Save</button>
@@ -65,7 +65,7 @@ export class CardChecklistTodo extends Component {
         )
         return (
             <React.Fragment>
-                <Checkbox checked={this.state.isDone} onChange={this.onCheck} />
+                <Checkbox checked={this.state.isDone} onChange={this.onCheck} className="checkbox-todo" />
                 <div className={this.getTodoClassName()} onClick={this.setEditing}>
                     {this.state.txtValue}
                     <Button onClick={this.onRemove}>

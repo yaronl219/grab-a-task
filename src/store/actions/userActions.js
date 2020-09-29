@@ -22,7 +22,7 @@ export function loadUser(creds) {
         try{
             const user = await userService.login(creds)
             dispatch({ type: 'SET_USER', loggedInUser: user })
-        }catch{console.log('no such user');}
+        }catch{console.log('no such user')}
     }
 }
 
@@ -35,16 +35,14 @@ export function signUser({ name, email, password }){
                 password,
                 imgUrl: null
             }
-            
+
             const user = await userService.signup(userToSign)
             dispatch({ type: 'SET_USER', loggedInUser: user })
-
             const users = await userService.getUsersFromDb()
             dispatch({ type: 'SET_USERS', users })
-
             return user
          }catch {
-            console.log('error in sign up');
+            console.log('error in sign up')
         }
     }
 }

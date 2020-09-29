@@ -33,11 +33,7 @@ export class _Navbar extends Component {
 
     onCloseModal = () => {
         this.setState({ isNewBoardModalShown: false })
-    }
-
-    showLove = () => {
-        alert('Snorelax Loves you 💤🌷')
-    }
+    } 
 
     componentDidMount() {
         this.setState({ loggedInUser: userService.getLoggedInUser() })
@@ -87,8 +83,7 @@ export class _Navbar extends Component {
                             <CloseOutlined />
                         </IconButton>
                     </div>
-                    <Users onCloseUserDetails={this.onCloseUserDetails} />
-                    <button className="logout-btn" onClick={ this.onLogout }>Log out</button>
+                    <Users onCloseUserDetails={this.onCloseUserDetails} onLogout={this.onLogout}/>
                 </Dialog>
                 <Dialog open={this.state.isNewBoardModalShown} onClose={this.onCloseModal} onBackdropClick={this.onCloseModal}>
                     <AddNewBoard onCloseModal={this.onCloseModal} redirectPath={this.redirectPath} />
@@ -99,7 +94,7 @@ export class _Navbar extends Component {
                         <div className="board-header-btn left"><NavLink to='/board'><span className="material-icons">view_list</span><h4 className="boards-text">Boards</h4></NavLink></div>
                     </div>
 
-                    <div onClick={this.showLove} style={{ cursor: "pointer" }} className="header-logo"><img src={logoFutura} alt="best logo ever" /></div>
+                    <div className="header-logo"><img src={logoFutura} alt="best logo ever" /></div>
 
                     <div className="navbar-right-container">
                         <div className="board-header-btn right" onClick={this.toggleModal}><span className="material-icons">add</span></div>

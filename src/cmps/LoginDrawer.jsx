@@ -62,7 +62,7 @@ export class _LoginDrawer extends Component {
                 return
             }
             this.setState({ isLoading: true }, async () => {
-                    const signupUser = await this.props.signUser(this.state.credentials)
+                    await this.props.signUser(this.state.credentials)
                     this.setState({ isWelcomeShown: true, isLoading: false }, () => {
                         setTimeout(() => {
                             this.props.hideLoginDrawer()
