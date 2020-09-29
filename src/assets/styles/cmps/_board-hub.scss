@@ -12,13 +12,21 @@
     section {
         // height: calc(100vh - 9.75rem);
         // overflow-y: scroll;
+        max-width: rem(1080px);
         padding: 0rem 1rem;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(12rem,24rem));
+        margin: 0 auto;
+        // display: grid;
+        // grid-template-columns: repeat(auto-fit, minmax(12rem,24rem));
+        display: flex;
+        justify-content: centerf;
         gap: 1rem;
+        &> * {
+            width: 33%
+        }
     }
 
     .new-board-placeholder {
+        // flex-grow: 1;
         .fake-board {
             background-color: rgba(32,32,32,0.8);
             display: flex;
@@ -41,8 +49,11 @@
 }
 
 .board-preview {
+    // flex-grow: 1;
+
     .board-image {
         border-radius: rem(3px);
+    
         cursor: pointer;
         height: 12rem;
         background-position: center;
@@ -99,4 +110,15 @@
 
 .home-nav button{
     max-width: initial;
+}
+
+@media screen and (max-width: rem(850px)) {
+    .board-hub {
+        section {
+            flex-direction: column;
+            & > * {
+                width: 100%;
+            }
+        }
+    }
 }
