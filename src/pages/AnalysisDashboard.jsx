@@ -27,7 +27,7 @@ export default class _AnalysisDashboard extends Component {
         }
     }
     getRndHexColor = () => {
-        let n = (Math.random() * 0xfffff * 1000000).toString(16);
+        const n = (Math.random() * 0xfffff * 1000000).toString(16);
         return '#' + n.slice(0, 6);
     }
     getDataForChart = (mapObject) => {
@@ -133,8 +133,8 @@ export default class _AnalysisDashboard extends Component {
         }, {})
         const lineData = Object.keys(timeInGroupsMap).map(group => ((timeInGroupsMap[group].time / (1000 * 60 * 60)) / timeInGroupsMap[group].count).toFixed(2));
         const barsData = Object.keys(timeInGroupsMap).map(group => (timeInGroupsMap[group].time / (1000 * 60 * 60)).toFixed(2));
-        const clr1 = this.getRndHexColor();
-        const clr2 = this.getRndHexColor();
+        const clr1 = '#40d0e0';
+        const clr2 = '#008493';
         return {
             data: {
                 labels: Object.keys(timeInGroupsMap),
@@ -162,7 +162,6 @@ export default class _AnalysisDashboard extends Component {
                 }]
             },
             options: {
-                legend: { labels: { backgroundColor: [clr1, clr2] } },
                 responsive: true,
                 tooltips: { mode: 'label' },
                 elements: { line: { fill: false } },
@@ -174,14 +173,6 @@ export default class _AnalysisDashboard extends Component {
                             display: true,
                             position: 'left',
                             id: 'y-axis-1',
-                            gridLines: { display: false },
-                            labels: { show: true }
-                        },
-                        {
-                            type: 'linear',
-                            display: false,
-                            position: 'right',
-                            id: 'y-axis-2',
                             gridLines: { display: false },
                             labels: { show: true }
                         }
