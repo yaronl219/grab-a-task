@@ -97,6 +97,7 @@ class _UserDetails extends Component {
     render() {
         if (!this.state.username) return <React.Fragment />
         return (
+            <React.Fragment>
             <div className="user-profile-container">
                 <div className="user-profile">
                     <div className="user-img-container">
@@ -109,9 +110,10 @@ class _UserDetails extends Component {
                         <h5>{this.state.username}</h5>
                         <div>{this.state.fullName}</div>
                     </div>
-                </div>
+                </div>     
             </div>
-
+            <button className="logout-btn" onClick={ this.props.onLogout }>Log out</button>
+            </React.Fragment>
         )
     }
 }

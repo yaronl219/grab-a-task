@@ -87,8 +87,7 @@ export class _Navbar extends Component {
                             <CloseOutlined />
                         </IconButton>
                     </div>
-                    <Users onCloseUserDetails={this.onCloseUserDetails} />
-                    <button className="logout-btn" onClick={ this.onLogout }>Log out</button>
+                    <Users onCloseUserDetails={this.onCloseUserDetails} onLogout={this.onLogout}/>
                 </Dialog>
                 <Dialog open={this.state.isNewBoardModalShown} onClose={this.onCloseModal} onBackdropClick={this.onCloseModal}>
                     <AddNewBoard onCloseModal={this.onCloseModal} redirectPath={this.redirectPath} />

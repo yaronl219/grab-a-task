@@ -52,7 +52,7 @@ class _Users extends Component {
                     <BottomNavigationAction label="Activities" icon={<FormatListBulletedOutlinedIcon />} />
                 </BottomNavigation>
                 <SwipeableViews onSwitching={this.setView} index={this.state.view} containerStyle={{ height: '100vh' }}>
-                    <UserDetails loggedInUser={this.state.loggedInUser} />
+                    <UserDetails loggedInUser={this.state.loggedInUser} onLogout={this.props.onLogout}/>
                     <UserCards onCloseUserDetails={this.props.onCloseUserDetails} history={this.props.history} userData={this.state.userData}/>
                     <UserActivities activities={this.state.activities} />
                 </SwipeableViews>
