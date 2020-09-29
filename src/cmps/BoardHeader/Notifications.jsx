@@ -10,37 +10,13 @@ import { CloseOutlined } from '@material-ui/icons';
 export class Notifications extends Component {
 
     state = {
-        onlyNonUserAlerts: true,
+
         isOpen: false,
         isRinging: false,
-        alerts: 0,
-        newActivities: null
+        newActivities: []
     }
 
     ref = React.createRef()
-
-    receiveUpdate() {
-        const boardActivities = this.props.board.activities
-        let newActivities = []
-        const lastUpdated = notificationService.getUpdated(this.props.board._id)
-
-        // loop over the activities until you reach the last updated timestamp
-        for (let i = 0; i < boardActivities.length; i++) {
-            if (boardActivities[i].createdAt >= lastUpdated) {
-                newActivities.push(boardActivities[i])
-            } else {
-                break
-            }
-        }
-
-        if (this.state.onlyNonUserAlerts) {
-            const loggedInUser = userService.getLoggedInUser()
-            newActivities = newActivities.filter(activity => activity.byMember._id !== loggedInUser._id)
-        }        
-    
-
-        this.setState({ alerts: newActivities.length, newActivities})
-    }
 
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.lastUpdate !== this.props.lastUpdate) {
@@ -51,22 +27,43 @@ export class Notifications extends Component {
             notificationService.onLoad(this.props.board._id)
         }
 
-        if (prevState.alerts !== this.state.alerts) {
-            // if alerts are not zero
-            if (this.state.alerts) {
+        if (prevState.newActivities.length !== this.state.newActivities.length) {
+            // if new activities are not zero
+            if (this.state.newActivities.length) {
                 this.ringBell(3000)
             }
         }
+
     }
 
+
+    receiveUpdate() {
+        const { activities } = this.props.board
+        const newActivities = []
+        const lastCheckedNotificationsAt = notificationService.getUpdated(this.props.board._id)
+        const loggedInUser = userService.getLoggedInUser()
+
+        // Since this array is sorted by descending timestamps we can
+        // loop over the activities until you reach the last updated timestamp
+        for (let i = 0; i < activities.length; i++) {
+            // once you reach the relevant timetamp - break out of the loop
+            if (activities[i].createdAt <= lastCheckedNotificationsAt) break
+            const isByAnotherUser = (activities[i].byMember._id !== loggedInUser._id)
+            if (isByAnotherUser) newActivities.push(activities[i])
+        }
+
+        this.setState({ newActivities })
+    }
+
+
     onOpen = () => {
-        this.setState({ alerts: 0,isOpen:true })
+        this.setState({ isOpen: true })
         notificationService.setUpdated(this.props.board._id)
     }
 
     onClose = () => {
         notificationService.setUpdated(this.props.board._id)
-        this.setState({isOpen:false},() => setTimeout(() => {this.setState({newActivities:null})},500) )
+        this.setState({ isOpen: false,newActivities:[] })
     }
 
     ringBell(ms = 1500) {
@@ -84,11 +81,11 @@ export class Notifications extends Component {
     }
 
     getNotificationPreview() {
-        
+
         if (!this.state.newActivities || !this.state.newActivities.length) return (<div className="notifications-empty-state-container">
             You're all caught up!
         </div>)
-        
+
         return <div className="activity-log-container"><ActivityLog activities={this.state.newActivities} boardId={this.props.board._id} /></div>
 
     }
@@ -96,37 +93,37 @@ export class Notifications extends Component {
     render() {
         return (
             <React.Fragment>
-            <div ref={this.ref} onClick={this.onOpen} className="notification board-header-btn">
-                <Badge max={9} badgeContent={this.state.alerts} color="error">
-                    {this.getIsRinging()}
-                </Badge>
-                {/* {(this.state.isOpen) ? <ActivityLog activities={this.state.newActivities} boardId={this.props.board._id} /> : <React.Fragment />} */}
-            </div>
-            <Popover
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'left',
-                        }}
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                        }}
-                        open={this.state.isOpen}
-                        anchorEl={this.ref.current}
-                        onClose={this.onClose}
-                        onBackdropClick={this.onClose}
-                    >
-                        <div className="notification-preview">
-                            <div className="notification-preview-header">
-                                <div></div>
-                                <div><h6>Notifications</h6></div>
-                                <IconButton onClick={this.onClose}>
-                                    <CloseOutlined />
-                                </IconButton>
-                            </div>
-                            {this.getNotificationPreview()}
+                <div ref={this.ref} onClick={this.onOpen} className="notification board-header-btn">
+                    <Badge max={9} badgeContent={(this.state.isOpen || !this.state.newActivities) ? 0 : this.state.newActivities.length} color="error">
+                        {this.getIsRinging()}
+                    </Badge>
+                    {/* {(this.state.isOpen) ? <ActivityLog activities={this.state.newActivities} boardId={this.props.board._id} /> : <React.Fragment />} */}
+                </div>
+                <Popover
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    }}
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    open={this.state.isOpen}
+                    anchorEl={this.ref.current}
+                    onClose={this.onClose}
+                    onBackdropClick={this.onClose}
+                >
+                    <div className="notification-preview">
+                        <div className="notification-preview-header">
+                            <div></div>
+                            <div><h6>Notifications</h6></div>
+                            <IconButton onClick={this.onClose}>
+                                <CloseOutlined />
+                            </IconButton>
                         </div>
-                        </Popover>
+                        {this.getNotificationPreview()}
+                    </div>
+                </Popover>
             </React.Fragment>
         )
     }
