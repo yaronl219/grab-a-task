@@ -102,7 +102,8 @@ class _CardPreviewActions extends Component {
 
 
     getParentPos = () => {
-        const pos = this.props.anchorEl.current.parentElement.getBoundingClientRect()
+        const pos = this.props.anchorEl.current.parentElement.parentElement.getBoundingClientRect()
+        console.log(pos)
         this.setState({ offsetTop: pos.top, offsetLeft: pos.left, width: pos.width })
     }
 

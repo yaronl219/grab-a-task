@@ -70,16 +70,6 @@ class _Board extends Component {
 
     // if there are differences - sets the last received update time
     this.setState({ lastReceivedUpdateAt: Date.now() })
-
-    // toast.success('The board has been updated!', {
-    //   position: "bottom-right",
-    //   autoClose: 2000,
-    //   hideProgressBar: false,
-    //   closeOnClick: true,
-    //   pauseOnHover: true,
-    //   draggable: true,
-    //   progress: undefined,
-    // });
   }
 
   componentWillUnmount() {

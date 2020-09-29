@@ -35,6 +35,7 @@ export class CardMembersList extends Component {
         let txt = ''
         
         const card = {...this.props.card}
+        if (!card.members) card.members = []
         if (shouldAdd) {
             card.members.push(member)
             txt = `added ${member.fullName}`

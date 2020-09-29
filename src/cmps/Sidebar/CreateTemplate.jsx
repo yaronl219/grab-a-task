@@ -32,7 +32,7 @@ export class CreateTemplate extends Component {
 
     createTemplateFromBoard = async () => {
         await templateService.createTemplateFromBoard(this.props.board, this.state.templateName, this.state.includeAttachments, this.state.includeChecklists, this.state.includeLabels)
-        this.props.history.push('/templates')
+        this.props.history.push('/board')
     }
 
     handleChange = (event) => {
