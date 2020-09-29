@@ -55,7 +55,7 @@ export function Home(props) {
             <section className="about">
                 <div className="about-intro">
                     <h2>Meet the Team</h2>
-                    <p>We are 3 of  &copy;MisterBit Coding Academy alumni that came together and assmebled <b>OPUS</b> as our Full-Stack Developer course's final hand-in.</p>
+                    <p>We are 3 of MisterBit&copy; Coding Academy alumni that came together and assembled <b>OPUS</b> as our Full-Stack Developer course's final hand-in.</p>
 
                 </div>
                 <div className="about-cards-container">
