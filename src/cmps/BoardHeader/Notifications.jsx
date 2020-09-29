@@ -35,10 +35,9 @@ export class Notifications extends Component {
 
         if (this.state.onlyNonUserAlerts) {
             const loggedInUser = userService.getLoggedInUser()
-            console.log(loggedInUser)
             newActivities = newActivities.filter(activity => activity.byMember._id !== loggedInUser._id)
-            console.log(newActivities)
-        }
+        }        
+    
 
         this.setState({ alerts: newActivities.length, newActivities})
     }
