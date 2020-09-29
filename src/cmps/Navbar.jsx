@@ -7,7 +7,7 @@ import logoFutura from '../assets/icons/newLogoFutura.png'
 
 import { connect } from 'react-redux'
 import { LoginDrawer } from './LoginDrawer'
-import { loadUser } from '../store/actions/userActions'
+import { loadUser, logout } from '../store/actions/userActions'
 import { MemberPreview } from './BoardHeader/MemberPreview'
 import { Dialog, IconButton } from '@material-ui/core'
 import { Users } from './Users/UsersMain'
@@ -57,7 +57,7 @@ export class _Navbar extends Component {
     }
 
     hideLoginDrawer = (ev) => {
-        ev.stopPropagation()
+        if (ev) ev.stopPropagation()
         this.setState({ isLoginDrawerShown: false })
     }
 
@@ -70,7 +70,13 @@ export class _Navbar extends Component {
         this.setState({ isUserDetailsOpen: false })
     }
 
-    render() {
+    onLogout = async (ev) => {
+        ev.stopPropagation()
+        await this.props.logout()
+        this.setState({ isUserDetailsOpen: false })
+    }
+
+    render() {        
         return (
             <React.Fragment>
                 <Dialog open={this.state.isUserDetailsOpen} onClose={this.onCloseUserDetails} onBackdropClick={this.onCloseUserDetails}>
@@ -82,6 +88,7 @@ export class _Navbar extends Component {
                         </IconButton>
                     </div>
                     <Users onCloseUserDetails={this.onCloseUserDetails} />
+                    <button className="logout-btn" onClick={ this.onLogout }>Log out</button>
                 </Dialog>
                 <Dialog open={this.state.isNewBoardModalShown} onClose={this.onCloseModal} onBackdropClick={this.onCloseModal}>
                     <AddNewBoard onCloseModal={this.onCloseModal} redirectPath={this.redirectPath} />
@@ -95,17 +102,11 @@ export class _Navbar extends Component {
                     <div onClick={this.showLove} style={{ cursor: "pointer" }} className="header-logo"><img src={logoFutura} alt="best logo ever" /></div>
 
                     <div className="navbar-right-container">
-                        {(this.props.loggedInUser) ? <div onClick={this.onOpenUserDetails}><MemberPreview name={this.props.loggedInUser.fullName} imgUrl={this.props.loggedInUser.imgUrl} /></div> : <React.Fragment />}
                         <div className="board-header-btn right" onClick={this.toggleModal}><span className="material-icons">add</span></div>
-                        {/* {this.state.isNewBoardModalShown && <AddNewBoard onCloseModal={this.onCloseModal} redirectPath={this.redirectPath} />} */}
 
-                        {/* <div className="board-header-btn login right"><NavLink to='/login'><h4 className="login-text">Login</h4></NavLink></div> */}
-                        {/* <div className="board-header-btn login right" onClick={this.showLoginDrawer}><h4 className="login-text">{(!this.state.loggedInUser || this.state.loggedInUser._id === 'u900') ? 'Login' : 'Logout'}</h4></div>
-                        <LoginDrawer isShowing={this.state.isLoginDrawerShown} hideLoginDrawer={this.hideLoginDrawer} /> */}
+                        {(!this.props.loggedInUser) ? <div className="board-header-btn login right" onClick={this.showLoginDrawer}><h4 className="login-text">Login</h4></div> :''}
+                        {(this.props.loggedInUser) ? <div onClick={this.onOpenUserDetails} className="member-preview-header-container"><MemberPreview name={this.props.loggedInUser.fullName} imgUrl={this.props.loggedInUser.imgUrl} /></div> : <React.Fragment />}
 
-                        {(!this.props.loggedInUser) ? <div className="board-header-btn login right" onClick={this.showLoginDrawer}><h4 className="login-text">Login</h4></div> :
-                            <MemberPreview img={this.props.loggedInUser.imgUrl} name={this.props.loggedInUser.fullName} />
-                        }
                         <LoginDrawer isShowing={this.state.isLoginDrawerShown} hideLoginDrawer={this.hideLoginDrawer} />
 
                     </div>
@@ -128,7 +129,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    loadUser
+    loadUser,
+    logout
 }
 
 export const Navbar = connect(mapStateToProps, mapDispatchToProps)(_Navbar);
@@ -140,3 +142,13 @@ export const Navbar = connect(mapStateToProps, mapDispatchToProps)(_Navbar);
 //     <MemberPreview img={this.props.loggedInUser.imgUrl} name={this.props.loggedInUser.fullName} />
 // }
 // <LoginDrawer isShowing={this.state.isLoginDrawerShown} hideLoginDrawer={this.hideLoginDrawer} />
+
+{/* {this.state.isNewBoardModalShown && <AddNewBoard onCloseModal={this.onCloseModal} redirectPath={this.redirectPath} />} */ }
+
+{/* <div className="board-header-btn login right"><NavLink to='/login'><h4 className="login-text">Login</h4></NavLink></div> */ }
+{/* <div className="board-header-btn login right" onClick={this.showLoginDrawer}><h4 className="login-text">{(!this.state.loggedInUser || this.state.loggedInUser._id === 'u900') ? 'Login' : 'Logout'}</h4></div>
+                        <LoginDrawer isShowing={this.state.isLoginDrawerShown} hideLoginDrawer={this.hideLoginDrawer} /> */}
+
+{/* {(!this.props.loggedInUser) ? <div className="board-header-btn login right" onClick={this.showLoginDrawer}><h4 className="login-text">Login</h4></div> :
+                            <MemberPreview img={this.props.loggedInUser.imgUrl} name={this.props.loggedInUser.fullName} />
+                        } */}
