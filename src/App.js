@@ -15,7 +15,6 @@ import { updateBoard, updatePosition, resetFilterBy, addActivity } from './store
 // import { Login } from './pages/Login';
 
 // import { Login } from './pages/Login';
-import {Main} from './pages/Main'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Notify } from './cmps/Notify';
