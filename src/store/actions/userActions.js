@@ -25,3 +25,37 @@ export function loadUser(creds) {
         }catch{console.log('no such user');}
     }
 }
+
+export function signUser({ name, email, password }){
+    return async dispatch => {
+        try{
+            const userToSign = {
+                fullName: name,
+                email,
+                password,
+                imgUrl: null
+            }
+            
+            const user = await userService.signup(userToSign)
+            dispatch({ type: 'SET_USER', loggedInUser: user })
+
+            const users = await userService.getUsersFromDb()
+            dispatch({ type: 'SET_USERS', users })
+
+            return user
+         }catch {
+            console.log('error in sign up');
+        }
+    }
+}
+
+export function logout(id){
+    return async dispatch=> {
+        try{
+            await userService.logout()
+            dispatch({ type: 'SET_USER', loggedInUser: null })
+        }catch{
+            console.log('error on logout')
+        }
+    }
+}

@@ -8,7 +8,6 @@ export class MemberPreview extends Component {
         imgUrl: null
     }
 
-    
     componentDidMount() {
         this.testImage(this.props.imgUrl, this.setImgResult)
     }
@@ -39,7 +38,7 @@ export class MemberPreview extends Component {
         }, timeout);
     }
 
-
+    
     getInitials(name) {
         if (!name) return
         const newName = name.split(' ')
