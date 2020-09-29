@@ -87,7 +87,7 @@ export class _Sidebar extends Component {
                         </ListItem>
                     </List>
                     <Divider />
-                    <h5><FormatListBulletedOutlinedIcon size="small" />ACTIVITY LOG</h5>
+                    <h5 className="activity-log-title"><FormatListBulletedOutlinedIcon size="small" />ACTIVITY LOG</h5>
                     <ActivityLog activities={board.activities} boardId={board._id} />
                 </Drawer>
 
