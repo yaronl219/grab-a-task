@@ -95,7 +95,7 @@ export function Home(props) {
                             <img src={daniel} alt="Daniel" className="daniel"/>
                         </div>
                         <h3>Daniel Dante</h3>
-                        <p>Former senior product designer, experience in UI and UX,<br/>user-interaction and animation</p>
+                        <p>Former senior product designer, experienced in UI and UX,<br/>user-interaction and animation</p>
                         <div className="links-container">
                             <a href="https://www.facebook.com/daniel.dante.528" target="blank"><FacebookIcon className="facebook-icon" /></a>
                             <a href="linkedin.com/in/daniel-dante-61889b184" target="blank"><LinkedInIcon className="linkedin-icon" /></a>
