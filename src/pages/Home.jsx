@@ -4,6 +4,8 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import EmailIcon from '@material-ui/icons/Email';
 import yaron from '../assets/imgs/yaron.jpeg';
 import elad from '../assets/imgs/elad2.jpeg';
+import daniel from '../assets/imgs/daniel.jpg';
+
 const logo = require('../assets/imgs/opus.png')
 
 
@@ -67,9 +69,9 @@ export function Home(props) {
                         <p>A jack of all trades with a large scope of experience in different fields. <br/>
                         Let's chat about your next project!</p>
                         <div className="links-container">
-                            <a href="https://www.facebook.com/yaron.lipshitz.1/"><FacebookIcon className="facebook-icon" /></a>
-                            <a href="https://www.linkedin.com/in/yaron-lipshitz-1855bb79/"><LinkedInIcon className="linkedin-icon" /></a>
-                            <a href="mailto:lipshitzyaron@gmail.com"><EmailIcon className="mail-icon" /></a>
+                            <a href="https://www.facebook.com/yaron.lipshitz.1/" target="blank"><FacebookIcon className="facebook-icon" /></a>
+                            <a href="https://www.linkedin.com/in/yaron-lipshitz-1855bb79/" target="blank"><LinkedInIcon className="linkedin-icon" /></a>
+                            <a href="mailto:lipshitzyaron@gmail.com" target="blank"><EmailIcon className="mail-icon" /></a>
                         </div>
                     </div>
                     <div className="about-card">
@@ -83,19 +85,21 @@ export function Home(props) {
                             Whiskey Enthusiast
                         </p>
                         <div className="links-container">
-                            <a href="https://www.facebook.com/elad.becker"><FacebookIcon className="facebook-icon" /></a>
-                            <a href="https://www.linkedin.com/in/elad-becker-13b4921a6/"><LinkedInIcon className="linkedin-icon" /></a>
+                            <a href="https://www.facebook.com/elad.becker" target="blank"><FacebookIcon className="facebook-icon" /></a>
+                            <a href="https://www.linkedin.com/in/elad-becker-13b4921a6/" target="blank"><LinkedInIcon className="linkedin-icon" /></a>
                             <a href="mailto:Becker.Elad@gmail.com"><EmailIcon className="mail-icon" /></a>
                         </div>
                     </div>
                     <div className="about-card">
-                        <div className="photo"></div>
+                        <div className="photo">
+                            <img src={daniel} alt="Daniel" className="daniel"/>
+                        </div>
                         <h3>Daniel Dante</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid vitae molestias omnis sapiente ex ducimus maxime nam ipsum at. Impedit neque quae beatae corrupti doloremque adipisci ut quis! Eaque, assumenda.</p>
+                        <p>Former senior product designer, experience in UI and UX,<br/>user-interaction and animation</p>
                         <div className="links-container">
-                            <a href="https://www.facebook.com/elad.becker"><FacebookIcon className="facebook-icon" /></a>
-                            <a href="https://www.linkedin.com/in/elad-becker-13b4921a6/"><LinkedInIcon className="linkedin-icon" /></a>
-                            <a href="mailto:Becker.Elad@gmail.com"><EmailIcon className="mail-icon" /></a>
+                            <a href="https://www.facebook.com/daniel.dante.528" target="blank"><FacebookIcon className="facebook-icon" /></a>
+                            <a href="linkedin.com/in/daniel-dante-61889b184" target="blank"><LinkedInIcon className="linkedin-icon" /></a>
+                            <a href="mailto:daniel91dante@gmail.com" target="blank"><EmailIcon className="mail-icon" /></a>
                         </div>
                     </div>
                 </div>
